@@ -1,0 +1,153 @@
+\documentclass[
+    12pt,
+    a4paper
+]{book}
+%DEBUG SETTINGS
+%\usepackage{showframe}% http://ctan.org/pkg/showframe
+% END DEBUG SETTINGS
+
+\usepackage[table]{xcolor}
+\usepackage{a4wide}
+\usepackage{fancyhdr}
+\usepackage{geometry}
+\geometry{
+    headheight=27.19pt
+}
+\usepackage{graphicx}
+\usepackage{ngerman}
+\PassOptionsToPackage{hyphens}{url}
+
+\usepackage[hidelinks]{hyperref}
+\hypersetup {
+    pdfpagemode = {UseNone},
+    pdftitle = {Theoretische Informatik für Problemlöser:innen},
+    pdfauthor = {Dr. Tobias Weber},
+    pdflang = {en-US}
+}
+\hyphenation{Ent-scheid-ungs-hilfe}
+\usepackage[utf8]{inputenx}
+\usepackage[
+backend=biber,
+style=alphabetic,
+citestyle=alphabetic,
+maxbibnames=99
+]{biblatex}
+\addbibresource{bibliography.bib}
+\newcommand\citeallnames{\AtNextCite{\defcounter{maxnames}{99}}\citename}
+
+\usepackage{todonotes}
+\usepackage{catoptions} % \Autoref commands
+\usepackage[acronym,nopostdot]{glossaries}
+\makeglossaries
+\loadglsentries{content/glossary} % Conclusion
+\makeindex
+
+% Listings
+\DeclareFixedFont{\ttb}{T1}{txtt}{bx}{n}{12} % for bold
+\DeclareFixedFont{\ttm}{T1}{txtt}{m}{n}{12}  % for normal
+
+\usepackage{booktabs} % tables
+\usepackage{tabularx} % tables
+\usepackage{amssymb} % tables
+\usepackage{datetime} % dates on footer
+\fancyhf{}
+\fancyfoot[L]{\today\ \currenttime}
+\usepackage{dirtytalk} % quotes (provides \say{})
+\usepackage{nameref} % referencing chapter names (provides \nameref{})
+\usepackage{array} % for custom table columns
+\newcolumntype{P}[1]{>{\raggedright}p{#1 cm}}
+\usepackage{titlesec} % for customizing headings
+
+\usepackage{float} % keep tables in sections
+
+
+% Drop space before chapter headings
+
+\usepackage{etoolbox}% http://ctan.org/pkg/etoolbox
+\makeatletter
+\patchcmd{\@makechapterhead}{\vspace*{50\p@}}{}{}{}% Removes space above \chapter head
+\patchcmd{\@makeschapterhead}{\vspace*{50\p@}}{}{}{}% Removes space above \chapter* head
+\makeatother
+% end drop space before chapter headings
+\usepackage{enumitem}
+\usepackage{tcolorbox}
+
+%%%%%%%%%%%%%%%%%%%%
+% TODONOTES
+%%%%%%%%%%%%%%%%%%%%
+% Always inline
+% https://tex.stackexchange.com/questions/219351/latex-todonotes-package-set-default-to-inline
+\makeatother
+\usepackage{regexpatch}
+\makeatletter
+\xpatchcmd{\@todo}{\setkeys{todonotes}{#1}}{\setkeys{todonotes}{inline,#1}}{}{}
+\makeatother
+\setcounter{section}{-1}
+
+
+\title{Theoretische Informatik für Problemlöser:innen}
+\author{Dr. Tobias Weber} 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%  Beginn des Dokuments  %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+
+  \frontmatter
+
+  \maketitle
+  \tableofcontents
+
+  \markboth{Contents}{Contents}
+
+  \mainmatter
+  \setcounter{page}{1}
+  \setcounter{chapter}{-1}
+  \include{content/kap_00} 
+  \include{content/kap_01} 
+  \include{content/kap_02} 
+  \include{content/kap_03} 
+  \include{content/kap_04}
+  \include{content/kap_05}
+  \include{content/kap_06}
+  \include{content/kap_07}
+
+  \backmatter
+  \appendix
+  \renewcommand{\thesection}{\Alph{section}}
+  \setcounter{section}{0}
+  \setcounter{subsection}{0}
+  \setcounter{table}{0}
+  \renewcommand{\thetable}{A.\arabic{table}}
+  \titleformat*{\subsection}{\normalsize\bfseries}
+  \chapter{Appendix}
+
+  \section{List of Figures}
+  \listoffigures
+  \clearpage
+
+  \markboth{List of Tables}{List of Tables}
+  \section{List of Tables}
+  \listoftables
+  \clearpage
+   
+%  \section{Glossary}
+%  \renewcommand{\glossarysection}[2][Glossary]{Glossary}
+  \setglossarysection{section}\label{glossary}
+  \printglossary[numberedsection]{}
+  \clearpage
+
+  \markboth{Bibliography}{Bibliography}
+  \section{Bibliography}
+  \printbibliography[heading=none]
+  \newpage
+
+
+
+  \markboth{Acknowledgements}{Acknowledgements}
+  \section{Acknowledgements}
+  \input{content/acknowledgement}
+
+\end{document}
