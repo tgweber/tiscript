@@ -5,7 +5,7 @@ Die kurze Antwort: Sie liefert einen Teil des nötigen Handwerkszeug,
 um die Potentiale und Grenzen der technischen Informationsverarbeitung zu umreißen.
 Die lange Antwort soll dieses Skript geben.
 
-Es wurde begleitend zur Veranstaltung Theoretische Informatik für Wirtschaftsinformatiker
+Das Skript wurde begleitend zur Veranstaltung ''Theoretische Informatik für Wirtschaftsinformatiker''
 an der DHBW Heilbronn erstellt.
 Wir folgen in diesem Skript einem kartesischen Ansatz:
 Wir gehen vom maximalen Zweifel aus und setzen die theoretische Informatik 
@@ -20,8 +20,131 @@ Was also ist ein Problem?
 Bevor wir diese Frage grundlegend beantworten können,
 ist es hilfreich ein paar Probleme kennen zu lernen,
 wie sie im IT-Alltag auftreten können.
+
 \section{Probleme}
+Wir werden nun ein paar alltägliche Probleme als Userstories wiedergeben.
+Eine Userstory wird in der agilen Softwareentwicklung genutzt um Anforderungen zu spezfizieren.
+Es folgt typischerweise diesem Format:
+''Als \textless Rolle\textgreater\ möchte ich \textless Feature\textgreater,
+um \textless Ziel\textgreater\ zu erreichen.''
+
+\begin{itemize}
+    \item \textbf{MAX}: Als Filialleiterin möchte ich das Produkt kennen,
+        dass sich am besten verkauft, um meine Lieferungen zu optimieren.
+    \item \textbf{MATCH}: Als Einkaufsmanager möchte ich,
+        dass nur valide Lieferanten-IDs gespeichert werden,
+        um Fehler in der Datenbank zu vermeiden.
+    \item \textbf{HALT}: Als Product Owner des Serverless-Computings möchte ich,
+        dass nur terminierende Code-Snippets deployt werden,
+        um die verfügbaren Ressourcen effizient zu nutzen.
+    \item \textbf{ROUTE}: Als Kommissioniererin möchte ich,
+        dass morgens die optimalen Routen für die LKWs in die 24 Filialen berechnet werden,
+        um die Lieferzeit zu minimieren.
+    \item \textbf{QUANTUMSEC}: Als Chief Security Officer möchte ich,
+        dass die firmen-interne Kommunikation quantensicher verschlüsselt wird,
+        um die Vertraulichkeit der Absprachen zu garantieren.
+\end{itemize}
+
+Alle Probleme treten in einer Form auf,
+wie sie viele IT-Angestellten täglich vorfinden, dann analysieren und schließlich lösen müssen.
+Die theoretische Informatik kann auch einiges über diese Probleme sagen:
+\begin{itemize}
+    \item Mindestens ein Problem ist sehr schwer zu lösen.
+    \item Mindestens ein Problem ist sehr einfach zu lösen.
+    \item Mindestens ein Problem ist nicht lösbar. 
+    \item Bei mindestens einem Problem ist unklar, ob es sich lösen lässt.
+\end{itemize}
+
+Am Ende dieses Skriptes soll klar sein, welches dieser Probleme in welche dieser Kategorien fällt.
+An diesem Punkt im Text wollen wir uns aber zunächst damit begnügen,
+dass ein Fach Nutzen bringt, dass es erlaubt, diese Probleme auf einen Blick als leicht oder
+schwer, unlösbar oder von unbekannter Komplexität zu kategorisieren. 
+
 \section{Abstraktion}
+
+Um die Probleme aus dem vorigen Absatz für die Bearbeitung mit den Werkzeugen der
+theoretischen Informatik vorzubereiten ist noch etwas an Arbeit notwendig.
+Ein grundlegendes Instrument nicht nur der theoretischen Informatik, sondern der Informatik
+überhaupt ist die Abstraktion, also die ausschließliche Betrachtung der Aspekte eines Sachverhalts,
+die für die Lösung eines Problems wesentlich sind.
+
+So ist z.B. auf den ersten Blick unwesentlich, ob im \textbf{ROUTE}-Problem 2, 24 oder 100 Filialen angefahren werden,
+ob es überhaupt Filialen sind (und nicht Lager, Tankstellen, oder Adressen von Kund:innen),
+oder ob die Strecke morgens oder abends,
+mit LKWs oder Kleintransportern befahren werden.
+Viele dieser Details scheinen für die algorithmische Behandlung des Problems irrelevant.
+
+Der Kern des Problems liegt in einer abstrakten Datenstruktur:
+ein Graph dessen Knoten mit einer Kostenfunktion verbunden sind:
+Die Knoten des Graphen sind die Filialen (oder Lager, ...),
+die Kostenfunktion auf den Kanten ist die Dauer der Fahrt zwischen den Filialen (oder der Benzinverbrauch, die Distanz, ...).
+Wir kommen mit Hilfe der Abstraktion also auf eine neue Formulierung des Problems:
+\begin{itemize}
+    \item \textbf{Gegeben:} Ein Graph mit einer Kostenfunktion
+    \item \textbf{Gesucht:} Die Folge von einer Teilmenge der Knoten, für die die Kostenfunktion minimal ist.
+\end{itemize}
+
+Der Vorgang der Abstraktion ist leider weder eindeutig noch trivial.
+Es ist zum Beispiel durchaus möglich,
+dass der Zeitpunkt der Fahrten eben \emph{nicht} irrelevant ist,
+da die gewählte Kostenfunktion (Dauer der Fahrt)
+stark von der Verkehrssituation abhängt,
+die wiederum abhängig von der Tageszeit ist.
+Es gibt daher nicht einen eindeutig ''richtigen'' Weg von einer Userstory zu einem abstrakten Problem zu kommen,
+wie es mit den Mitteln der theoretischen Informatik behandelt werden kann.
+Aber jede der möglichen Abstraktionen wird letztlich in dieser Form resultieren:
+\begin{itemize}
+    \item \textbf{Gegeben:} Eine oder mehrere Datenstruktur(en)
+    \item \textbf{Gesucht:} Ein (potentiell komplexer) Ausgabewert
+\end{itemize}
+Diese Form der Problemangabe wollen wir ''informell'' nennen.
+
+Wir halten fest, dass die Abstraktion ein Werkzeug ist,
+Probleme auf ihren Kern zu reduzieren.
+Diese abstrakte, informelle Form des Problems hat einen Umfang, der klein wie möglich und so groß wie nötig ist.
+
+Allerdings haben wir das \textbf{ROUTE}-Problem noch nicht in der Form angegeben,
+die nötig ist, um es mit den Werkzeugen der theoretischen Informatik zu bearbeiten.
+Ganz zu schweigen von den anderen Userstories.
+Software-Entwickler:innen wären mit unserem Zwischenergebnis vielleicht schon zufrieden,
+denn sie wüssten, wie man ein informelles Problem in die Form ihrer Programmiersprache bringen kann.
+Welche Form die theoretische Informatik verlangt, soll im nächsten Abschnitt diskutiert werden.
+
 \section{Formalisierung}
+
+Die Informatik als Wissenschaft der Informationsverarbeitung bedingt,
+dass wir die Lösung von Problemen als Anweisung zur Manipulation von Zeichen verstehen,
+die von Maschinen ausgeführt werden:
+\begin{itemize}
+    \item Wir kodieren Bilder, Musik und Texte als binäre Zeichenfolgen
+    \item Wir kodieren Anweisungen, was mit Bildern, Musik und Texten passieren soll, ebenfalls als binäre Zeichenfolgen
+\end{itemize}
+
+TBC.
+
 \section{Weitere Werkzeuge der theoretischen Informatik}
+
 \section{Drei grundlegende Fragen}
+Zusammen mit dem Begriff eines Problems und seiner Formalisierung ist also der
+\emph{Berechenbarkeitsbegriff} im Herzen dieses Skriptes.
+Wir hätten auch andere Begriff auswählen können, um in die Ideen der theoretischen Informatik einzuführen:
+Formale Sprachen, Automaten, Information, Aufwand, Überprüfbarkeit wären solche Kandidaten gewesen.
+Das Problem und die Berechenbarkeit erlauben uns aber eine ganz Praxis-nahe Einführung.
+Die anderen Begriffe werden wir in diesem Skript streifen, aber nicht in den Fokus setzen.
+
+Mit unseren beiden Kernbegriffen können wir die drei Grundfragen dieses Skriptes stellen:
+\begin{enumerate}
+    \item Was lässt sich effizient berechnen?
+    \item Was lässt sich überhaupt berechnen?
+    \item Welche Rolle spielt die Formalisierung der Berechenbarkeit für die zwei ersten Fragen?
+\end{enumerate}
+
+Diese drei Fragen korrespondieren zu drei Grunddisziplinen der theoretischen Informatik:
+\begin{enumerate}
+    \item Komplexitätstheorie
+    \item Berechenbarkeitstheorie
+    \item Theorie der formalen Sprachen und der Automaten
+\end{enumerate}
+
+Im Rest des Skriptes werden wir die drei Fragen bearbeiten und
+dabei die drei Grunddsiziplinen und ihre Fragestellungen, Ergebnisse und Methodiken kennenlernen.

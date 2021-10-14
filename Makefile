@@ -24,14 +24,14 @@ $(MAIN).pdf: $(MAIN).tex .refresh $(SOURCES)
 		$(GLOS) $(MAIN)
 		$(LATEXMK) $(LATEXMKOPT) \
 			-pdflatex="$(LATEX) $(LATEXOPT) %O %S" $(MAIN)
-		scp $(MAIN).pdf melchior@kushida.uberspace.de:html/$(MAIN)_bkp.pdf 
+		# scp $(MAIN).pdf melchior@kushida.uberspace.de:html/$(MAIN)_bkp.pdf 
 
 force:
 		touch .refresh
 		rm $(MAIN).pdf
 		$(LATEXMK) $(LATEXMKOPT) \
 			-pdflatex="$(LATEX) $(LATEXOPT) %O %S" $(MAIN)
-		scp $(MAIN).pdf melchior@kushida.uberspace.de:html/diss_bkp.pdf
+		# scp $(MAIN).pdf melchior@kushida.uberspace.de:html/diss_bkp.pdf
 
 clean:
 		$(LATEXMK) -C $(MAIN)
@@ -40,7 +40,7 @@ clean:
 		rm -f *.bbl *.blg *.aux *.end *.fls *.log *.out *.fdb_latexmk *.tdo $(MAIN).mtc*
 
 publish:
-		scp $(MAIN).pdf melchior@kushida.uberspace.de:html/$(MAIN).pdf 
+		scp $(MAIN).pdf melchior@kushida.uberspace.de:html/$(MAIN)_bkp.pdf 
 
 once:
 		$(LATEXMK) $(LATEXMKOPT) -pdflatex="$(LATEX) $(LATEXOPT) %O %S" $(MAIN)
