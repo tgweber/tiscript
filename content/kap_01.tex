@@ -112,15 +112,171 @@ Welche Form die theoretische Informatik verlangt, soll im nächsten Abschnitt di
 
 \section{Formalisierung}
 
-Die Informatik als Wissenschaft der Informationsverarbeitung bedingt,
-dass wir die Lösung von Problemen als Anweisung zur Manipulation von Zeichen verstehen,
-die von Maschinen ausgeführt werden:
+Die Informatik ist die Wissenschaft der maschinellen Informationsverarbeitung,
+daher ist es sinnvoll zu überlegen,
+wie Informationen Input für eine bzw. Output von einer Maschine sein können.
+Ein einfaches Modell ist die Tastatur und der Bildschirm:
+Eine endliche Menge von Zeichen (die Knöpfe der Tastatur) werden übersetzt in eine
+endliche Menge von Zeichen (die Pixel eines Bildschirms).
+Tatsächlich werden die meisten Informationen,
+die eine Maschine oder ein Computer verarbeiten,
+maschinen-intern in eine sehr kleine Menge an Zeichen übersetzt:
+in Zeichenfolgen bestehend auf Nullen und Einsen.
+
+Wir kodieren also Zahlen, Videos, Bilder, Musik, Texte, im Allgemeinen alle Datenstrukturen
+und Ausgabewerte als Folgen von Nullen und Einsen,
+also als binäre Zeichenfolgen. 
+Ebenso werden Anweisungen, was mit diesen binären Daten passieren soll,
+als binäre Zeichenfolgen kodiert.
+Ganz allgemein könnte man also sagen, dass alle Probleme, die ein Computer lösen soll,
+sich in diese Form bringen lassen:
 \begin{itemize}
-    \item Wir kodieren Bilder, Musik und Texte als binäre Zeichenfolgen
-    \item Wir kodieren Anweisungen, was mit Bildern, Musik und Texten passieren soll, ebenfalls als binäre Zeichenfolgen
+    \item \textbf{Gegeben:} Eine binäre Zeichenfolge.
+    \item \textbf{Gesucht:} Eine binäre Zeichenfolge.
 \end{itemize}
 
-TBC.
+Diese Form enstpricht einer Funktion:
+bei gleicher Eingabe einer binären Zeichenfolge,
+erwarten wir, dass uns die Maschine stets eine (meist von der Eingabe unterschiedliche)
+gleiche binäre Zeichenfolge ausgibt.
+Die Anweisung ist also rechtseindeutig (siehe \autoref{relationenUndFunktionen}).
+
+Wie lässt sich nun aber eine Zeichenfunktion so darstellen,
+dass unsere Probleme adäquat repräsentiert sind?
+Damit wir dies erreichen, 
+müssen wir zunächst noch einige Begriffe definieren und Konventionen einführen.
+
+\subsection{Zeichen}
+
+Eine Menge von Zeichen bezeichnen wir als \emph{Alphabet}, kurz: $\Sigma$.
+Z.B.: $\Sigma = \{0,1\}$.\\
+
+\noindent
+Wir verwenden diese Variablen für Zeichen: $a,b,c$;
+wenn wir diese Buchstaben verwenden und nichts anderes angeben,
+gilt implizit: $a, b, c \in \Sigma$.\\
+
+\noindent
+Eine Operation auf den Zeichen ist die \emph{Konkatenation},
+also die Verbindung von zwei oder mehreren Zeichen, z.B. $01$.
+
+\subsection{Worte}
+Das Ergebnis einer beliebig oft ausgeführten Konkatenation,
+also eine (binäre) Zeichenfolge,
+bezeichnen wir als \emph{Wort}, z.B.: $0101010001001001$\\
+
+\noindent
+Die Menge aller Wörter,
+die sich aus einem Alphabet bilden lassen,
+bezeichnen wir als \emph{Kleensche Hülle}, dargestellt als Stern: $\Sigma^*$.\\
+
+\noindent
+Wir verwenden diese Variablen für Worte:
+$w, x, y, z$; wenn wir diese Buchstaben verwenden und nichts anderes angeben,
+gilt implizit: $w, x, y, z \in \Sigma^*$.\\
+
+\noindent
+Die \emph{Länge} eines Wortes ist die Anzahl seiner Zeichen.
+Formal benutzen wir die Betragsstriche um ein Wort, um seine
+Länge zu bezeichnen. Wenn z.B. $w = 0101010001001001$, dann gilt $|w| = 16$.\\
+
+\noindent
+Das Wort mit der Länge 0, also das Wort, dass aus null Zeichen besteht,
+nennen wir das \emph{leere Wort}, kurz: $\epsilon$.
+Es gilt also $|\epsilon| = 0$.\\
+
+\noindent
+Für die n-malige Wiederholung eines Zeichens oder Wortes führen wir den \emph{Wiederholungsoperator}
+ein, eine hochgestellte Zahl $n \in \mathbb{N}$: $a^n$ oder $w^n$.
+Z.B. $0^3 = 000$ und $(10)^2 = 1010$.\\
+
+\noindent
+Wollen wir ein angeben, dass ein Zeichen oder Wort beliebig oft (also auch keinmal) wiederholt
+wird, nutzen wir dafür einen hochgestellten Stern, den \emph{Kleene-Operator} $a^*$ oder $w^*$.
+Mit dem Kleene-Operator bezeichnen wir immer eine unendliche Menge von Wörtern, z.B.:
+$a^* = \{\epsilon, a, aa, aaa, aaaa, \dots\}$
+
+\subsection{Formale Sprachen}
+
+Bevor wir den Begriff der formalen Sprachen einführen, noch eine Warnung:
+Während die Verwendung des Begriffs ''Zeichens''
+noch recht intuitiv mit dem Begriff des Buchstaben zusammenfällt
+(zumindest im deutschsprachigen Raum),  
+ist schon der formal eingeführte Wort-Begriff eine kognitive Zumutung:
+Worte im Sinne des vorangegangenen Abschnitts sind einfach irgendwelche Zeichenfolgen,
+egal ob sie aussprechbar oder im Kontext einer natürlichen Sprache
+(wie deutsch oder englisch) einen Sinn ergeben.
+
+Man müsste also eigentlich das natursprachliche $Wort_N$ von dem formalen $Wort_F$ trennen,
+das wir oben eingeführt haben.
+Eine Crux aller formal arbeitenden Wissenschaften ist,
+dass die Menge an Zeichen und Begriffen begrenzt ist und daher Doppeldeutigkeiten auftreten. 
+Im Kontext dieses Skriptes ist ein Wort meist im formalen Sinne gemeint.
+Sollte dies nicht der Fall sein und der Kontext nicht ausreichen,
+um zwischen beiden Bedeutungen zu unterscheiden,
+werden wir die subskribierten Varianten verwenden.
+
+Die vorige Überlegung trifft nicht nur auf Worte, sondern auch auf \emph{Sprachen} zu.
+Eine Sprache im Sinne der theoretischen Informatik ist einfach eine Menge von Worten.
+Z.B. ist $L = \{0, 1, 00, 01, 10, 11 \}$ die Sprache der Worte, die aus einem oder zwei Binärzeichen bestehen.\\
+
+\noindent
+Wir verwenden $L$ mit unterschiedlichen Subskripten als Variable für Sprachen;
+wenn wir $L$ verwenden und nichts Anderslautendes angeben,
+gilt implizit $L \subseteq \Sigma^*$ für ein gegebenes $\Sigma$.\footnote{
+Wenn $\Sigma$ nicht explizit angegeben oder aus dem Kontext herleitbar ist,
+wird $\Sigma$ also auch als Variable für (irgend) ein Alphabet verwendet.}
+
+
+\noindent
+Da Sprachen Mengen sind,
+sind alle mengentheoretischen Operationen\footnote{siehe \autoref{mengenlehre}}
+auf Sprachen definiert,
+z.B. $L_1 \cap L_2 = \{w | w \in L_1 \wedge w \in L_2\}$
+bezeichnet die Schnittmenge zweier Sprachen, also alle Wörter,
+die sowohl Element von $L_1$ als auch von $L_2$ sind.
+
+\subsection{Probleme als Sprachen}
+Wie bringt man nun die formal eingeführten Begriffe mit den eingangs vorgestellten Problem zusammen?
+Wir haben diese Probleme in zwei Schritten erst abstrahiert und dann kodiert:
+\begin{enumerate}
+    \item \emph{Abstraktion:}
+        \\\textbf{Gegeben:} Eine Datenstruktur
+        \\\textbf{Gesucht:} Ein Ausgabewert
+    \item \emph{Kodierung:}
+        \\\textbf{Gegeben:} Eine Zeichenfolge, die eine Datenstruktur kodiert.
+        \\\textbf{Gesucht:} Eine Zeichenfolge, die einen Ausgabewert kodiert.
+\end{enumerate}
+Der letzte Schritt ist nun das gesamte Gegeben/Gesucht-Paar
+als Menge von Worten zu \emph{formalisieren},
+was wir am Beispiel von \textbf{MAX} zeigen wollen:
+\begin{enumerate}
+    \item \emph{Abstraktion:}
+        \\\textbf{Gegeben:} Eine Menge von Zahlen, z.B.: $\{1,2,3,4\}$
+        \\\textbf{Gesucht:} Die größte Zahl der Menge, z.B. $4$.
+    \item \emph{Kodierung:}
+        \\\textbf{Gegeben:} Eine binäre Kodierung einer Menge von Zahlen, z.B.:
+        \\$\{001, 010, 011, 100\}$
+        \\\textbf{Gesucht:} Eine binäre Kodierung der größten Zahl aus der Menge, z.B.:
+        \\$100$
+\end{enumerate}
+
+Formal können wir \textbf{MAX} also als eine ''Auswahl-Funktion'' aus einer Menge begreifen,
+sodass gerade das Element ausgewählt wird, dass am größten ist.
+Eine Funktion $f: D \rightarrow W$ lässt sich mengentheoretisch als Menge von Tupeln auffassen,
+so dass gilt $f = \{[d,w]|d \in D \wedge w \in W\}$.
+ 
+\noindent
+Für unser Beispiel von oben gilt dann also
+\begin{itemize}
+    \item $[\{1,2,3,4\},4] \in \bf{MAX}$, bzw.:
+    \item $[\{001, 010, 011, 100\}, 100] \in \bf{MAX}$
+\end{itemize}
+
+Der letzte Schritt ist nun, die \emph{gesamte} Funktion zu formalisieren, also eine Kodierung
+für \textbf{MAX} anzugeben.
+Dazu müssen wir eine binäre Kodierung von Tupeln von Binärdaten einführen.
+Eine simple Variante wäre die folgende Kodierung:
 
 \section{Weitere Werkzeuge der theoretischen Informatik}
 
