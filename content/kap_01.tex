@@ -8,12 +8,12 @@ Die lange Antwort soll dieses Skript geben.
 Das Skript wurde begleitend zur Veranstaltung ''Theoretische Informatik für Wirtschaftsinformatiker''
 an der DHBW Heilbronn erstellt.
 Wir folgen in diesem Skript einem kartesischen Ansatz:
-Wir gehen vom maximalen Zweifel aus und setzen die theoretische Informatik 
+Wir gehen vom maximalen Zweifel aus und setzen die theoretische Informatik
 als potentiellen Nichtsnutz auf die Anklagebank.
 Schritt für Schritt werden wir die Jury (die Studierenden) von der Unschuld dieser
 Disiplin überzeugen.
 Wir beginnen mit der Feststellung, dass uns als Informatiker:innen die Nützlichkeit
-eines Werkzeugs dann einleuchtet, wenn es hilft Probleme zu lösen. 
+eines Werkzeugs dann einleuchtet, wenn es hilft Probleme zu lösen.
 Daher ist der Problembegriff im Mittelpunkt dieses Skripts.
 
 Was also ist ein Problem?
@@ -29,8 +29,8 @@ Es folgt typischerweise diesem Format:
 um \textless Ziel\textgreater\ zu erreichen.''
 
 \begin{itemize}
-    \item \textbf{MAX}: Als Filialleiterin möchte ich das Produkt kennen,
-        dass sich am besten verkauft, um meine Lieferungen zu optimieren.
+    \item \textbf{MAX}: Als Filialleiterin möchte ich das beste Produkt kennen,
+        um meine Lieferungen zu optimieren.
     \item \textbf{MATCH}: Als Einkaufsmanager möchte ich,
         dass nur valide Lieferanten-IDs gespeichert werden,
         um Fehler in der Datenbank zu vermeiden.
@@ -51,14 +51,14 @@ Die theoretische Informatik kann auch einiges über diese Probleme sagen:
 \begin{itemize}
     \item Mindestens ein Problem ist sehr schwer zu lösen.
     \item Mindestens ein Problem ist sehr einfach zu lösen.
-    \item Mindestens ein Problem ist nicht lösbar. 
+    \item Mindestens ein Problem ist nicht lösbar.
     \item Bei mindestens einem Problem ist unklar, ob es sich lösen lässt.
 \end{itemize}
 
 Am Ende dieses Skriptes soll klar sein, welches dieser Probleme in welche dieser Kategorien fällt.
 An diesem Punkt im Text wollen wir uns aber zunächst damit begnügen,
 dass ein Fach Nutzen bringt, dass es erlaubt, diese Probleme auf einen Blick als leicht oder
-schwer, unlösbar oder von unbekannter Komplexität zu kategorisieren. 
+schwer, unlösbar oder von unbekannter Komplexität zu kategorisieren.
 
 \section{Abstraktion}
 
@@ -68,46 +68,43 @@ Ein grundlegendes Instrument nicht nur der theoretischen Informatik, sondern der
 überhaupt ist die Abstraktion, also die ausschließliche Betrachtung der Aspekte eines Sachverhalts,
 die für die Lösung eines Problems wesentlich sind.
 
-So ist z.B. auf den ersten Blick unwesentlich, ob im \textbf{ROUTE}-Problem 2, 24 oder 100 Filialen angefahren werden,
-ob es überhaupt Filialen sind (und nicht Lager, Tankstellen, oder Adressen von Kund:innen),
-oder ob die Strecke morgens oder abends,
-mit LKWs oder Kleintransportern befahren werden.
-Viele dieser Details scheinen für die algorithmische Behandlung des Problems irrelevant.
+So ist z.B. auf den ersten Blick unwesentlich,
+ob im \textbf{MAX}-Problem das beste Produkt dasjenige ist
+das am häufigsten verkauft oder den größten Gewinn macht.
+Dieses Detail ist für die algorithmische Behandlung des Problems irrelevant.
 
 Der Kern des Problems liegt in einer abstrakten Datenstruktur:
-ein Graph dessen Knoten mit einer Kostenfunktion verbunden sind:
-Die Knoten des Graphen sind die Filialen (oder Lager, ...),
-die Kostenfunktion auf den Kanten ist die Dauer der Fahrt zwischen den Filialen (oder der Benzinverbrauch, die Distanz, ...).
+eine Liste von Werten (z.B. Verkaufszahlen oder Gewinnmargen).
 Wir kommen mit Hilfe der Abstraktion also auf eine neue Formulierung des Problems:
 \begin{itemize}
-    \item \textbf{Gegeben:} Ein Graph mit einer Kostenfunktion
-    \item \textbf{Gesucht:} Die Folge von einer Teilmenge der Knoten, für die die Kostenfunktion minimal ist.
+    \item \textbf{Gegeben:} Eine Liste von Zahlen
+    \item \textbf{Gesucht:} Die größte Zahl aus der Liste
 \end{itemize}
 
-Der Vorgang der Abstraktion ist leider weder eindeutig noch trivial.
-Es ist zum Beispiel durchaus möglich,
-dass der Zeitpunkt der Fahrten eben \emph{nicht} irrelevant ist,
-da die gewählte Kostenfunktion (Dauer der Fahrt)
-stark von der Verkehrssituation abhängt,
-die wiederum abhängig von der Tageszeit ist.
-Es gibt daher nicht einen eindeutig ''richtigen'' Weg von einer Userstory zu einem abstrakten Problem zu kommen,
-wie es mit den Mitteln der theoretischen Informatik behandelt werden kann.
+Es gibt keinen einfachen und eindeutigen Weg von einer Userstory
+zu einem abstrakten Problem zu kommen.
 Aber jede der möglichen Abstraktionen wird letztlich in dieser Form resultieren:
 \begin{itemize}
     \item \textbf{Gegeben:} Eine oder mehrere Datenstruktur(en)
     \item \textbf{Gesucht:} Ein (potentiell komplexer) Ausgabewert
 \end{itemize}
 Diese Form der Problemangabe wollen wir ''informell'' nennen.
+Wenn wir das Problem so angeben, enstpricht es einer Funktion:
+bei gleicher Eingabe einer Datenstruktur
+erwarten wir, dass uns die Maschine stets einen
+gleichen Ausgabewert ausgibt.
+Die Anweisung ist also rechtseindeutig (siehe \autoref{relationenUndFunktionen}).
 
 Wir halten fest, dass die Abstraktion ein Werkzeug ist,
 Probleme auf ihren Kern zu reduzieren.
-Diese abstrakte, informelle Form des Problems hat einen Umfang, der klein wie möglich und so groß wie nötig ist.
+Diese abstrakte, informelle Form des Problems hat einen Umfang,
+der klein wie möglich und so groß wie nötig ist.
 
-Allerdings haben wir das \textbf{ROUTE}-Problem noch nicht in der Form angegeben,
+Allerdings haben wir das \textbf{MAX}-Problem noch nicht in der Form angegeben,
 die nötig ist, um es mit den Werkzeugen der theoretischen Informatik zu bearbeiten.
-Ganz zu schweigen von den anderen Userstories.
 Software-Entwickler:innen wären mit unserem Zwischenergebnis vielleicht schon zufrieden,
-denn sie wüssten, wie man ein informelles Problem in die Form ihrer Programmiersprache bringen kann.
+denn sie wüssten, wie man ein informelles Problem
+in der präferierten Programmiersprache lösen kann.
 Welche Form die theoretische Informatik verlangt, soll im nächsten Abschnitt diskutiert werden.
 
 \section{Formalisierung}
@@ -121,11 +118,11 @@ endliche Menge von Zeichen (die Pixel eines Bildschirms).
 Tatsächlich werden die meisten Informationen,
 die eine Maschine oder ein Computer verarbeiten,
 maschinen-intern in eine sehr kleine Menge an Zeichen übersetzt:
-in Zeichenfolgen bestehend auf Nullen und Einsen.
+in Zeichenfolgen bestehend aus Nullen und Einsen.
 
 Wir kodieren also Zahlen, Videos, Bilder, Musik, Texte, im Allgemeinen alle Datenstrukturen
 und Ausgabewerte als Folgen von Nullen und Einsen,
-also als binäre Zeichenfolgen. 
+also als binäre Zeichenfolgen.
 Ebenso werden Anweisungen, was mit diesen binären Daten passieren soll,
 als binäre Zeichenfolgen kodiert.
 Ganz allgemein könnte man also sagen, dass alle Probleme, die ein Computer lösen soll,
@@ -135,15 +132,10 @@ sich in diese Form bringen lassen:
     \item \textbf{Gesucht:} Eine binäre Zeichenfolge.
 \end{itemize}
 
-Diese Form enstpricht einer Funktion:
-bei gleicher Eingabe einer binären Zeichenfolge,
-erwarten wir, dass uns die Maschine stets eine (meist von der Eingabe unterschiedliche)
-gleiche binäre Zeichenfolge ausgibt.
-Die Anweisung ist also rechtseindeutig (siehe \autoref{relationenUndFunktionen}).
 
 Wie lässt sich nun aber eine Zeichenfunktion so darstellen,
 dass unsere Probleme adäquat repräsentiert sind?
-Damit wir dies erreichen, 
+Damit wir dies erreichen,
 müssen wir zunächst noch einige Begriffe definieren und Konventionen einführen.
 
 \subsection{Zeichen}
@@ -154,7 +146,9 @@ Z.B.: $\Sigma = \{0,1\}$.\\
 \noindent
 Wir verwenden diese Variablen für Zeichen: $a,b,c$;
 wenn wir diese Buchstaben verwenden und nichts anderes angeben,
-gilt implizit: $a, b, c \in \Sigma$.\\
+gilt implizit: $a, b, c \in \Sigma$ für ein gegebenes $\Sigma$.\footnote{
+Wenn $\Sigma$ nicht explizit angegeben oder aus dem Kontext herleitbar ist,
+wird $\Sigma$ also auch als Variable für (irgend) ein Alphabet verwendet.}\\
 
 \noindent
 Eine Operation auf den Zeichen ist die \emph{Konkatenation},
@@ -183,12 +177,12 @@ Länge zu bezeichnen. Wenn z.B. $w = 0101010001001001$, dann gilt $|w| = 16$.\\
 \noindent
 Das Wort mit der Länge 0, also das Wort, dass aus null Zeichen besteht,
 nennen wir das \emph{leere Wort}, kurz: $\epsilon$.
-Es gilt also $|\epsilon| = 0$.\\
+Es gilt $|\epsilon| = 0$.\\
 
 \noindent
 Für die n-malige Wiederholung eines Zeichens oder Wortes führen wir den \emph{Wiederholungsoperator}
 ein, eine hochgestellte Zahl $n \in \mathbb{N}$: $a^n$ oder $w^n$.
-Z.B. $0^3 = 000$ und $(10)^2 = 1010$.\\
+Z.B. $0^3 = 000$ und $(10)^2 = 1010$.\footnote{$a^0$ bzw. $w^0$ entspricht dabei $\epsilon$.}\\
 
 \noindent
 Wollen wir ein angeben, dass ein Zeichen oder Wort beliebig oft (also auch keinmal) wiederholt
@@ -198,10 +192,10 @@ $a^* = \{\epsilon, a, aa, aaa, aaaa, \dots\}$
 
 \subsection{Formale Sprachen}
 
-Bevor wir den Begriff der formalen Sprachen einführen, noch eine Warnung:
+Bevor wir den Begriff der formalen Sprachen einführen, ist noch eine Warnung angebracht:
 Während die Verwendung des Begriffs ''Zeichens''
 noch recht intuitiv mit dem Begriff des Buchstaben zusammenfällt
-(zumindest im deutschsprachigen Raum),  
+(zumindest im deutschsprachigen Raum),
 ist schon der formal eingeführte Wort-Begriff eine kognitive Zumutung:
 Worte im Sinne des vorangegangenen Abschnitts sind einfach irgendwelche Zeichenfolgen,
 egal ob sie aussprechbar oder im Kontext einer natürlichen Sprache
@@ -210,7 +204,7 @@ egal ob sie aussprechbar oder im Kontext einer natürlichen Sprache
 Man müsste also eigentlich das natursprachliche $Wort_N$ von dem formalen $Wort_F$ trennen,
 das wir oben eingeführt haben.
 Eine Crux aller formal arbeitenden Wissenschaften ist,
-dass die Menge an Zeichen und Begriffen begrenzt ist und daher Doppeldeutigkeiten auftreten. 
+dass die Menge an Zeichen und Begriffen begrenzt ist und daher Doppeldeutigkeiten auftreten.
 Im Kontext dieses Skriptes ist ein Wort meist im formalen Sinne gemeint.
 Sollte dies nicht der Fall sein und der Kontext nicht ausreichen,
 um zwischen beiden Bedeutungen zu unterscheiden,
@@ -222,10 +216,8 @@ Z.B. ist $L = \{0, 1, 00, 01, 10, 11 \}$ die Sprache der Worte, die aus einem od
 
 \noindent
 Wir verwenden $L$ mit unterschiedlichen Subskripten als Variable für Sprachen;
-wenn wir $L$ verwenden und nichts Anderslautendes angeben,
-gilt implizit $L \subseteq \Sigma^*$ für ein gegebenes $\Sigma$.\footnote{
-Wenn $\Sigma$ nicht explizit angegeben oder aus dem Kontext herleitbar ist,
-wird $\Sigma$ also auch als Variable für (irgend) ein Alphabet verwendet.}
+wenn wir $L$ verwenden und nichts Anderslautendes angeben ist,
+gilt implizit $L \subseteq \Sigma^*$ für ein gegebenes $\Sigma$.
 
 
 \noindent
@@ -252,8 +244,8 @@ als Menge von Worten zu \emph{formalisieren},
 was wir am Beispiel von \textbf{MAX} zeigen wollen:
 \begin{enumerate}
     \item \emph{Abstraktion:}
-        \\\textbf{Gegeben:} Eine Menge von Zahlen, z.B.: $\{1,2,3,4\}$
-        \\\textbf{Gesucht:} Die größte Zahl der Menge, z.B. $4$.
+        \\\textbf{Gegeben:} Eine Liste von Zahlen, z.B.: $\{1,2,3,4\}$
+        \\\textbf{Gesucht:} Die größte Zahl der Liste, z.B. $4$.
     \item \emph{Kodierung:}
         \\\textbf{Gegeben:} Eine binäre Kodierung einer Menge von Zahlen, z.B.:
         \\$\{001, 010, 011, 100\}$
@@ -265,7 +257,7 @@ Formal können wir \textbf{MAX} also als eine ''Auswahl-Funktion'' aus einer Men
 sodass gerade das Element ausgewählt wird, dass am größten ist.
 Eine Funktion $f: D \rightarrow W$ lässt sich mengentheoretisch als Menge von Tupeln auffassen,
 so dass gilt $f = \{[d,w]|d \in D \wedge w \in W\}$.
- 
+
 \noindent
 Für unser Beispiel von oben gilt dann also
 \begin{itemize}
