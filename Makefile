@@ -10,28 +10,26 @@ GLOS=makeglossaries
 
 MAIN=script
 
-SOURCES=$(MAIN).tex Makefile $(find content/*)
+SOURCES=$(MAIN).tex Makefile $(shell find content/*)
 
 all:	$(MAIN).pdf
 
 .refresh:
 	touch .refresh
 
-$(MAIN).pdf: $(MAIN).tex .refresh $(SOURCES)
+$(MAIN).pdf: $(MAIN).tex .refresh $(shell find content/*)
 		$(LATEXMK) $(LATEXMKOPT) \
 			-pdflatex="$(LATEX) $(LATEXOPT) %O %S" $(MAIN)
 		$(BIBER) $(MAIN)
 		$(GLOS) $(MAIN)
 		$(LATEXMK) $(LATEXMKOPT) \
 			-pdflatex="$(LATEX) $(LATEXOPT) %O %S" $(MAIN)
-		# scp $(MAIN).pdf melchior@kushida.uberspace.de:html/$(MAIN)_bkp.pdf 
 
 force:
 		touch .refresh
 		rm $(MAIN).pdf
 		$(LATEXMK) $(LATEXMKOPT) \
 			-pdflatex="$(LATEX) $(LATEXOPT) %O %S" $(MAIN)
-		# scp $(MAIN).pdf melchior@kushida.uberspace.de:html/diss_bkp.pdf
 
 clean:
 		$(LATEXMK) -C $(MAIN)

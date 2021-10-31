@@ -1,7 +1,7 @@
 \chapter{Einleitung}
 \section{Warum theoretische Informatik?}
 Warum lohnt sich die Beschäftigung mit theoretischer Informatik?
-Die kurze Antwort: Sie liefert einen Teil des nötigen Handwerkszeug,
+Die kurze Antwort: Sie liefert einen wesentlichen Teil des Handwerkszeugs,
 um die Potentiale und Grenzen der technischen Informationsverarbeitung zu umreißen.
 Die lange Antwort soll dieses Skript geben.
 
@@ -64,41 +64,81 @@ schwer, unlösbar oder von unbekannter Komplexität zu kategorisieren.
 
 Um die Probleme aus dem vorigen Absatz für die Bearbeitung mit den Werkzeugen der
 theoretischen Informatik vorzubereiten ist noch etwas an Arbeit notwendig.
-Ein grundlegendes Instrument nicht nur der theoretischen Informatik, sondern der Informatik
-überhaupt ist die Abstraktion, also die ausschließliche Betrachtung der Aspekte eines Sachverhalts,
+Ein grundlegendes Instrument der Informatik (nicht nur der theoretischen) 
+ist die \emph{Abstraktion}, also die ausschließliche Betrachtung der Aspekte eines Sachverhalts,
 die für die Lösung eines Problems wesentlich sind.
 
-So ist z.B. auf den ersten Blick unwesentlich,
-ob im \textbf{MAX}-Problem das beste Produkt dasjenige ist
-das am häufigsten verkauft oder den größten Gewinn macht.
-Dieses Detail ist für die algorithmische Behandlung des Problems irrelevant.
+Schritt für Schritt kann man die unwesentlichen Aspekte abstreifen,
+bis man zum Kern des Problems vorgedrungen ist,
+wie wir exemplarisch am \textbf{MAX}-Problem demonstrieren:
 
-Der Kern des Problems liegt in einer abstrakten Datenstruktur:
-eine Liste von Werten (z.B. Verkaufszahlen oder Gewinnmargen).
-Wir kommen mit Hilfe der Abstraktion also auf eine neue Formulierung des Problems:
+\begin{enumerate}
+    \item Wer das beste Produkt aus welchem Grund kennen will,
+    scheint für die algorithmische Betrachtung gleichgültig.
+    \item Ob es das beste Produkt im Sinne der Verkaufshäufigkeit oder der Gewinnmarge ist,
+    erscheint ebenfalls unwesentlich.
+    \item Es sollte auch unwesentlich sein, ob wir ein Liste von Produkten,
+    oder andere Objekte durchsuchen; wesentlich ist,
+    dass wir in einer Dimension das Maximum suchen.
+\end{enumerate}
+
+Am Ende des Prozesses kommen wir auf den Kern des \textbf{MAX}-Problems:
 \begin{itemize}
-    \item \textbf{Gegeben:} Eine Liste von Zahlen
-    \item \textbf{Gesucht:} Die größte Zahl aus der Liste
+    \item \textbf{Gegeben:} Eine n-stelliger Tupel von Zahlen
+    \item \textbf{Gesucht:} Die größte Zahl aus dem Tupel 
 \end{itemize}
 
 Es gibt keinen einfachen und eindeutigen Weg von einer Userstory
 zu einem abstrakten Problem zu kommen.
 Aber jede der möglichen Abstraktionen wird letztlich in dieser Form resultieren:
 \begin{itemize}
-    \item \textbf{Gegeben:} Eine oder mehrere Datenstruktur(en)
+    \item \textbf{Gegeben:} Ein (potentiell komplexer) Eingabewert
     \item \textbf{Gesucht:} Ein (potentiell komplexer) Ausgabewert
 \end{itemize}
 Diese Form der Problemangabe wollen wir ''informell'' nennen.
-Wenn wir das Problem so angeben, enstpricht es einer Funktion:
-bei gleicher Eingabe einer Datenstruktur
-erwarten wir, dass uns die Maschine stets einen
-gleichen Ausgabewert ausgibt.
-Die Anweisung ist also rechtseindeutig (siehe \autoref{relationenUndFunktionen}).
 
+Es ist durchaus möglich,
+dass wir die falschen Dimensionen für den Anwendungsfall wegabstrahieren.
+Wie man dies verhindern kann, lehrt die Disziplin des Software Engineerings.
+Für unsere Betrachtung wollen wir aber davon ausgehen,
+dass das Finden des Maximums aus einer Menge an Zahlen
+- sagen wir der Einfachheit halber der natürlichen Zahlen -
+exakt der Kern des \textbf{MAX}-Problems ist.
+
+Wenn wir das Problem in der Form ``Gegeben/Gesucht'' angeben, entspricht es einer Funktion:
+$f_{MAX}: \mathcal{P}(\mathbb{N}) \rightarrow \mathbb{N}$.
+Aus einer (endlichen) Teilmenge der natürlichen Zahlen wollen wir die Zahl,
+die größer ist, als alle anderen Zahlen.\footnote{
+
+dass 
+
+
+
+
+
+
+
+
+In diesem Sinne können wir das Problem darstellen,
+indem wir alle Eingabe- und Ausgabewerte so aufzählen,
+dass die Ausgabewerte eine ``Lösung'' für die Eingabewerte sind.
+Da die Reihenfolge für die gegebenen Werte irrelevant sind,
+können wir sie als Menge darstellen.
+
+
+
+Für \textbf{MAX} hieße das z.B.:
+\begin{itemize}
+    \item Eingabe: $\{0, 1\} \rightarrow 1$
+    \item Eingabe: $\{0, 2\} \rightarrow 2$
+    \item ... 
+    \item Eingabe: $\{0, 1, 2, 3\} \rightarrow 3$
+    \item ... 
+\end{itemize}
 Wir halten fest, dass die Abstraktion ein Werkzeug ist,
 Probleme auf ihren Kern zu reduzieren.
-Diese abstrakte, informelle Form des Problems hat einen Umfang,
-der klein wie möglich und so groß wie nötig ist.
+Diese abstrakte, informelle Form des Problems hat genau den Umfang,
+der so klein wie möglich und so groß wie nötig ist.
 
 Allerdings haben wir das \textbf{MAX}-Problem noch nicht in der Form angegeben,
 die nötig ist, um es mit den Werkzeugen der theoretischen Informatik zu bearbeiten.
@@ -132,7 +172,6 @@ sich in diese Form bringen lassen:
     \item \textbf{Gesucht:} Eine binäre Zeichenfolge.
 \end{itemize}
 
-
 Wie lässt sich nun aber eine Zeichenfunktion so darstellen,
 dass unsere Probleme adäquat repräsentiert sind?
 Damit wir dies erreichen,
@@ -152,7 +191,10 @@ wird $\Sigma$ also auch als Variable für (irgend) ein Alphabet verwendet.}\\
 
 \noindent
 Eine Operation auf den Zeichen ist die \emph{Konkatenation},
-also die Verbindung von zwei oder mehreren Zeichen, z.B. $01$.
+also die Verbindung von zwei Zeichen, z.B. $01$.
+Wie bei der Multiplikation mit Variablen in der Mathematik üblich,
+wird die Konketanation nicht explizit mit einem eigenen Zeichen repräsentiert,
+dennoch ist sie formal eine Operation.
 
 \subsection{Worte}
 Das Ergebnis einer beliebig oft ausgeführten Konkatenation,
@@ -182,21 +224,25 @@ Es gilt $|\epsilon| = 0$.\\
 \noindent
 Für die n-malige Wiederholung eines Zeichens oder Wortes führen wir den \emph{Wiederholungsoperator}
 ein, eine hochgestellte Zahl $n \in \mathbb{N}$: $a^n$ oder $w^n$.
-Z.B. $0^3 = 000$ und $(10)^2 = 1010$.\footnote{$a^0$ bzw. $w^0$ entspricht dabei $\epsilon$.}\\
+Z.B. $0^3 = 000$ und $(10)^2 = 1010$.
+$a^0$ bzw. $w^0$ entspricht dabei $\epsilon$.\\
 
 \noindent
-Wollen wir ein angeben, dass ein Zeichen oder Wort beliebig oft (also auch keinmal) wiederholt
+Wollen wir ein angeben, dass ein Zeichen oder Wort beliebig oft (also auch 0-mal) wiederholt
 wird, nutzen wir dafür einen hochgestellten Stern, den \emph{Kleene-Operator} $a^*$ oder $w^*$.
 Mit dem Kleene-Operator bezeichnen wir immer eine unendliche Menge von Wörtern, z.B.:
 $a^* = \{\epsilon, a, aa, aaa, aaaa, \dots\}$
 
 \subsection{Formale Sprachen}
 
+Nachdem wir von Zeichen und Worten gesprochen haben, liegt die Frage nahe,
+ob man denn auch von Sprachen sprechen kann und tatsächlich ist die formale Sprache 
+ein zentraler Begriff der theoretischen Informatik.
 Bevor wir den Begriff der formalen Sprachen einführen, ist noch eine Warnung angebracht:
 Während die Verwendung des Begriffs ''Zeichens''
 noch recht intuitiv mit dem Begriff des Buchstaben zusammenfällt
 (zumindest im deutschsprachigen Raum),
-ist schon der formal eingeführte Wort-Begriff eine kognitive Zumutung:
+ist schon der formal eingeführte Wort-Begriff eher eine Zumutung für unsere Intuition:
 Worte im Sinne des vorangegangenen Abschnitts sind einfach irgendwelche Zeichenfolgen,
 egal ob sie aussprechbar oder im Kontext einer natürlichen Sprache
 (wie deutsch oder englisch) einen Sinn ergeben.
@@ -212,13 +258,15 @@ werden wir die subskribierten Varianten verwenden.
 
 Die vorige Überlegung trifft nicht nur auf Worte, sondern auch auf \emph{Sprachen} zu.
 Eine Sprache im Sinne der theoretischen Informatik ist einfach eine Menge von Worten.
-Z.B. ist $L = \{0, 1, 00, 01, 10, 11 \}$ die Sprache der Worte, die aus einem oder zwei Binärzeichen bestehen.\\
+Z.B. ist $L = \{0, 1, 00, 01, 10, 11 \}$ die Sprache der Worte,
+die aus einem oder zwei Binärzeichen bestehen.
+Wesentlich ist eine formale Sprache als \emph{Menge} im Sinne der Mengenlehre aufzufassen, 
+nicht als Kommunikationsmedium mit einer eigenen Sprachgeschichte und Sprachgemeinschaft.\\
 
 \noindent
-Wir verwenden $L$ mit unterschiedlichen Subskripten als Variable für Sprachen;
+Wir verwenden $L$ (ggf. mit unterschiedlichen Subskripten) als Variable für Sprachen;
 wenn wir $L$ verwenden und nichts Anderslautendes angeben ist,
-gilt implizit $L \subseteq \Sigma^*$ für ein gegebenes $\Sigma$.
-
+gilt implizit $L \subseteq \Sigma^*$ für ein gegebenes $\Sigma$.\\
 
 \noindent
 Da Sprachen Mengen sind,
@@ -229,7 +277,70 @@ bezeichnet die Schnittmenge zweier Sprachen, also alle Wörter,
 die sowohl Element von $L_1$ als auch von $L_2$ sind.
 
 \subsection{Probleme als Sprachen}
-Wie bringt man nun die formal eingeführten Begriffe mit den eingangs vorgestellten Problem zusammen?
+Mit den oben eingeführten Begriffen können
+wir nun ein Problem im Sinne der theoretischen Informatik
+\emph{formalisiert} einführen.
+Die grundlegende Idee dabei: Ein Problem lässt sich durch eine formale Sprache repräsentieren,
+d.h. wir finden zu einem Problem eine Sprache, die der folgenden bekannten informellen
+Darstellung entspricht:
+\begin{itemize}
+    \item \textbf{Gegeben:} Eine binäre Zeichenfolge. 
+    \item \textbf{Gesucht:} Eine binäre Zeichenfolge.
+\end{itemize}
+Um nun ein Problem wie \textbf{MAX} als binäre Zeichenfolge darstellen zu können,
+müssen wir zunächst eine Binärkodierung für Zahlen finden:
+$Bin_{LE}: \mathbb{N} \rightarrow \{0,1\}$
+Die Little Endian Dual-Kodierung erfüllt diese Anforderung,
+also die Repräsentation von natürlichen Zahlen bei der
+das niedrigstwertige Bit am Anfang steht.
+Zum Beispiel ist $Bin_{LE}(6) = 011$, mit 
+$
+0 \cdot 2^0
++ 1 \cdot 2^1
++ 1 \cdot 2^2
+= 6
+$.\footnote{TODO: Füge Ressource hinzu, die Dual-Kodierung und LE/BE erklärt;
+entweder als Referenz oder in Kapitel 1}
+
+Damit wir nun nicht nur einfache Zahlen, sondern auch Zahlenfolgen kodieren können,
+müssen wir noch eine weitere Kodierung einführen,
+die es erlaubt an einer binärem Wort zu erkennen,
+wo eine Zahl anfängt und die nächste beginnt.
+Dies kann mit der folgenden Kodierung erreicht werden: 
+$Bin_{SET}:$ 
+
+
+
+
+
+
+
+\section{Weitere Werkzeuge der theoretischen Informatik}
+
+\section{Drei grundlegende Fragen}
+Zusammen mit dem Begriff eines Problems und seiner Formalisierung ist also der
+\emph{Berechenbarkeitsbegriff} im Herzen dieses Skriptes.
+Wir hätten auch andere Begriff auswählen können, um in die Ideen der theoretischen Informatik einzuführen:
+Formale Sprachen, Automaten, Information, Aufwand, Überprüfbarkeit wären solche Kandidaten gewesen.
+Das Problem und die Berechenbarkeit erlauben uns aber eine ganz Praxis-nahe Einführung.
+Die anderen Begriffe werden wir in diesem Skript streifen, aber nicht in den Fokus setzen.
+
+Mit unseren beiden Kernbegriffen können wir die drei Grundfragen dieses Skriptes stellen:
+\begin{enumerate}
+    \item Was lässt sich effizient berechnen?
+    \item Was lässt sich überhaupt berechnen?
+    \item Welche Rolle spielt die Formalisierung der Berechenbarkeit für die zwei ersten Fragen?
+\end{enumerate}
+
+Diese drei Fragen korrespondieren zu drei Grunddisziplinen der theoretischen Informatik:
+\begin{enumerate}
+    \item Komplexitätstheorie
+    \item Berechenbarkeitstheorie
+    \item Theorie der formalen Sprachen und der Automaten
+\end{enumerate}
+
+Im Rest des Skriptes werden wir die drei Fragen bearbeiten und
+dabei die drei Grunddsiziplinen und ihre Fragestellungen, Ergebnisse und Methodiken kennenlernen.
 Wir haben diese Probleme in zwei Schritten erst abstrahiert und dann kodiert:
 \begin{enumerate}
     \item \emph{Abstraktion:}
