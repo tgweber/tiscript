@@ -29,15 +29,15 @@ Es folgt typischerweise diesem Format:
 um \textless Ziel\textgreater\ zu erreichen.''
 
 \begin{itemize}
-    \item \textbf{MAX}: Als Filialleiterin möchte ich das beste Produkt kennen,
+    \item \textbf{MAX}: Als Filialleiter:in möchte ich den besten Artikel kennen,
         um meine Lieferungen zu optimieren.
-    \item \textbf{MATCH}: Als Einkaufsmanager möchte ich,
+    \item \textbf{MATCH}: Als Einkaufsmanager:in möchte ich,
         dass nur valide Lieferanten-IDs gespeichert werden,
         um Fehler in der Datenbank zu vermeiden.
     \item \textbf{HALT}: Als Product Owner des Serverless-Computings möchte ich,
         dass nur terminierende Code-Snippets deployt werden,
         um die verfügbaren Ressourcen effizient zu nutzen.
-    \item \textbf{ROUTE}: Als Kommissioniererin möchte ich,
+    \item \textbf{ROUTE}: Als Kommissionierer:in möchte ich,
         dass morgens die optimalen Routen für die LKWs in die 24 Filialen berechnet werden,
         um die Lieferzeit zu minimieren.
     \item \textbf{QUANTUMSEC}: Als Chief Security Officer möchte ich,
@@ -62,60 +62,104 @@ schwer, unlösbar oder von unbekannter Komplexität zu kategorisieren.
 
 \section{Abstraktion}
 
-Um die Probleme aus dem vorigen Absatz für die Bearbeitung mit den Werkzeugen der
+Um die Userstories aus dem vorigen Absatz für die Bearbeitung mit den Methoden der
 theoretischen Informatik vorzubereiten ist noch etwas an Arbeit notwendig.
-Ein grundlegendes Instrument der Informatik (nicht nur der theoretischen) 
+Ein grundlegendes Instrument der Informatik (nicht nur der Theoretischen) 
 ist die \emph{Abstraktion}, also die ausschließliche Betrachtung der Aspekte eines Sachverhalts,
-die für die Lösung eines Problems wesentlich sind.
+die für einen gegebenen Zweck wesentlich sind.
+Mit der Abstraktion kommen wir also von einer sehr speziellen Aufgabenbeschreibung,
+wie einer Userstory, zu einem abstrakten Problem.
 
-Schritt für Schritt kann man die unwesentlichen Aspekte abstreifen,
-bis man zum Kern des Problems vorgedrungen ist,
-wie wir exemplarisch am \textbf{MAX}-Problem demonstrieren:
+Es gibt leider keinen einfachen und eindeutigen Weg
+duch Abstraktion zu einem abstrakten Problem zu kommen.
+Dafür sind intellektuelle Kreativität und ein gutes Verständnis des gegebenen Zwecks notwendig.
+Ein möglicher Fehler ist z.B. zu wenige Aspeke auszulassen,
+so dass das abstrakte Problem nicht so einfach wie möglich ist. 
+Ebenso ist es ein Fehler, zu viele Aspekte auszulassen,
+so dass das abstrakte Problem nicht so detailreich wie nötig ist,
+um dem gegebenen Zweck gerecht zu werden.
 
+Die Behandlung von Problemen mit den Methoden der theoretischen Informatik
+ist der gegebene Zweck dieses Skriptes. 
+Diesen muss man von den Zielen unterscheiden,
+die durch die Formulierung und Bearbeitung der Userstories verfolgt werden.
+Die Zwecke können sich überschneiden, sind aber voneinander zu unterscheiden.\\
+
+\noindent
+So könnte eine Abstraktion für das \textbf{MAX}-Problem aussehen:
 \begin{enumerate}
-    \item Wer das beste Produkt aus welchem Grund kennen will,
-    scheint für die algorithmische Betrachtung gleichgültig.
-    \item Ob es das beste Produkt im Sinne der Verkaufshäufigkeit oder der Gewinnmarge ist,
-    erscheint ebenfalls unwesentlich.
-    \item Es sollte auch unwesentlich sein, ob wir ein Liste von Produkten,
-    oder andere Objekte durchsuchen; wesentlich ist,
-    dass wir in einer Dimension das Maximum suchen.
+    \item \emph{Als Filialleiter:in möchte ich den besten Artikel kennen,
+        um meine Lieferungen zu optimieren} (ursprüngliche Userstory).
+    \item \emph{Identifikation des besten Artikels}
+        (Wer den besten Artikel aus welchem Grund kennen will,
+        ist für unseren Zweck gleichgültig.)
+    \item \emph{Identifikation des Artikels,
+        der in einer bestimmten Dimension einen maximalen Wert in Form einer natürlichen Zahl hat}
+        (Es ist z.B. egal,
+        ob es der beste Artikel im Sinne der Verkaufshäufigkeit
+        oder der Gewinnmarge in Cent ist.)
+    \item \emph{Identifikation des Maximums in einer Menge natürlicher Zahlen}
+        (Es ist egal, ob wir das Maximum in einer Liste von Artikel oder anderer Objekte suchen.)
 \end{enumerate}
 
-Am Ende des Prozesses kommen wir auf den Kern des \textbf{MAX}-Problems:
+Wie wir im Laufe des Skriptes sehen werden, ist die letzte Formulierung des Problems die 
+wesentliche Vorstufe, um die Methoden der theoretischen Informatik anzuwenden.\footnote{
+Es ist wie gesagt möglich,
+dass dieses abstrakte Problem nicht das richtige Resultat für einen anderen Zweck ist.
+Für die Filialleiter:innen mag es wesentlich sein,
+nach welcher Dimension der ``beste'' Artikel bestimmt wird.
+Oder die Ausgabe sollte nicht nur die maximale Zahl sein, sondern die IDs der
+fünf besten Artikel.
+Wie man Abstraktionen im Sinne der Software Entwicklung einsetzen kann,
+lehrt die Disziplin des Software Engineerings.}
+Wir kommen so auf den Kern des \textbf{MAX}-Problems:
 \begin{itemize}
-    \item \textbf{Gegeben:} Eine n-stelliger Tupel von Zahlen
-    \item \textbf{Gesucht:} Die größte Zahl aus dem Tupel 
+    \item \textbf{Gegeben:} Eine Liste von natürlichen Zahlen
+    \item \textbf{Gesucht:} Die größte Zahl aus der Liste
 \end{itemize}
+Diese Form der Problemangabe, also ``Gegeben/gesucht wollen wir'' \emph{informell} nennen.
+Dabei ist für die informelle Angabe wichtig,
+sowohl den Typ des (potentiell komplexen) Eingabewerts,
+als auch des (potentiell komplexen) Ausgabewerts zu spezifizieren.
+Mit der informellen Problemangabe lassen sich bereits drei sehr grundlegende Fragen stellen:
+\begin{enumerate}
+    \item Wie muss \textbf{MAX} dargestellt sein, damit eine Maschine es lösen kann?\\ 
+        In anderen Worten: Wie kann \textbf{MAX} \emph{formalisiert} werden? 
+    \item Kann eine Maschine \textbf{MAX} überhaupt lösen?\\
+        In anderen Worten: Ist \textbf{MAX} \emph{berechenbar}?  
+    \item Wie effizient kann eine Maschine \textbf{MAX} lösen?\\
+        In anderen Worten: Wie \emph{komplex} ist \textbf{MAX}?
+\end{enumerate}
+Diese Fragen werden jeweils von den drei grundlegenden Teildisziplinen
+der theoretischen Informatik behandelt:
+\begin{enumerate}
+    \item Die \textbf{Theorie der formalen Sprachen und Automaten}
+    \item Die \textbf{Berechenbarkeitstheorie}
+    \item Die \textbf{Komplexitätstheorie}
+\end{enumerate}
 
-Es gibt keinen einfachen und eindeutigen Weg von einer Userstory
-zu einem abstrakten Problem zu kommen.
-Aber jede der möglichen Abstraktionen wird letztlich in dieser Form resultieren:
+Der Rest des Skriptes wird in die grundlegenden Ergebnisse dieser drei Teildisziplinen einführen,
+ihre Wechselwirkung beschreiben
+und die Anwendung ihrer Methoden auf die eingangs erwähnten Userstories erläutern.
+Dabei werden wir natürlich nicht nur \textbf{MAX} behandeln, sondern uns generell fragen,
+welche Probleme formalisiert, überhaupt berechnet und effizient berechnet werden können.
+Zunächst wollen wir uns aber noch eine beispielhafte Formalisierung von \textbf{MAX}
+anschauen, um dabei gleich weitere grundlegende Begriffe der theoretischen Informatik
+einzuführen.
+
+\section{Formalisierung}
+\noindent
+Die informelle Angabe des \textbf{MAX}-Problems legt nahe, dass wir nach einer Möglichkeit suchen
+eine Funktion zu berechnen:
 \begin{itemize}
-    \item \textbf{Gegeben:} Ein (potentiell komplexer) Eingabewert
-    \item \textbf{Gesucht:} Ein (potentiell komplexer) Ausgabewert
+    \item Der Definitionsbereich der Funktion ist die Menge aller Listen von natürlichen Zahlen,
+        die wir mit $\cal{N}$ bezeichnen wollen.
+    \item Der Wertebereich der Funktion ist die Menge der natürlichen Zahlen, $\mathbb{N}$.
 \end{itemize}
-Diese Form der Problemangabe wollen wir ''informell'' nennen.
-
-Es ist durchaus möglich,
-dass wir die falschen Dimensionen für den Anwendungsfall wegabstrahieren.
-Wie man dies verhindern kann, lehrt die Disziplin des Software Engineerings.
-Für unsere Betrachtung wollen wir aber davon ausgehen,
-dass das Finden des Maximums aus einer Menge an Zahlen
-- sagen wir der Einfachheit halber der natürlichen Zahlen -
-exakt der Kern des \textbf{MAX}-Problems ist.
-
-Wenn wir das Problem in der Form ``Gegeben/Gesucht'' angeben, entspricht es einer Funktion:
-$f_{MAX}: \mathcal{P}(\mathbb{N}) \rightarrow \mathbb{N}$.
-Aus einer (endlichen) Teilmenge der natürlichen Zahlen wollen wir die Zahl,
-die größer ist, als alle anderen Zahlen.\footnote{
-
-dass 
-
-
-
-
-
+Gesucht ist also $f_{MAX}: \cal{N} \rightarrow \mathbb{N}$.
+Eine einfache Lösung die Funktion
+Naiverweise wäre die einfachste Lösung für alle möglichen Listen an natürlichen Zahlen
+das Maximum 
 
 
 
@@ -131,7 +175,8 @@ Für \textbf{MAX} hieße das z.B.:
 \begin{itemize}
     \item Eingabe: $\{0, 1\} \rightarrow 1$
     \item Eingabe: $\{0, 2\} \rightarrow 2$
-    \item ... 
+    \i
+tem ... 
     \item Eingabe: $\{0, 1, 2, 3\} \rightarrow 3$
     \item ... 
 \end{itemize}
@@ -147,7 +192,7 @@ denn sie wüssten, wie man ein informelles Problem
 in der präferierten Programmiersprache lösen kann.
 Welche Form die theoretische Informatik verlangt, soll im nächsten Abschnitt diskutiert werden.
 
-\section{Formalisierung}
+
 
 Die Informatik ist die Wissenschaft der maschinellen Informationsverarbeitung,
 daher ist es sinnvoll zu überlegen,
@@ -309,39 +354,6 @@ wo eine Zahl anfängt und die nächste beginnt.
 Dies kann mit der folgenden Kodierung erreicht werden: 
 $Bin_{SET}:$ 
 
-
-
-
-
-
-
-\section{Weitere Werkzeuge der theoretischen Informatik}
-
-\section{Drei grundlegende Fragen}
-Zusammen mit dem Begriff eines Problems und seiner Formalisierung ist also der
-\emph{Berechenbarkeitsbegriff} im Herzen dieses Skriptes.
-Wir hätten auch andere Begriff auswählen können, um in die Ideen der theoretischen Informatik einzuführen:
-Formale Sprachen, Automaten, Information, Aufwand, Überprüfbarkeit wären solche Kandidaten gewesen.
-Das Problem und die Berechenbarkeit erlauben uns aber eine ganz Praxis-nahe Einführung.
-Die anderen Begriffe werden wir in diesem Skript streifen, aber nicht in den Fokus setzen.
-
-Mit unseren beiden Kernbegriffen können wir die drei Grundfragen dieses Skriptes stellen:
-\begin{enumerate}
-    \item Was lässt sich effizient berechnen?
-    \item Was lässt sich überhaupt berechnen?
-    \item Welche Rolle spielt die Formalisierung der Berechenbarkeit für die zwei ersten Fragen?
-\end{enumerate}
-
-Diese drei Fragen korrespondieren zu drei Grunddisziplinen der theoretischen Informatik:
-\begin{enumerate}
-    \item Komplexitätstheorie
-    \item Berechenbarkeitstheorie
-    \item Theorie der formalen Sprachen und der Automaten
-\end{enumerate}
-
-Im Rest des Skriptes werden wir die drei Fragen bearbeiten und
-dabei die drei Grunddsiziplinen und ihre Fragestellungen, Ergebnisse und Methodiken kennenlernen.
-Wir haben diese Probleme in zwei Schritten erst abstrahiert und dann kodiert:
 \begin{enumerate}
     \item \emph{Abstraktion:}
         \\\textbf{Gegeben:} Eine Datenstruktur
@@ -380,30 +392,3 @@ Der letzte Schritt ist nun, die \emph{gesamte} Funktion zu formalisieren, also e
 für \textbf{MAX} anzugeben.
 Dazu müssen wir eine binäre Kodierung von Tupeln von Binärdaten einführen.
 Eine simple Variante wäre die folgende Kodierung:
-
-\section{Weitere Werkzeuge der theoretischen Informatik}
-
-\section{Drei grundlegende Fragen}
-Zusammen mit dem Begriff eines Problems und seiner Formalisierung ist also der
-\emph{Berechenbarkeitsbegriff} im Herzen dieses Skriptes.
-Wir hätten auch andere Begriff auswählen können, um in die Ideen der theoretischen Informatik einzuführen:
-Formale Sprachen, Automaten, Information, Aufwand, Überprüfbarkeit wären solche Kandidaten gewesen.
-Das Problem und die Berechenbarkeit erlauben uns aber eine ganz Praxis-nahe Einführung.
-Die anderen Begriffe werden wir in diesem Skript streifen, aber nicht in den Fokus setzen.
-
-Mit unseren beiden Kernbegriffen können wir die drei Grundfragen dieses Skriptes stellen:
-\begin{enumerate}
-    \item Was lässt sich effizient berechnen?
-    \item Was lässt sich überhaupt berechnen?
-    \item Welche Rolle spielt die Formalisierung der Berechenbarkeit für die zwei ersten Fragen?
-\end{enumerate}
-
-Diese drei Fragen korrespondieren zu drei Grunddisziplinen der theoretischen Informatik:
-\begin{enumerate}
-    \item Komplexitätstheorie
-    \item Berechenbarkeitstheorie
-    \item Theorie der formalen Sprachen und der Automaten
-\end{enumerate}
-
-Im Rest des Skriptes werden wir die drei Fragen bearbeiten und
-dabei die drei Grunddsiziplinen und ihre Fragestellungen, Ergebnisse und Methodiken kennenlernen.
