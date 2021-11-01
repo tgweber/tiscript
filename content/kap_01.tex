@@ -5,7 +5,8 @@ Die kurze Antwort: Sie liefert einen wesentlichen Teil des Handwerkszeugs,
 um die Potentiale und Grenzen der technischen Informationsverarbeitung zu umreißen.
 Die lange Antwort soll dieses Skript geben.
 
-Das Skript wurde begleitend zur Veranstaltung ''Theoretische Informatik für Wirtschaftsinformatiker''
+Das Skript wurde begleitend zur Veranstaltung
+''Theoretische Informatik (Wirtschaftsinformatik)''
 an der DHBW Heilbronn erstellt.
 Wir folgen in diesem Skript einem kartesischen Ansatz:
 Wir gehen vom maximalen Zweifel aus und setzen die theoretische Informatik
@@ -16,21 +17,23 @@ Wir beginnen mit der Feststellung, dass uns als Informatiker:innen die Nützlich
 eines Werkzeugs dann einleuchtet, wenn es hilft Probleme zu lösen.
 Daher ist der Problembegriff im Mittelpunkt dieses Skripts.
 
-Was also ist ein Problem?
+Was also ist ein Problem im Sinne der (theoretischen) Informatik?
 Bevor wir diese Frage grundlegend beantworten können,
 ist es hilfreich ein paar Probleme kennen zu lernen,
-wie sie im IT-Alltag auftreten können.
+wie sie als Aufgaben im IT-Alltag auftreten können.
 
 \section{Probleme}
-Wir werden nun ein paar alltägliche Probleme als Userstories wiedergeben.
+Aufgaben, die viele IT-Fachkräfte Tag für Tag bearbeiten,
+werden oft als Userstories dokumentiert.
 Eine Userstory wird in der agilen Softwareentwicklung genutzt um Anforderungen zu spezfizieren.
-Es folgt typischerweise diesem Format:
+Eine Userstory ist typischerweise in diesem Format angegeben:
 ''Als \textless Rolle\textgreater\ möchte ich \textless Feature\textgreater,
 um \textless Ziel\textgreater\ zu erreichen.''
+Diese Beispiele sollen uns im Skript begleiten:
 
 \begin{itemize}
-    \item \textbf{MAX}: Als Filialleiter:in möchte ich den besten Artikel kennen,
-        um meine Lieferungen zu optimieren.
+    \item \textbf{MAX}: Als Filialleiter:in möchte ich den Artikel mit der höchsten Gewinnmarge
+        kennen, um meine Lieferungen zu optimieren.
     \item \textbf{MATCH}: Als Einkaufsmanager:in möchte ich,
         dass nur valide Lieferanten-IDs gespeichert werden,
         um Fehler in der Datenbank zu vermeiden.
@@ -45,9 +48,8 @@ um \textless Ziel\textgreater\ zu erreichen.''
         um die Vertraulichkeit der Absprachen zu garantieren.
 \end{itemize}
 
-Alle Probleme treten in einer Form auf,
-wie sie viele IT-Angestellten täglich vorfinden, dann analysieren und schließlich lösen müssen.
-Die theoretische Informatik kann auch einiges über diese Probleme sagen:
+Mit den Methoden der theoretischen Informatik ausgerüstet,
+kann man einiges über diese Alltags-Probleme sagen:
 \begin{itemize}
     \item Mindestens ein Problem ist sehr schwer zu lösen.
     \item Mindestens ein Problem ist sehr einfach zu lösen.
@@ -58,12 +60,16 @@ Die theoretische Informatik kann auch einiges über diese Probleme sagen:
 Am Ende dieses Skriptes soll klar sein, welches dieser Probleme in welche dieser Kategorien fällt.
 An diesem Punkt im Text wollen wir uns aber zunächst damit begnügen,
 dass ein Fach Nutzen bringt, dass es erlaubt, diese Probleme auf einen Blick als leicht oder
-schwer, unlösbar oder von unbekannter Komplexität zu kategorisieren.
+schwer oder unlösbar zu kategorisieren.
+
+Eine Userstory ist jedoch keine geeignete Form,
+um die Methoden der theoretischen Informatik anzuwenden.
+Was hier noch zu tun ist, soll im nächsten Abschnitt besprochen werden.
 
 \section{Abstraktion}
 
 Um die Userstories aus dem vorigen Absatz für die Bearbeitung mit den Methoden der
-theoretischen Informatik vorzubereiten ist noch etwas an Arbeit notwendig.
+theoretischen Informatik vorzubereiten ist noch einiges an Arbeit notwendig.
 Ein grundlegendes Instrument der Informatik (nicht nur der Theoretischen) 
 ist die \emph{Abstraktion}, also die ausschließliche Betrachtung der Aspekte eines Sachverhalts,
 die für einen gegebenen Zweck wesentlich sind.
@@ -71,33 +77,33 @@ Mit der Abstraktion kommen wir also von einer sehr speziellen Aufgabenbeschreibu
 wie einer Userstory, zu einem abstrakten Problem.
 
 Es gibt leider keinen einfachen und eindeutigen Weg
-duch Abstraktion zu einem abstrakten Problem zu kommen.
+duch Abstraktion von einer Userstory zu einem abstrakten Problem zu kommen.
 Dafür sind intellektuelle Kreativität und ein gutes Verständnis des gegebenen Zwecks notwendig.
-Ein möglicher Fehler ist z.B. zu wenige Aspeke auszulassen,
+Ein möglicher Fehler ist z.B. zu wenige Aspekte auszulassen,
 so dass das abstrakte Problem nicht so einfach wie möglich ist. 
 Ebenso ist es ein Fehler, zu viele Aspekte auszulassen,
 so dass das abstrakte Problem nicht so detailreich wie nötig ist,
 um dem gegebenen Zweck gerecht zu werden.
 
 Die Behandlung von Problemen mit den Methoden der theoretischen Informatik
-ist der gegebene Zweck dieses Skriptes. 
+ist der Zweck, den wir verfolgen. 
 Diesen muss man von den Zielen unterscheiden,
-die durch die Formulierung und Bearbeitung der Userstories verfolgt werden.
+derentwegen die Userstories formuliert wurden.
 Die Zwecke können sich überschneiden, sind aber voneinander zu unterscheiden.\\
 
 \noindent
 So könnte eine Abstraktion für das \textbf{MAX}-Problem aussehen:
 \begin{enumerate}
-    \item \emph{Als Filialleiter:in möchte ich den besten Artikel kennen,
+    \item \emph{Als Filialleiter:in möchte ich den Artikel mit der höchsten Gewinnmarge kennen,
         um meine Lieferungen zu optimieren} (ursprüngliche Userstory).
-    \item \emph{Identifikation des besten Artikels}
+    \item \emph{Identifikation des Artikels mit der höchsten Gewinnmarge}
         (Wer den besten Artikel aus welchem Grund kennen will,
         ist für unseren Zweck gleichgültig.)
     \item \emph{Identifikation des Artikels,
-        der in einer bestimmten Dimension einen maximalen Wert in Form einer natürlichen Zahl hat}
+        der aus einer Menge an Artikeln einen maximalen Wert in Form einer natürlichen Zahl hat}
         (Es ist z.B. egal,
         ob es der beste Artikel im Sinne der Verkaufshäufigkeit
-        oder der Gewinnmarge in Cent ist.)
+        oder der mit der höchsten Gewinnmarge in Cent ist.)
     \item \emph{Identifikation des Maximums in einer Menge natürlicher Zahlen}
         (Es ist egal, ob wir das Maximum in einer Liste von Artikel oder anderer Objekte suchen.)
 \end{enumerate}
@@ -114,10 +120,10 @@ Wie man Abstraktionen im Sinne der Software Entwicklung einsetzen kann,
 lehrt die Disziplin des Software Engineerings.}
 Wir kommen so auf den Kern des \textbf{MAX}-Problems:
 \begin{itemize}
-    \item \textbf{Gegeben:} Eine Liste von natürlichen Zahlen
-    \item \textbf{Gesucht:} Die größte Zahl aus der Liste
+    \item \textbf{Gegeben:} Ein Tupel von natürlichen Zahlen
+    \item \textbf{Gesucht:} Die größte Zahl aus dem Tupel
 \end{itemize}
-Diese Form der Problemangabe, also ``Gegeben/gesucht wollen wir'' \emph{informell} nennen.
+Diese Form der Problemangabe (Gegeben/Gesucht) wollen wir \emph{informell} nennen.
 Dabei ist für die informelle Angabe wichtig,
 sowohl den Typ des (potentiell komplexen) Eingabewerts,
 als auch des (potentiell komplexen) Ausgabewerts zu spezifizieren.
@@ -130,8 +136,11 @@ Mit der informellen Problemangabe lassen sich bereits drei sehr grundlegende Fra
     \item Wie effizient kann eine Maschine \textbf{MAX} lösen?\\
         In anderen Worten: Wie \emph{komplex} ist \textbf{MAX}?
 \end{enumerate}
-Diese Fragen werden jeweils von den drei grundlegenden Teildisziplinen
-der theoretischen Informatik behandelt:
+Diese Fragen können wir natürlich nicht nur für \textbf{MAX} stellen.
+Auch die anderen Userstories von oben lassen sich in eine informelle Form bringen,
+die diese Art der Fragestellung erlaubt.
+Es gibt drei grundlegenden Teildisziplinen der theoretischen Informatik,
+die Antworten auf diese Fragen geben können und deren Rahmenbedingungen untersuchen:
 \begin{enumerate}
     \item Die \textbf{Theorie der formalen Sprachen und Automaten}
     \item Die \textbf{Berechenbarkeitstheorie}
@@ -147,85 +156,99 @@ Zunächst wollen wir uns aber noch eine beispielhafte Formalisierung von \textbf
 anschauen, um dabei gleich weitere grundlegende Begriffe der theoretischen Informatik
 einzuführen.
 
-\section{Formalisierung}
-\noindent
-Die informelle Angabe des \textbf{MAX}-Problems legt nahe, dass wir nach einer Möglichkeit suchen
-eine Funktion zu berechnen:
-\begin{itemize}
-    \item Der Definitionsbereich der Funktion ist die Menge aller Listen von natürlichen Zahlen,
-        die wir mit $\cal{N}$ bezeichnen wollen.
-    \item Der Wertebereich der Funktion ist die Menge der natürlichen Zahlen, $\mathbb{N}$.
-\end{itemize}
-Gesucht ist also $f_{MAX}: \cal{N} \rightarrow \mathbb{N}$.
-Eine einfache Lösung die Funktion
-Naiverweise wäre die einfachste Lösung für alle möglichen Listen an natürlichen Zahlen
-das Maximum 
-
-
-
-In diesem Sinne können wir das Problem darstellen,
-indem wir alle Eingabe- und Ausgabewerte so aufzählen,
-dass die Ausgabewerte eine ``Lösung'' für die Eingabewerte sind.
-Da die Reihenfolge für die gegebenen Werte irrelevant sind,
-können wir sie als Menge darstellen.
-
-
-
-Für \textbf{MAX} hieße das z.B.:
-\begin{itemize}
-    \item Eingabe: $\{0, 1\} \rightarrow 1$
-    \item Eingabe: $\{0, 2\} \rightarrow 2$
-    \i
-tem ... 
-    \item Eingabe: $\{0, 1, 2, 3\} \rightarrow 3$
-    \item ... 
-\end{itemize}
 Wir halten fest, dass die Abstraktion ein Werkzeug ist,
 Probleme auf ihren Kern zu reduzieren.
 Diese abstrakte, informelle Form des Problems hat genau den Umfang,
 der so klein wie möglich und so groß wie nötig ist.
 
-Allerdings haben wir das \textbf{MAX}-Problem noch nicht in der Form angegeben,
-die nötig ist, um es mit den Werkzeugen der theoretischen Informatik zu bearbeiten.
-Software-Entwickler:innen wären mit unserem Zwischenergebnis vielleicht schon zufrieden,
-denn sie wüssten, wie man ein informelles Problem
-in der präferierten Programmiersprache lösen kann.
-Welche Form die theoretische Informatik verlangt, soll im nächsten Abschnitt diskutiert werden.
+\section{Formalisierung}
+\noindent
+Die informelle Angabe des \textbf{MAX}-Problems legt nahe, dass wir nach einer Möglichkeit suchen
+eine Funktion zu berechnen:
+\begin{itemize}
+    \item Der Definitionsbereich der Funktion ist die Menge aller Tupel von natürlichen Zahlen,
+        die wir mit $\cal{N}$ bezeichnen wollen.
+        Wir nutzen das Zeichen $\nu$,
+        um einen beliebigen Tupel $\nu \in \cal{N}$ zu bezeichnen.
+    \item Der Wertebereich der Funktion ist die Menge der natürlichen Zahlen, $\mathbb{N}$.
+        Wir nutzen das Zeichen $n$,
+        um eine beliebige natürliche Zahl $n \in \mathbb{N}$ zu bezeichnen.
+\end{itemize}
+Gesucht ist also $f_{MAX}: \cal{N} \rightarrow \mathbb{N}$.
+Es gilt zum Beispiel:
+\begin{itemize}
+    \item Sei $\nu = [2,3]$ und $n = 3$,
+        dann gilt: $[[2,3],3] \in f_{MAX}$.
+    \item Sei $\nu = [2,3]$ und $n = 2$,
+        dann gilt: $[[2,3],2] \notin f_{MAX}$.\footnote{
+            TODO: Verweis auf \ref{relationenUndFunktionen} um zu erklären,
+            dass Funktionen eine Menge von rechtseindeutigen Tupeln sind.}
+\end{itemize}
 
+\noindent
+Wie finden wir einen Mechanismus oder eine Maschine, die $f_{MAX}$ berechnet?
 
+Die einfachste Lösung wäre eine große Tabelle, die uns für jedes $\nu$
+das jeweilige Maximum $n$ ablesen lässt.
+Das wäre zwar nicht sonderlich Zeit-effizient,
+da wir viele Vergleiche anstellen müssten,
+ob unser gegebenes $\nu$ mit einem Tabelleneintrag übereinstimmt,
+aber immerhin wäre die Methode Zeit-effektiv, 
+d.h. nach endlich vielen Schritten hätten wir ein Ergebnis.
+Allerdings ist $\cal{N}$ so groß,
+dass die angenommene Anzahl der Atome in unserem Universum nicht ausreicht,
+um alle Einträge der Tabelle zu verwirklichen.
+Die Methode ist also auch nicht Platz-effizient und nur dann Platz-effektiv,
+wenn wir unendlich viel Platz zur Verfügung haben.
 
-Die Informatik ist die Wissenschaft der maschinellen Informationsverarbeitung,
-daher ist es sinnvoll zu überlegen,
-wie Informationen Input für eine bzw. Output von einer Maschine sein können.
-Ein einfaches Modell ist die Tastatur und der Bildschirm:
-Eine endliche Menge von Zeichen (die Knöpfe der Tastatur) werden übersetzt in eine
-endliche Menge von Zeichen (die Pixel eines Bildschirms).
+Ein weiterer Ansatz $f_{MAX}$ zu berechnen,
+wäre eine Maschine zu erfinden, der wir $\nu$ übergeben,
+und die uns $n$ zurückgibt.
+Es wäre demnach zu zeigen, ob die Maschine die Aufgabe in endlicher Zeit
+und mit endlichen Platz-Ressourcen bewältigen kann.
+%Wir könnten die Maschine von der Bedienung her noch ein Stück einfacher gestalten
+%und ihr direkt $\nu$ und $n$ übergeben und eine Lampe oder ein Schalter 
+%(oder eine andere binäre Ausgabe) zeigt an, ob $[\nu, n] \in f_{MAX}$.
+Nehmen wir in einem Gedankenexperiment an, wir hätten eine solche Maschine erfunden.
+Wie müssten wir den Input und Output der Maschine gestalten,
+d.h. in welche Form müssten wir das \textbf{MAX}-Problem bringen,
+dass die Maschine es lesen kann und wir den Output wieder verstehen können? 
+
+Ein zugängliches Modell für den Input ist die Tastatur und der Bildschirm:
+Eine endliche Menge von Zeichen (angezeigt durch Drücken der Knöpfe einer Tastatur)
+werden von der Maschine übersetzt in eine Reaktion der Maschine 
+(angezeigt durch die Pixel einer digitalen Ausgabe).
 Tatsächlich werden die meisten Informationen,
 die eine Maschine oder ein Computer verarbeiten,
-maschinen-intern in eine sehr kleine Menge an Zeichen übersetzt:
+intern in eine sehr kleine Menge an Zeichen übersetzt:
 in Zeichenfolgen bestehend aus Nullen und Einsen.
+Tastaturen und Bildschirme machen uns die Interaktion mit der Maschine einfacher,
+allerdings sind sie für die Maschine selbst nicht nötig
+(unsere Tastatur könnte also nur drei Knöpfe beinhalten: 0, 1 und die Enter-Taste,
+die Ausgabe könnte ein Drucker sein, der 0 und 1 auf ein Papierband schreibt).
 
-Wir kodieren also Zahlen, Videos, Bilder, Musik, Texte, im Allgemeinen alle Datenstrukturen
-und Ausgabewerte als Folgen von Nullen und Einsen,
-also als binäre Zeichenfolgen.
-Ebenso werden Anweisungen, was mit diesen binären Daten passieren soll,
-als binäre Zeichenfolgen kodiert.
+%IT-Systeme kodieren Zahlen, Videos, Bilder, Musik, Texte, im Allgemeinen alle Datenstrukturen
+%und Ausgabewerte als Folgen von Nullen und Einsen,
+%also als binäre Zeichenfolgen.
+%Ebenso werden Anweisungen, was mit diesen binären Daten passieren soll,
+%als binäre Zeichenfolgen kodiert.
+
 Ganz allgemein könnte man also sagen, dass alle Probleme, die ein Computer lösen soll,
 sich in diese Form bringen lassen:
 \begin{itemize}
     \item \textbf{Gegeben:} Eine binäre Zeichenfolge.
     \item \textbf{Gesucht:} Eine binäre Zeichenfolge.
 \end{itemize}
-
-Wie lässt sich nun aber eine Zeichenfunktion so darstellen,
-dass unsere Probleme adäquat repräsentiert sind?
-Damit wir dies erreichen,
+%Oder eben gegeben als Funktion $f: \mathcal{P}(\{0,1\}) \rightarrow \{0,1\}$
+Übertragen auf \textbf{MAX} müssen wir eine binäre Repräsentation von $\nu$ und $n$ finden.
+Damit wir dies auf eine methodische Art und Weise erreichen
+und die gefundenen Methoden später von \textbf{MAX} auf andere Probleme übertragen können,
 müssen wir zunächst noch einige Begriffe definieren und Konventionen einführen.
 
 \subsection{Zeichen}
 
 Eine Menge von Zeichen bezeichnen wir als \emph{Alphabet}, kurz: $\Sigma$.
-Z.B.: $\Sigma = \{0,1\}$.\\
+Zum Beispiel wäre das Alphabet für die meisten IT-Systeme: $\Sigma = \{0,1\}$.\\
 
 \noindent
 Wir verwenden diese Variablen für Zeichen: $a,b,c$;
@@ -238,8 +261,7 @@ wird $\Sigma$ also auch als Variable für (irgend) ein Alphabet verwendet.}\\
 Eine Operation auf den Zeichen ist die \emph{Konkatenation},
 also die Verbindung von zwei Zeichen, z.B. $01$.
 Wie bei der Multiplikation mit Variablen in der Mathematik üblich,
-wird die Konketanation nicht explizit mit einem eigenen Zeichen repräsentiert,
-dennoch ist sie formal eine Operation.
+wird die Konketanation nicht explizit mit einem eigenen Zeichen repräsentiert.
 
 \subsection{Worte}
 Das Ergebnis einer beliebig oft ausgeführten Konkatenation,
@@ -253,8 +275,8 @@ bezeichnen wir als \emph{Kleensche Hülle}, dargestellt als Stern: $\Sigma^*$.\\
 
 \noindent
 Wir verwenden diese Variablen für Worte:
-$w, x, y, z$; wenn wir diese Buchstaben verwenden und nichts anderes angeben,
-gilt implizit: $w, x, y, z \in \Sigma^*$.\\
+$u, v, w, x, y, z$; wenn wir diese Buchstaben verwenden und nichts anderes angeben,
+gilt implizit: $u, v, w, x, y, z \in \Sigma^*$.\\
 
 \noindent
 Die \emph{Länge} eines Wortes ist die Anzahl seiner Zeichen.
@@ -296,7 +318,8 @@ Man müsste also eigentlich das natursprachliche $Wort_N$ von dem formalen $Wort
 das wir oben eingeführt haben.
 Eine Crux aller formal arbeitenden Wissenschaften ist,
 dass die Menge an Zeichen und Begriffen begrenzt ist und daher Doppeldeutigkeiten auftreten.
-Im Kontext dieses Skriptes ist ein Wort meist im formalen Sinne gemeint.
+Wir müssen also durch Konventionen klären, welche Bedeutung wir einem Begriff geben wollen:
+Im Kontext dieses Skriptes bezeichnen wir mit dem Begriff Wort die Zeichenfolge, also $Wort_F$.
 Sollte dies nicht der Fall sein und der Kontext nicht ausreichen,
 um zwischen beiden Bedeutungen zu unterscheiden,
 werden wir die subskribierten Varianten verwenden.
@@ -317,23 +340,29 @@ gilt implizit $L \subseteq \Sigma^*$ für ein gegebenes $\Sigma$.\\
 Da Sprachen Mengen sind,
 sind alle mengentheoretischen Operationen\footnote{siehe \autoref{mengenlehre}}
 auf Sprachen definiert,
-z.B. $L_1 \cap L_2 = \{w | w \in L_1 \wedge w \in L_2\}$
-bezeichnet die Schnittmenge zweier Sprachen, also alle Wörter,
+z.B. bezeichnet $L_1 \cap L_2 = \{w | w \in L_1 \wedge w \in L_2\}$
+die Schnittmenge zweier Sprachen, also alle Wörter,
 die sowohl Element von $L_1$ als auch von $L_2$ sind.
 
 \subsection{Probleme als Sprachen}
 Mit den oben eingeführten Begriffen können
-wir nun ein Problem im Sinne der theoretischen Informatik
-\emph{formalisiert} einführen.
-Die grundlegende Idee dabei: Ein Problem lässt sich durch eine formale Sprache repräsentieren,
-d.h. wir finden zu einem Problem eine Sprache, die der folgenden bekannten informellen
-Darstellung entspricht:
-\begin{itemize}
-    \item \textbf{Gegeben:} Eine binäre Zeichenfolge. 
-    \item \textbf{Gesucht:} Eine binäre Zeichenfolge.
-\end{itemize}
-Um nun ein Problem wie \textbf{MAX} als binäre Zeichenfolge darstellen zu können,
-müssen wir zunächst eine Binärkodierung für Zahlen finden:
+wir nun ein Problem wie \textbf{MAX} im Sinne der theoretischen Informatik
+\emph{formalisiert} spezifizieren.
+Die grundlegende Idee dabei: Ein Problem lässt sich durch eine formale Sprache repräsentieren. 
+Die formale Sprache besteht dabei aus der binären Repräsentation genau der Paare $\nu$, $n$,
+für die gilt $[\nu, n] \in f_{MAX}$. 
+Die Sprache ist also der großen Tabelle nicht unähnlich,
+in der man die ``richtigen'' $n$-Werte ablesen kann.
+Wir wissen, dass diese Sprache unendlich viele Wörter hat und dass es unwirtschaftlich wäre
+die Sprache wirklich aufzuschreiben (wir würden nie fertig werden).
+Perspektivisch müssen wir also nach endlichen Methoden suchen,
+(potentiell) unendliche Sprachen zu verarbeiten.
+
+Wie genau können wir aber ein Problem wie \textbf{MAX}
+als Menge binärer Zeichenfolgen darstellen?
+Bisher haben wir ja mit $\cal{N}$ und $\mathbb{N}$ mehr als zwei Zeichen genutzt:
+also $\Sigma = \{0,1,2,3,4,5,6,7,8,9,[,],``,''\}$
+Dafür müssen wir zunächst eine Binärkodierung für Zahlen finden:
 $Bin_{LE}: \mathbb{N} \rightarrow \{0,1\}$
 Die Little Endian Dual-Kodierung erfüllt diese Anforderung,
 also die Repräsentation von natürlichen Zahlen bei der
@@ -347,48 +376,80 @@ $
 $.\footnote{TODO: Füge Ressource hinzu, die Dual-Kodierung und LE/BE erklärt;
 entweder als Referenz oder in Kapitel 1}
 
+Mit $Bin_{LE}$ können wir $\Sigma$ auf die folgende Menge reduzieren: $\{0, 1, [, ], ``,''\}$.
 Damit wir nun nicht nur einfache Zahlen, sondern auch Zahlenfolgen kodieren können,
 müssen wir noch eine weitere Kodierung einführen,
 die es erlaubt an einer binärem Wort zu erkennen,
 wo eine Zahl anfängt und die nächste beginnt.
 Dies kann mit der folgenden Kodierung erreicht werden: 
-$Bin_{SET}:$ 
+$Bin_{TUPLE}:$ 
 
-\begin{enumerate}
-    \item \emph{Abstraktion:}
-        \\\textbf{Gegeben:} Eine Datenstruktur
-        \\\textbf{Gesucht:} Ein Ausgabewert
-    \item \emph{Kodierung:}
-        \\\textbf{Gegeben:} Eine Zeichenfolge, die eine Datenstruktur kodiert.
-        \\\textbf{Gesucht:} Eine Zeichenfolge, die einen Ausgabewert kodiert.
-\end{enumerate}
-Der letzte Schritt ist nun das gesamte Gegeben/Gesucht-Paar
-als Menge von Worten zu \emph{formalisieren},
-was wir am Beispiel von \textbf{MAX} zeigen wollen:
-\begin{enumerate}
-    \item \emph{Abstraktion:}
-        \\\textbf{Gegeben:} Eine Liste von Zahlen, z.B.: $\{1,2,3,4\}$
-        \\\textbf{Gesucht:} Die größte Zahl der Liste, z.B. $4$.
-    \item \emph{Kodierung:}
-        \\\textbf{Gegeben:} Eine binäre Kodierung einer Menge von Zahlen, z.B.:
-        \\$\{001, 010, 011, 100\}$
-        \\\textbf{Gesucht:} Eine binäre Kodierung der größten Zahl aus der Menge, z.B.:
-        \\$100$
-\end{enumerate}
-
-Formal können wir \textbf{MAX} also als eine ''Auswahl-Funktion'' aus einer Menge begreifen,
-sodass gerade das Element ausgewählt wird, dass am größten ist.
-Eine Funktion $f: D \rightarrow W$ lässt sich mengentheoretisch als Menge von Tupeln auffassen,
-so dass gilt $f = \{[d,w]|d \in D \wedge w \in W\}$.
-
-\noindent
-Für unser Beispiel von oben gilt dann also
 \begin{itemize}
-    \item $[\{1,2,3,4\},4] \in \bf{MAX}$, bzw.:
-    \item $[\{001, 010, 011, 100\}, 100] \in \bf{MAX}$
+    \item $Bin_{TUPLE}(0) = 00$
+    \item $Bin_{TUPLE}(1) = 01$
+    \item $Bin_{TUPLE}(,) = 11$
+\end{itemize}
+Z.B. ist $Bin_{TUPLE}(11,10,01,00) = 0101$ $11$ $0100$ $11$ $0001$ $11$ $0000$.
+Damit haben wir $\Sigma$ auf vier Zeichen reduziert: $\{0,1,[,]\}$.
+Wir könnten nun eine geeignete binäre Repräsentation von Tupeln finden,
+um beliebige Tiefen in der Schachtelung zu realisieren.
+Allerdings gibt es eine einfachere Möglichkeit: Konvention.
+Wir legen fest, dass die letzte binär kodierte Zahl $n$ entspricht,
+alle anderen binär kodierten Zahlen gehören zu $\nu$.
+
+Für die Sprache $L_{MAX}$, die das Problem \textbf{MAX} kodiert oder auch repräsentiert,
+können wir also folgende Aussagen treffen:
+\begin{itemize}
+    \item $0100$ $11$ $0101$ $11$ $0101$ $\in L_{MAX}$, da $f_{MAX}([[2,3]) = 3$
+    \item $0100$ $11$ $0101$ $11$ $0100$ $\notin L_{MAX}$, da $f_{MAX}([[2,3]) \neq 2$
 \end{itemize}
 
-Der letzte Schritt ist nun, die \emph{gesamte} Funktion zu formalisieren, also eine Kodierung
-für \textbf{MAX} anzugeben.
-Dazu müssen wir eine binäre Kodierung von Tupeln von Binärdaten einführen.
-Eine simple Variante wäre die folgende Kodierung:
+Sind nun Probleme identisch mit den formalen Sprachen, die sie repräsentieren? 
+Die Antwort auf diese Frage hat sehr viele philosophische Implikationen,
+die wir nicht im Rahmen dieses Skriptes behandeln können.\footnote{Sprachphilosophisch
+könnten wir uns fragen, ob die Übersetzung eines Problems in eine formale Sprache
+überhaupt eindeutig und verlustfrei möglich ist.
+Oder ob es überhaupt so etwas wie Probleme gibt, die von ihrer repräsentierten Sprache 
+getrennt existieren.}
+Fakt ist zum einen, dass das \emph{Wortproblem}, also ob für ein Wort $w$ und eine Sprache $L$
+gilt $w \in L$,
+eng verknüpft ist mit einem abstrakten Problem, das von der formalen Sprache repräsentiert wird. 
+Fakt ist ebenfalls, dass in vielen Textbüchern die formale Sprache und ihr Problem
+im Prinzip miteinander austauschbare Entitäten sind. 
+Wir wollen allerdings sorgsam sein und die beiden voneiander trennen.\\
+%Wir wollen in unserem Skript allerdings davon sprechen, dass eine Sprache ein Problem
+%repräsentiert, ohne eine Aussage zu treffen,
+%ob die beiden identisch oder voneinander zu unterscheiden sind,
+%da wir uns vorgenommen haben das Potential der theoretischen Informatik für das Lösen
+%von IT-Problemen zu bewerten.
+%Die spannenden philosophische Diskussionen lassen wir hier aus. 
+
+\noindent
+Um von unserer Userstory zu $L_{MAX}$ zu gelangen,
+haben wir einen beträchtlichen formalen Aufwand investiert.
+Daher stellt sich die Frage: Ist dieser Aufwand gerechtfertigt? 
+Warum also geben wir Probleme als Wortprobleme von formalen Sprachen an?
+Dies sind die wesentlichen Antworten auf beide Fragen,
+nach Wichtigkeit aufsteigend sortiert:
+\begin{itemize}
+    \item Abstrakte Probleme mit Sprachen zu identifizieren gibt uns eine
+        konzise, unmissverständliche Beschreibung von Problemen,
+        die auch von Maschinen verarbeitet werden kann. 
+    \item Die Abstraktion die in der Formalisierung wiedergespiegelt ist,
+        ermöglicht sehr generelle Aussagekraft über das speziell betrachtete Problem hinweg.
+    \item Aussagen über (effiziente) Berechenbarkeit werden mit den Methoden der Mathematik
+        beweisbar, da wir u.a. die Ergebnisse der Mengenlehre, der Arithmetik
+        und der Analysis anwenden können.
+\end{itemize}
+
+Zusammenfassend können wir feststellen:
+\begin{itemize}
+    \item Die theoretische Informatik arbeitet mit Abstraktion und Formalisierung.
+    \item Probleme lassen sich als Sprachen repräsentieren.
+        Ist es lösbar, ob ein Wort zu einer Sprache gehört,
+        ist auch das repräsentierte Problem lösbar. 
+    \item Die abstrakten Probleme der theoretischen Informatik lassen sich mit
+        mathematischen Werkzeugen bearbeiten,
+        wodurch ihre Ergebnisse theoretisch gefestigt sind 
+        und die Aussagekraft sehr generell ist.
+\end{itemize}
