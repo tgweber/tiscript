@@ -1,6 +1,157 @@
 \chapter{Logisch-Mathematische Prolegomena}
-\section{Aussagenlogik}
-\section{Prädikatenlogik}
+Dieses Kapitel soll in konziser Weise Ergebnisse der folgenden Fächer zusammenfassen,
+die Voraussetzung für ein Verständnis des Methodenkoffer der theoretischen Informatik sind:
+\begin{itemize}
+    \item Formale Logik (\autoref{al}, \autoref{pl}, \autoref{bew})
+    \item Mengenlehre (\autoref{mengenlehre} und \autoref{relationenUndFunktionen})
+\end{itemize}
+Jedes dieser Kapitel ist knapp gehalten und hat einen Anreißer,
+der es den Lesenden erlaubt schnell zu entscheiden,
+ob eine Auffrischung vonnöten ist.
+Die Abschnitte sind keine vollwertige Einführung in das jeweilige Gebiet,
+hierfür sei v.a. \cite{link} empfohlen.
+
+\section{Aussagenlogik}\label{al}
+\section{Prädikatenlogik}\label{pl}
 \section{Mengenlehre}\label{mengenlehre}
+\begin{itemize}
+    \item Mengen
+    \item Mengendefinition: intensional und extensional
+    \item Mengenalgebra
+    \item Potenzmenge
+    \item Universum
+\end{itemize}
 \section{Relationen und Funktionen}\label{relationenUndFunktionen}
-\section{Beweisstrategien}
+In diesem Abschnitt werden wir die folgenden Schritte abarbeiten
+(in der umgekehrten Reihenfolge):
+\begin{itemize}
+    \item Funktionen sind rechtseindeutige Relationen.
+    \item Relationen sind Mengen von Tupeln mit identischer Länge.
+    \item Tupel sind Mengen mit Reihenfolge.
+\end{itemize}
+Dies erlaubt uns Funktionen als Menge von Tupeln zu begreifen,
+was uns für endliche Funktionen
+(wie z.B. eine Übergangsfunktion eines Automaten)
+die Funktion extensiv anzugeben (siehe voriger Abschnitt).
+
+\subsection{Tupel}
+
+Für Mengen gilt allgemein:
+\[ \{a,b\} = \{b,a\} = \{a,b,a\} \]
+Das heißt:
+\begin{itemize}
+    \item Die Elemente einer Menge haben keine Reihenfolge.
+    \item Duplikate eines Elements in einer Extension werden ignoriert.
+\end{itemize}
+Ein Tupel ist wie eine Menge, nur gilt hier:
+\[[a,b] \neq [b,a] \text{ und } [a,b] \neq [a,b,a] \text{ und } [b,a] \neq [a,b,a]\]
+D.h. Tupel werden anstatt mit geschweiften mit eckigen Klammern angegeben,
+haben eine Reihenfolge und daher können Duplikate nicht einfach ignoriert werden.
+
+\noindent
+Das Folgende sollten bekannt sein:
+\begin{itemize}
+    \item Ein Tupel mit zwei Elementen heißt geordnetes Paar.
+    \item Ein Tupel mit drei Elementen heißt Tripel. 
+    \item Ein Tupel mit n    Elementen heißt n-Tupel.
+    \item Das kartesische Produkt zweier Mengen A und B wird mit $A \times B$ bezeichnet
+          und ist definiert als: $\{[a,b]|a \in A \wedge b \in B\}$.
+\end{itemize}
+
+\subsection{Relationen}
+
+Eine Relation ist eine Menge von gleichlangen Tupeln.
+Relationen (wie auch Funktionen) bringen eine gewisse Struktur (manchmal auch eine Ordnung)
+in ein Universum.
+Relationen kann man im Sinne von \autoref{pl} auch als mehrstelliges Prädikat auffassen.
+Sei z.B.
+\[
+    \Sigma = \{a,b,c,...,z\}
+\]
+unser Universum, also das deutschsprachige Alphabet,
+bestehend aus 26 kleinen Buchstaben.\footnote{
+Ohne Beschränkung der Allgemeinheit ignorieren wir hier Umlaute und Großbuchstaben.}
+Eine mögliche Relation ist die Folgende:
+\[
+    ABC = \{[a,b], [b,c], [c,d], \ldots, [x,y], [y,z]\}
+\]
+$ABC$ ist die Relation eines Buchstabens zu seinem Nachfolger
+gemäß der Konvention in deutschsprachigen Ländern.
+$ABC$ ist ein zweistelliges Prädikat, daher sind alle Elemente der Relation geordnete Paare.
+
+Ein weiteres Beispiel ist:
+\[
+    \begin{array}{lllllll}
+        <_{ABC} &
+        = &
+            \{[a,b], &
+            [a,c], &
+            \ldots, &
+            [a,y], &
+            [a,z],\\ 
+        &
+        & 
+        &
+            [b,c], &
+            \ldots, &
+            [b,y], &
+            [b,z], \\
+        &
+        &
+        &
+        &
+            \ldots,\\
+        &
+        &
+        &
+        &
+        &     
+        &
+            [y,z] \}
+\end{array}
+\]
+$<_{ABC}$ gibt die gesamte Ordnung der Buchstaben an (nicht nur den unmittelbaren Nachfolger).
+Man kann auch eine Relation auch in der Infix-Notation angeben,
+dann  entspricht sie den mathematischen Sehgewohnheiten: $a <_{ABC} d$ oder $f <_{ABC} x$.
+
+\noindent
+Folgende Sachverhalte sollten bekannt sein:
+\begin{itemize}
+    \item Eine Relation ist symmetrisch, wenn gilt: $\forall x,y(xRy \leftrightarrow yRx)$.
+    \item Eine Relation ist reflexiv, wenn gilt: $\forall x(xRx)$.
+    \item Eine Relation ist transitiv, wenn gilt: $\forall x,y,z(xRy \wedge yRz \rightarrow xRz)$.
+    \item Eine Relation, die symmetrisch, reflexiv und transitiv ist,
+          heißt Äquivalenzrelation (z.B. ist $=$ eine Äquivalenzrelation).
+\end{itemize}
+
+\subsection{Funktionen}
+Funktionen sind rechtseindeutige Relationen,
+d.h. für den Fall einer zweistelligen Relation R:
+\[
+    \forall x,y (xRy \rightarrow \neg \exists z (z \neq y \wedge xRz))
+\]
+Intuitiv bedeutet das: Wenn x der Input der Funktion ist,
+dann ist der Output y der Funktion eindeutig bestimmt
+(es gibt keinen anderen Wert z der von y unterschieden ist,
+der auch Output sein kann, wenn x gegeben ist). 
+Da der Output meistens rechts steht, sagt man auch die Relation ist \emph{rechts}eindeutig. 
+Die Relation $ABC$ aus dem vorangegangenen Abschnitt ist eine Funktion,
+die Relation $<_{ABC}$ nicht.
+
+Folgende Sachverhalte sollten bekannt sein:
+\begin{itemize}
+    \item ''Input'' einer Funktion wird auch Definitionsmenge genannt.
+    \item ''Output'' einer Funktion wird auch Wertemenge genannt.
+    \item Bei einstelligen Funktionen (also rechtseindeutigen, zweistelligen Relationen)
+        ist die Definitionsmenge die Menge aller Elemente,
+        die an der ersten Stelle des geordneten Paares stehen.
+    \item Bei einstelligen Funktionen (also rechtseindeutigen, zweistelligen Relationen)
+        ist die Wertemenge die Menge aller Elemente,
+        die an der zweiten Stelle des geordneten Paares stehen.
+    \item Bei mehrstelligen Funktionen muss eine Signatur angeben, was zur Definitions-
+        bzw. Wertemenge gehört. Z.B. hätte die Funktion $between$,
+        die sowohl Vorgänger als auch Nachfolger im Alphabet angibt die folgende Signatur:
+        \[ between: \Sigma \rightarrow \Sigma \times \Sigma \]
+\end{itemize}
+
+\section{Beweisstrategien}\label{bew}
