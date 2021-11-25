@@ -1,5 +1,5 @@
 \chapter{Logisch-Mathematische Prolegomena}
-Dieses Kapitel soll in konziser Weise Ergebnisse der folgenden Fächer zusammenfassen,
+Dieses Kapitel soll in konziser Weise die Ergebnisse der folgenden Fächer zusammenfassen,
 die Voraussetzung für ein Verständnis des Methodenkoffer der theoretischen Informatik sind:
 \begin{itemize}
     \item Formale Logik (\autoref{al}, \autoref{pl}, \autoref{bew})
@@ -22,7 +22,7 @@ hierfür sei v.a. \cite{link} empfohlen.
     \item Universum
 \end{itemize}
 \section{Relationen und Funktionen}\label{relationenUndFunktionen}
-In diesem Abschnitt werden wir die folgenden Schritte abarbeiten
+In diesem Abschnitt werden wir die folgenden Sachverhalte erläutern
 (in der umgekehrten Reihenfolge):
 \begin{itemize}
     \item Funktionen sind rechtseindeutige Relationen.
@@ -56,6 +56,7 @@ Das Folgende sollten bekannt sein:
     \item Ein Tupel mit n    Elementen heißt n-Tupel.
     \item Das kartesische Produkt zweier Mengen A und B wird mit $A \times B$ bezeichnet
           und ist definiert als: $\{[a,b]|a \in A \wedge b \in B\}$.
+    \item Analog lässts sich das kartesische Produkt von mehr als zwei Mengen definieren.
 \end{itemize}
 
 \subsection{Relationen}
@@ -78,6 +79,8 @@ Eine mögliche Relation ist die Folgende:
 $ABC$ ist die Relation eines Buchstabens zu seinem Nachfolger
 gemäß der Konvention in deutschsprachigen Ländern.
 $ABC$ ist ein zweistelliges Prädikat, daher sind alle Elemente der Relation geordnete Paare.
+Man kann das bestehen einer Relation zwischen zwei Elementen des Universums
+auch in der Infix-Notation angeben, z.B.: aABCb (a steht in der ABC-Relation zu b).
 
 Ein weiteres Beispiel ist:
 \[
@@ -111,15 +114,16 @@ Ein weiteres Beispiel ist:
 \end{array}
 \]
 $<_{ABC}$ gibt die gesamte Ordnung der Buchstaben an (nicht nur den unmittelbaren Nachfolger).
-Man kann auch eine Relation auch in der Infix-Notation angeben,
-dann  entspricht sie den mathematischen Sehgewohnheiten: $a <_{ABC} d$ oder $f <_{ABC} x$.
+Analog zu oben gibt es auch hier eine Infix-Notation,
+die den mathematischen Sehgewohnheiten entspricht: $a <_{ABC} d$ oder $f <_{ABC} x$.
 
 \noindent
 Folgende Sachverhalte sollten bekannt sein:
 \begin{itemize}
-    \item Eine Relation ist symmetrisch, wenn gilt: $\forall x,y(xRy \leftrightarrow yRx)$.
-    \item Eine Relation ist reflexiv, wenn gilt: $\forall x(xRx)$.
-    \item Eine Relation ist transitiv, wenn gilt: $\forall x,y,z(xRy \wedge yRz \rightarrow xRz)$.
+    \item Eine Relation $R$ ist symmetrisch, wenn gilt: $\forall x,y(xRy \leftrightarrow yRx)$.
+    \item Eine Relation $R$ ist reflexiv, wenn gilt: $\forall x(xRx)$.
+    \item Eine Relation $R$ ist transitiv,
+        wenn gilt: $\forall x,y,z(xRy \wedge yRz \rightarrow xRz)$.
     \item Eine Relation, die symmetrisch, reflexiv und transitiv ist,
           heißt Äquivalenzrelation (z.B. ist $=$ eine Äquivalenzrelation).
 \end{itemize}
@@ -140,6 +144,7 @@ die Relation $<_{ABC}$ nicht.
 
 Folgende Sachverhalte sollten bekannt sein:
 \begin{itemize}
+    \item Eine andere Bezeichnung für Funktion ist ``Abbildung''.
     \item ''Input'' einer Funktion wird auch Definitionsmenge genannt.
     \item ''Output'' einer Funktion wird auch Wertemenge genannt.
     \item Bei einstelligen Funktionen (also rechtseindeutigen, zweistelligen Relationen)
@@ -151,7 +156,10 @@ Folgende Sachverhalte sollten bekannt sein:
     \item Bei mehrstelligen Funktionen muss eine Signatur angeben, was zur Definitions-
         bzw. Wertemenge gehört. Z.B. hätte die Funktion $between$,
         die sowohl Vorgänger als auch Nachfolger im Alphabet angibt die folgende Signatur:
-        \[ between: \Sigma \rightarrow \Sigma \times \Sigma \]
+        \[ between: 
+            \Sigma \backslash \{a,z\}
+            \rightarrow
+            \Sigma \backslash \{z\} \times \Sigma \backslash \{a\} \]
 \end{itemize}
 
-\section{Beweisstrategien}\label{bew}
+\section{Beweisstrategien \& Beweisskizzen}\label{bew}
