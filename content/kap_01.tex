@@ -6,14 +6,21 @@ um die Potentiale und Grenzen der technischen Informationsverarbeitung zu umrei�
 Die lange Antwort soll dieses Skript geben.
 
 Das Skript wurde begleitend zur Veranstaltung
-''Theoretische Informatik (Wirtschaftsinformatik)''
-an der DHBW Heilbronn erstellt.
+\emph{Theoretische Informatik (Wirtschaftsinformatik)}
+an der DHBW Heilbronn erstellt.\footnote{
+    Das Skript richtet sich vor allem an Fachhochschul- und BA-Student:innen,
+    die Informatik eher als Teilfach oder Nebenfach belegen, und an interessierte Laien.
+    Für Studierende der Informatik auf Universitätsniveau kann das Skript ergänzend hilfreich sein,
+    allerdings hat es nicht den Anspruch den vollen Umfang zu besprechen,
+    der typischer Weise in diesem Kontext verlangt wird.}
 Wir folgen in diesem Skript einem kartesischen Ansatz:
 Wir gehen vom maximalen Zweifel aus und setzen die theoretische Informatik
 als potentiellen Nichtsnutz auf die Anklagebank.
 Schritt für Schritt werden wir die Jury (die Studierenden) von der Unschuld dieser
-Disiplin überzeugen.
-Wir beginnen mit der Feststellung, dass uns als Informatiker:innen die Nützlichkeit
+Disziplin überzeugen.
+
+Wir beginnen den Überzeugungsversuch mit der Feststellung,
+dass uns als Informatiker:innen die Nützlichkeit
 eines Werkzeugs dann einleuchtet, wenn es hilft Probleme zu lösen.
 Daher ist der Problembegriff im Mittelpunkt dieses Skripts.
 
@@ -55,27 +62,31 @@ kann man einiges über diese Alltags-Probleme sagen:
     \item Mindestens ein Problem ist sehr schwer zu lösen.
     \item Mindestens ein Problem ist sehr einfach zu lösen.
     \item Mindestens ein Problem ist nicht lösbar.
-    \item Bei mindestens einem Problem ist unklar, ob es sich lösen lässt.
+    \item Bei mindestens einem Problem ist unklar, ob und wie es sich lösen lässt.
 \end{itemize}
 
 Am Ende dieses Skriptes soll klar sein, welches dieser Probleme in welche dieser Kategorien fällt.
 An diesem Punkt im Text wollen wir uns aber zunächst damit begnügen,
-dass ein Fach Nutzen bringt, dass es erlaubt, diese Probleme auf einen Blick als leicht oder
-schwer oder unlösbar zu kategorisieren.
+dass die theoretische Informatik Nutzen bringt,
+da ihre Methoden und Ergebnisse es erlauben,
+diese und ähnliche Probleme auf einen Blick einzuteilen:
+leicht lösbar, schwer lösbar oder unlösbar.
 
 Eine Userstory ist jedoch keine geeignete Form,
 um die Methoden der theoretischen Informatik anzuwenden.
-Was hier noch zu tun ist, soll im nächsten Abschnitt besprochen werden.
+Stark vereinfacht sind die Grundwerkzeuge der theoretischen Informatik
+\emph{Abstraktion} und \emph{Formalisierung}.
+Wie beide auf unsere Probleme anzuwenden sind,
+soll in den folgenden Abschnitten exemplarisch dargelegt werden.
 
 \section{Abstraktion}
 
-Um die Userstories aus dem vorigen Absatz für die Bearbeitung mit den Methoden der
-theoretischen Informatik vorzubereiten ist noch einiges an Arbeit notwendig.
 Ein grundlegendes Instrument der Informatik (nicht nur der Theoretischen) 
 ist die \emph{Abstraktion}, also die ausschließliche Betrachtung der Aspekte eines Sachverhalts,
 die für einen gegebenen Zweck wesentlich sind.
 Mit der Abstraktion kommen wir also von einer sehr speziellen Aufgabenbeschreibung,
-wie einer Userstory, zu einem abstrakten Problem.
+wie einer Userstory, zu einem abstrakten Problem,
+dessen Lösung in vielen spezifischen Kontexten anwendbar wird.
 
 Es gibt leider keinen einfachen und eindeutigen Weg
 duch Abstraktion von einer Userstory zu einem abstrakten Problem zu kommen.
@@ -86,11 +97,11 @@ Ebenso ist es ein Fehler, zu viele Aspekte auszulassen,
 so dass das abstrakte Problem nicht so detailreich wie nötig ist,
 um dem gegebenen Zweck gerecht zu werden.
 
-Die Behandlung von Problemen mit den Methoden der theoretischen Informatik
-ist der Zweck, den wir verfolgen. 
-Diesen muss man von den Zielen unterscheiden,
-derentwegen die Userstories formuliert wurden.
-Die Zwecke können sich überschneiden, sind aber voneinander zu unterscheiden.\\
+%Die Behandlung von Problemen mit den Methoden der theoretischen Informatik
+%ist der Zweck, den wir verfolgen. 
+%Diesen muss man von den Zielen unterscheiden,
+%derentwegen die Userstories formuliert wurden.
+%Die Zwecke können sich überschneiden, sind aber voneinander zu unterscheiden.\\
 
 \noindent
 So könnte eine Abstraktion für das \textbf{MAX}-Problem aussehen:
@@ -140,8 +151,8 @@ Mit der informellen Problemangabe lassen sich bereits drei sehr grundlegende Fra
 Diese Fragen können wir natürlich nicht nur für \textbf{MAX} stellen.
 Auch die anderen Userstories von oben lassen sich in eine informelle Form bringen,
 die diese Art der Fragestellung erlaubt.
-Es gibt drei grundlegenden Teildisziplinen der theoretischen Informatik,
-die Antworten auf diese Fragen geben können und deren Rahmenbedingungen untersuchen:
+Drei grundlegende Teildisziplinen der theoretischen Informatik
+geben Antwort auf diese Fragen:
 \begin{enumerate}
     \item Die \textbf{Theorie der formalen Sprachen und Automaten}
     \item Die \textbf{Berechenbarkeitstheorie}
