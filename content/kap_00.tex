@@ -14,13 +14,67 @@ hierfür sei v.a. \cite{link} empfohlen.
 \section{Aussagenlogik}\label{al}
 \section{Prädikatenlogik}\label{pl}
 \section{Mengenlehre}\label{mengenlehre}
+In diesem Abschnitt werden die folgenden Inhalte erläutert:
 \begin{itemize}
-    \item Mengen
-    \item Mengendefinition: intensional und extensional
-    \item Mengenalgebra
-    \item Potenzmenge
-    \item Universum
+    \item Die Bedeutung grundlegender mengentheoretischer Begriffe\\\
+        (Menge, Element, Extension, Universum)
+    \item Wie man Mengen extensional und intensional spezifiziert
+    \item Operationen auf Mengen (Vereinigung, Schnitt, Komplement)
+    \item Der Begriff der Potenzmenge
 \end{itemize}
+\subsection{Grundlegende Begriffe}\label{grundmenge}
+Unter einer \emph{Menge} verstehen wir eine Zusammenfassung von wohlunterschiedenen Objekten
+zu einem Ganzen.\footnote{
+    Dies ist eine Paraphrase der kanonischen Definition von Georg Cantor, siehe \cite{cantor}
+}
+Die ``wohlunterschiedenen Objekte`` nennt man auch die \emph{Elemente} einer Menge.
+Der Begriff \emph{Extension} einer Menge bezeichnet alle Elemente einer Menge.
+Zum Beispiel ist $\mathbb{N}$ die Menge der natürlichen Zahlen
+und 1,2,3 sind Elemente dieser Menge.
+Geschweifte Klammern und zweites Beispiel.
+Da es unendlich viele natürlichen Zahlen gibt,
+können wir die Extension nicht angeben (alles Papier der Welt wäre nicht genug).
+
+Wir schreiben $1 \in \mathbb{N}$
+um die Elementschaftsbeziehung zwischen Objekt bzw.\ Element und Menge formal auszudrücken.
+%Variablen für Mengen werde wir mit Großbuchstaben bezeichnen,
+%Variablen für Elemente mit kleinen Buchstaben.
+
+Mit dem Begriff \emph{Universum} bezeichnen wir die Gesamtheit der Elemente,
+über die wir Aussagen treffen.
+Z.B. wären die natürlichen Zahlen ein Universum.
+
+Für Mengen gilt allgemein:
+\[ \{a,b\} = \{b,a\} = \{a,b,a\} \]
+Das heißt:
+\begin{itemize}
+    \item Die Elemente einer Menge haben keine Reihenfolge.
+    \item Duplikate eines Elements in einer Extension werden ignoriert.
+\end{itemize}
+
+Wir können Mengen \emph{extensional} angeben, d.h.\ wir zählen alle Elemente auf.
+Wie das Beispiel der natürlichen Zahlen gezeigt hat,
+ist das nicht immer praktikabel bzw.\ möglich.
+Daher kann man Mengen auch \emph{intensional} angeben,
+d.h.\ wir geben eine Bedingung an, die alle Elemente eines Universums erfüllen müssen.
+Für alle geraden natürlichen Zahlen wäre das z.B.:
+\[\{n \in \mathbb{N} | n = 2m \wedge m \in \mathbb{N} \}\]
+Links in der geschweiften Klammer wird das Universum spezifiziert,
+rechts die Bedingung, anhand derer wir die Elemente auswählen.
+
+\subsection{Operationen auf Mengen}
+
+\begin{itemize}
+    \item Vereinigung
+    \item Schnitt
+    \item Komplement
+    \item Große Operationen (nötig)
+    \item Potenzmenge
+\end{itemize}
+
+Der Inhalt dieses Unterkapitels kann in \cite{link}
+in den Kapiteln 1.1, 9 und 10 vertieft werden.
+
 \section{Relationen und Funktionen}\label{relationenUndFunktionen}
 In diesem Abschnitt werden wir die folgenden Sachverhalte erläutern
 (in der umgekehrten Reihenfolge):
@@ -36,13 +90,6 @@ die Funktion extensiv anzugeben (siehe voriger Abschnitt).
 
 \subsection{Tupel}
 
-Für Mengen gilt allgemein:
-\[ \{a,b\} = \{b,a\} = \{a,b,a\} \]
-Das heißt:
-\begin{itemize}
-    \item Die Elemente einer Menge haben keine Reihenfolge.
-    \item Duplikate eines Elements in einer Extension werden ignoriert.
-\end{itemize}
 Ein Tupel ist wie eine Menge, nur gilt hier:
 \[[a,b] \neq [b,a] \text{ und } [a,b] \neq [a,b,a] \text{ und } [b,a] \neq [a,b,a]\]
 D.h. Tupel werden anstatt mit geschweiften mit eckigen Klammern angegeben,
