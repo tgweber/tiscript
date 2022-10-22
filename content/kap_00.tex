@@ -1,6 +1,7 @@
 \chapter{Logisch-Mathematische Prolegomena}
 Dieses Kapitel soll in konziser Weise die Ergebnisse der folgenden Fächer zusammenfassen,
-die Voraussetzung für ein Verständnis des Methodenkoffer der theoretischen Informatik sind:
+die Voraussetzung für einen sicheren Umgang mit dem Methodenkoffer
+der theoretischen Informatik sind:
 \begin{itemize}
     \item Formale Logik (\autoref{al}, \autoref{pl}, \autoref{bew})
     \item Mengenlehre (\autoref{mengenlehre} und \autoref{relationenUndFunktionen})
@@ -12,12 +13,52 @@ Die Abschnitte sind keine vollwertige Einführung in das jeweilige Gebiet,
 hierfür sei v.a. \cite{link} empfohlen.
 
 \section{Aussagenlogik}\label{al}
+Die grundlegende Idee der Aussagenlogik ist es,
+die logische Verknüpfung zwischen Aussagen zu analysieren.
+Entscheidend dabei ist die Art und Weise,
+wie Aussagen kombiniert werden und ob sie wahr oder falsch sind.
+Aussagen kommen in der Aussagenlogik meist als großgeschriebene Variablen A,B,C (usw.) vor.
+
+Die folgenden ``Junktoren'' können genutzt werden um eine oder mehrere Aussagen zu kombinieren:
+
+\begin{itemize} 
+    \item Die \emph{Negation} ist eine Umkehr des Wahrheitswertes einer Aussage,
+wir schreiben formal: $\neg A$. Wenn $A$ wahr ist, ist $\neg A$ falsch und umgekehrt. 
+        \item Die \emph{Konjunktion} zweier Aussagen A und B (formal: $A \wedge B$)
+            ist nur dann wahr, wenn A \emph{und} B wahr sind. Die Konjunktion ist daher auch als
+            ``Boolesches Und'' bekannt.
+        \item Die \emph{Disjunktion} zweier Aussagen A und B (formal: $A \vee B$)
+            ist nur dann wahr, wenn A \emph{oder} B wahr sind. Die Disjunktion ist daher auch als
+            ``Boolesches Oder'' bekannt.
+        \item Das \emph{Konditional} zweier Aussagen A und B (formal: $A \rightarrow B$)
+            ist nur dann \emph{falsch}, wenn A wahr ist und B falsch. 
+            Das Konditional wird auch (materiale) Implikation genannt.
+        \item Das \emph{Bikonditional} zweier Aussagen A und B (formal: $A \leftrightarrow B$)
+            ist nur dann wahr, wenn A und B den selben Wahrheitswert haben.
+            Das Bikonditional wird auch Äquivalenz genannt.
+\end{itemize}
+Zusammenfassend kann man die Bedeutung der Junktoren \autoref{tab:al} entnehmen.
+
+\begin{tabularx}{\textwidth}{p{0.25\textwidth}|r|X|r}
+
+    \hline
+    A & B & $\neg A$
+    \label{tab:al}
+\end{tabularx}
+
+Wahrheitstabellen
 \section{Prädikatenlogik}\label{pl}
+\begin{itemize}
+        \item Prädikate
+        \item Existenzquantoren
+        \item Allquantoren
+\end{itemize}
+        
 \section{Mengenlehre}\label{mengenlehre}
 In diesem Abschnitt werden die folgenden Inhalte erläutert:
 \begin{itemize}
-    \item Die Bedeutung grundlegender mengentheoretischer Begriffe\\\
-        (Menge, Element, Extension, Universum)
+    \item Die Bedeutung grundlegender mengentheoretischer Begriffe\\
+        (Menge, Element, leere Menge, Mächtigkeit, Extension, Universum)
     \item Wie man Mengen extensional und intensional spezifiziert
     \item Operationen auf Mengen (Vereinigung, Schnitt, Komplement)
     \item Der Begriff der Potenzmenge
@@ -27,22 +68,44 @@ Unter einer \emph{Menge} verstehen wir eine Zusammenfassung von wohlunterschiede
 zu einem Ganzen.\footnote{
     Dies ist eine Paraphrase der kanonischen Definition von Georg Cantor, siehe \cite{cantor}
 }
-Die ``wohlunterschiedenen Objekte`` nennt man auch die \emph{Elemente} einer Menge.
+Die ``wohlunterschiedenen Objekte'' nennt man auch die \emph{Elemente} einer Menge.
 Der Begriff \emph{Extension} einer Menge bezeichnet alle Elemente einer Menge.
-Zum Beispiel ist $\mathbb{N}$ die Menge der natürlichen Zahlen
-und 1,2,3 sind Elemente dieser Menge.
-Geschweifte Klammern und zweites Beispiel.
+Mengen kann man \emph{extensional} spezifizieren,
+indem man alle Elemente in geschweiften Klammern angibt,
+zum Beispiel: $A = \{ 1,2,3 \}$.
+Manche Mengen sind wohlbekannt,
+zum Beispiel ist $\mathbb{N}$ die Menge der natürlichen Zahlen.
 Da es unendlich viele natürlichen Zahlen gibt,
-können wir die Extension nicht angeben (alles Papier der Welt wäre nicht genug).
-
-Wir schreiben $1 \in \mathbb{N}$
-um die Elementschaftsbeziehung zwischen Objekt bzw.\ Element und Menge formal auszudrücken.
+können wir die Extension nicht angeben
+(alles Papier der Welt wäre nicht genug).
+1,2,3 sind Elemente in beiden Mengen Menge.
+Wir schreiben zum Beispiel $1 \in A$ und $1 \in \mathbb{N}$ 
+um die Elementschaftsbeziehung zwischen Objekt/Element und Menge formal auszudrücken.
+Die leere Menge ist eine spezielle Menge, die keine Elemente enthält,
+wir bezeichnen die leere Menge mit $\emptyset$.
 %Variablen für Mengen werde wir mit Großbuchstaben bezeichnen,
 %Variablen für Elemente mit kleinen Buchstaben.
 
-Mit dem Begriff \emph{Universum} bezeichnen wir die Gesamtheit der Elemente,
+Die \emph{Mächtigkeit} einer endlichen Menge ist die Anzahl ihrer Elemente,
+zum Beispiel ist die Mächtigkeit von $\emptyset$ null und von $A$ drei.\footnote{
+    Die Mächtigkeit von unendlichen Mengen ist ebenfalls ein wohldefiniertes Konzept,
+    das allerdings für die Zwecke dieses Skriptes nicht eingeführt werden muss.
+}
+Wir schreiben formal $|A| = 3$.
+Mit dem Begriff \emph{Universum}\footnote{
+    Im Englischen spricht man auch vom \emph{universe of discourse}
+} bezeichnen wir die Gesamtheit der Elemente,
 über die wir Aussagen treffen.
-Z.B. wären die natürlichen Zahlen ein Universum.
+Zum Beispiel wären die natürlichen Zahlen ein Universum.
+Man kann man Mengen auch \emph{intensional} angeben,
+d.h.\ wir geben eine Bedingung an,
+die alle Elemente eines Universums erfüllen müssen.
+Für alle geraden natürlichen Zahlen wäre das z.B.:
+\[\{n| n = 2m \wedge n,m \in \mathbb{N} \}\]
+Links in der geschweiften Klammer wird spezifiert,
+von welche Art die Elemente sind
+(oftmals ergänzt durch die Spezifikation aus welchem Universum die Elemente ausgewählt werden).
+Rechts wird die Bedingung angegeben, anhand derer Elemente ausgewählt werden.
 
 Für Mengen gilt allgemein:
 \[ \{a,b\} = \{b,a\} = \{a,b,a\} \]
@@ -52,36 +115,39 @@ Das heißt:
     \item Duplikate eines Elements in einer Extension werden ignoriert.
 \end{itemize}
 
-Wir können Mengen \emph{extensional} angeben, d.h.\ wir zählen alle Elemente auf.
-Wie das Beispiel der natürlichen Zahlen gezeigt hat,
-ist das nicht immer praktikabel bzw.\ möglich.
-Daher kann man Mengen auch \emph{intensional} angeben,
-d.h.\ wir geben eine Bedingung an, die alle Elemente eines Universums erfüllen müssen.
-Für alle geraden natürlichen Zahlen wäre das z.B.:
-\[\{n \in \mathbb{N} | n = 2m \wedge m \in \mathbb{N} \}\]
-Links in der geschweiften Klammer wird das Universum spezifiziert,
-rechts die Bedingung, anhand derer wir die Elemente auswählen.
 
-\subsection{Operationen auf Mengen}
+\subsection{Relationen zwischen und Operationen auf Mengen}
 
+Mengen können in der \emph{Teilmengengenbeziehung} stehen,
+zum Beispiel sind alle Elemente in A auch Elemente in $\mathbb{N}$.
+Wir schreiben dann $A \subset \mathbb{N}$.
+Wir schreiben $A \subseteq B$, wenn $A$ Teilmenge von $B$ ist oder $A = B$ gilt,
+daher gilt auch $A \subseteq \mathbb{N}$.
+
+Man kann Mengen unter Anderem mit folgenden Operationen kombinieren:
 \begin{itemize}
-    \item Vereinigung
-    \item Schnitt
-    \item Komplement
-    \item Große Operationen (nötig)
-    \item Potenzmenge
+    \item Vereinigung zweier Mengen A und B:\\
+        $A \cup B := \{x|x \in A \vee x \in B\}$
+    \item Schnitt zweier Mengen A und B:\\
+        $A \cap B := \{x|x \in A \wedge x \in B\}$
+    \item Komplement zweier Mengen A und B:\\
+        $A \backslash B:= \{x|x \in A \wedge x \notin B\}$
+%    \item Große Operationen (nötig)
+%    \item Teilmengen
+    \item Potenzmenge einer Menge A: $\mathcal{P}(A) := \{x|x \subseteq A\}$
 \end{itemize}
 
+Die Mächtigkeit der Potenzmenge über einer beliebigen Menge M ist stets:
+$|\mathcal{P}(M)| = 2^{|M|}$.
 Der Inhalt dieses Unterkapitels kann in \cite{link}
 in den Kapiteln 1.1, 9 und 10 vertieft werden.
 
 \section{Relationen und Funktionen}\label{relationenUndFunktionen}
-In diesem Abschnitt werden wir die folgenden Sachverhalte erläutern
-(in der umgekehrten Reihenfolge):
+In diesem Abschnitt werden wir die folgenden Sachverhalte erläutern :
 \begin{itemize}
-    \item Funktionen sind rechtseindeutige Relationen.
-    \item Relationen sind Mengen von Tupeln mit identischer Länge.
     \item Tupel sind Mengen mit Reihenfolge.
+    \item Relationen sind Mengen von Tupeln mit identischer Länge.
+    \item Funktionen sind rechtseindeutige Relationen.
 \end{itemize}
 Dies erlaubt uns Funktionen als Menge von Tupeln zu begreifen,
 was uns für endliche Funktionen
@@ -109,7 +175,7 @@ Das Folgende sollten bekannt sein:
 \subsection{Relationen}
 
 Eine Relation ist eine Menge von gleichlangen Tupeln.
-Relationen (wie auch Funktionen) bringen eine gewisse Struktur (manchmal auch eine Ordnung)
+Relationen (wie auch Funktionen) bringen Struktur (manchmal auch eine Ordnung)
 in ein Universum.
 Relationen kann man im Sinne von \autoref{pl} auch als mehrstelliges Prädikat auffassen.
 Sei z.B.
