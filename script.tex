@@ -6,6 +6,9 @@
 %\usepackage{showframe}% http://ctan.org/pkg/showframe
 % END DEBUG SETTINGS
 
+
+\newif\ifusechapterhead
+\usechapterheadtrue
 \usepackage[table]{xcolor}
 \usepackage{a4wide}
 \usepackage{fancyhdr}
@@ -25,6 +28,12 @@
     pdflang = {en-US}
 }
 \hyphenation{Ent-scheid-ungs-hilfe}
+
+\renewcommand{\figureautorefname}{Abbildung}
+\renewcommand{\tableautorefname}{Tabelle}
+\renewcommand{\chapterautorefname}{Kapitel}
+\renewcommand{\sectionautorefname}{Abschnitt}
+\renewcommand{\subsectionautorefname}{Unterabschnitt}
 \usepackage[utf8]{inputenx}
 \usepackage[
 backend=biber,
@@ -125,12 +134,12 @@ maxbibnames=99
   \titleformat*{\subsection}{\normalsize\bfseries}
   \chapter{Appendix}
 
-  \section{List of Figures}
+  \section{Abbildungsverzeichnis}
   \listoffigures
   \clearpage
 
-  \markboth{List of Tables}{List of Tables}
-  \section{List of Tables}
+  \markboth{Tabellenverzeichnis}{Tabellenverzeichnis}
+  \section{Tabellenverzeichnis}
   \listoftables
   \clearpage
    
@@ -140,16 +149,16 @@ maxbibnames=99
   \printglossary[numberedsection]{}
   \clearpage
 
-  \markboth{Bibliography}{Bibliography}
-  \section{Bibliography}
+  \markboth{Bibliographie}{Bibliographie}
+  \section{Bibliographie}
   \nocite{*}
   \printbibliography[heading=none]
   \newpage
 
 
 
-  \markboth{Acknowledgements}{Acknowledgements}
-  \section{Acknowledgements}
+  \markboth{Danksagung}{Danksagung}
+  \section{Danksagung}
   \input{content/acknowledgement}
 
 \end{document}

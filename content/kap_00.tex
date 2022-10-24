@@ -1,4 +1,4 @@
-\chapter{Logisch-Mathematische Prolegomena}
+\chapter{Logisch-Mathematische Grundlagen}
 Dieses Kapitel soll in konziser Weise die Ergebnisse der folgenden Fächer zusammenfassen,
 die Voraussetzung für einen sicheren Umgang mit dem Methodenkoffer
 der theoretischen Informatik sind:
@@ -13,47 +13,103 @@ Die Abschnitte sind keine vollwertige Einführung in das jeweilige Gebiet,
 hierfür sei v.a. \cite{link} empfohlen.
 
 \section{Aussagenlogik}\label{al}
-Die grundlegende Idee der Aussagenlogik ist es,
+In diesem Abschnit werden die grundlegenden aussagenlogischen Junktoren
+(Negation, Konjunktion, Disjunktion, Konditional, Bikonditional) eingeführt.
+
+Die grundlegende Idee der Aussagenlogik ist,
 die logische Verknüpfung zwischen Aussagen zu analysieren.
-Entscheidend dabei ist die Art und Weise,
-wie Aussagen kombiniert werden und ob sie wahr oder falsch sind.
-Aussagen kommen in der Aussagenlogik meist als großgeschriebene Variablen A,B,C (usw.) vor.
+Entscheidend dabei ist die Art und Weise wie Aussagen kombiniert werden
+und ob sie wahr oder falsch sind.
+Aussagen kommen in der Aussagenlogik meist als großgeschriebene Variablen (A,B,C) vor.
+Die folgenden Wahrheitsoperatoren (auch Junktoren genannt)
+können genutzt werden um eine oder mehrere Aussagen zu kombinieren:
 
-Die folgenden ``Junktoren'' können genutzt werden um eine oder mehrere Aussagen zu kombinieren:
-
-\begin{itemize} 
+\begin{itemize}
     \item Die \emph{Negation} ist eine Umkehr des Wahrheitswertes einer Aussage,
-wir schreiben formal: $\neg A$. Wenn $A$ wahr ist, ist $\neg A$ falsch und umgekehrt. 
+wir schreiben formal: $\neg A$. Wenn $A$ wahr ist, ist $\neg A$ falsch und umgekehrt.
         \item Die \emph{Konjunktion} zweier Aussagen A und B (formal: $A \wedge B$)
-            ist nur dann wahr, wenn A \emph{und} B wahr sind. Die Konjunktion ist daher auch als
-            ``Boolesches Und'' bekannt.
+            ist nur dann wahr, wenn A \emph{und} B wahr sind.
+            Die Konjunktion ist daher auch als ``Boolesches Und'' bekannt.
         \item Die \emph{Disjunktion} zweier Aussagen A und B (formal: $A \vee B$)
-            ist nur dann wahr, wenn A \emph{oder} B wahr sind. Die Disjunktion ist daher auch als
-            ``Boolesches Oder'' bekannt.
+            ist nur dann wahr, wenn A \emph{oder} B wahr sind.
+            Die Disjunktion ist daher auch als ``Boolesches Oder'' bekannt.
         \item Das \emph{Konditional} zweier Aussagen A und B (formal: $A \rightarrow B$)
-            ist nur dann \emph{falsch}, wenn A wahr ist und B falsch. 
+            ist nur dann \emph{falsch}, wenn A wahr ist und B falsch.
             Das Konditional wird auch (materiale) Implikation genannt.
         \item Das \emph{Bikonditional} zweier Aussagen A und B (formal: $A \leftrightarrow B$)
             ist nur dann wahr, wenn A und B den selben Wahrheitswert haben.
             Das Bikonditional wird auch Äquivalenz genannt.
 \end{itemize}
 Zusammenfassend kann man die Bedeutung der Junktoren \autoref{tab:al} entnehmen.
+Die Inhalte dieses Abschnittes können in \cite{link} vertieft werden (Kapitel 2, 3, 7 und 11).
 
-\begin{tabularx}{\textwidth}{p{0.25\textwidth}|r|X|r}
+\begin{table}[ht]
+    \caption{Wahrheitstabelle}
+    \centering
+    \begin{tabular}{|c|c|c|c|c|c|c|}
+    \hline
+          A
+        & B
+        & $\neg A$
+        & $A \wedge B$
+        & $A \vee B$
+        & $A \rightarrow B$
+        & $A \leftrightarrow B$
+        \\
+        \hline
+          1
+        & 1
+        & 0
+        & 1
+        & 1
+        & 1
+        & 1
+        \\
+        \hline
+          1
+        & 0
+        & 0
+        & 0
+        & 1
+        & 0
+        & 0
+        \\
+        \hline
+          0
+        & 1
+        & 1
+        & 0
+        & 1
+        & 1
+        & 0
+        \\
+        \hline
+          0
+        & 0
+        & 1
+        & 0
+        & 0
+        & 1
+        & 1
+        \\
 
     \hline
-    A & B & $\neg A$
+    \end{tabular}
     \label{tab:al}
-\end{tabularx}
+\end{table}
 
-Wahrheitstabellen
+
 \section{Prädikatenlogik}\label{pl}
+
+Die Prädikatenlogik
 \begin{itemize}
         \item Prädikate
         \item Existenzquantoren
         \item Allquantoren
 \end{itemize}
-        
+
+Die Inhalte dieses Abschnittes können in \cite{link} vertieft werden (Kapitel 4, 6, 8 und 12).
+
 \section{Mengenlehre}\label{mengenlehre}
 In diesem Abschnitt werden die folgenden Inhalte erläutert:
 \begin{itemize}
@@ -79,7 +135,7 @@ Da es unendlich viele natürlichen Zahlen gibt,
 können wir die Extension nicht angeben
 (alles Papier der Welt wäre nicht genug).
 1,2,3 sind Elemente in beiden Mengen Menge.
-Wir schreiben zum Beispiel $1 \in A$ und $1 \in \mathbb{N}$ 
+Wir schreiben zum Beispiel $1 \in A$ und $1 \in \mathbb{N}$
 um die Elementschaftsbeziehung zwischen Objekt/Element und Menge formal auszudrücken.
 Die leere Menge ist eine spezielle Menge, die keine Elemente enthält,
 wir bezeichnen die leere Menge mit $\emptyset$.
@@ -165,7 +221,7 @@ haben eine Reihenfolge und daher können Duplikate nicht einfach ignoriert werde
 Das Folgende sollten bekannt sein:
 \begin{itemize}
     \item Ein Tupel mit zwei Elementen heißt geordnetes Paar.
-    \item Ein Tupel mit drei Elementen heißt Tripel. 
+    \item Ein Tupel mit drei Elementen heißt Tripel.
     \item Ein Tupel mit n    Elementen heißt n-Tupel.
     \item Das kartesische Produkt zweier Mengen A und B wird mit $A \times B$ bezeichnet
           und ist definiert als: $\{[a,b]|a \in A \wedge b \in B\}$.
@@ -204,9 +260,9 @@ Ein weiteres Beispiel ist:
             [a,c], &
             \ldots, &
             [a,y], &
-            [a,z],\\ 
+            [a,z],\\
         &
-        & 
+        &
         &
             [b,c], &
             \ldots, &
@@ -221,7 +277,7 @@ Ein weiteres Beispiel ist:
         &
         &
         &
-        &     
+        &
         &
             [y,z] \}
 \end{array}
@@ -250,8 +306,8 @@ d.h. für den Fall einer zweistelligen Relation R:
 Intuitiv bedeutet das: Wenn x der Input der Funktion ist,
 dann ist der Output y der Funktion eindeutig bestimmt
 (es gibt keinen anderen Wert z der von y unterschieden ist,
-der auch Output sein kann, wenn x gegeben ist). 
-Da der Output meistens rechts steht, sagt man auch die Relation ist \emph{rechts}eindeutig. 
+der auch Output sein kann, wenn x gegeben ist).
+Da der Output meistens rechts steht, sagt man auch die Relation ist \emph{rechts}eindeutig.
 Die Relation $ABC$ aus dem vorangegangenen Abschnitt ist eine Funktion,
 die Relation $<_{ABC}$ nicht.
 
@@ -269,10 +325,10 @@ Folgende Sachverhalte sollten bekannt sein:
     \item Bei mehrstelligen Funktionen muss eine Signatur angeben, was zur Definitions-
         bzw. Wertemenge gehört. Z.B. hätte die Funktion $between$,
         die sowohl Vorgänger als auch Nachfolger im Alphabet angibt die folgende Signatur:
-        \[ between: 
+        \[ between:
             \Sigma \backslash \{a,z\}
             \rightarrow
             \Sigma \backslash \{z\} \times \Sigma \backslash \{a\} \]
 \end{itemize}
 
-\section{Beweisstrategien \& Beweisskizzen}\label{bew}
+%\section{Beweisstrategien \& Beweisskizzen}\label{bew}
