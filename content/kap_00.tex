@@ -128,25 +128,47 @@ Die Inhalte dieses Abschnittes können in \cite{link} vertieft werden (Kapitel 2
 
 \section{Prädikatenlogik}\label{pl}
 
-Die Prädikatenlogik
-\begin{itemize}
-        \item Prädikate
-        \item Existenzquantoren
-        \item Allquantoren
-\end{itemize}
+In diesem Abschnitt werden zentrale Konzepte der Prädikatenlogik
+(ein- und mehrstellige Prädikation, Quantoren, Kombination von Quantoren)
+vorgestellt.
+
+Die Prädikatenlogik erweitert die Aussagenlogik,
+indem sie Aussagen nicht mehr als gegebene Satzvariablen auffasst,
+sondern das Werkzeug bereitstellt,
+die interne Struktur von Aussagen zu analysieren.
+
+Die grundlegende Struktur von Aussagen ist dabei die \emph{Prädikation},
+eben die Aussage, dass 1-n Objekte in einem Verhältnis stehen.
+Zum Beispiel würde die Aussage
+``a ist ein Vokal'' formal mit $V(a)$ wiedergeben,
+wobei $V(x)$ das Prädikat ``x ist ein Vokal'' darstellt
+und ``a'' der Name eines Objekts ist.
+$V(x)$ ist \emph{einstellig},
+Prädikate können aber auch \emph{mehrstellig} sein:
+$ABC(x,y)$ könnte zum Beispiel bedeutet: nach x kommt y im Alphabet.
+
+Die wesentliche Analysetiefe bekommt die Prädikatenlogik aber dadurch,
+dass sie es erlaubt, mit \emph{Quantoren} Existenz- und Allaussagen zu formalisieren.
+Die Aussage ``Es gibt einen Vokal'' formalisieren wir mit $\exists x(V(x))$
+und die Aussage ``Alle Vokale sind entweder a, e, i, o oder u.``:
+\[\forall x (V(x) \rightarrow x = a \vee x = e \vee x = i \vee x = o \vee x = u)\]
+Die Prädikatenlogik erlaubt es zudem Quantoren \emph{beliebig komplex zu kombinieren}:
+\[\forall x \exists y(V(x) \rightarrow ABC(x,y))\]
+Dies bedeutet, dass jeder Vokal einen Nachfolger im Alphabet hat,
+was für Konsonanten eine falsche Aussage wäre (z ist der letzte Buchstabe).
+
+Diese ``Schachtelung'' der Quantoren ist nicht nur eine technische Spielerei,
+sie hat es ermöglicht, zentrale Ergebnisse der Mathematik präzise zu formulieren.\footnote{
+    Ein Beispiel ist der Konvergenzbegriff, siehe \cite{link}, 10
+}
+Dies trifft auch auf wichtige Ergebnisse der theoretischen Informatik zu.
+Wir werden in \autoref{pumping} das Pumping-Lemma als ein Beispiel hierfür kennenlernen.
 
 Die Inhalte dieses Abschnittes können in \cite{link} vertieft werden
 (Einleitung, 9-13 und Kapitel 4, 6, 8 und 12).
-
-Die Prädikatenlogik erlaubt es also Quantoren beliebig komplex zu kombinieren.
-Dies hat es nicht nur ermöglicht zentrale Ergebnisse der Mathematik im Allgemeinen
-präzise zu formulieren,\footnote{
-    Ein Beispiel ist der Konvergenzbegriff, siehe \cite{link}, 10
-}
-sie ermöglichen es auch wichtige Ergebnisse der theoretischen Informatik zu formalisiern.
-Wir werden in \autoref{pumping} das Pumping-Lemma als ein Beispiel hierfür kennenlernen.
-
-Axiomatisierung von AL und PL (\cite{link} 13)
+%Sowohl die Aussagenlogik als auch die Prädikatenlogik können in einem axiomatischen
+%System formalisiert werden, dass es uns erlaubt aus grundg
+%Axiomatisierung von AL und PL (\cite{link} 13)
 
 \section{Mengenlehre}\label{mengenlehre}
 In diesem Abschnitt werden die folgenden Inhalte erläutert:
@@ -265,7 +287,7 @@ die Funktion extensiv anzugeben (siehe voriger Abschnitt).
 
 \subsection{Tupel}
 
-Ein Tupel ist wie eine Menge, nur gilt hier:
+Ein Tupel ist wie eine Menge eine Zusammenfassung von Elementen, nur gilt hier:
 \[[a,b] \neq [b,a] \text{ und } [a,b] \neq [a,b,a] \text{ und } [b,a] \neq [a,b,a]\]
 D.h. Tupel werden anstatt mit geschweiften mit eckigen Klammern angegeben,
 haben eine Reihenfolge und daher können Duplikate nicht einfach ignoriert werden.
