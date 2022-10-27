@@ -3,10 +3,10 @@ Dieses Kapitel soll in konziser Weise die Ergebnisse der folgenden Fächer zusam
 die Voraussetzung für einen sicheren Umgang mit dem Methodenkoffer
 der theoretischen Informatik sind:
 \begin{itemize}
-    \item Formale Logik (\autoref{al}, \autoref{pl}, \autoref{bew})
+    \item Formale Logik (\autoref{al} und \autoref{pl})
     \item Mengenlehre (\autoref{mengenlehre} und \autoref{relationenUndFunktionen})
 \end{itemize}
-Jedes dieser Kapitel ist knapp gehalten und hat einen Anreißer,
+Jeder dieser Abschnitte ist knapp gehalten und hat einen Anreißer,
 der es den Lesenden erlaubt schnell zu entscheiden,
 ob eine Auffrischung vonnöten ist.
 Die Abschnitte sind keine vollwertige Einführung in das jeweilige Gebiet,
@@ -14,7 +14,8 @@ hierfür sei v.a. \cite{link} empfohlen.
 
 \section{Aussagenlogik}\label{al}
 In diesem Abschnit werden die grundlegenden aussagenlogischen Junktoren
-(Negation, Konjunktion, Disjunktion, Konditional, Bikonditional) eingeführt.
+(Negation, Konjunktion, Disjunktion, Konditional, Bikonditional) eingeführt.\\
+
 
 Die grundlegende Idee der Aussagenlogik ist,
 die logische Verknüpfung zwischen Aussagen zu analysieren.
@@ -41,6 +42,32 @@ wir schreiben formal: $\neg A$. Wenn $A$ wahr ist, ist $\neg A$ falsch und umgek
             Das Bikonditional wird auch Äquivalenz genannt.
 \end{itemize}
 Zusammenfassend kann man die Bedeutung der Junktoren \autoref{tab:al} entnehmen.
+
+Das Konditional sorgt beim Einstieg in die Aussagenlogik erfahrungsgemäß für etwas Kopfzerbrechen.
+Dies liegt vor allem daran,
+dass das natursprachliche Äquivalent des Konditionals, die Wenn-dann-Sätze,
+wesentlich mehr Bedeutung haben als die Aussagenlogik ausdrücken kann.\footnote{
+    In \cite{link} 75-103 werden nicht weniger als sechs Aspekte diskutiert.
+}
+Für die Zwecke dieses Skriptes ist es am Besten,
+das Konditional als Wahrheitfsfunktion zu verstehen,
+die zwei Aussagen nach festen Regeln auf einen Wahrheitswert abbildet,
+ohne dabei die Ausdruckskraft der natürlichen Sprachen zu erhalten.
+
+Die Aussagenlogik ist
+einerseits ein grundlegendes Werkzeug für alle formal arbeitenden Wissenschaften,
+darunter auch die theoretische Informatik.
+Andererseits sind einige Fragen der Aussagenlogik selbst Probleme,
+die algorithmisch untersucht werden.
+Zum Beispiel kann man sich fragen,
+ob es für eine komplexe Aussagen-logische Formel mit vielen Junktoren und vielen Aussagenvariablen
+eine ``Belegung''\footnote{
+    Eine Belegung ordnet einer Aussagenvariable einen Wahrheitswert zu.
+} dieser Variablen gibt,
+welche diese Formel wahr (oder falsch) macht.
+Gerade dieses Problem, in der Literatur SAT genannt,
+ist zentral für die Komplexitätstheorie.
+
 Die Inhalte dieses Abschnittes können in \cite{link} vertieft werden (Kapitel 2, 3, 7 und 11).
 
 \begin{table}[ht]
@@ -108,7 +135,18 @@ Die Prädikatenlogik
         \item Allquantoren
 \end{itemize}
 
-Die Inhalte dieses Abschnittes können in \cite{link} vertieft werden (Kapitel 4, 6, 8 und 12).
+Die Inhalte dieses Abschnittes können in \cite{link} vertieft werden
+(Einleitung, 9-13 und Kapitel 4, 6, 8 und 12).
+
+Die Prädikatenlogik erlaubt es also Quantoren beliebig komplex zu kombinieren.
+Dies hat es nicht nur ermöglicht zentrale Ergebnisse der Mathematik im Allgemeinen
+präzise zu formulieren,\footnote{
+    Ein Beispiel ist der Konvergenzbegriff, siehe \cite{link}, 10
+}
+sie ermöglichen es auch wichtige Ergebnisse der theoretischen Informatik zu formalisiern.
+Wir werden in \autoref{pumping} das Pumping-Lemma als ein Beispiel hierfür kennenlernen.
+
+Axiomatisierung von AL und PL (\cite{link} 13)
 
 \section{Mengenlehre}\label{mengenlehre}
 In diesem Abschnitt werden die folgenden Inhalte erläutert:
@@ -146,6 +184,7 @@ Die \emph{Mächtigkeit} einer endlichen Menge ist die Anzahl ihrer Elemente,
 zum Beispiel ist die Mächtigkeit von $\emptyset$ null und von $A$ drei.\footnote{
     Die Mächtigkeit von unendlichen Mengen ist ebenfalls ein wohldefiniertes Konzept,
     das allerdings für die Zwecke dieses Skriptes nicht eingeführt werden muss.
+    Siehe: \cite{link}, 15
 }
 Wir schreiben formal $|A| = 3$.
 Mit dem Begriff \emph{Universum}\footnote{
@@ -158,10 +197,16 @@ d.h.\ wir geben eine Bedingung an,
 die alle Elemente eines Universums erfüllen müssen.
 Für alle geraden natürlichen Zahlen wäre das z.B.:
 \[\{n| n = 2m \wedge n,m \in \mathbb{N} \}\]
-Links in der geschweiften Klammer wird spezifiert,
-von welche Art die Elemente sind
-(oftmals ergänzt durch die Spezifikation aus welchem Universum die Elemente ausgewählt werden).
-Rechts wird die Bedingung angegeben, anhand derer Elemente ausgewählt werden.
+Links in der geschweiften Klammer wird eine Variable für die Elemente angegeben
+(manchmal ergänzt durch die Spezifikation aus welchem Universum die Elemente ausgewählt werden).
+Rechts wird die Bedingung angegeben, anhand derer Elemente ausgewählt werden.\footnote{
+    Die ``naive'' Mengenlehre nimmt an,
+    dass jegliche Bedingung auf der rechten Seite gewählt werden kann.
+    Dies ist nicht der Fall, wie wir in \autoref{sec:paradoxien} genauer feststellen werden.
+}
+Auf der linken Seite kann eine komplexe Variable für Elemente auch detaillierter angegeben werden,
+um auf der rechten Seite einfacher zu referenzieren:
+$\{x + iy| x,y \in \mathbb{R}\}$.
 
 Für Mengen gilt allgemein:
 \[ \{a,b\} = \{b,a\} = \{a,b,a\} \]
@@ -170,6 +215,7 @@ Das heißt:
     \item Die Elemente einer Menge haben keine Reihenfolge.
     \item Duplikate eines Elements in einer Extension werden ignoriert.
 \end{itemize}
+
 
 
 \subsection{Relationen zwischen und Operationen auf Mengen}
@@ -195,6 +241,12 @@ Man kann Mengen unter Anderem mit folgenden Operationen kombinieren:
 
 Die Mächtigkeit der Potenzmenge über einer beliebigen Menge M ist stets:
 $|\mathcal{P}(M)| = 2^{|M|}$.
+
+
+Die Mengenlehre ist nicht nur die \emph{lingua franca}\footnote{Vergleiche \cite{link}, 14}
+aller formal arbeitenden Wissenschaften,
+sie ermöglicht es auch die grundlegenden Konzepte der theoretischen Informatik
+konzise zu spezfizieren (siehe \autoref{sec:formalisierung}.
 Der Inhalt dieses Unterkapitels kann in \cite{link}
 in den Kapiteln 1.1, 9 und 10 vertieft werden.
 
@@ -208,6 +260,7 @@ In diesem Abschnitt werden wir die folgenden Sachverhalte erläutern :
 Dies erlaubt uns Funktionen als Menge von Tupeln zu begreifen,
 was uns für endliche Funktionen
 (wie z.B. eine Übergangsfunktion eines Automaten)
+erlaubt,
 die Funktion extensiv anzugeben (siehe voriger Abschnitt).
 
 \subsection{Tupel}
@@ -330,5 +383,11 @@ Folgende Sachverhalte sollten bekannt sein:
             \rightarrow
             \Sigma \backslash \{z\} \times \Sigma \backslash \{a\} \]
 \end{itemize}
+
+Ein grundlegendes formales Verständnis von Relationen und Funktionen ist besonders wichtig
+bei der Frage, wie Maschinen feststellen können,
+ob eine Relation zwischen zwei Objekten besteht
+und noch vielmehr bei der Frage, wie Maschinen Funktionen berechnen können.
+In \autoref{subsec:problemeSprachen} werden wir uns genau diesen Fragen widmen.
 
 %\section{Beweisstrategien \& Beweisskizzen}\label{bew}
