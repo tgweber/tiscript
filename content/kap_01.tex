@@ -1,23 +1,9 @@
 \chapter{Einleitung}\label{einleitung}
-\section{Warum theoretische Informatik?}
+%\section{Warum theoretische Informatik?}
 Warum lohnt sich die Beschäftigung mit theoretischer Informatik?
 Die kurze Antwort: Sie liefert einen wesentlichen Teil des Handwerkszeugs,
 um die Potentiale und Grenzen der technischen Informationsverarbeitung zu umreißen.
 Die lange Antwort soll dieses Skript geben.
-
-Das Skript wurde begleitend zur Veranstaltung
-\emph{Theoretische Informatik (Wirtschaftsinformatik)}
-an der DHBW Heilbronn erstellt.\footnote{
-    Das Skript richtet sich vor allem an Fachhochschul- und BA-Student:innen,
-    die Informatik eher als Teilfach oder Nebenfach belegen, und an interessierte Laien.
-    Für Studierende der Informatik auf Universitätsniveau kann das Skript ergänzend hilfreich sein,
-    allerdings hat es nicht den Anspruch den vollen Umfang zu besprechen,
-    der typischer Weise in diesem Kontext verlangt wird.}
-Wir folgen in diesem Skript einem kartesischen Ansatz:
-Wir gehen vom maximalen Zweifel aus und setzen die theoretische Informatik
-als potentiellen Nichtsnutz auf die Anklagebank.
-Schritt für Schritt werden wir die Jury (die Studierenden) von der Unschuld dieser
-Disziplin überzeugen.
 
 Wir beginnen den Überzeugungsversuch mit der Feststellung,
 dass uns als Informatiker:innen die Nützlichkeit
@@ -65,7 +51,8 @@ kann man einiges über diese Alltags-Probleme sagen:
     \item Bei mindestens einem Problem ist unklar, ob und wie es sich lösen lässt.
 \end{itemize}
 
-Am Ende dieses Skriptes soll klar sein, welches dieser Probleme in welche dieser Kategorien fällt.
+Am Ende dieses Skriptes soll klar sein,
+welches dieser Probleme in welche dieser Kategorien fällt.
 An diesem Punkt im Text wollen wir uns aber zunächst damit begnügen,
 dass die theoretische Informatik Nutzen bringt,
 da ihre Methoden und Ergebnisse es erlauben,
@@ -82,29 +69,30 @@ soll in den folgenden Abschnitten exemplarisch dargelegt werden.
 \section{Abstraktion}
 
 Ein grundlegendes Instrument der Informatik (nicht nur der Theoretischen) 
-ist die \emph{Abstraktion}, also die ausschließliche Betrachtung der Aspekte eines Sachverhalts,
+ist die \emph{Abstraktion},
+also die ausschließliche Betrachtung der Aspekte eines Sachverhalts,
 die für einen gegebenen Zweck wesentlich sind.
-Mit der Abstraktion kommen wir also von einer sehr speziellen Aufgabenbeschreibung,
+Die Abstraktion ist der Weg von einer sehr speziellen Aufgabenbeschreibung,
 wie einer Userstory, zu einem abstrakten Problem,
 dessen Lösung in vielen spezifischen Kontexten anwendbar wird.
 
-Es gibt leider keinen einfachen und eindeutigen Weg
+Es gibt leider keinen einfachen, eindeutigen oder automatisierbaren Weg
 duch Abstraktion von einer Userstory zu einem abstrakten Problem zu kommen.
-Dafür sind intellektuelle Kreativität und ein gutes Verständnis des gegebenen Zwecks notwendig.
-Ein möglicher Fehler ist z.B. zu wenige Aspekte auszulassen,
+Dafür sind intellektuelle Kreativität
+und ein gutes Verständnis des vorliegenden Zwecks notwendig.
+Ein möglicher Fehler ist zum Beispiel zu wenige Aspekte auszulassen,
 so dass das abstrakte Problem nicht so einfach wie möglich ist. 
 Ebenso ist es ein Fehler, zu viele Aspekte auszulassen,
 so dass das abstrakte Problem nicht so detailreich wie nötig ist,
-um dem gegebenen Zweck gerecht zu werden.
-
-%Die Behandlung von Problemen mit den Methoden der theoretischen Informatik
-%ist der Zweck, den wir verfolgen. 
-%Diesen muss man von den Zielen unterscheiden,
-%derentwegen die Userstories formuliert wurden.
-%Die Zwecke können sich überschneiden, sind aber voneinander zu unterscheiden.\\
-
-\noindent
-So könnte eine Abstraktion für das \textbf{MAX}-Problem aussehen:
+um dem vorliegenden Zweck gerecht zu werden.
+Unser vorliegender Zweck ist die Beantwortung der Frage,
+was ein Problem im Sinne der theoretischen Informatik ist.\footnote{
+    Diesen muss man von den Zielen unterscheiden,
+    derentwegen die Userstories formuliert wurden.
+    Diese beiden Zwecke können sich überschneiden,
+    sind aber voneinander zu unterscheiden.
+}
+So könnte eine Abstraktion von \textbf{MAX} für diesen Zweck aussehen:
 \begin{enumerate}
     \item \emph{Als Filialleiter:in möchte ich den Artikel mit der höchsten Gewinnmarge kennen,
         um meine Lieferungen zu optimieren} (ursprüngliche Userstory).
@@ -112,12 +100,13 @@ So könnte eine Abstraktion für das \textbf{MAX}-Problem aussehen:
         (Wer den besten Artikel aus welchem Grund kennen will,
         ist für unseren Zweck gleichgültig.)
     \item \emph{Identifikation des Artikels,
-        der aus einer Menge an Artikeln einen maximalen Wert in Form einer natürlichen Zahl hat}
+        der aus einer Menge an Artikeln einen maximalen Wert hat}
         (Es ist z.B. egal,
         ob es der beste Artikel im Sinne der Verkaufshäufigkeit
         oder der mit der höchsten Gewinnmarge in Cent ist.)
-    \item \emph{Identifikation des Maximums in einer Menge natürlicher Zahlen}
-        (Es ist egal, ob wir das Maximum in einer Liste von Artikel oder anderer Objekte suchen.)
+    \item \emph{Identifikation des Maximums in einer Menge von Zahlen}
+        (Es ist egal, ob wir das Maximum in einer Liste von Artikeln
+        oder anderer Objekte suchen.)
 \end{enumerate}
 
 Wie wir im Laufe des Skriptes sehen werden, ist die letzte Formulierung des Problems die 
@@ -132,13 +121,13 @@ Wie man Abstraktionen im Sinne der Software Entwicklung einsetzen kann,
 lehrt die Disziplin des Software Engineerings.}
 Wir kommen so auf den Kern des \textbf{MAX}-Problems:
 \begin{itemize}
-    \item \textbf{Gegeben:} Ein Tupel von natürlichen Zahlen
-    \item \textbf{Gesucht:} Die größte Zahl aus dem Tupel
+    \item \textbf{Gegeben:} Eine Menge von Zahlen
+    \item \textbf{Gesucht:} Die größte Zahl aus der Menge 
 \end{itemize}
 Diese Form der Problemangabe (Gegeben/Gesucht) wollen wir \emph{informell} nennen.
 Dabei ist für die informelle Angabe wichtig,
-sowohl den Typ des (potentiell komplexen) Eingabewerts,
-als auch des (potentiell komplexen) Ausgabewerts zu spezifizieren.
+sowohl den Typ des (potentiell komplexen) Eingabewerts (hier: eine Menge von Zahlen),
+als auch des (potentiell komplexen) Ausgabewerts (hier: eine Zahl) zu spezifizieren.
 Mit der informellen Problemangabe lassen sich bereits drei sehr grundlegende Fragen stellen:
 \begin{enumerate}
     \item Wie muss \textbf{MAX} dargestellt sein, damit eine Maschine es lösen kann?\\ 
@@ -162,19 +151,29 @@ geben Antwort auf diese Fragen:
 Der Rest des Skriptes wird in die grundlegenden Ergebnisse dieser drei Teildisziplinen einführen,
 ihre Wechselwirkung beschreiben
 und die Anwendung ihrer Methoden auf die eingangs erwähnten Userstories erläutern.
-Dabei werden wir natürlich nicht nur \textbf{MAX} behandeln, sondern uns generell fragen,
-welche Probleme formalisiert, überhaupt berechnet und effizient berechnet werden können.
-Zunächst wollen wir uns aber noch eine beispielhafte Formalisierung von \textbf{MAX}
-anschauen, um dabei gleich weitere grundlegende Begriffe der theoretischen Informatik
-einzuführen.
-
-Wir halten fest, dass die Abstraktion ein Werkzeug ist,
+Wir halten hier zunäcst fest,
+dass die Abstraktion ein Werkzeug ist,
 Probleme auf ihren Kern zu reduzieren.
 Diese abstrakte, informelle Form des Problems hat genau den Umfang,
 der so klein wie möglich und so groß wie nötig ist.
 
+%Dabei werden wir natürlich nicht nur \textbf{MAX} behandeln, sondern uns generell fragen,
+%welche Probleme formalisiert, überhaupt berechnet und effizient berechnet werden können.
+%Zunächst wollen wir uns aber noch eine beispielhafte Formalisierung von \textbf{MAX}
+%anschauen, um dabei gleich weitere grundlegende Begriffe der theoretischen Informatik
+%einzuführen.
+
+
 \section{Formalisierung}\label{sec:formalisierung}
-\noindent
+
+Was sind Probleme generell? Bisher nur einzelne Probleme aufgezählt und eins abstrahiert,
+aber keine Aussage über Probleme an sich? Was haben sie gemeinsam?
+Eine Maschine soll das Problem lösen. Dafür muss es in einer bestimmten Form sein.
+Wir wollen uns aber nicht auf eine bestimmte Computer-Architektur einlassen
+oder eine bestimmte Programmiersprache, wir wollen auch davon abstrahieren.
+Die finale Form von Problemen ist die der formalen Sprache.
+Jetzt gehen wir das anhand eines Beispiels durch.
+
 Die informelle Angabe des \textbf{MAX}-Problems legt nahe, dass wir nach einer Möglichkeit suchen
 eine Funktion zu berechnen:
 \begin{itemize}
