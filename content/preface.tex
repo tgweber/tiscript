@@ -1,16 +1,99 @@
 \chapter{Vorwort}
 
-Das Skript wurde begleitend zur Veranstaltung
+Warum braucht es eine weitere (deutschsprachige) Einführung
+in die theoretische Informatik?
+Es gibt ja bereits Bücherregale gefüllt mit guten Einführungen zu dem Thema
+(siehe Ende dieses Vorwortes).
+Mit einem Schmunzeln könnte man sagen,
+dass das Alleinstellungsmerkmal dieses Skriptes seine
+\emph{Unvollständigkeit} ist.
+Im Gegensatz zu anderen Einführungen wollen wir das Fach nicht in der Breite darstellen,
+sondern uns einen Gedankengang, eine spezifische Überlegung,
+ein \emph{Narrativ} herauspicken:
+Wir wollen die Frage beantworten,
+warum diejenigen
+schneller, effizienter und präziser
+in ihrer täglichen Arbeit als IT-Fachkräfte sind,
+die das Kompendium der theoretischen Informatik beherrschen.
+
+Diesem Gedanken folgend werden wir in Kapitel 1 zunächst genauer analysieren,
+was überhaupt ein Problem im Sinne der theoretischen Informatik ist
+und wie wir es mit Hilfe von Abstraktion und Formalisierung mit den Werkzeugen
+dieses Faches bearbeiten können.
+
+TODO: Weitere Kapitelaufbau entlang des Erzählstrangs.
+
+TODO: Lineares Lesen.
+
+Zurück zur Daseinsberechtigung dieses Skriptes:
+Es komplementiert andere Einführungen,
+viele zentrale Ergebnisse, Hintergründe und Konzepte
+der theoretischen Informatik,
+die für den gerade dargestellten Erzählstrang irrelvant sind,
+finden sich nur in Fußnoten und Referenzen:
+Wir werden nichts über Abzählbarkeit,
+wenig über Abschlusseigenschaft formaler Sprachen,
+linear-beschränkte Turingmaschinen,
+oder Transduktoren zu sagen haben.
+Aber nach der Lektüre wird hoffentlich klar,
+warum eine Vertiefung des Faches lohnenswert ist,
+auch in Bezug auf diese ausgesparten Konzepte.
+
+Ein zweites Alleinstellungsmerkmal findet sich im Fokus auf grundlegende
+wissenschaftsphilosophische und metatheoretische Fragstellungen,
+die ansonsten in anderen Einführungen eher am Rande gestreift
+oder einfach ignoriert werden.
+Was genau meinen wir mit Begriffen wie ``Problem'', ``Berechnung'', ``Effizienz''?
+Welche Rolle spielen Konventionen in der theoretischen Informatik?
+Welche Alternativen gibt es zum Methodenkoffer der theoretischen Informatik
+bei praktischen Fragestellungen
+und warum haben letztere trotzdem mehr als eine Daseinsberechtigung?
+Diese Fragen können leicht abgetan werden, frei nach dem Fregeschen Dictum
+``philosophia sunt, non leguntur!''\footnote{
+    In etwa: ``Das ist Philosophie,
+    das lesen wir (als Informatiker:innen) nicht!''
+    Frege beklagt in \cite{frege_grundgesetze} (7),
+    dass der Mehrwert seiner Beiträge weder in der akademischen Philosophie,
+    noch in der akademischen Mathematik Anerkennung finden.
+}
+Das Buch verfolgt aber den Ansatz,
+dass sich Studierende der theoretischen Informatik
+\emph {leichter} mit dem klassischen Handwerkszeug tun,
+wenn sie Antworten auf diese philosophischen Fragestellungen mitdiskutieren.
+Die kritische Perspektive der (formal-analytischen) Philosophie
+verspricht uns mehr Präzision und Klarheit.
+
+Dritter Aspekt: Mehr Schlaglicht auf Komplexitätstheorie.
+
+Das ursprüngliche Skript wurde begleitend zur Veranstaltung
 \emph{Theoretische Informatik (Wirtschaftsinformatik)}
 an der DHBW Heilbronn erstellt.
 Es richtet sich vor allem an Fachhochschul- und BA-Student:innen,
-die Informatik eher als Teilfach oder Nebenfach belegen, und an interessierte Laien.
-Für Studierende der Informatik auf Universitätsniveau kann das Skript ergänzend hilfreich sein,
-allerdings hat es nicht den Anspruch den vollen Umfang zu besprechen,
-der typischer Weise in diesem Kontext verlangt wird.
+die Informatik eher als Teil- oder Nebenfach belegen.
+Desweiteren wird das Buch aus oben genannten Gründen auch für Studierende der Philosophie
+in der analytisch-angelsächischen Tradition (d.h. mit einem Fokus auf formales Arbeiten)
+eine gewinnbringende Einführung in das Fach bieten.
+Für Studierende der Informatik auf Universitätsniveau kann das Skript 
+\emph{ergänzend} hilfreich sein,
+sollte allerdings mit einem vollständigen Kompendium ergänzt werden.
+Die folgende Aufstellung von Einführungen in die theoretische Informatik
+bietet geeignete Kandidaten für eine Komplementierung, 
+spiegelt den Geschmack des Autors wieder
+und hat keinen Anspruch auf Vollständigkeit:
+\begin{itemize}
+    \item  \cite{hoffmann} bietet ein sehr umfassendes Kompendium.
+    \item  Einen kurzen und konzisen Überblick bietet \cite{schoening},
+            die Reihenfolge der Kapitel entspricht dem kanonischen Aufbau
+            einer universitären Vorlesung.
+    \item  Für eine Compiler-zentrierte Einführung ist \cite{hedtstueck}
+           zu empfehlen.
+    \item  Wer Wert auf vollständige formale Beweise legt,
+        wird bei \cite{erkpriese} fündig.
+    \item  \cite{neubert} hat die niedrigeste Einstiegshürde (es wird viel und ausführlich erklärt) und hat einen starken Fokus auf Algorithmen bzw. Algorithmik.
+    \item  Der (englisch-sprachige) Klassiker ist \cite{hopcroftullman},
+        für puristische und historisch interessierte Leser:innen zu empfehlen.
+    \item  \cite{barak} ist ein Skript in der Entstehung, es ist englisch und offen im Netz zugänglich.
+\end{itemize}
 
-Wir folgen in diesem Skript einem kartesischen Ansatz:
-Wir gehen vom maximalen Zweifel aus und setzen die theoretische Informatik
-als potentiellen Nichtsnutz auf die Anklagebank.
-Schritt für Schritt werden wir die Jury (die Studierenden) von der Unschuld dieser
-Disziplin überzeugen.
+
+
