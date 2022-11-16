@@ -36,6 +36,7 @@ clean:
 		rm -f $(MAIN).pdfsync
 		rm -rf *~ *.tmp
 		rm -f *.bbl *.blg *.aux *.end *.fls *.log *.out *.fdb_latexmk *.tdo $(MAIN).mtc*
+		rm -f content/*.aux
 
 publish:
 		scp $(MAIN).pdf melchior@kushida.uberspace.de:html/$(MAIN)_bkp.pdf 

@@ -117,8 +117,6 @@ maxbibnames=99
 
   \mainmatter
   \setcounter{page}{1}
-  \setcounter{chapter}{-1}
-  \include{content/kap_00} 
   \include{content/kap_01} 
   \include{content/kap_02} 
   \include{content/kap_03} 
@@ -137,7 +135,7 @@ maxbibnames=99
   \renewcommand{\thetable}{A.\arabic{table}}
   \titleformat*{\subsection}{\normalsize\bfseries}
   \chapter{Appendix}
-
+  \include{content/kap_00} 
   \section{Abbildungsverzeichnis}
   \listoffigures
   \clearpage

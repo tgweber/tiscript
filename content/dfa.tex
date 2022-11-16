@@ -1,0 +1,92 @@
+\chapter{Das Hello World der Automatentheorie}
+In diesem Kapitel werden wir das \textbf{MATCH}-Problem genauer unter die Lupe nehmen
+und dabei unseren ersten Automaten-Typ formal einführen.
+Zur Wiederholung die User-Story-Version des \textbf{MATCH}-Problems:
+\begin{center}
+``Als Einkaufsmanager:in möchte ich, dass nur valide Lieferanten-IDs gespeichert werden
+(beginnend mit einem ``L'', gefolgt von einer Zahl),
+um Fehler in der Datenbank zu vermeiden.''
+\end{center}
+Abstrahieren und Formalisieren wir das Problem erscheint folgende informelle Formulierung
+als mögliches Ergebnis:
+\begin{itemize}
+\item \textbf{Gegeben}: Eine Zeichenfolge (String)
+\item \textbf{Gesucht}: Entspricht die Zeichenfolge einem bestimmten Muster?
+\end{itemize}
+Die gesuchte Funktion $f_{MATCH}$ hat als Definitionsmenge also eine Zeichenfolge
+über einem Alphabet $\Sigma$ und als Wertemenge die booleschen Werte wahr/falsch,
+bzw. 1/0: $f_{MATCH}: \Sigma \rightarrow \{0,1\}$.
+
+Die informelle Version des Problems lässt schon vermuten,
+dass seine Berechnung uns nicht vor große theoretische Probleme stellt.
+Daher trägt dieses Kapitel auch den Titel ''Das Hello World der Automatentheorie'':
+Hello-World-Programme sind einfache Code-Schnipsel,
+um ein erstes und einfaches Programm einer Programmiersprache zum Laufen zu bringen
+und den Ablauf kennenzulernen (Aufruf des Compilers/Interpreters, grundlegende Syntax, etc).
+Analog wollen wir es mit der Automatentheorie halten:
+\textbf{MATCH} ist einfach genug, um erste formale Konzepte einzuführen.
+
+
+
+In Kapitel \autoref{einleitung} haben wir schon festgehalten:
+Probleme lassen sich als als Entscheidungsprobleme von Sprachen formalisieren.
+Für Match würde dies bedeuten, dass wir eine Sprache suchen,
+die analog zu $f_{MATCH}$ genau die Kombinationen von Zeichenfolgen und booleschen Werten beinhaltet,
+die anzeigen, ob die Zeichenfolge nun einem Muster entspricht oder nicht.
+
+Wenn die Funktion, die wir formalisieren wollen, als Wertemenge die booleschen Werte hat,
+können wir allerdings eine kleine Vereinfachung anwenden:
+Das Entscheidungsproblem, also die Fragestellung, ob ein Wort zu einer Sprache gehört,
+gibt ja schon einen booleschen Wert zurück.
+Daher können wir die Wertemenge im Fall von \textbf{MATCH} als redundant ignorieren
+und kommen zu folgender Sprache:
+Alle Zeichenketten, die einem Muster entsprechen
+(z.B. beginnend mit einem ''L'' gefolgt von einer Zahl).
+In der Sprache $L_{MATCH}$ wären also z.B. 'L0101' oder 'L111',
+nicht aber '1L1' oder 'abc'.
+
+Im folgenden Abschnitt wollen wir uns formale Methoden anschauen,
+wie wir eine solche Sprache erkennen können.
+
+\section{Deterministisch Finite Automaten}
+Viele formale Sprachen haben unendlich viele Wörter,
+so auch $L_{MATCH}$.
+Daraus folgt: wir können sie nicht einfach extensiv angeben (''aufzählen''),
+sondern müssen Mittel und Wege finden, sie formal zu charakterisieren.
+Zwei Methoden bieten sich an:
+\begin{enumerate}
+    \item Sprach-\emph{Generatoren}, d.h. Formalismen,
+        mit denen alle Wörter einer Sprache abgeleitet werden können
+        (und nicht mehr).
+    \item Sprach-\emph{Akzeptoren}, d.h. Formalismen,
+        die für eine gegebenes Wort entscheiden,
+        ob es zur Sprache gehört (oder nicht).\footnote{
+            Wie wir in \autoref{derBarbierUndDerLuegner} sehen werden,
+            ist dieses ''oder nicht'' leider nicht so trivial.}
+\end{enumerate}
+
+Sprach-Generatoren sind nicht der Fokus dieses Skriptes, obwohl wir mit den Grammatiken
+in \autoref{chmoskyUndGrammatiken} einen solchen Formalismus kennen lernen werden.\footnote{
+Einige Lehrbücher der theoretischen Informatik bauen Ihren Stoff didaktisch anhand der Grammatiken
+auf (sie erlauben die Sprachen hierarchisch zu klassifizieren).
+Wer dieses Skript begleitend z.B. zu \cite{schoening} liest,
+sollte diesen Unterschied präsent haben.}
+Unser Fokus wird auf den Sprach-Akzeptoren liegen,
+da sie sich gut für einen Problem-orientierten Ansatz eignen.
+
+Was für einen Sprach-Akzeptor können wir also für $L_{MATCH}$ heranziehen?
+Bühne frei für den Deterministisch Finiten Automaten (kurz: DFA).
+Bevor wir DFAs formal einführen, wollen wir ihn informell motivieren: 
+Ein Algorithmus, der das \textbf{MATCH}-Problem löst, könnte so aussehen:
+\begin{enumerate}
+    \item Lese das erste Zeichen $c_1$ des Inputs.
+    \item wenn $z_1 \neq $ `$L$', gib 0 aus.
+    \item Lese das nächste Zeichen $z_i$ des Inputs.
+    \item Wenn $z_i \neq $ `$1$' oder $z_i \neq $ `$0$', gib 0 aus.
+    \item Wenn der Input noch nicht zu Ende ist: Gehe zu Schritt 3.
+    \item Gib 1 aus.
+\end{enumerate}
+
+\section{Reguläre Ausdrücke}
+\section{Minimalisierung}
+\section{Grenzen endlicher Automaten}\label{pumping}
