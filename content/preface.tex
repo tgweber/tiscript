@@ -15,41 +15,85 @@ warum diejenigen
 schneller, effizienter und präziser
 in ihrer täglichen Arbeit als IT-Fachkräfte sind,
 die das Kompendium der theoretischen Informatik beherrschen.
+Die Kapitel 1 bis 6 umfassen genau diesen Erzählstrang:
 
-Diesem Gedanken folgend werden wir in Kapitel 1 zunächst genauer analysieren,
+In Kapitel 1 wird zunächst genauer analysiert,
 was überhaupt ein Problem im Sinne der theoretischen Informatik ist
 und wie wir es mit Hilfe von Abstraktion und Formalisierung mit den Werkzeugen
 dieses Faches bearbeiten können.
 
 In Kapitel 2 beschäftigen wir uns mit dem Aufwand,
-den diese Probleme, bzw. deren Berechnungen verursachen.
+den diese Probleme, beziehungsweise deren Berechnungen verursachen.
 Wir differenzieren zwischen Problem, Algorithmus und Implementierung,
-charakterisieren Aufwand als nötigen (Speicher-)Platz bzw. nötige Laufzeit 
-und lernen, wie beide typischer Weise quantitativ erfasst werden.
+fassen Aufwand genauer als benötigten (Speicher-)Platz oder als benötigte Laufzeit.
+Das Wachstum von Speicherplatz und Laufzeit lässt sich mit der
+mit der Landau-Notation quantitativ fassen. 
+Die Diskussion um Grenzen und Vorteile dieser Methode
+gegenüber empirischen Messungen runden das Kapitel ab.
 
-Das darauffolgende Kapitel 3 führt dann einen Formalismus ein,
-anhand deren wir sowohl den Begriff der Berechnung,
-wie auch des Aufwandes spezifizieren können:
-den Automaten.
-Das ``Hello World'' der Automatentheorie besteht typischerweise 
-in der Einführung der deterministisch finiten Automaten und der
-regulären Sprachen, die von ihnen erkannt werden.
-Beide formale Konzepte werden in diesem Kapitel diskutiert,
-und deren Grenzen diskutiert.
+Viele Einführungen in die theoretische Informatik beginnen mit 
+den Deterministisch Finiten Automaten (DFA) 
+und der regulären Sprachen, die von ihnen erkannt werden.
+In diesem Skript werden sie erst in Kapitel 3 diskutiert
+und zwar als eine Art ``Hello World'' der Automatentheorie:
+Wie beim Erlernen einer neuen Programmiersprache
+ist es auch für die Automatentheorie zielführend
+ein möglichst einfaches formales Konzept einzuführen,
+um daran das generelle ``Handling'' zu zeigen. 
+DFAs erlauben es die im vorigen Kapitel eingeführten
+Konzepte von Speicherplatz und Laufzeit präzise zu fassen.
+In einem Exkurs über reguläre Ausdrücke,
+wird ein in der Praxis sehr relevantes Handwerkzeug einer IT-Fachkraft vermittelt.
+Die Berechnungen, die mit einem DFA möglich sind, 
+haben allerdings Grenzen, deren Diskussion das Kapitel abschließt.
+
 
 Mit den Turing-Maschinen lernen wir in Kapitel 4 einen Formalismus kennen,
-der diese Beschränkung nicht teilt.
+der diese Beschränkungen nicht teilt.
 Turing-Maschinen sind der zentrale Formalismus sowohl
-in der Berechenbarkeitstheorie,
-als auch in der Komplexitätstheorie.
+in der Komplexitätstheorie,
+als auch in der Berechnungstheorie.
+Auch sie erlauben (Speicher)platz und Laufzeit präzise zu quantifizieren,
+darüberhinaus konnte bisher kein Formalismus gefunden werden,
+der mächtiger als Turingmaschinen ist.
 
-TODO: Weitere Kapitelaufbau entlang des Erzählstrangs.
+Die zentralen Ergebnisse und offenen Fragen der Komplexitätstheorie
+werden in Kapitel 5 besprochen.
+Diese Zusammenfassung ist ein Teil der Antwort auf die Frage,
+warum IT-Fachkräfte mit einem starken Hintergrund in theoretischer Informatik
+schneller, effizienter und präziser sind:
+Zu wissen zu welcher Komplexitätsklasse ein Problem gehört,
+macht die Wahl der Mittel, d.h. der nötigen algorithmischen Verfahren zielgerichtet
 
-TODO: Lineares Lesen.
+Die Theorie der (Un)berechenbarkeit ist das Thema in Kapitel 6.
+Wo die Grenzen der automatisierten Informationsverarbeitung liegen,
+ist das Wissen,
+was Ortskundige in der IT-Landschaft von Zugereisten unterscheidet.
+Einige überraschende Ergebnisse der Berechenbarkeitstheorie
+bewahren professionelle IT-Kräfte davor,
+Zeit und Energie in Fragestellungen zu stecken,
+die sich aus prinzipiellen Gründen nicht beantworten lassen.
 
-Zurück zur Daseinsberechtigung dieses Skriptes:
-Es komplementiert andere Einführungen,
-viele zentrale Ergebnisse, Hintergründe und Konzepte
+Kapitel 7 ist ein Exkurs: Kontextfreie Sprachen werden von Kellerautomaten erkannt,
+und liegen damit genau zwischen den regulären Sprachen
+und denen, die von Turingmaschinen erkannt werden.
+Sie spielen im Compilerbau und dem Parsen von Programmiersprachen eine zentrale Rolle.
+
+Kapitel 8 bietet einen Überblick,
+wie Interessierte von den dem Inhalt dieses Skriptes tiefer in die theoretische Informatik
+eintauchen können.
+
+Die Kapitel bauen jeweils aufeinander auf,
+weswegen diese Einführung linear zu lesen ist.
+Die meisten Einführungen erlauben Auslassungen und Sprünge,
+um nur eine Auswahl der Themen zu studieren.
+Dieses Skript ist bereits eine solche Auswahl
+und daher ist die Reihenfolge fix
+und der Umfang minimal für das gewählte Narrativ.
+
+Wenn wir zurück zur Daseinsberechtigung dieses Skriptes kommen,
+stellen wir fest:
+Viele zentrale Ergebnisse, Hintergründe und Konzepte
 der theoretischen Informatik,
 die für den gerade dargestellten Erzählstrang irrelvant sind,
 finden sich nur in Fußnoten und Referenzen:
@@ -57,8 +101,10 @@ Wir werden nichts über Abzählbarkeit,
 wenig über Abschlusseigenschaft formaler Sprachen,
 linear-beschränkte Turingmaschinen,
 oder Transduktoren zu sagen haben.
-Aber nach der Lektüre wird hoffentlich klar,
-warum eine Vertiefung des Faches lohnenswert ist,
+Wie bereits gesagt ist das Ziel des Skriptes aber nicht Vollständigkeit in der Breite,
+sondern argumentative Kraft in der Tiefe:
+Nach der Lektüre wird hoffentlich klar,
+warum eine weitere Vertiefung des Faches lohnenswert ist,
 auch in Bezug auf diese ausgesparten Konzepte.
 
 Ein zweites Alleinstellungsmerkmal findet sich im Fokus auf grundlegende
@@ -83,10 +129,24 @@ dass sich Studierende der theoretischen Informatik
 \emph {leichter} mit dem klassischen Handwerkszeug tun,
 wenn sie Antworten auf diese philosophischen Fragestellungen mitdiskutieren.
 Die kritische Perspektive der (formal-analytischen) Philosophie
-verspricht uns mehr Präzision und Klarheit.
+verspricht mehr Präzision und Klarheit
+und weniger Fragezeichen in den Gesichtern der Studierenden.
 
-Dritter Aspekt: Mehr Schlaglicht auf Komplexitätstheorie.
+Ein dritter Aspekt, der dieses Skript von anderen Einführungen unterscheidet,
+ist der Fokus auf die Komplexitätstheorie,
+also die Theorie von Problemklassen,
+die sich wesentlich aufgrund ihrer ``Schwierigkeit'' unterscheiden.
+Dieser Aspekt und der Zusammhang zwischen theoretischer Informatik und ``Algorithmik''\footnote{
+    Wir verstehen darunter das Handwerkzeug, für gegebene Probleme,
+    die effizientesten Algorithmen und Datenstrukturen zu identifizieren 
+    und zu implementieren}
+ist in den meisten Einführungen zur theoretischen Informatik
+erst spät im Text oder überhaupt nicht zu finden.
+In vielen Vorlesungen wird die Komplexitätstheorie nicht ausreichend diskutiert, 
+da im fortgeschrittenen Semester Abstriche gemacht werden müssen.
+In diese Situation zu kommen, wird von diesem Skript aufgrund des Aufbaus deutlich erschwert.
 
+Für wen ist dieses Skript nun geschrieben?
 Das ursprüngliche Skript wurde begleitend zur Veranstaltung
 \emph{Theoretische Informatik (Wirtschaftsinformatik)}
 an der DHBW Heilbronn erstellt.
@@ -97,11 +157,12 @@ in der analytisch-angelsächischen Tradition (d.h. mit einem Fokus auf formales 
 eine gewinnbringende Einführung in das Fach bieten.
 Für Studierende der Informatik auf Universitätsniveau kann das Skript 
 \emph{ergänzend} hilfreich sein,
-sollte allerdings mit einem vollständigen Kompendium ergänzt werden.
+sollte allerdings mit einem vollständigen Kompendium ergänzt werden,
+um Prüfungen erfolgreich zu bestehen.
 Die folgende Aufstellung von Einführungen in die theoretische Informatik
-bietet geeignete Kandidaten für eine Komplementierung, 
-spiegelt den Geschmack des Autors wieder
-und hat keinen Anspruch auf Vollständigkeit:
+listet geeignete Kandidaten für eine Komplementierung auf
+und spiegelt dabei den Geschmack des Autors wieder
+und hat daher keinen Anspruch auf Vollständigkeit:
 \begin{itemize}
     \item  \cite{hoffmann} bietet ein sehr umfassendes Kompendium.
     \item  Einen kurzen und konzisen Überblick bietet \cite{schoening},
@@ -117,5 +178,12 @@ und hat keinen Anspruch auf Vollständigkeit:
     \item  \cite{barak} ist ein Skript in der Entstehung, es ist englisch und offen im Netz zugänglich.
 \end{itemize}
 
-
+Um das Skript lesen und verstehen zu können,
+sind Vorkenntnisse notwendig,
+die wir in \autoref{sec:grundlagen} kurz streifen.
+Der Abschnitt ist als Wiederholung und Kontrolle gedacht,
+nicht als allumfassende Einführung in die genannten Konzepte.
+Werden beim Durchlesen Lücken bemerkt,
+beinhalet das Kapitel ausreichend Literaturempfehlungen,
+um diese zu schließen.
 
