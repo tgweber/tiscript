@@ -16,43 +16,43 @@ schneller, effizienter und präziser lösen,
 die das Kompendium der theoretischen Informatik beherrschen.
 Die Kapitel 1 bis 6 umfassen genau diese Überlegung:
 
-In Kapitel 1 wird zunächst genauer analysiert,
+In \emph{Kapitel 1} wird zunächst genauer analysiert,
 was überhaupt ein Problem im Sinne der theoretischen Informatik ist
 und wie wir Probleme durch Abstraktion und Formalisierung mit den Werkzeugen
 dieses Faches bearbeiten können.
 Wir zeigen an einem simplen Beispiel,
-wie ein Problem als formale Sprachen kodiert werden kann.
+wie ein Problem als formale Sprache kodiert werden kann.
 
-In Kapitel 2 beschäftigen wir uns mit dem Aufwand,
+\emph{In Kapitel 2} beschäftigen wir uns mit dem Aufwand,
 den diese Probleme, beziehungsweise deren Berechnungen verursachen.
 Wir differenzieren zwischen Problem, Algorithmus und Implementierung,
 fassen Aufwand genauer als benötigten (Speicher-)Platz oder Laufzeit.
 Das Wachstum von Speicherplatz und Laufzeit lässt sich
-mit der Landau-Notation quantitativ fassen. 
+mit der Landau-Notation quantitativ fassen.
 Die Diskussion um Grenzen und Vorteile dieser Methode
 gegenüber empirischen Messungen runden das Kapitel ab.
 
-In Kapitel 3 kehren wir zu den formalen Sprachen als kodierten Problemen zurück.
-Viele Einführungen in die theoretische Informatik beginnen 
+In \emph{Kapitel 3} kehren wir zu den formalen Sprachen als kodierten Problemen zurück.
+Viele Einführungen in die theoretische Informatik beginnen
 mit einer speziellen Klasse von formalen Sprachen,
 den \emph{regulären Sprachen} und
 den Deterministisch Finiten Automaten (DFA),
 welche die kodierten Probleme lösen (``berechenen'')
 beziehungsweise die entsprechende Sprache erkennen.
-In diesem Skript werden diese DFAs 
+In diesem Skript werden diese DFAs
 als eine Art ``Hello World'' der Automatentheorie diskutiert:
 Wie beim Erlernen einer neuen Programmiersprache
 ist es auch für die Automatentheorie zielführend
 ein möglichst einfaches formales Konzept einzuführen,
-um daran das generelle ``Handling'' von Sprachen und formalen Werkzeugen zu zeigen. 
+um daran das generelle ``Handling'' von Sprachen und formalen Werkzeugen zu zeigen.
 DFAs erlauben es die im vorigen Kapitel eingeführten
 Konzepte von Speicherplatz und Laufzeit präzise zu fassen.
 In einem Exkurs über reguläre Ausdrücke,
 wird ein in der Praxis sehr relevantes Handwerkzeug einer IT-Fachkraft vermittelt.
-Die ``Berechnungen'', die mit einem DFA möglich sind, 
+Die ``Berechnungen'', die mit einem DFA möglich sind,
 haben allerdings Grenzen, deren Diskussion das Kapitel abschließt.
 
-Mit den Turing-Maschinen lernen wir in Kapitel 4 einen Formalismus kennen,
+Mit den Turing-Maschinen lernen wir in \emph{Kapitel 4} einen Formalismus kennen,
 der diese Beschränkungen nicht teilt.
 Turing-Maschinen sind der zentrale Formalismus sowohl
 in der Komplexitätstheorie,
@@ -64,15 +64,16 @@ der ``mächtiger'' als Turingmaschinen ist.
 Mit den Turing-Maschinen haben wir das nötige Konzept an der Hand,
 um die Hauptfrage des Skriptes in den folgenden beiden Kapiteln zu beantworten.
 
-Zentralen Ergebnisse und einige offenen Fragen der Komplexitätstheorie
-werden in Kapitel 5 besprochen.
+Zentrale Ergebnisse und einige offenen Fragen der Komplexitätstheorie
+werden in \emph{Kapitel 5} besprochen.
 Diese Zusammenfassung ist ein Teil der Antwort auf die Frage,
 warum IT-Fachkräfte mit einem starken Hintergrund in theoretischer Informatik
 schneller, effizienter und präziser sind:
 Zu wissen zu welcher Komplexitätsklasse ein Problem gehört,
-macht die Wahl der Mittel, d.h. der nötigen algorithmischen Verfahren zielgerichtet.
+macht die Wahl der Mittel,
+also der nötigen algorithmischen Verfahren zielgerichtet.
 
-Die Theorie der (Un)berechenbarkeit ist das Thema in Kapitel 6.
+Die Theorie der (Un)berechenbarkeit wird in \emph{Kapitel 6} thematisiert.
 Wo die Grenzen der automatisierten Informationsverarbeitung liegen,
 ist das Wissen,
 was Ortskundige in der IT-Landschaft von Zugereisten unterscheidet.
@@ -81,22 +82,33 @@ bewahren professionelle IT-Kräfte davor,
 Zeit und Energie in Fragestellungen zu stecken,
 die sich aus prinzipiellen Gründen nicht beantworten lassen.
 
-Kapitel 7 ist ein Exkurs: Kontextfreie Sprachen werden von Kellerautomaten erkannt,
+\emph{Kapitel 7} ist ein Exkurs: Kontextfreie Sprachen werden von Kellerautomaten erkannt,
 und liegen damit genau zwischen den regulären Sprachen
 und denen, die von Turingmaschinen erkannt werden.
 Sie spielen im Compilerbau und dem Parsen von Programmiersprachen eine zentrale Rolle.
+Diese Aspekte rechtfertigen eine gesonderte Behandlung,
+auch wenn sie außerhalb des Leitgedankens dieses Skriptes sind.
 
-Kapitel 8 bietet einen Überblick,
+\emph{Kapitel 8} bietet einen Überblick,
 wie Interessierte von den dem Inhalt dieses Skriptes tiefer in die theoretische Informatik
 eintauchen können.
+Es listet einige ``Absprungspunkte'' auf und zeigt,
+wo diese in gängigen Einführungen und weiterführender Literatur diskutiert werden:
+Hierzu gehören die Chomsky-Hierarchie der formalen Sprachen,
+Grammatiken als Sprach-Kreatoren (im Gegensatz zu Automaten als Sprach-Akzeptoren),
+weitere Komplexitätsklassen und
+der Zusammenhang zwischen der Automatentheorie und der formalen Logik.
 
-Die Kapitel bauen jeweils aufeinander auf,
-weswegen diese Einführung linear zu lesen ist.
+Die Kapitel 1-6 bauen jeweils aufeinander auf,
+weswegen diese linear zu lesen sind.
 Die meisten Einführungen erlauben Auslassungen und Sprünge,
 um nur eine Auswahl der Themen zu studieren.
 Dieses Skript ist bereits eine solche Auswahl
 und daher ist die Reihenfolge fix
 und der Umfang minimal für das gewählte Narrativ.
+Auch Kapitel 7 und 8 bauen auf Vorhergeschriebenes auf,
+sie sind allerdings optional
+und für das Verständnis des Hauptnarrativs nicht notwendig.
 
 Wenn wir zurück zur Daseinsberechtigung dieses Skriptes kommen,
 stellen wir fest:
@@ -117,7 +129,7 @@ auch in Bezug auf diese ausgesparten Konzepte.
 Ein zweites Alleinstellungsmerkmal findet sich im Fokus auf grundlegende
 wissenschaftsphilosophische und metatheoretische Fragstellungen,
 die ansonsten in anderen Einführungen eher am Rande gestreift
-oder einfach ignoriert werden.
+oder ignoriert werden.
 Was genau meinen wir mit Begriffen wie ``Problem'', ``Berechnung'', ``Effizienz''?
 Welche Rolle spielen Konventionen in der theoretischen Informatik?
 Welche Alternativen gibt es zum Methodenkoffer der theoretischen Informatik
@@ -135,19 +147,19 @@ Das Buch verfolgt aber den Ansatz,
 dass sich Studierende der theoretischen Informatik
 \emph {leichter} mit dem klassischen Handwerkszeug tun,
 wenn sie Antworten auf diese Fragestellungen mitdiskutieren.
-Die kritische Perspektive der (formal-analytischen) Philosophie
 
 Ein dritter Aspekt, der dieses Skript von anderen Einführungen unterscheidet,
 ist der Fokus auf die Komplexitätstheorie,
 also die Theorie von Problemklassen,
 die sich wesentlich aufgrund ihrer ``Schwierigkeit'' unterscheiden.
 Dieser Aspekt und der Zusammhang zwischen theoretischer Informatik und ``Algorithmik''\footnote{
-    Wir verstehen darunter das Handwerkzeug, für gegebene Probleme,
-    die effizientesten Algorithmen und Datenstrukturen zu identifizieren 
-    und zu implementieren}
+    Wir verstehen darunter die Fähigkeit,
+    für gegebene Probleme die nach Forschungsstand
+    effizientesten Algorithmen und Datenstrukturen zu identifizieren
+    und zu implementieren.}
 ist in den meisten Einführungen zur theoretischen Informatik
 erst spät im Text oder überhaupt nicht zu finden.
-In vielen Vorlesungen wird die Komplexitätstheorie nicht ausreichend diskutiert, 
+In vielen Vorlesungen wird die Komplexitätstheorie nicht ausreichend diskutiert,
 da im fortgeschrittenen Semester Abstriche gemacht werden müssen.
 In diese Situation zu kommen, wird von diesem Skript aufgrund des Aufbaus deutlich erschwert.
 
@@ -160,7 +172,7 @@ die Informatik eher als Teil- oder Nebenfach belegen.
 Desweiteren wird das Skript aus oben genannten Gründen auch für Studierende der Philosophie
 in der analytisch-angelsächischen Tradition (d.h. mit einem Fokus auf formales Arbeiten)
 eine gewinnbringende Einführung in das Fach bieten.
-Für Studierende der Informatik auf Universitätsniveau kann das Skript 
+Für Studierende der Informatik auf Universitätsniveau kann das Skript
 \emph{ergänzend} hilfreich sein,
 sollte allerdings mit einem vollständigen Kompendium ergänzt werden,
 um Prüfungen erfolgreich zu bestehen.
@@ -189,6 +201,6 @@ die wir in \autoref{sec:grundlagen} kurz streifen.
 Der Abschnitt ist als Wiederholung und Kontrolle gedacht,
 nicht als allumfassende Einführung in die genannten Konzepte.
 Werden beim Durchlesen Lücken bemerkt,
-beinhalet das Kapitel ausreichend Literaturempfehlungen,
+beinhaltet das Kapitel ausreichend Literaturempfehlungen,
 um diese zu schließen.
 
