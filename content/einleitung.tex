@@ -5,11 +5,9 @@ Die kurze Antwort: Sie liefert einen wesentlichen Teil des Handwerkszeugs,
 um die Potentiale und Grenzen der technischen Informationsverarbeitung zu umreißen.
 Die lange Antwort soll dieses Skript geben.
 
-Wir beginnen den Überzeugungsversuch mit der Feststellung,
-dass uns als Informatiker:innen die Nützlichkeit
-eines Werkzeugs dann einleuchtet, wenn es hilft Probleme zu lösen.
+Die Nützlichkeit eines Werkzeugs leuchtet dann ein,
+wenn es hilft Probleme zu lösen.
 Daher ist der Problembegriff im Mittelpunkt dieses Skripts.
-
 Was also ist ein Problem im Sinne der (theoretischen) Informatik?
 Bevor wir diese Frage grundlegend beantworten können,
 ist es hilfreich ein paar Probleme kennen zu lernen,
@@ -25,9 +23,9 @@ um \textless Ziel\textgreater\ zu erreichen.''
 Diese Beispiele sollen uns im Skript begleiten:
 
 \begin{itemize}
-    \item \textbf{EVEN}: Als Parlamentspräsident:in möchte ich wissen,
-         ob die Anzahl der anwesenden Parliamentarier:innen gerade ist,
-         um zu wissen, ob es bei Entscheidungen ein Patt geben kann.
+    \item \textbf{EVEN}: Als Kommisionier:in
+         möchte ich die Anzahl der geplanten Paletten pro LKW kennen,
+         um zu sehen, ob Platz für den Hubwagen bleibt. 
 % TODO: Einkommentieren und Bearbeiten, wenn das jeweilige Kapitel geschrieben ist.
 %        kennen, um meine Lieferungen zu optimieren.
 %    \item \textbf{MATCH}: Als Einkaufsmanager:in möchte ich,
@@ -46,7 +44,7 @@ Diese Beispiele sollen uns im Skript begleiten:
 \end{itemize}
 
 Mit den Methoden der theoretischen Informatik ausgerüstet,
-kann man einiges über diese Alltags-Probleme sagen:
+kann man einiges über diese Alltags-IT-Probleme sagen:
 \begin{itemize}
     \item Mindestens ein Problem ist sehr schwer zu lösen.
     \item Mindestens ein Problem ist sehr einfach zu lösen.
@@ -73,13 +71,15 @@ also die ausschließliche Betrachtung der Aspekte eines Sachverhalts,
 die für einen gegebenen Zweck wesentlich sind.
 Die Abstraktion ist der Weg von einer sehr speziellen Aufgabenbeschreibung,
 wie einer Userstory, zu einem abstrakten Problem,
-dessen Lösung in vielen spezifischen Kontexten anwendbar wird.
+dessen Lösung in vielen spezifischen Kontexten anwendbar wird,
+eventuell bereits implementiert wurde und so leicht nachnutzbar ist.
 
 Es gibt leider keinen einfachen, eindeutigen oder automatisierbaren Weg
 duch Abstraktion von einer Userstory zu einem abstrakten Problem zu kommen.
 Dafür sind intellektuelle Kreativität
 und ein gutes Verständnis des vorliegenden Zwecks notwendig.
-Ein möglicher Fehler ist zum Beispiel zu wenige Aspekte auszulassen,
+Ein möglicher Fehler ist zum Beispiel,
+zu wenige Aspekte auszulassen,
 so dass das abstrakte Problem nicht so einfach wie möglich ist. 
 Ebenso ist es ein Fehler, zu viele Aspekte auszulassen,
 so dass das abstrakte Problem nicht so detailreich wie nötig ist,
@@ -91,70 +91,72 @@ was ein Problem im Sinne der theoretischen Informatik ist.\footnote{
     Diese beiden Zwecke können sich überschneiden,
     sind aber voneinander zu unterscheiden.
 }
-So könnte eine Abstraktion von \textbf{MAX} für diesen Zweck aussehen:
+So könnte eine Abstraktion von \textbf{EVEN} für diesen Zweck aussehen:
 \begin{enumerate}
-    \item \emph{Als Filialleiter:in möchte ich den Artikel mit der höchsten Gewinnmarge kennen,
-        um meine Lieferungen zu optimieren} (ursprüngliche Userstory).
-    \item \emph{Identifikation des Artikels mit der höchsten Gewinnmarge}
-        (Wer den besten Artikel aus welchem Grund kennen will,
+    \item \emph{Als Kommisionier:in
+         möchte ich die Anzahl der geplanten Paletten pro LKW kennen,
+         um zu sehen, ob Platz für den Hubwagen bleibt.
+        } (ursprüngliche Userstory).
+    \item \emph{Identifikation der Anzahl an Paletten, um verfügbaren Platz zu quantifzieren.}
+        (Wer die Anzahl kennen will und wofür der Platz gedacht ist,
         ist für unseren Zweck gleichgültig.)
-    \item \emph{Identifikation des Artikels,
-        der aus einer Menge an Artikeln einen maximalen Wert hat}
+    \item \emph{Ist die Anzahl an Paletten (un)gerade?}
         (Es ist z.B. egal,
-        ob es der beste Artikel im Sinne der Verkaufshäufigkeit
-        oder der mit der höchsten Gewinnmarge in Cent ist.)
-    \item \emph{Identifikation des Maximums in einer Menge von Zahlen}
-        (Es ist egal, ob wir das Maximum in einer Liste von Artikeln
-        oder anderer Objekte suchen.)
+        ob zwei, drei oder mehr Paletten pro LKW nebeneinander passen,
+        Hauptsache es bleibt Platz.)
+    \item \emph{Ist eine Zahl gerade?}
+        (Es ist egal, ob wir dies für Paletten oder andere Objekte entscheiden.)
 \end{enumerate}
 
 Wie wir im Laufe des Skriptes sehen werden, ist die letzte Formulierung des Problems die 
 wesentliche Vorstufe, um die Methoden der theoretischen Informatik anzuwenden.\footnote{
-Es ist wie gesagt möglich,
+Es ist natürlich möglich,
 dass dieses abstrakte Problem nicht das richtige Resultat für einen anderen Zweck ist.
-Für die Filialleiter:innen mag es wesentlich sein,
-nach welcher Dimension der ``beste'' Artikel bestimmt wird.
-Oder die Ausgabe sollte nicht nur die maximale Zahl sein, sondern die IDs der
-fünf besten Artikel.
+Für eine Kommissionierer:in mag die Anzahl noch aus anderen Gründen interessant sein,
+z.B. um die Auslastung der LKWs zu bewerten und zu optimieren.
 Wie man Abstraktionen im Sinne der Software Entwicklung einsetzen kann,
 lehrt die Disziplin des Software Engineerings.}
-Wir kommen so auf den Kern des \textbf{MAX}-Problems:
+Wir kommen so auf den Kern des \textbf{EVEN}-Problems:
 \begin{itemize}
-    \item \textbf{Gegeben:} Eine Menge von Zahlen
-    \item \textbf{Gesucht:} Die größte Zahl aus der Menge 
+    \item \textbf{Gegeben:} Eine Zahl
+    \item \textbf{Gesucht:} Ein Wahrheitswert, der anzeigt, ob die Zahl gerade ist. 
 \end{itemize}
 Diese Form der Problemangabe (Gegeben/Gesucht) wollen wir \emph{informell} nennen.
 Dabei ist für die informelle Angabe wichtig,
-sowohl den Typ des (potentiell komplexen) Eingabewerts (hier: eine Menge von Zahlen),
-als auch des (potentiell komplexen) Ausgabewerts (hier: eine Zahl) zu spezifizieren.
+sowohl den Typ des (potentiell komplexen) Eingabewerts (hier: eine Zahl),
+als auch des (potentiell komplexen) Ausgabewerts (hier: ein Wahrheitswert) zu spezifizieren.
 Mit der informellen Problemangabe lassen sich bereits drei sehr grundlegende Fragen stellen:
 \begin{enumerate}
-    \item Wie muss \textbf{MAX} dargestellt sein, damit eine Maschine es lösen kann?\\ 
-        In anderen Worten: Wie kann \textbf{MAX} \emph{formalisiert} werden? 
-    \item Kann eine Maschine \textbf{MAX} überhaupt lösen?\\
-        In anderen Worten: Ist \textbf{MAX} \emph{berechenbar}?  
-    \item Wie effizient kann eine Maschine \textbf{MAX} lösen?\\
-        In anderen Worten: Wie \emph{komplex} ist \textbf{MAX}?
+    \item Wie muss \textbf{EVEN} dargestellt sein, damit eine Maschine es lösen kann?\\ 
+        In anderen Worten: Wie kann \textbf{EVEN} \emph{formalisiert} werden? 
+    \item Wie effizient kann eine Maschine \textbf{EVEN} lösen?\\
+        In anderen Worten: Wie \emph{komplex} ist \textbf{EVEN}?
+    \item Kann eine Maschine \textbf{EVEN} überhaupt lösen?\\
+        In anderen Worten: Ist \textbf{EVEN} \emph{berechenbar}?  
 \end{enumerate}
-Diese Fragen können wir natürlich nicht nur für \textbf{MAX} stellen.
+Diese Fragen können wir natürlich nicht nur für \textbf{EVEN} stellen.
 Auch die anderen Userstories von oben lassen sich in eine informelle Form bringen,
 die diese Art der Fragestellung erlaubt.
 Drei grundlegende Teildisziplinen der theoretischen Informatik
 geben Antwort auf diese Fragen:
 \begin{enumerate}
     \item Die \textbf{Theorie der formalen Sprachen und Automaten}
-    \item Die \textbf{Berechenbarkeitstheorie}
     \item Die \textbf{Komplexitätstheorie}
+    \item Die \textbf{Berechenbarkeitstheorie}
 \end{enumerate}
 
-Der Rest des Skriptes wird in die grundlegenden Ergebnisse dieser drei Teildisziplinen einführen,
+Der Rest des Skriptes wird
+in einige der grundlegenden Ergebnisse dieser drei Teildisziplinen einführen,
 ihre Wechselwirkung beschreiben
 und die Anwendung ihrer Methoden auf die eingangs erwähnten Userstories erläutern.
-Wir halten hier zunäcst fest,
-dass die Abstraktion ein Werkzeug ist,
-Probleme auf ihren Kern zu reduzieren.
-Diese abstrakte, informelle Form des Problems hat genau den Umfang,
-der so klein wie möglich und so groß wie nötig ist.
+Anhand der oben aufgezählten Fragen wird klar,
+dass hier großes Potential für die IT-Fachkräfte besteht,
+die unnötige Arbeit vermeiden
+und die besten der bekannten Lösungen für ihre Probleme implementieren wollen. 
+
+Was sind Probleme generell? Bisher nur einzelne Probleme aufgezählt und eins abstrahiert,
+aber keine Aussage über Probleme an sich? Was haben sie gemeinsam?
+Unendliche Probleme.
 
 %Dabei werden wir natürlich nicht nur \textbf{MAX} behandeln, sondern uns generell fragen,
 %welche Probleme formalisiert, überhaupt berechnet und effizient berechnet werden können.
@@ -165,8 +167,6 @@ der so klein wie möglich und so groß wie nötig ist.
 
 \section{Formalisierung}\label{sec:formalisierung}
 
-Was sind Probleme generell? Bisher nur einzelne Probleme aufgezählt und eins abstrahiert,
-aber keine Aussage über Probleme an sich? Was haben sie gemeinsam?
 Eine Maschine soll das Problem lösen. Dafür muss es in einer bestimmten Form sein.
 Wir wollen uns aber nicht auf eine bestimmte Computer-Architektur einlassen
 oder eine bestimmte Programmiersprache, wir wollen auch davon abstrahieren.
