@@ -2,7 +2,7 @@
 %\section{Warum theoretische Informatik?}
 Warum lohnt sich die Beschäftigung mit theoretischer Informatik?
 Die kurze Antwort: Sie liefert einen wesentlichen Teil des Handwerkszeugs,
-um die Potentiale und Grenzen der technischen Informationsverarbeitung zu umreißen.
+um die Potentiale und Grenzen der technischen Informationsverarbeitung zu verstehen.
 Die lange Antwort soll dieses Skript geben.
 
 Die Nützlichkeit eines Werkzeugs leuchtet dann ein,
@@ -46,7 +46,7 @@ Diese Beispiele sollen uns im Skript begleiten:
 Mit den Methoden der theoretischen Informatik ausgerüstet,
 kann man einiges über diese Alltags-IT-Probleme sagen:
 \begin{itemize}
-    \item Mindestens ein Problem ist sehr schwer zu lösen.
+    \item Mindestens ein Problem ist nach aktuellem Stand sehr schwer zu lösen.
     \item Mindestens ein Problem ist sehr einfach zu lösen.
     \item Mindestens ein Problem ist nicht lösbar.
     \item Bei mindestens einem Problem ist unklar, ob und wie es sich lösen lässt.
@@ -71,8 +71,9 @@ also die ausschließliche Betrachtung der Aspekte eines Sachverhalts,
 die für einen gegebenen Zweck wesentlich sind.
 Die Abstraktion ist der Weg von einer sehr speziellen Aufgabenbeschreibung,
 wie einer Userstory, zu einem abstrakten Problem,
-dessen Lösung in vielen spezifischen Kontexten anwendbar wird,
-eventuell bereits implementiert wurde und so leicht nachnutzbar ist.
+dessen Lösung in vielen spezifischen Kontexten anwendbar wird.
+Mit etwas Glück ist diese Lösung bereits frei verfügbar implementiert
+und daher leicht nachnutzbar.
 
 Es gibt leider keinen einfachen, eindeutigen oder automatisierbaren Weg
 duch Abstraktion von einer Userstory zu einem abstrakten Problem zu kommen.
@@ -154,45 +155,99 @@ dass hier großes Potential für die IT-Fachkräfte besteht,
 die unnötige Arbeit vermeiden
 und die besten der bekannten Lösungen für ihre Probleme implementieren wollen. 
 
-Was sind Probleme generell? Bisher nur einzelne Probleme aufgezählt und eins abstrahiert,
-aber keine Aussage über Probleme an sich? Was haben sie gemeinsam?
-Unendliche Probleme.
-
-%Dabei werden wir natürlich nicht nur \textbf{MAX} behandeln, sondern uns generell fragen,
-%welche Probleme formalisiert, überhaupt berechnet und effizient berechnet werden können.
-%Zunächst wollen wir uns aber noch eine beispielhafte Formalisierung von \textbf{MAX}
-%anschauen, um dabei gleich weitere grundlegende Begriffe der theoretischen Informatik
-%einzuführen.
-
+Was sind aber nun Probleme generell im Sinne der theoretischen Informatik?
+Bisher haben wir nur einzelne Userstories aufgezählt
+und eine davon als informelles Problem angegeben.
+Diese Angabe legt nahe,
+dass wir für die vielen Anforderungen, die wir mit Userstories dokumentieren,
+eigentlich stets eine \emph{Funktion} suchen,
+also eine Abbildung aus einer Definitionsmenge - oder dem Input
+in eine Wertemenge - dem Output.
+Da wir uns noch nicht im Bereich des formalen Arbeitens bewegen
+(das passiert im nächsten Abschnitt),
+können wir die Zuordnung Problem $\leftrightarrow$ Funktion nur postulieren
+und hoffen, dass sie einleuchtet.
+Bis jemand eine alternative und bessere Erläuterung des Problembegriffs liefern kann,
+wollen wir uns damit zufrieden geben.
 
 \section{Formalisierung}\label{sec:formalisierung}
 
-Eine Maschine soll das Problem lösen. Dafür muss es in einer bestimmten Form sein.
-Wir wollen uns aber nicht auf eine bestimmte Computer-Architektur einlassen
-oder eine bestimmte Programmiersprache, wir wollen auch davon abstrahieren.
-Die finale Form von Problemen ist die der formalen Sprache.
-Jetzt gehen wir das anhand eines Beispiels durch.
-
-Die informelle Angabe des \textbf{MAX}-Problems legt nahe, dass wir nach einer Möglichkeit suchen
-eine Funktion zu berechnen:
+Warum sind die philosophischen Erwägungen des vorigen Abschnittes für die Informatik relevant?
+Zum einen wollen wir Aussagen darüber treffen,
+wie und ob eine beliebige Maschine ein gegebenes Problem lösen kann. 
+Zum anderen betrachten wir in der theoretischen Informatik oftmals nicht unbedingt nur einzelne Probleme,
+sondern Gruppen von Problemen und deren Beziehungen zueinander.
+Beide Gründe resultieren in Folgefragen:
 \begin{itemize}
-    \item Der Definitionsbereich der Funktion ist die Menge aller Tupel von natürlichen Zahlen,
-        die wir mit $\cal{N}$ bezeichnen wollen.
-        Wir nutzen das Zeichen $\nu$,
-        um einen beliebigen Tupel $\nu \in \cal{N}$ zu bezeichnen.
-    \item Der Wertebereich der Funktion ist die Menge der natürlichen Zahlen, $\mathbb{N}$.
-        Wir nutzen das Zeichen $n$,
-        um eine beliebige natürliche Zahl $n \in \mathbb{N}$ zu bezeichnen.
+\item Wie muss ein Problem formalisiert sein,
+      dass wir Aussagen über das Problem unabhängig von einer konkreten Maschine treffen können?
+\item Wie kann man den ``Raum'' der Probleme beschreiben?
 \end{itemize}
-Gesucht ist also $f_{MAX}: \cal{N} \rightarrow \mathbb{N}$.
+
+Zur ersten Frage stellen wir fest,
+dass wir uns bei den gesuchten Aussagen nicht auf eine bestimmte Computer-Architektur
+oder eine bestimmte Programmiersprache einlassen sollten:
+Die Aussage, dass ein Problem \emph{un}berechenbar ist,
+also, dass es keine Maschine gibt, die das Problem lösen kann,
+wäre nicht abschließend lösbar:
+es müsste für die unendliche Menge an Kombinationen von Hardware-Setups und Programmiersprachen
+gezeigt werden.
+Auch die Frage nach der Komplexität eines Problems wäre schwer zu erörtern:
+Kann es nicht sein, dass das Problem auf dieser Hardware
+und mit jener Programmiersprache nicht doch wesentlich effizienter zu lösen ist?
+Wir wollen die Probleme also so abstrakt formalisieren,
+dass unsere Aussagen über sie prinzipiell auf \emph{allen} Computerarchitekturen
+und für \emph{alle} Programmiersprachen gültig sind.
+Wir suchen also eine Formalisierung,
+die von allen unwesentlichen Aspekten von Hardware und Programmierung abstrahiert.
+
+Die zweiten Frage - wie man den ``Raum'' der Probleme beschreiben kann -
+bedingt ebenfalls eine abstrakte Repräsentation des Problems.
+Nur so können wir das formale Handwerkszeug der Mengenlehre anwenden,
+das uns eine konzise und formal einwandfreie Beschreibung dieses ``Raumes'' erlaubt.\footnote{
+dann könnten wir auch die Anführungszeichen weglassen, weil wir uns dann einer formalen Definition des Raumes
+bedienen könnten.}
+Die erste Möglichkeit bestünde darin,
+Probleme einfach als ``Atome'' aufzufassen,
+also als Einheiten ohne innere Struktur,
+auf denen wir dann Mengen bilden können.
+Es ist allerdings gerade die innere Struktur von Problemen,
+die zum Beispiel Abhängigkeiten zwischen Problemen klar werden lassen:
+Zum Beispiel kann man das Problem der Multiplikation nur
+als wiederholte Anwendung der Addition verstehen,
+wenn wir etwas über die interne Struktur der Multiplikation aussagen.
+
+Gesucht ist also eine grundlegende Art, Probleme zu formalisieren, mit den folgenden Bedingungen:
+\begin{enumerate}
+ \item Die Form hängt nicht von einer bestimmten Maschine oder Programmiersprache ab.
+ \item Die Form erlaubt es, Probleme mengentheoretisch zu behandeln.
+ \item Die Form erlaubt es, dass Aussagen über die innere Struktur der Probleme getroffen werden können.
+\end{enumerate}
+
+Wir werden sehen, dass eine Repräsentation von Problemen als formale Sprachen genau diese Bedingungen erfüllen.
+Um dies besser fassen zu können, wollen wir die Formalisierung des \textbf{EVEN}-Problems beispielhaft durchgehen.
+
+Wie bereits erwähnt, legt die informelle Angabe des \textbf{EVEN}-Problems nahe,
+dass wir nach einer Möglichkeit suchen eine Funktion zu berechnen:
+\begin{itemize}
+    \item Der Definitionsbereich der Funktion ist die Menge aller natürlichen Zahlen,
+        die wir wie gewohnt mit $\mathbb{N}$ bezeichnen wollen.
+    \item Der Wertebereich der Funktion ist die Menge der Wahrheitswerte 
+    in ihrer kanonischen Repräsentation als 0 und 1.\footnote{
+    Hier haben wir natürlich die implizite Annahme getroffen,
+    dass es zwei Wahrheitswerte ``gibt'' und nicht mehr (\emph{tertium non datur}).
+    Das hat sowohl philosophische (TODO: Link), als auch formale Implikationen (TODO: Link),
+    die wir geneigten Leser:innen zur Kontemplation anempfehlen.
+    Für unsere Einführung sind diese Erwägungen aber nebenrangig.
+}
+\end{itemize}
+Gesucht ist also $f_{EVEN}: \mathbb{N} \rightarrow \{0,1\}$.
 Es gilt zum Beispiel:
 \begin{itemize}
-    \item Sei $\nu = [2,3]$ und $n = 3$,
-        dann gilt: $[[2,3],3] \in f_{MAX}$.
-    \item Sei $\nu = [2,3]$ und $n = 2$,
-        dann gilt: $[[2,3],2] \notin f_{MAX}$.\footnote{
-            TODO: Verweis auf \ref{relationenUndFunktionen} um zu erklären,
-            dass Funktionen eine Menge von rechtseindeutigen Tupeln sind.}
+    \item Sei $n = 5$ gegeben, dann ist $[5,0] \in f_{EVEN}$.
+    \item Sei $n = 4$ gegeben, dann ist $[4,1] \in f_{EVEN}$.\footnote{
+            Wie in \ref{relationenUndFunktionen} angerissen,
+            fassen wir Funktionen als Menge von rechtseindeutigen Tupeln auf.}
 \end{itemize}
 
 \noindent
