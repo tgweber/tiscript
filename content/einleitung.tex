@@ -213,15 +213,23 @@ also als Einheiten ohne innere Struktur,
 auf denen wir dann Mengen bilden können.
 Es ist allerdings gerade die innere Struktur von Problemen,
 die zum Beispiel Abhängigkeiten zwischen Problemen klar werden lassen:
-Zum Beispiel kann man das Problem der Multiplikation nur
-als wiederholte Anwendung der Addition verstehen,
-wenn wir etwas über die interne Struktur der Multiplikation aussagen.
+Zum Beispiel könnte uns das Problem interessieren,
+ob eine Zahl durch 4 teilbar ist,
+also eine Abwandlung von \textbf{EVEN},
+bei dem es darum geht,
+ob eine Zahl durch 2 teilbar ist.
+Geben wir diesem Problem dem Namen \textbf{DIV4},
+dann ist klar, dass \textbf{DIV4} irgendwie mit \textbf{EVEN} zusammenhängt,
+denn eine Zahl, die durch 4 teilbar ist, ist auch immer durch 2 teilbar -
+allerdings nicht andersherum.
+Um diesen Zusammenhang zu untersuchbar zu machen,
+müssen wir einen Blick in die innere Struktur von Problemen werfen.
 
 Gesucht ist also eine grundlegende Art, Probleme zu formalisieren, mit den folgenden Bedingungen:
 \begin{enumerate}
  \item Die Form hängt nicht von einer bestimmten Maschine oder Programmiersprache ab.
- \item Die Form erlaubt es, Probleme mengentheoretisch zu behandeln.
- \item Die Form erlaubt es, dass Aussagen über die innere Struktur der Probleme getroffen werden können.
+ \item Formalisierte Probleme können mengentheoretisch behandelt werden.
+ \item Aussagen über die innere Struktur von formalisierten Problemen werden ermöglicht.
 \end{enumerate}
 
 Wir werden sehen, dass eine Repräsentation von Problemen als formale Sprachen genau diese Bedingungen erfüllen.
