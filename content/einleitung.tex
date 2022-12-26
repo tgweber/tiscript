@@ -15,8 +15,12 @@ wie sie als Aufgaben im IT-Alltag auftreten können.
 
 \section{Probleme}
 Aufgaben, die viele IT-Fachkräfte Tag für Tag bearbeiten,
-werden oft als Userstories dokumentiert.
-Eine Userstory wird in der agilen Softwareentwicklung genutzt um Anforderungen zu spezfizieren.
+haben oft einen logischen ``Kern'',
+etwas das in unterschiedlichem Gewand wieder- und wiederkehrt.
+Diesen Kern bezeichnen wir in diesem Skript als Problem.
+
+Die alltäglichen IT-Aufgaben werden oft als Userstories dokumentiert.
+Eine Userstory wird in der agilen Softwareentwicklung genutzt um Anforderungen zu spezifizieren.
 Eine Userstory ist typischerweise in diesem Format angegeben:
 ''Als \textless Rolle\textgreater\ möchte ich \textless Feature\textgreater,
 um \textless Ziel\textgreater\ zu erreichen.''
@@ -49,25 +53,31 @@ kann man einiges über diese Alltags-IT-Probleme sagen:
     \item Mindestens ein Problem ist nach aktuellem Stand sehr schwer zu lösen.
     \item Mindestens ein Problem ist sehr einfach zu lösen.
     \item Mindestens ein Problem ist nicht lösbar.
-    \item Bei mindestens einem Problem ist unklar, ob und wie es sich lösen lässt.
+%    \item Bei mindestens einem Problem ist unklar, ob und wie es sich lösen lässt.
 \end{itemize}
 
 Die Methoden und Ergebnisse der theoretischen Informatik erlauben es,
-diese und ähnliche Probleme auf einen Blick einzuteilen:
-leicht lösbar, schwer lösbar oder unlösbar.
-
-Eine Userstory ist jedoch keine geeignete Form,
-um besagte Methoden anzuwenden.
-Stark vereinfacht sind die Grundwerkzeuge der theoretischen Informatik
+diese und ähnliche Aufgaben auf ein Problem zurückzuführen
+und diese damit auf einen Blick einzuteilen:
+\begin{itemize}
+        \item leicht lösbar
+        \item schwer lösbar
+        \item unlösbar
+\end{itemize}
+Diese Einteilung ist von großem Interesse für diejenigen IT-Fachkräfte,
+die unnötige Arbeit vermeiden
+und die besten der bekannten Lösungen für ihre Probleme implementieren wollen. 
+Eine Userstory ist jedoch nicht die Form, 
+in der das zugrundeliegende Problem am besten identifiziert werden kann
+und um die Klassikation nach (Un-)Lösbarkeit zu rechtfertigen. 
+Dafür müssen wir die Grundwerkzeuge der theoretischen Informatik nutzen:
 \emph{Abstraktion} und \emph{Formalisierung}.
-Wie beide auf unsere Probleme anzuwenden sind,
-soll in den folgenden Abschnitten exemplarisch dargelegt werden.
+Wie beide exemplarisch anzuwenden sind,
+soll in den folgenden Abschnitten dargelegt werden.
 
 \section{Abstraktion}
 
-Ein grundlegendes Instrument der Informatik (nicht nur der Theoretischen) 
-ist die \emph{Abstraktion},
-also die ausschließliche Betrachtung der Aspekte eines Sachverhalts,
+\emph{Abstraktion} ist die ausschließliche Betrachtung der Aspekte eines Sachverhalts,
 die für einen gegebenen Zweck wesentlich sind.
 Die Abstraktion ist der Weg von einer sehr speziellen Aufgabenbeschreibung,
 wie einer Userstory, zu einem abstrakten Problem,
@@ -85,13 +95,7 @@ so dass das abstrakte Problem nicht so einfach wie möglich ist.
 Ebenso ist es ein Fehler, zu viele Aspekte auszulassen,
 so dass das abstrakte Problem nicht so detailreich wie nötig ist,
 um dem vorliegenden Zweck gerecht zu werden.
-Unser vorliegender Zweck ist die Beantwortung der Frage,
-was ein Problem im Sinne der theoretischen Informatik ist.\footnote{
-    Diesen muss man von den Zielen unterscheiden,
-    derentwegen die Userstories formuliert wurden.
-    Diese beiden Zwecke können sich überschneiden,
-    sind aber voneinander zu unterscheiden.
-}
+Unser vorliegender Zweck ist die Einteilung der Userstories anhand deren Lösbarkeit.
 So könnte eine Abstraktion von \textbf{EVEN} für diesen Zweck aussehen:
 \begin{enumerate}
     \item \emph{Als Kommisionier:in
@@ -150,10 +154,6 @@ Der Rest des Skriptes wird
 in einige der grundlegenden Ergebnisse dieser drei Teildisziplinen einführen,
 ihre Wechselwirkung beschreiben
 und die Anwendung ihrer Methoden auf die eingangs erwähnten Userstories erläutern.
-Anhand der oben aufgezählten Fragen wird klar,
-dass hier großes Potential für die IT-Fachkräfte besteht,
-die unnötige Arbeit vermeiden
-und die besten der bekannten Lösungen für ihre Probleme implementieren wollen. 
 
 Was sind aber nun Probleme generell im Sinne der theoretischen Informatik?
 Bisher haben wir nur einzelne Userstories aufgezählt
@@ -172,16 +172,16 @@ wollen wir uns damit zufrieden geben.
 
 \section{Formalisierung}\label{sec:formalisierung}
 
-Warum sind die philosophischen Erwägungen des vorigen Abschnittes für die Informatik relevant?
-Zum einen wollen wir Aussagen darüber treffen,
-wie und ob eine beliebige Maschine ein gegebenes Problem lösen kann. 
-Zum anderen betrachten wir in der theoretischen Informatik oftmals nicht unbedingt nur einzelne Probleme,
-sondern Gruppen von Problemen und deren Beziehungen zueinander.
+Wir wollen Aussagen darüber treffen,
+wie (leicht) eine beliebige Maschine ein gegebenes Problem lösen kann
+und ob es überhaupt für Maschinen lösbar ist.
+Desweiteren wollen wir nicht unbedingt nur etwas über einzelne Probleme erfahren,
+sondern über Gruppen von Problemen und deren Beziehungen zueinander.
 Beide Gründe resultieren in Folgefragen:
 \begin{itemize}
 \item Wie muss ein Problem formalisiert sein,
       dass wir Aussagen über das Problem unabhängig von einer konkreten Maschine treffen können?
-\item Wie kann man den ``Raum'' der Probleme beschreiben?
+\item Wie kann man den ``Raum'' beschreiben, in denen Probleme im Verhältnis zueinander stehen?
 \end{itemize}
 
 Zur ersten Frage stellen wir fest,
@@ -207,29 +207,29 @@ Nur so können wir das formale Handwerkszeug der Mengenlehre anwenden,
 das uns eine konzise und formal einwandfreie Beschreibung dieses ``Raumes'' erlaubt.\footnote{
 dann könnten wir auch die Anführungszeichen weglassen, weil wir uns dann einer formalen Definition des Raumes
 bedienen könnten.}
-Die erste Möglichkeit bestünde darin,
-Probleme einfach als ``Atome'' aufzufassen,
-also als Einheiten ohne innere Struktur,
-auf denen wir dann Mengen bilden können.
-Es ist allerdings gerade die innere Struktur von Problemen,
-die zum Beispiel Abhängigkeiten zwischen Problemen klar werden lassen:
-Zum Beispiel könnte uns das Problem interessieren,
-ob eine Zahl durch 4 teilbar ist,
-also eine Abwandlung von \textbf{EVEN},
-bei dem es darum geht,
-ob eine Zahl durch 2 teilbar ist.
-Geben wir diesem Problem dem Namen \textbf{DIV4},
-dann ist klar, dass \textbf{DIV4} irgendwie mit \textbf{EVEN} zusammenhängt,
-denn eine Zahl, die durch 4 teilbar ist, ist auch immer durch 2 teilbar -
-allerdings nicht andersherum.
-Um diesen Zusammenhang zu untersuchbar zu machen,
-müssen wir einen Blick in die innere Struktur von Problemen werfen.
+%Die erste Möglichkeit bestünde darin,
+%Probleme einfach als ``Atome'' aufzufassen,
+%also als Einheiten ohne innere Struktur,
+%auf denen wir dann Mengen bilden können.
+%Es ist allerdings gerade die innere Struktur von Problemen,
+%die zum Beispiel Abhängigkeiten zwischen Problemen klar werden lassen:
+%Zum Beispiel könnte uns das Problem interessieren,
+%ob eine Zahl durch 4 teilbar ist,
+%also eine Abwandlung von \textbf{EVEN},
+%bei dem es darum geht,
+%ob eine Zahl durch 2 teilbar ist.
+%Geben wir diesem Problem dem Namen \textbf{DIV4},
+%dann ist klar, dass \textbf{DIV4} irgendwie mit \textbf{EVEN} zusammenhängt,
+%denn eine Zahl, die durch 4 teilbar ist, ist auch immer durch 2 teilbar -
+%allerdings nicht andersherum.
+Um Zusammenhänge zwischen Problemen untersuchbar zu machen,
+müssen wir auch einen Blick in ihre innere Struktur werfen.
 
 Gesucht ist also eine grundlegende Art, Probleme zu formalisieren, mit den folgenden Bedingungen:
 \begin{enumerate}
- \item Die Form hängt nicht von einer bestimmten Maschine oder Programmiersprache ab.
- \item Formalisierte Probleme können mengentheoretisch behandelt werden.
- \item Aussagen über die innere Struktur von formalisierten Problemen werden ermöglicht.
+ \item Unabhängig von einer bestimmten Maschine oder Programmiersprache
+ \item Mengentheoretische Behandlung von Problemen
+ \item Analysemöglichkeit der inneren Struktur von Problemen
 \end{enumerate}
 
 Wir werden sehen, dass eine Repräsentation von Problemen als formale Sprachen genau diese Bedingungen erfüllen.
@@ -259,32 +259,12 @@ Es gilt zum Beispiel:
 \end{itemize}
 
 \noindent
-Wie finden wir einen Mechanismus oder eine Maschine, die $f_{MAX}$ berechnet?
-
-Die einfachste Lösung wäre eine große Tabelle, die uns für jedes $\nu$
-das jeweilige Maximum $n$ ablesen lässt.
-Das wäre zwar nicht sonderlich Zeit-effizient,
-da wir viele Vergleiche anstellen müssten,
-ob unser gegebenes $\nu$ mit einem Tabelleneintrag übereinstimmt,
-aber immerhin wäre die Methode Zeit-effektiv, 
-d.h. nach endlich vielen Schritten hätten wir ein Ergebnis.
-Allerdings ist $\cal{N}$ so groß,
-dass die angenommene Anzahl der Atome in unserem Universum nicht ausreicht,
-um alle Einträge der Tabelle zu verwirklichen.
-Die Methode ist also auch nicht Platz-effizient und nur dann Platz-effektiv,
-wenn wir unendlich viel Platz zur Verfügung haben.
-
-Ein weiterer Ansatz $f_{MAX}$ zu berechnen,
-wäre eine Maschine zu erfinden, der wir $\nu$ übergeben,
-und die uns $n$ zurückgibt.
-Es wäre demnach zu zeigen, ob die Maschine die Aufgabe in endlicher Zeit
-und mit endlichen Platz-Ressourcen bewältigen kann.
-%Wir könnten die Maschine von der Bedienung her noch ein Stück einfacher gestalten
-%und ihr direkt $\nu$ und $n$ übergeben und eine Lampe oder ein Schalter 
-%(oder eine andere binäre Ausgabe) zeigt an, ob $[\nu, n] \in f_{MAX}$.
-Nehmen wir in einem Gedankenexperiment an, wir hätten eine solche Maschine erfunden.
+Was müssen alle Maschinen gemein haben, die $f_{MAX}$ berechnen?
+Wir müssen verlangen,
+dass jede Maschine eine Eingabe und eine Ausgabe hat,
+mit denen wir $n$ übergeben und den Wahrheitswert ablesen.
 Wie müssten wir den Input und Output der Maschine gestalten,
-d.h. in welche Form müssten wir das \textbf{MAX}-Problem bringen,
+d.h. in welche Form müssten wir das \textbf{EVEN}-Problem bringen,
 dass die Maschine es lesen kann und wir den Output wieder verstehen können? 
 
 Ein zugängliches Modell für den Input ist die Tastatur und der Bildschirm:
@@ -296,15 +276,7 @@ die eine Maschine oder ein Computer verarbeiten,
 intern in eine sehr kleine Menge an Zeichen übersetzt:
 in Zeichenfolgen bestehend aus Nullen und Einsen.
 Tastaturen und Bildschirme machen uns die Interaktion mit der Maschine einfacher,
-allerdings sind sie für die Maschine selbst nicht nötig
-(unsere Tastatur könnte also nur drei Knöpfe beinhalten: 0, 1 und die Enter-Taste,
-die Ausgabe könnte ein Drucker sein, der 0 und 1 auf ein Papierband schreibt).
-
-%IT-Systeme kodieren Zahlen, Videos, Bilder, Musik, Texte, im Allgemeinen alle Datenstrukturen
-%und Ausgabewerte als Folgen von Nullen und Einsen,
-%also als binäre Zeichenfolgen.
-%Ebenso werden Anweisungen, was mit diesen binären Daten passieren soll,
-%als binäre Zeichenfolgen kodiert.
+allerdings sind sie für die Maschine selbst nicht nötig.
 
 Ganz allgemein könnte man also sagen, dass alle Probleme, die ein Computer lösen soll,
 sich in diese Form bringen lassen:
@@ -312,10 +284,9 @@ sich in diese Form bringen lassen:
     \item \textbf{Gegeben:} Eine binäre Zeichenfolge.
     \item \textbf{Gesucht:} Eine binäre Zeichenfolge.
 \end{itemize}
-%Oder eben gegeben als Funktion $f: \mathcal{P}(\{0,1\}) \rightarrow \{0,1\}$
-Übertragen auf \textbf{MAX} müssen wir eine binäre Repräsentation von $\nu$ und $n$ finden.
-Damit wir dies auf eine methodische Art und Weise erreichen
-und die gefundenen Methoden später von \textbf{MAX} auf andere Probleme übertragen können,
+Übertragen auf \textbf{EVEN} müssen wir eine binäre Repräsentation von $n$ finden,
+die Ausgabe haben wir ja schon von vorneherein binär gewählt.
+Damit wir gefundenen Methoden später von \textbf{EVEN} auf andere Probleme übertragen können,
 müssen wir zunächst noch einige Begriffe definieren und Konventionen einführen.
 
 \subsection{Zeichen}
