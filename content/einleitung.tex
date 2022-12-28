@@ -8,18 +8,11 @@ Die lange Antwort soll dieses Skript geben.
 Die Nützlichkeit eines Werkzeugs leuchtet dann ein,
 wenn es hilft Probleme zu lösen.
 Daher ist der Problembegriff im Mittelpunkt dieses Skripts.
-Was also ist ein Problem im Sinne der (theoretischen) Informatik?
-Bevor wir diese Frage grundlegend beantworten können,
-ist es hilfreich ein paar Probleme kennen zu lernen,
-wie sie als Aufgaben im IT-Alltag auftreten können.
+Was also ist ein Problem im Sinne der theoretischen Informatik?
 
 \section{Probleme}
-Aufgaben, die viele IT-Fachkräfte Tag für Tag bearbeiten,
-haben oft einen logischen ``Kern'',
-etwas das in unterschiedlichem Gewand wieder- und wiederkehrt.
-Diesen Kern bezeichnen wir in diesem Skript als Problem.
 
-Die alltäglichen IT-Aufgaben werden oft als Userstories dokumentiert.
+Alltägliche IT-Aufgaben werden oft als Userstories dokumentiert.
 Eine Userstory wird in der agilen Softwareentwicklung genutzt um Anforderungen zu spezifizieren.
 Eine Userstory ist typischerweise in diesem Format angegeben:
 ''Als \textless Rolle\textgreater\ möchte ich \textless Feature\textgreater,
@@ -27,7 +20,7 @@ um \textless Ziel\textgreater\ zu erreichen.''
 Diese Beispiele sollen uns im Skript begleiten:
 
 \begin{itemize}
-    \item \textbf{EVEN}: Als Kommisionier:in
+    \item \textbf{U\textsubscript{EVEN}}: Als Kommisionier:in
          möchte ich die Anzahl der geplanten Paletten pro LKW kennen,
          um zu sehen, ob Platz für den Hubwagen bleibt. 
 % TODO: Einkommentieren und Bearbeiten, wenn das jeweilige Kapitel geschrieben ist.
@@ -47,34 +40,32 @@ Diese Beispiele sollen uns im Skript begleiten:
 %        um die Vertraulichkeit der Absprachen zu garantieren.
 \end{itemize}
 
+Erfahrene und kompetente IT-Fachkräfte identifizieren beim ersten Lesen einer Userstory
+einen logischen ``Kern'',
+etwas das in unterschiedlichem Gewand in der Praxis wieder- und wiederkehrt.
+Diesen Kern wollen wir als ``Problem'' bezeichnen,
+bis wir eine bessere Definition dieses Begriffs finden.
 Mit den Methoden der theoretischen Informatik ausgerüstet,
-kann man einiges über diese Alltags-IT-Probleme sagen:
+kann man einiges über die Userstories und deren zugrundeliegende Probleme sagen:
 \begin{itemize}
-    \item Mindestens ein Problem ist nach aktuellem Stand sehr schwer zu lösen.
-    \item Mindestens ein Problem ist sehr einfach zu lösen.
-    \item Mindestens ein Problem ist nicht lösbar.
-%    \item Bei mindestens einem Problem ist unklar, ob und wie es sich lösen lässt.
+    \item Mindestens eine Userstory ist leicht zu realisieren.
+    \item Für mindestens eine Userstory kann man mit vertretbarem Aufwand nur suboptimale Lösungen finden.
+    \item Mindestens eine Userstory ist nicht umsetzbar.
 \end{itemize}
-
-Die Methoden und Ergebnisse der theoretischen Informatik erlauben es,
-diese und ähnliche Aufgaben auf ein Problem zurückzuführen
-und diese damit auf einen Blick einzuteilen:
-\begin{itemize}
-        \item leicht lösbar
-        \item schwer lösbar
-        \item unlösbar
-\end{itemize}
-Diese Einteilung ist von großem Interesse für diejenigen IT-Fachkräfte,
-die unnötige Arbeit vermeiden
-und die besten der bekannten Lösungen für ihre Probleme implementieren wollen. 
-Eine Userstory ist jedoch nicht die Form, 
-in der das zugrundeliegende Problem am besten identifiziert werden kann
-und um die Klassikation nach (Un-)Lösbarkeit zu rechtfertigen. 
-Dafür müssen wir die Grundwerkzeuge der theoretischen Informatik nutzen:
-\emph{Abstraktion} und \emph{Formalisierung}.
-Wie beide exemplarisch anzuwenden sind,
-soll in den folgenden Abschnitten dargelegt werden.
-
+Um unnötige Arbeit zu vermeiden
+und die besten der bekannten Lösungen zu implementieren,
+ist natürlich von Interesse,
+welche Userstory in welche Kategorie fällt.
+Dafür müssen wir die Ergebnisse und Werkzeuge
+der theoretischen Informatik kennen und anwenden;
+die Form der Userstory ist jedoch dafür nicht geeignet.
+Damit wir das volle Potential der theoretischen Informatik schöpfen können,
+müssen wir zwei Schritte gehen:
+Wir müssen von den Userstories \emph{abstrahieren}
+und diese Abstraktion \emph{formalisieren}.
+Die beiden folgenden Abschnitte zeigen anhand \textbf{U\textsubscript{EVEN}}
+beispielhaft, was damit gemeint ist.
+Dabei werden wir die ersten zentralen Begriffe dieses Skriptes einführen und diskutieren.
 \section{Abstraktion}
 
 \emph{Abstraktion} ist die ausschließliche Betrachtung der Aspekte eines Sachverhalts,
@@ -96,7 +87,7 @@ Ebenso ist es ein Fehler, zu viele Aspekte auszulassen,
 so dass das abstrakte Problem nicht so detailreich wie nötig ist,
 um dem vorliegenden Zweck gerecht zu werden.
 Unser vorliegender Zweck ist die Einteilung der Userstories anhand deren Lösbarkeit.
-So könnte eine Abstraktion von \textbf{EVEN} für diesen Zweck aussehen:
+So könnte eine Abstraktion von \textbf{U\textsubscript{EVEN}} für diesen Zweck aussehen:
 \begin{enumerate}
     \item \emph{Als Kommisionier:in
          möchte ich die Anzahl der geplanten Paletten pro LKW kennen,
@@ -121,16 +112,38 @@ Für eine Kommissionierer:in mag die Anzahl noch aus anderen Gründen interessan
 z.B. um die Auslastung der LKWs zu bewerten und zu optimieren.
 Wie man Abstraktionen im Sinne der Software Entwicklung einsetzen kann,
 lehrt die Disziplin des Software Engineerings.}
-Wir kommen so auf den Kern des \textbf{EVEN}-Problems:
+Wir kommen so auf den Kern der Userstory \textbf{U\textsubscript{EVEN}},
+den wir \textbf{I\textsubscript{EVEN}} nennen wollen:
 \begin{itemize}
     \item \textbf{Gegeben:} Eine Zahl
     \item \textbf{Gesucht:} Ein Wahrheitswert, der anzeigt, ob die Zahl gerade ist. 
 \end{itemize}
-Diese Form der Problemangabe (Gegeben/Gesucht) wollen wir \emph{informell} nennen.
+Diese Form der Problemangabe (Gegeben/Gesucht) bezeichnen wir als \emph{informell}
+(daher das I).
 Dabei ist für die informelle Angabe wichtig,
 sowohl den Typ des (potentiell komplexen) Eingabewerts (hier: eine Zahl),
 als auch des (potentiell komplexen) Ausgabewerts (hier: ein Wahrheitswert) zu spezifizieren.
-Mit der informellen Problemangabe lassen sich bereits drei sehr grundlegende Fragen stellen:
+
+Die Fähigkeit via Abstraktion von vielen Alltagsaufgaben zu informellen Problemen zu kommen,
+macht kompetenten IT-Fachkräfte das Leben leichter:
+Die Lösungen für wiederkehrenden Probleme können
+in Libraries, Best Practices und Dokumentationen festgehalten werden.
+So sind Schablonen parat,
+um schnell und effizient zu guten Ergebnissen zu kommen.
+
+Aber die theoretische Informatik spielt hierbei keine explizite Rolle.
+Ihre Methoden sind formal,
+daher wird die formalisierten Version von \textbf{I\textsubscript{EVEN}} benötigt,
+also \textbf{EVEN}.
+Warum sollten wir diesen zusätzlichen Schritt gehen?
+Die kurze Antwort:
+Wir können über die Expertise erfahrener IT-Fachkräfte hinausgehen
+und zweifelsfrei \emph{beweisen},
+dass manche Probleme einfach, aufwändig oder unlösbar sind.\footnote{
+    Eine etwas längere Antwort geben wir in \autoref{messenVsBeweisen}.
+}
+Wir stellen also daher drei Fragen, exemplarisch für \textbf{EVEN},
+die sich prinzipiell aber für alle Probleme ergeben:
 \begin{enumerate}
     \item Wie muss \textbf{EVEN} dargestellt sein, damit eine Maschine es lösen kann?\\ 
         In anderen Worten: Wie kann \textbf{EVEN} \emph{formalisiert} werden? 
@@ -139,9 +152,6 @@ Mit der informellen Problemangabe lassen sich bereits drei sehr grundlegende Fra
     \item Kann eine Maschine \textbf{EVEN} überhaupt lösen?\\
         In anderen Worten: Ist \textbf{EVEN} \emph{berechenbar}?  
 \end{enumerate}
-Diese Fragen können wir natürlich nicht nur für \textbf{EVEN} stellen.
-Auch die anderen Userstories von oben lassen sich in eine informelle Form bringen,
-die diese Art der Fragestellung erlaubt.
 Drei grundlegende Teildisziplinen der theoretischen Informatik
 geben Antwort auf diese Fragen:
 \begin{enumerate}
@@ -149,150 +159,37 @@ geben Antwort auf diese Fragen:
     \item Die \textbf{Komplexitätstheorie}
     \item Die \textbf{Berechenbarkeitstheorie}
 \end{enumerate}
-
-Der Rest des Skriptes wird
-in einige der grundlegenden Ergebnisse dieser drei Teildisziplinen einführen,
+Im Laufe des Skriptes werden wir
+in grundlegende Ergebnisse dieser drei Teildisziplinen einführen,
 ihre Wechselwirkung beschreiben
-und die Anwendung ihrer Methoden auf die eingangs erwähnten Userstories erläutern.
-
-Was sind aber nun Probleme generell im Sinne der theoretischen Informatik?
-Bisher haben wir nur einzelne Userstories aufgezählt
-und eine davon als informelles Problem angegeben.
-Diese Angabe legt nahe,
-dass wir für die vielen Anforderungen, die wir mit Userstories dokumentieren,
-eigentlich stets eine \emph{Funktion} suchen,
-also eine Abbildung aus einer Definitionsmenge - oder dem Input
-in eine Wertemenge - dem Output.
-Da wir uns noch nicht im Bereich des formalen Arbeitens bewegen
-(das passiert im nächsten Abschnitt),
-können wir die Zuordnung Problem $\leftrightarrow$ Funktion nur postulieren
-und hoffen, dass sie einleuchtet.
-Bis jemand eine alternative und bessere Erläuterung des Problembegriffs liefern kann,
-wollen wir uns damit zufrieden geben.
+und Konsequenzen für die eingangs erwähnten Userstories ziehen.
 
 \section{Formalisierung}\label{sec:formalisierung}
 
-Wir wollen Aussagen darüber treffen,
-wie (leicht) eine beliebige Maschine ein gegebenes Problem lösen kann
-und ob es überhaupt für Maschinen lösbar ist.
-Desweiteren wollen wir nicht unbedingt nur etwas über einzelne Probleme erfahren,
-sondern über Gruppen von Problemen und deren Beziehungen zueinander.
-Beide Gründe resultieren in Folgefragen:
-\begin{itemize}
-\item Wie muss ein Problem formalisiert sein,
-      dass wir Aussagen über das Problem unabhängig von einer konkreten Maschine treffen können?
-\item Wie kann man den ``Raum'' beschreiben, in denen Probleme im Verhältnis zueinander stehen?
-\end{itemize}
-
-Zur ersten Frage stellen wir fest,
-dass wir uns bei den gesuchten Aussagen nicht auf eine bestimmte Computer-Architektur
-oder eine bestimmte Programmiersprache einlassen sollten:
-Die Aussage, dass ein Problem \emph{un}berechenbar ist,
-also, dass es keine Maschine gibt, die das Problem lösen kann,
-wäre nicht abschließend lösbar:
-es müsste für die unendliche Menge an Kombinationen von Hardware-Setups und Programmiersprachen
-gezeigt werden.
-Auch die Frage nach der Komplexität eines Problems wäre schwer zu erörtern:
-Kann es nicht sein, dass das Problem auf dieser Hardware
-und mit jener Programmiersprache nicht doch wesentlich effizienter zu lösen ist?
-Wir wollen die Probleme also so abstrakt formalisieren,
-dass unsere Aussagen über sie prinzipiell auf \emph{allen} Computerarchitekturen
-und für \emph{alle} Programmiersprachen gültig sind.
-Wir suchen also eine Formalisierung,
-die von allen unwesentlichen Aspekten von Hardware und Programmierung abstrahiert.
-
-Die zweiten Frage - wie man den ``Raum'' der Probleme beschreiben kann -
-bedingt ebenfalls eine abstrakte Repräsentation des Problems.
-Nur so können wir das formale Handwerkszeug der Mengenlehre anwenden,
-das uns eine konzise und formal einwandfreie Beschreibung dieses ``Raumes'' erlaubt.\footnote{
-dann könnten wir auch die Anführungszeichen weglassen, weil wir uns dann einer formalen Definition des Raumes
-bedienen könnten.}
-%Die erste Möglichkeit bestünde darin,
-%Probleme einfach als ``Atome'' aufzufassen,
-%also als Einheiten ohne innere Struktur,
-%auf denen wir dann Mengen bilden können.
-%Es ist allerdings gerade die innere Struktur von Problemen,
-%die zum Beispiel Abhängigkeiten zwischen Problemen klar werden lassen:
-%Zum Beispiel könnte uns das Problem interessieren,
-%ob eine Zahl durch 4 teilbar ist,
-%also eine Abwandlung von \textbf{EVEN},
-%bei dem es darum geht,
-%ob eine Zahl durch 2 teilbar ist.
-%Geben wir diesem Problem dem Namen \textbf{DIV4},
-%dann ist klar, dass \textbf{DIV4} irgendwie mit \textbf{EVEN} zusammenhängt,
-%denn eine Zahl, die durch 4 teilbar ist, ist auch immer durch 2 teilbar -
-%allerdings nicht andersherum.
-Um Zusammenhänge zwischen Problemen untersuchbar zu machen,
-müssen wir auch einen Blick in ihre innere Struktur werfen.
-
-Gesucht ist also eine grundlegende Art, Probleme zu formalisieren, mit den folgenden Bedingungen:
+Damit wir die Werkzeuge der theoretischen Informatik anwenden können
+werden wir Probleme wie \textbf{EVEN} als formale Sprachen repräsentieren.
+Um zu verstehen, warum dies sinnvoll ist,
+werden wir in drei Schritten vorgehen:
 \begin{enumerate}
- \item Unabhängig von einer bestimmten Maschine oder Programmiersprache
- \item Mengentheoretische Behandlung von Problemen
- \item Analysemöglichkeit der inneren Struktur von Problemen
+    \item Erklären, was eine formale Sprache ist (\autoref{subsec:formaleSprachen})
+    \item Mit \textbf{I\textsubscript{EVEN}} beispielhaft zeigen,
+        wie man ein informelles Problem in eine formale Sprache übersetzen kann 
+        (\autoref{subsec:problemeAlsFormaleSprachen})
+    \item Diskutieren, warum formale Sprachen geeignete Repräsentationen für Probleme sind
+        (\autoref{subsec:warumFormaleSprachen})
 \end{enumerate}
 
-Wir werden sehen, dass eine Repräsentation von Problemen als formale Sprachen genau diese Bedingungen erfüllen.
-Um dies besser fassen zu können, wollen wir die Formalisierung des \textbf{EVEN}-Problems beispielhaft durchgehen.
+\subsection{Formale Sprachen}\label{subsec:formaleSprachen}
 
-Wie bereits erwähnt, legt die informelle Angabe des \textbf{EVEN}-Problems nahe,
-dass wir nach einer Möglichkeit suchen eine Funktion zu berechnen:
-\begin{itemize}
-    \item Der Definitionsbereich der Funktion ist die Menge aller natürlichen Zahlen,
-        die wir wie gewohnt mit $\mathbb{N}$ bezeichnen wollen.
-    \item Der Wertebereich der Funktion ist die Menge der Wahrheitswerte 
-    in ihrer kanonischen Repräsentation als 0 und 1.\footnote{
-    Hier haben wir natürlich die implizite Annahme getroffen,
-    dass es zwei Wahrheitswerte ``gibt'' und nicht mehr (\emph{tertium non datur}).
-    Das hat sowohl philosophische (siehe \cite{sep-logic-manyvalued}), als auch formale Implikationen (siehe \cite{gottwald}),
-    die wir geneigten Leser:innen zur Kontemplation anempfehlen.
-    Für unsere Einführung sind diese Erwägungen aber nebenrangig.
-}
-\end{itemize}
-Gesucht ist also $f_{EVEN}: \mathbb{N} \rightarrow \{0,1\}$.
-Es gilt zum Beispiel:
-\begin{itemize}
-    \item Sei $n = 5$ gegeben, dann ist $[5,0] \in f_{EVEN}$.
-    \item Sei $n = 4$ gegeben, dann ist $[4,1] \in f_{EVEN}$.\footnote{
-            Wie in \ref{relationenUndFunktionen} angerissen,
-            fassen wir Funktionen als Menge von rechtseindeutigen Tupeln auf.}
-\end{itemize}
+Eine formale Sprache ist eine Menge von Worten,
+die über einem Zeichenalphabet gebildet werden.
+In diesem Abschnitt dröseln wir diesen Satz Schritt für Schritt auf:
+Von Zeichen, über Worte, bis hin zu formalen Sprachen.
 
-\noindent
-Was müssen alle Maschinen gemein haben, die $f_{MAX}$ berechnen?
-Wir müssen verlangen,
-dass jede Maschine eine Eingabe und eine Ausgabe hat,
-mit denen wir $n$ übergeben und den Wahrheitswert ablesen.
-Wie müssten wir den Input und Output der Maschine gestalten,
-d.h. in welche Form müssten wir das \textbf{EVEN}-Problem bringen,
-dass die Maschine es lesen kann und wir den Output wieder verstehen können? 
-
-Ein zugängliches Modell für den Input ist die Tastatur und der Bildschirm:
-Eine endliche Menge von Zeichen (angezeigt durch Drücken der Knöpfe einer Tastatur)
-werden von der Maschine übersetzt in eine Reaktion der Maschine 
-(angezeigt durch die Pixel einer digitalen Ausgabe).
-Tatsächlich werden die meisten Informationen,
-die eine Maschine oder ein Computer verarbeiten,
-intern in eine sehr kleine Menge an Zeichen übersetzt:
-in Zeichenfolgen bestehend aus Nullen und Einsen.
-Tastaturen und Bildschirme machen uns die Interaktion mit der Maschine einfacher,
-allerdings sind sie für die Maschine selbst nicht nötig.
-
-Ganz allgemein könnte man also sagen, dass alle Probleme, die ein Computer lösen soll,
-sich in diese Form bringen lassen:
-\begin{itemize}
-    \item \textbf{Gegeben:} Eine binäre Zeichenfolge.
-    \item \textbf{Gesucht:} Eine binäre Zeichenfolge.
-\end{itemize}
-Übertragen auf \textbf{EVEN} müssen wir eine binäre Repräsentation von $n$ finden,
-die Ausgabe haben wir ja schon von vorneherein binär gewählt.
-Damit wir gefundenen Methoden später von \textbf{EVEN} auf andere Probleme übertragen können,
-müssen wir zunächst noch einige Begriffe definieren und Konventionen einführen.
-
-\subsection{Zeichen}
+\subsubsection{Zeichen}
 
 Eine Menge von Zeichen bezeichnen wir als \emph{Alphabet}, kurz: $\Sigma$.
-Zum Beispiel wäre das Alphabet für die meisten IT-Systeme: $\Sigma = \{0,1\}$.\\
+Zum Beispiel wäre das kanonische Alphabet für die meisten IT-Systeme: $\Sigma = \{0,1\}$.\\
 
 \noindent
 Wir verwenden diese Variablen für Zeichen: $a,b,c$;
@@ -307,9 +204,9 @@ also die Verbindung von zwei Zeichen, z.B. $01$.
 Wie bei der Multiplikation mit Variablen in der Mathematik üblich,
 wird die Konketanation nicht explizit mit einem eigenen Zeichen repräsentiert.
 
-\subsection{Worte}
+\subsubsection{Worte}
 Das Ergebnis einer beliebig oft ausgeführten Konkatenation,
-also eine (binäre) Zeichenfolge,
+also eine Zeichenfolge,
 bezeichnen wir als \emph{Wort}, z.B.: $0101010001001001$\\
 
 \noindent
@@ -339,17 +236,15 @@ Z.B. $0^3 = 000$ und $(10)^2 = 1010$.
 $a^0$ bzw. $w^0$ entspricht dabei $\epsilon$.\\
 
 \noindent
-Wollen wir ein angeben, dass ein Zeichen oder Wort beliebig oft (also auch 0-mal) wiederholt
+Wollen wir angeben, dass ein Zeichen oder Wort beliebig oft (also auch 0-mal) wiederholt
 wird, nutzen wir dafür einen hochgestellten Stern, den \emph{Kleene-Operator} $a^*$ oder $w^*$.
 Mit dem Kleene-Operator bezeichnen wir immer eine unendliche Menge von Wörtern, z.B.:
 $a^* = \{\epsilon, a, aa, aaa, aaaa, \dots\}$
 
-\subsection{Formale Sprachen}
+\subsubsection{Formale Sprachen als Menge von Worten}
 
-Nachdem wir von Zeichen und Worten gesprochen haben, liegt die Frage nahe,
-ob man denn auch von Sprachen sprechen kann und tatsächlich ist die formale Sprache 
-ein zentraler Begriff der theoretischen Informatik.
-Bevor wir den Begriff der formalen Sprachen einführen, ist noch eine Warnung angebracht:
+Bevor wir den Begriff der formalen Sprachen ordentlich einführen,
+ist noch eine Warnung angebracht:
 Während die Verwendung des Begriffs ''Zeichens''
 noch recht intuitiv mit dem Begriff des Buchstaben zusammenfällt
 (zumindest im deutschsprachigen Raum),
@@ -358,17 +253,17 @@ Worte im Sinne des vorangegangenen Abschnitts sind einfach irgendwelche Zeichenf
 egal ob sie aussprechbar oder im Kontext einer natürlichen Sprache
 (wie deutsch oder englisch) einen Sinn ergeben.
 
-Man müsste also eigentlich das natursprachliche $Wort_N$ von dem formalen $Wort_F$ trennen,
-das wir oben eingeführt haben.
-Eine Crux aller formal arbeitenden Wissenschaften ist,
-dass die Menge an Zeichen und Begriffen begrenzt ist und daher Doppeldeutigkeiten auftreten.
-Wir müssen also durch Konventionen klären, welche Bedeutung wir einem Begriff geben wollen:
-Im Kontext dieses Skriptes bezeichnen wir mit dem Begriff Wort die Zeichenfolge, also $Wort_F$.
-Sollte dies nicht der Fall sein und der Kontext nicht ausreichen,
-um zwischen beiden Bedeutungen zu unterscheiden,
-werden wir die subskribierten Varianten verwenden.
+%Man müsste also eigentlich das natursprachliche $Wort_N$ von dem formalen $Wort_F$ trennen,
+%das wir oben eingeführt haben.
+%Eine Crux aller formal arbeitenden Wissenschaften ist,
+%dass die Menge an Zeichen und Begriffen begrenzt ist und daher Doppeldeutigkeiten auftreten.
+%Wir müssen also durch Konventionen klären, welche Bedeutung wir einem Begriff geben wollen:
+%Im Kontext dieses Skriptes bezeichnen wir mit dem Begriff Wort die Zeichenfolge, also $Wort_F$.
+%Sollte dies nicht der Fall sein und der Kontext nicht ausreichen,
+%um zwischen beiden Bedeutungen zu unterscheiden,
+%werden wir die subskribierten Varianten verwenden.
 
-Die vorige Überlegung trifft nicht nur auf Worte, sondern auch auf \emph{Sprachen} zu.
+Diese Überlegung trifft nicht nur auf Worte, sondern auch auf \emph{Sprachen} zu.
 Eine Sprache im Sinne der theoretischen Informatik ist einfach eine Menge von Worten.
 Z.B. ist $L = \{0, 1, 00, 01, 10, 11 \}$ die Sprache der Worte,
 die aus einem oder zwei Binärzeichen bestehen.
@@ -388,7 +283,86 @@ z.B. bezeichnet $L_1 \cap L_2 = \{w | w \in L_1 \wedge w \in L_2\}$
 die Schnittmenge zweier Sprachen, also alle Wörter,
 die sowohl Element von $L_1$ als auch von $L_2$ sind.
 
-\subsection{Probleme als Sprachen}\label{subsec:problemeSprachen}
+
+
+\subsection{Probleme als formale Sprachen}\label{subsec:problemeAlsFormaleSprachen}
+Um dies besser fassen zu können,
+wollen wir die Formalisierung des \textbf{EVEN}-Problems beispielhaft durchgehen.
+Wie bereits erwähnt, legt die informelle Angabe des \textbf{EVEN}-Problems nahe,
+dass wir nach einer Möglichkeit suchen eine Funktion zu berechnen:
+\begin{itemize}
+    \item Der Definitionsbereich der Funktion ist die Menge aller natürlichen Zahlen,
+        die wir wie gewohnt mit $\mathbb{N}$ bezeichnen wollen.
+    \item Der Wertebereich der Funktion ist die Menge der Wahrheitswerte 
+    in ihrer kanonischen Repräsentation als 0 und 1.\footnote{
+    Hier haben wir natürlich die implizite Annahme getroffen,
+    dass es zwei Wahrheitswerte ``gibt'' und nicht mehr (\emph{tertium non datur}).
+    Das hat sowohl philosophische (siehe \cite{sep-logic-manyvalued}), als auch formale Implikationen (siehe \cite{gottwald}),
+    die wir geneigten Leser:innen zur Kontemplation anempfehlen.
+    Für unsere Einführung sind diese Erwägungen aber nebenrangig.
+}
+\end{itemize}
+Gesucht ist also $f_{EVEN}: \mathbb{N} \rightarrow \{0,1\}$.
+Es gilt zum Beispiel:
+\begin{itemize}
+    \item Sei $n = 5$ gegeben, dann ist $[5,0] \in f_{EVEN}$.
+    \item Sei $n = 4$ gegeben, dann ist $[4,1] \in f_{EVEN}$.\footnote{
+            Wie in \ref{relationenUndFunktionen} angerissen,
+            fassen wir Funktionen als Menge von rechtseindeutigen Tupeln auf.}
+\end{itemize}
+
+\noindent
+Was müssen alle Maschinen gemein haben, die $f_{EVEN}$ berechnen?
+Wir müssen verlangen,
+dass jede Maschine eine Eingabe und eine Ausgabe hat,
+mit denen wir $n$ übergeben und den Wahrheitswert ablesen.
+Wie müssten wir den Input und Output der Maschine gestalten,
+d.h. in welche Form müssten wir das \textbf{EVEN}-Problem bringen,
+dass die Maschine es lesen kann und wir den Output wieder verstehen können? 
+
+Ein zugängliches Modell für den Input ist die Tastatur und der Bildschirm:
+Eine endliche Menge von Zeichen (angezeigt durch Drücken der Knöpfe einer Tastatur)
+werden von der Maschine übersetzt in eine Reaktion der Maschine 
+(angezeigt durch die Pixel einer digitalen Ausgabe).
+Tatsächlich werden die meisten Informationen,
+die eine Maschine oder ein Computer verarbeiten,
+intern in eine sehr kleine Menge an Zeichen übersetzt:
+in Zeichenfolgen bestehend aus Nullen und Einsen.
+Tastaturen und Bildschirme machen uns die Interaktion mit der Maschine einfacher,
+allerdings sind sie für die Maschine selbst nicht nötig.
+
+Ganz allgemein könnte man also sagen, dass alle Probleme, die ein Computer lösen soll,
+sich in diese Form bringen lassen:
+\begin{itemize}
+    \item \textbf{Gegeben:} Eine binäre Zeichenfolge.
+    \item \textbf{Gesucht:} Eine binäre Zeichenfolge.
+\end{itemize}
+Übertragen auf \textbf{EVEN} müssen wir eine binäre Repräsentation von $n$ finden,
+die Ausgabe haben wir ja schon von vorneherein binär gewählt.
+Allerdings ist die binäre Repräsentation eine \emph{Konvention},
+die durch die Realisierungen von Schaltungen in der technischen Informatik begründet ist.
+Um Bedingung 1 (Unabhängigkeit von bestimmten Maschinen und Programmiersprachen) zu erfüllen,
+
+Man könnte prinzipiell auf die Idee kommen Systeme zur Basis drei oder sogar minus zwei 
+einzuführen.\footnote{
+    Interessierte Leser:innen kommen in \cite{knuth2}, Chapter 4 (194-213) auf ihre Kosten.
+}
+Klar ist allerdings auch, dass wir uns für das Beispiel
+auf irgendeine Informationskodierung festlegen müssen.
+Aus diesem Grund nutzen wir für das Beispiel \textbf{EVEN}
+die wohlbekannte binäre Kodierung von Zahlen,
+nennen sie aber gleichzeitig \emph{kanonisch}. 
+Damit unterstreichen wir die praktische Bedeutung des binären Systems,
+ohne von den möglichen Alternativen abzulenken.
+Wir kommen im anschließenden Kapitel noch einmal auf die Bedeutung der Repräsentation
+für die Komplexität eines Problems zurück.
+Damit wir die dann gefundenen Methoden später von \textbf{EVEN}
+auf andere Probleme übertragen können,
+müssen wir zunächst noch einige Begriffe definieren und Konventionen einführen,
+die von der kanonischen Repräsentation abstrahieren.
+
+
+
 Mit den oben eingeführten Begriffen können
 wir nun ein Problem wie \textbf{MAX} im Sinne der theoretischen Informatik
 \emph{formalisiert} spezifizieren.
@@ -486,9 +460,75 @@ nach Wichtigkeit aufsteigend sortiert:
         und der Analysis anwenden können.
 \end{itemize}
 
+\subsection{Warum formale Sprachen?}\label{subsec:warumFormaleSprachen}
+Zur ersten Frage stellen wir fest,
+dass wir uns bei den gesuchten Aussagen nicht auf eine bestimmte Computer-Architektur
+oder eine bestimmte Programmiersprache einlassen sollten:
+Die Aussage, dass ein Problem \emph{un}berechenbar ist,
+also, dass es keine Maschine gibt, die das Problem lösen kann,
+wäre nicht abschließend lösbar:
+es müsste für die unendliche Menge an Kombinationen von Hardware-Setups und Programmiersprachen
+gezeigt werden.
+Auch die Frage nach der Komplexität eines Problems wäre schwer zu erörtern:
+Kann es nicht sein, dass das Problem auf dieser Hardware
+und mit jener Programmiersprache nicht doch wesentlich effizienter zu lösen ist?
+Wir wollen die Probleme also so abstrakt formalisieren,
+dass unsere Aussagen über sie prinzipiell auf \emph{allen} Computerarchitekturen
+und für \emph{alle} Programmiersprachen gültig sind.
+Wir suchen also eine Formalisierung,
+die von allen unwesentlichen Aspekten von Hardware und Programmierung abstrahiert.
+
+
+Wir wollen Aussagen darüber treffen,
+wie (leicht) eine beliebige Maschine ein gegebenes Problem lösen kann
+und ob es überhaupt für Maschinen lösbar ist.
+Desweiteren wollen wir nicht unbedingt nur etwas über einzelne Probleme erfahren,
+sondern über Gruppen von Problemen und deren Beziehungen zueinander.
+Diese beiden Aspekte erlauben es uns,
+zwei Fragen in Bezug auf die Formalisierung zu stellen:
+\begin{itemize}
+\item Wie muss ein Problem formalisiert sein,
+      dass wir Aussagen über das Problem unabhängig von einer konkreten Maschine treffen können?
+\item Wie kann man den ``Raum'' beschreiben, in denen Probleme im Verhältnis zueinander stehen?
+\end{itemize}
+
+
+Die zweiten Frage - wie man den ``Raum'' der Probleme beschreiben kann -
+bedingt ebenfalls eine abstrakte Repräsentation des Problems.
+Nur so können wir das formale Handwerkszeug der Mengenlehre anwenden,
+das uns eine konzise und formal einwandfreie Beschreibung dieses ``Raumes'' erlaubt.\footnote{
+dann könnten wir auch die Anführungszeichen weglassen, weil wir uns dann einer formalen Definition des Raumes
+bedienen könnten.}
+%Die erste Möglichkeit bestünde darin,
+%Probleme einfach als ``Atome'' aufzufassen,
+%also als Einheiten ohne innere Struktur,
+%auf denen wir dann Mengen bilden können.
+%Es ist allerdings gerade die innere Struktur von Problemen,
+%die zum Beispiel Abhängigkeiten zwischen Problemen klar werden lassen:
+%Zum Beispiel könnte uns das Problem interessieren,
+%ob eine Zahl durch 4 teilbar ist,
+%also eine Abwandlung von \textbf{EVEN},
+%bei dem es darum geht,
+%ob eine Zahl durch 2 teilbar ist.
+%Geben wir diesem Problem dem Namen \textbf{DIV4},
+%dann ist klar, dass \textbf{DIV4} irgendwie mit \textbf{EVEN} zusammenhängt,
+%denn eine Zahl, die durch 4 teilbar ist, ist auch immer durch 2 teilbar -
+%allerdings nicht andersherum.
+Um Zusammenhänge zwischen Problemen untersuchbar zu machen,
+müssen wir auch einen Blick in ihre innere Struktur werfen.
+
+Gesucht ist also eine grundlegende Art, Probleme zu formalisieren, mit den folgenden Bedingungen:
+\begin{enumerate}
+ \item Unabhängig von einer bestimmten Maschine oder Programmiersprache
+ \item Mengentheoretische Behandlung von Problemen
+ \item Analysemöglichkeit der inneren Struktur von Problemen
+\end{enumerate}
+
+Wir werden sehen, dass eine Repräsentation von Problemen als formale Sprachen genau diese Bedingungen erfüllen.
+
 Zusammenfassend können wir feststellen:
 \begin{itemize}
-    \item Die theoretische Informatik arbeitet mit Abstraktion und Formalisierung.
+    \item Abstraktion und Formalisierung.
     \item Probleme lassen sich als Sprachen repräsentieren.
         Ist es lösbar, ob ein Wort zu einer Sprache gehört,
         ist auch das repräsentierte Problem lösbar. 
