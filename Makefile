@@ -41,6 +41,8 @@ clean:
 		rm -f content/*.aux
 
 publish:
+		$(LATEXMK) $(LATEXMKOPT) \
+			-pdflatex="$(LATEX) $(LATEXOPT) %O %S" $(MAIN)
 		scp $(MAIN).pdf melchior@kushida.uberspace.de:html/$(MAIN)_bkp.pdf
 		git push origin master
 
