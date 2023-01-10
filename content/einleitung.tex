@@ -431,18 +431,18 @@ deren Alphabet nur zwei Zeichen hat.
 \subsection{Warum formale Sprachen?}\label{subsec:warumFormaleSprachen}
 
 Sind Probleme also mit formalen Sprachen identisch?
-Die Antwort darauf ist ein klares Nein.\footnote{
-Einige Textbücher sind in diesem Punkt ein wenig schlampig (Todo: Zitat),
-indem sie das Problem mit der formalen Sprache gleichsetzen}
-Dass wir im vorigen Abschnitt zwei Sprachen
-$L_{EVEN}$ und $L_{EVEN}^{'}$ für ein Problem gefunden haben,
+Die Antwort darauf ist ein klares Nein.
+Dass wir im vorigen Abschnitt \emph{zwei} Sprachen
+$L_{EVEN}$ und $L_{EVEN}^{'}$ für \emph{ein} Problem gefunden haben,
 zeigt, dass wir die beiden Entitäten nicht gleichsetzen dürfen:
 Die Übersetzung eines Problems, das informell angegeben ist,
 in eine formale Sprache ist nicht eindeutig.\footnote{
-Das philosophische Problem, dass ``interessante'' Übersetzung jemals eindeutig sein kann,
+Das philosophische Problem, ob eine ``interessante'' Übersetzung jemals eindeutig sein kann,
 wird auch in \cite{quine} und der Folgeliteratur besprochen.}
-Ganz unabhängig von unserem Beispiel muss man ein beliebiges Problem
-nicht in einer Sprache über einem binären Alphabet $\Sigma = \{0,1\}$ kodieren.
+
+Zudem muss man ein Problem nicht in einer Sprache über einem binären Alphabet
+$\Sigma = \{0,1\}$ kodieren,
+wie wir es im vorangegangenen Abschnitt exemplarisch getan haben.
 Man hätte auch Probleme mit einem unären, ternären 
 oder anderen Alphabeten repräsentieren können.\footnote{
     Interessierte Leser:innen kommen in \cite{knuth2}, Chapter 4 (194-213) auf ihre Kosten.
@@ -450,145 +450,71 @@ oder anderen Alphabeten repräsentieren können.\footnote{
 Das obige Beispiel ist mit dem binären Alphabet im wahrsten Sinne des Wortes durchbuchstabiert,
 weil es unseren Gewohnheiten entsprioht
 - deswegen nennen wir es \emph{kanonisch}.
-Diesen Begriff (kanonisch) nutzen wir,
-um auf eine quasi allgegenwärtige und akzeptierte Konvention hinzuweisen,
+Mit dem Begriff ``kanonisch'' weisen wir
+auf eine quasi allgegenwärtige und akzeptierte Konvention hin,
 ohne zu behaupten, die implizierte Wahl sei zwingend notwendig.
-Ob es einen Unterschied macht,
-welche Repräsentation man für ein Problem wählt,
+Unter welchen Umständen es einen Unterschied macht,
+welche spezifische Sprache man als Repräsentation für ein Problem wählt,
 ist eine Frage,
 die wir in diesem Skript noch diskutieren wollen.
 
-Zu diesem Punkt in unserer Überlegung reicht es,
-dass wir festhalten:
-In der theoretischen Informatik nutzen wir formale Sprachen, um Probleme zu repräsentieren,
-aber formale Sprachen und Probleme sind so wenig identisch,
-wie ein ausgestreckter Zeigefinger mit der Zahl 1 identisch ist.
-Der Zeigefinger \emph{kann} für die Zahl 1 stehen,
-aber er hat offensichtlich Eigenschaften,
-die die Zahl 1 nicht hat
-(diese ist nicht typischerweise neben einem Daumen zu finden).
+%Wir halten fest:
+%In der theoretischen Informatik nutzen wir formale Sprachen, um Probleme zu repräsentieren,
+%aber formale Sprachen und Probleme sind so wenig identisch,
+%wie ein ausgestreckter Zeigefinger mit der Zahl 1 identisch ist.
+%Der Zeigefinger \emph{kann} für die Zahl 1 stehen,
+%aber er hat offensichtlich Eigenschaften,
+%die die Zahl 1 nicht hat
+%(diese ist nicht typischerweise neben einem Daumen zu finden).
 
-Warum nutzen wir überhaupt formale Sprachen,
+Warum nutzen wir aber überhaupt formale Sprachen,
 um Probleme zu formalisieren?
 Formale Sprachen,
 wie wir sie im vorangegangenen Abschnitt kennengelernt haben,
 scheinen für praktische Anwendungen ungeeignet:
-Sie erscheinen sperrig und kompliziert,
-im gegeben/gesucht-Format sind Probleme für die meisten Menschen schneller verständlich.\footnote{
-Dies liegt aber vor allem an den gewählten Beispielen.
-Auch die Menge aller Python- oder C-Programme (oder einer beliebigen anderen Programmiersprache)
-lässt sich als formale Sprache auffassen.
-Diesen Gedanken vertiefen wir in \autoref{chapter:keller}.}
+Sie wirken für Menschen sperrig und kompliziert,
+im gegeben/gesucht-Format sind Probleme für die meisten Menschen schneller verständlich.
 
-
+Es gibt aber einige Gründe,
+die Repräsentation als formale Sprachen
+für die Fragestellung der theoretischen Informatik zu nutzen:
 \begin{itemize}
-    \item Probleme als formale Sprachen zu repräsentieren gibt uns eine
-        konzise, unmissverständliche Beschreibung von Problemen,
-        die auch von Maschinen verarbeitet werden kann. 
-    \item Die Abstraktion die in der Formalisierung wiedergespiegelt ist,
-        ermöglicht sehr generelle Aussagekraft über das speziell betrachtete Problem hinweg.
+    \item Formale Sprachen sind konzise, unmissverständliche Beschreibung von Problemen,
+        die prinzipiell von jeder Maschinen verarbeitet werden kann,
+        ohne dass wir uns auf eine bestimmte Hardware-Architektur oder Programmiersprache
+        festlegen müssen.
+    \item Formale Sprachen sind Mengen, daher können wir die Operationen der Mengenlehre
+        auf sie anwenden.
+        Z.B. kann man das Teilmengenverhältnis nutzen,
+        um den Zusammenhang zwischen Problemen zu charakterisieren.
+        Damit haben wir ein mächtiges Werkzeug zur Hand,
+        den ``Raum'' der Probleme zu behandeln.
+    \item Formale Sprachen haben Worte als Elemente und Zeichen als Teile der Worte.
+        Dies erlaubt uns Zusammenhänge zwischen Problemen untersuchbar zu machen,
+        indem wir einen Blick in ihre innere Struktur der Probleme werfen.  
+    \item Wir können All- und Existenzaussagen über Probleme als formale Sprachen formulieren
+        und zum Teil beweisen.
     \item Aussagen über (effiziente) Berechenbarkeit werden mit den Methoden der Mathematik
         beweisbar, da wir u.a. die Ergebnisse der Mengenlehre, der Arithmetik
         und der Analysis anwenden können.
 \end{itemize}
 
-Zur ersten Frage stellen wir fest,
-dass wir uns bei den gesuchten Aussagen nicht auf eine bestimmte Computer-Architektur
-oder eine bestimmte Programmiersprache einlassen sollten:
-Die Aussage, dass ein Problem \emph{un}berechenbar ist,
-also, dass es keine Maschine gibt, die das Problem lösen kann,
-wäre nicht abschließend lösbar:
-es müsste für die unendliche Menge an Kombinationen von Hardware-Setups und Programmiersprachen
-gezeigt werden.
-Auch die Frage nach der Komplexität eines Problems wäre schwer zu erörtern:
-Kann es nicht sein, dass das Problem auf dieser Hardware
-und mit jener Programmiersprache nicht doch wesentlich effizienter zu lösen ist?
-Wir wollen die Probleme also so abstrakt formalisieren,
-dass unsere Aussagen über sie prinzipiell auf \emph{allen} Computerarchitekturen
-und für \emph{alle} Programmiersprachen gültig sind.
-Wir suchen also eine Formalisierung,
-die von allen unwesentlichen Aspekten von Hardware und Programmierung abstrahiert.
-
-
-Wir wollen Aussagen darüber treffen,
-wie (leicht) eine beliebige Maschine ein gegebenes Problem lösen kann
-und ob es überhaupt für Maschinen lösbar ist.
-Desweiteren wollen wir nicht unbedingt nur etwas über einzelne Probleme erfahren,
-sondern über Gruppen von Problemen und deren Beziehungen zueinander.
-Diese beiden Aspekte erlauben es uns,
-zwei Fragen in Bezug auf die Formalisierung zu stellen:
-\begin{itemize}
-\item Wie muss ein Problem formalisiert sein,
-      dass wir Aussagen über das Problem unabhängig von einer konkreten Maschine treffen können?
-\item Wie kann man den ``Raum'' beschreiben, in denen Probleme im Verhältnis zueinander stehen?
-\end{itemize}
-
-
-Die zweiten Frage - wie man den ``Raum'' der Probleme beschreiben kann -
-bedingt ebenfalls eine abstrakte Repräsentation des Problems.
-Nur so können wir das formale Handwerkszeug der Mengenlehre anwenden,
-das uns eine konzise und formal einwandfreie Beschreibung dieses ``Raumes'' erlaubt.\footnote{
-dann könnten wir auch die Anführungszeichen weglassen, weil wir uns dann einer formalen Definition des Raumes
-bedienen könnten.}
-%Die erste Möglichkeit bestünde darin,
-%Probleme einfach als ``Atome'' aufzufassen,
-%also als Einheiten ohne innere Struktur,
-%auf denen wir dann Mengen bilden können.
-%Es ist allerdings gerade die innere Struktur von Problemen,
-%die zum Beispiel Abhängigkeiten zwischen Problemen klar werden lassen:
-%Zum Beispiel könnte uns das Problem interessieren,
-%ob eine Zahl durch 4 teilbar ist,
-%also eine Abwandlung von \textbf{EVEN},
-%bei dem es darum geht,
-%ob eine Zahl durch 2 teilbar ist.
-%Geben wir diesem Problem dem Namen \textbf{DIV4},
-%dann ist klar, dass \textbf{DIV4} irgendwie mit \textbf{EVEN} zusammenhängt,
-%denn eine Zahl, die durch 4 teilbar ist, ist auch immer durch 2 teilbar -
-%allerdings nicht andersherum.
-Um Zusammenhänge zwischen Problemen untersuchbar zu machen,
-müssen wir auch einen Blick in ihre innere Struktur werfen.
-
-
 Die theoretische Informatik untersucht formale Sprachen auch als eigenen Gegenstand,
 unabhängig davon, dass man formale Sprachen als formale Repräsentation von Problemen
 interpretieren kann.
-
-% ins nächste Kapitel:
-% Was müssen alle Maschinen gemein haben, die $f_{EVEN}$ berechnen?
-% Wir müssen verlangen,
-% dass jede Maschine eine Eingabe und eine Ausgabe hat,
-% mit denen wir $n$ übergeben und den Wahrheitswert ablesen.
-% Wie müssten wir den Input und Output der Maschine gestalten,
-% d.h. in welche Form müssten wir das \textbf{EVEN}-Problem bringen,
-% dass die Maschine es lesen kann und wir den Output wieder verstehen können? 
-
-% Ein zugängliches Modell für den Input ist die Tastatur und der Bildschirm:
-% Eine endliche Menge von Zeichen (angezeigt durch Drücken der Knöpfe einer Tastatur)
-% werden von der Maschine übersetzt in eine Reaktion der Maschine 
-% (angezeigt durch die Pixel einer digitalen Ausgabe).
-% Tatsächlich werden die meisten Informationen,
-% die eine Maschine oder ein Computer verarbeiten,
-% intern in eine sehr kleine Menge an Zeichen übersetzt:
-% in Zeichenfolgen bestehend aus Nullen und Einsen.
-% Tastaturen und Bildschirme machen uns die Interaktion mit der Maschine einfacher,
-% allerdings sind sie für die Maschine selbst nicht nötig.
-
-% Ganz allgemein könnte man also sagen, dass alle Probleme, die ein Computer lösen soll,
-%sich in diese Form bringen lassen:
-% \begin{itemize}
-%    \item \textbf{Gegeben:} Eine binäre Zeichenfolge.
-%    \item \textbf{Gesucht:} Eine binäre Zeichenfolge.
-% \end{itemize}
-
-% Die Sprache ist also der großen Tabelle nicht unähnlich,
-% in der man die ``richtigen'' $n$-Werte ablesen kann.
-% Wir wissen, dass diese Sprache unendlich viele Wörter hat und dass es unwirtschaftlich wäre
-% die Sprache wirklich aufzuschreiben (wir würden nie fertig werden).
-% Perspektivisch müssen wir also nach endlichen Methoden suchen,
-% (potentiell) unendliche Sprachen zu verarbeiten.
+In unserem Skript konzentieren wir uns auf die Rolle von formalen Sprachen als
+Repräsentation von Problemen,
+in \autoref{ch:theorie} werden wir Hinweise durchgehen,
+wo man das Studium der formalen Sprachen vertiefen kann.
 
 
 \subsection{Zusammenfassung}
 \begin{itemize}
-    \item Probleme lassen sich als Sprachen repräsentieren.
+    \item Erfahrene und kompetente IT-Fachkräfte erfassen den logische Kernn
+        von IT-Alltagsaufgaben und können ihre Aufgaben daher effizient erledigen.
+    \item Den logischen Kern können wir im gegeben/gesucht-Format fassen
+        und so als Funktion verstehen. Diese Auffassung von Problemen nennen wir informell.
+    \item Probleme lassen sich als formale Sprachen repräsentieren.
+    \item Formale Sprachen lassen sich mit den Methoden der theoretischen Informatik
+        bearbeiten.
 \end{itemize}

@@ -1,4 +1,38 @@
 \chapter{Aufwand}
+
+ Was müssen alle Maschinen gemein haben, die $f_{EVEN}$ berechnen?
+ Wir müssen verlangen,
+ dass jede Maschine eine Eingabe und eine Ausgabe hat,
+ mit denen wir $n$ übergeben und den Wahrheitswert ablesen.
+ Wie müssten wir den Input und Output der Maschine gestalten,
+ d.h. in welche Form müssten wir das \textbf{EVEN}-Problem bringen,
+ dass die Maschine es lesen kann und wir den Output wieder verstehen können? 
+
+ Ein zugängliches Modell für den Input ist die Tastatur und der Bildschirm:
+ Eine endliche Menge von Zeichen (angezeigt durch Drücken der Knöpfe einer Tastatur)
+ werden von der Maschine übersetzt in eine Reaktion der Maschine 
+ (angezeigt durch die Pixel einer digitalen Ausgabe).
+ Tatsächlich werden die meisten Informationen,
+ die eine Maschine oder ein Computer verarbeiten,
+ intern in eine sehr kleine Menge an Zeichen übersetzt:
+ in Zeichenfolgen bestehend aus Nullen und Einsen.
+ Tastaturen und Bildschirme machen uns die Interaktion mit der Maschine einfacher,
+ allerdings sind sie für die Maschine selbst nicht nötig.
+
+ Ganz allgemein könnte man also sagen, dass alle Probleme, die ein Computer lösen soll,
+sich in diese Form bringen lassen:
+ \begin{itemize}
+    \item \textbf{Gegeben:} Eine binäre Zeichenfolge.
+    \item \textbf{Gesucht:} Eine binäre Zeichenfolge.
+ \end{itemize}
+
+ Die Sprache ist also der großen Tabelle nicht unähnlich,
+ in der man die ``richtigen'' $n$-Werte ablesen kann.
+ Wir wissen, dass diese Sprache unendlich viele Wörter hat und dass es unwirtschaftlich wäre
+ die Sprache wirklich aufzuschreiben (wir würden nie fertig werden).
+ Perspektivisch müssen wir also nach endlichen Methoden suchen,
+ (potentiell) unendliche Sprachen zu verarbeiten.
+
 \section{Algorithmus und Implementierung}
 \section{Zeit und Raum}
 \section{Big-O: Wachstum}
