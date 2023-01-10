@@ -10,6 +10,8 @@ GLOS=makeglossaries
 
 MAIN=script
 
+
+
 SOURCES=$(MAIN).tex Makefile $(shell find content/*)
 
 all:	$(MAIN).pdf
@@ -39,7 +41,7 @@ clean:
 		rm -f content/*.aux
 
 publish:
-		scp $(MAIN).pdf melchior@kushida.uberspace.de:html/$(MAIN)_bkp.pdf 
+		scp $(MAIN).pdf melchior@kushida.uberspace.de:html/$(MAIN)_bkp.pdf
 		git push origin master
 
 once:

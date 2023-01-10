@@ -80,6 +80,7 @@ maxbibnames=99
 % end drop space before chapter headings
 \usepackage{enumitem}
 \usepackage{tcolorbox}
+\usepackage{gitinfo2}
 
 %%%%%%%%%%%%%%%%%%%%
 % TODONOTES
@@ -95,7 +96,9 @@ maxbibnames=99
 
 \setcounter{tocdepth}{1}
 
-\title{Theoretische Informatik für Problemlöser:innen}
+\title{Theoretische Informatik für Problemlöser:innen
+\\
+VERSION: \gitAbbrevHash}
 \author{Dr. Tobias Weber} 
 
 
@@ -106,7 +109,7 @@ maxbibnames=99
 
 
   \frontmatter
-  \date{\today um \currenttime Uhr}
+  \date{\today \ um \currenttime Uhr}
   \maketitle
 
   \include{content/preface} 
