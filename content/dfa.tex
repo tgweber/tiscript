@@ -1,5 +1,67 @@
 \chapter{Reguläre Sprachen}
+
 \section{Algorithmus und Implementierung}
+
+In Kapitel \autoref{einleitung} haben wir schon festgehalten:
+Probleme lassen sich als als formale Sprachen repräsentieren.
+Wie machen wir diese Formalisierung aber operabel,
+also wie können wir \emph{Lösungen} für Probleme angeben?
+Im Sprachgebrauch der Informatik werden Problemlösungen
+mit \emph{Algorithmen} gleichgesetzt
+
+Frei nach Donald E. Knuth (\cite{knuth1}, 4-6) ist ein Algorithmus nicht identisch
+zu den ähnlichen Begriffen 
+Rezept, Prozess, Methode, Technik, Prozedur, Routine oder gar Rigmarole.
+Ein Algorithmus ist eine schrittweise Anweisung zur Lösung eines Problems,
+welche die folgenden fünf Eigenschaften erfüllt:
+\begin{enumerate}
+    \item Sie ist endlich (``finiteness'').
+    \item Sie ist unmissverständlich formuliert (``definiteness'').
+    \item Sie hat einen (möglicherweise leeren) Input.
+    \item Sie liefert einen (möglicherweise komplexen) Output, abhängig vom Input.
+    \item Sie lässt sich prinzipiell durchführen (``effectiveness'').
+\end{enumerate}
+Offensichtlich gibt es zu einem Problem mehr als einen Algorithmus,
+der es löst.\footnote{Für diejenigen, die dies nicht so einfach akzeptieren wollen:
+Sei ein Algorithmus A für ein Problem gegeben, dann ist der Algorithmus A', der wie A ist,
+nur zusätzlich $1+1$ errechnet und das Ergebnis ignoriert,
+auch eine Lösung für das Problem, aber von A unterschiedlich.}
+
+In der IT-Praxis werden Algorithmen in Programmen ausformuliert,
+geschrieben in einer Programmiersprache.
+Diese Programme sind \emph{Implementierungen} des Algorithmus.
+Ein Algorithmus verhält sich zu seiner Implementierung also wie
+ein Patent zu einer Fertigungsanlage.
+Auch hier gilt: für einen Algorithmus kann es mehrere Implementierungen geben. 
+
+Die Menge aller syntaktisch wohlgeformten Programme einer Programmiersprache
+können wir zwar auch als formale Sprache auffassen.
+Aber wir geben Implementierungen von Algorithmen in der theoretischen Informatik
+oft \emph{Automaten} an.\footnote{
+    Wir kehren zum Zusammenhang zwischen Automaten und Programmiersprachen
+    in \autoref{turingVollstaendigkeit} zurück.
+}
+Ein Automat kann als eine abstrakte Maschine verstanden werden,
+die einen Input bekommt, 
+dabei mit simplen Einzelschritten läuft
+und einen definiten Output liefert.
+% TODO Bild.
+Wir haben also vier der fünf Kriterien für den Algorithmus abgedeckt.
+Kriterium 1 (Endlichkeit des Laufs) wird uns im Laufe des Skriptes weiter beschäftigen.
+
+Der Zusammenhang zwischen einer formalen Sprache und dem Automat kann so formuliert werden:
+Ein Automat bekommt ein Wort als Input und entscheidet,
+ob es zu der formalen Sprache gehört oder nicht.
+Wenn eine formale Sprache ein Problem repräsentiert,
+gibt der Automat also ein Verfahren an, 
+wie das Problem gelöst werden kann.
+Man kann auch sagen:
+Der Automat ist eine Implementierung eines Algorithmus der das Problem löst.
+
+Im folgenden wollen wir eine sehr einfache Art von Automaten einführen,
+um diese einführenden Bemerkungen zu konkretisieren.
+
+\section{Deterministisch Finite Automaten}
 In diesem Kapitel werden wir das \textbf{MATCH}-Problem genauer unter die Lupe nehmen
 und dabei unseren ersten Automaten-Typ formal einführen.
 Zur Wiederholung die User-Story-Version des \textbf{MATCH}-Problems:
@@ -29,8 +91,6 @@ Analog wollen wir es mit der Automatentheorie halten:
 
 
 
-In Kapitel \autoref{einleitung} haben wir schon festgehalten:
-Probleme lassen sich als als Entscheidungsprobleme von Sprachen formalisieren.
 Für Match würde dies bedeuten, dass wir eine Sprache suchen,
 die analog zu $f_{MATCH}$ genau die Kombinationen von Zeichenfolgen und booleschen Werten beinhaltet,
 die anzeigen, ob die Zeichenfolge nun einem Muster entspricht oder nicht.
@@ -49,7 +109,7 @@ nicht aber '1L1' oder 'abc'.
 Im folgenden Abschnitt wollen wir uns formale Methoden anschauen,
 wie wir eine solche Sprache erkennen können.
 
-\section{Deterministisch Finite Automaten}
+
 Viele formale Sprachen haben unendlich viele Wörter,
 so auch $L_{MATCH}$.
 Daraus folgt: wir können sie nicht einfach extensiv angeben (''aufzählen''),
