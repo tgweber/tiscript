@@ -1,3 +1,4 @@
+\RequirePackage[2020-02-02]{latexrelease}
 \documentclass[
     12pt,
     a4paper
@@ -11,6 +12,7 @@
 \usechapterheadtrue
 \usepackage[table]{xcolor}
 \usepackage{a4wide}
+\usepackage{amsmath}
 \usepackage{fancyhdr}
 \usepackage{geometry}
 \geometry{
@@ -46,10 +48,10 @@ maxbibnames=99
 
 \usepackage{todonotes}
 \usepackage{catoptions} % \Autoref commands
-\usepackage[acronym,nopostdot]{glossaries}
-\makeglossaries
-\loadglsentries{content/glossary} % Conclusion
-\makeindex
+%\usepackage[acronym,nopostdot]{glossaries}
+%\makeglossaries
+%\loadglsentries{content/glossary} % Conclusion
+%\makeindex
 
 % Listings
 \DeclareFixedFont{\ttb}{T1}{txtt}{bx}{n}{12} % for bold
@@ -61,7 +63,7 @@ maxbibnames=99
 \usepackage{datetime} % dates on footer
 \fancyhf{}
 \fancyfoot[L]{\today\ \currenttime}
-\usepackage{dirtytalk} % quotes (provides \say{})
+%\usepackage{dirtytalk} % quotes (provides \say{})
 \usepackage{nameref} % referencing chapter names (provides \nameref{})
 \usepackage{array} % for custom table columns
 \newcolumntype{P}[1]{>{\raggedright}p{#1 cm}}
@@ -98,7 +100,7 @@ maxbibnames=99
 
 \title{Theoretische Informatik für Problemlöser:innen
 \\
-\gitHash}
+\gitHash{}}
 \author{Tobias Weber} 
 
 
@@ -150,9 +152,9 @@ maxbibnames=99
    
 %  \section{Glossary}
 %  \renewcommand{\glossarysection}[2][Glossary]{Glossary}
-  \setglossarysection{section}\label{glossary}
-  \printglossary[numberedsection]{}
-  \clearpage
+%  \setglossarysection{section}\label{glossary}
+%  \printglossary[numberedsection]{}
+%  \clearpage
 
   \markboth{Bibliographie}{Bibliographie}
   \section{Bibliographie}

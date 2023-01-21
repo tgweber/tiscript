@@ -23,7 +23,7 @@ $(MAIN).pdf: $(MAIN).tex .refresh $(shell find content/*)
 		$(LATEXMK) $(LATEXMKOPT) \
 			-pdflatex="$(LATEX) $(LATEXOPT) %O %S" $(MAIN)
 		$(BIBER) $(MAIN)
-		$(GLOS) $(MAIN)
+#		$(GLOS) $(MAIN)
 		$(LATEXMK) $(LATEXMKOPT) \
 			-pdflatex="$(LATEX) $(LATEXOPT) %O %S" $(MAIN)
 

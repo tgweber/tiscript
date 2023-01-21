@@ -20,39 +20,36 @@ In \emph{Kapitel 1} wird zunächst genauer analysiert,
 was überhaupt ein Problem im Sinne der theoretischen Informatik ist
 und wie wir durch Abstraktion und Formalisierung von IT-Alltagsaufgaben
 zu den Problemen kommen, die wir mit den Werkzeugen dieses Faches bearbeiten können.
-Wir zeigen an einem simplen Beispiel,
+Wir zeigen beispielhaft,
 wie ein Problem als formale Sprache repräsentiert werden kann.
 
-\emph{In Kapitel 2} beschäftigen wir uns mit dem Aufwand,
-den diese Probleme, beziehungsweise deren Berechnungen verursachen.
-Wir differenzieren zwischen Problem, Algorithmus und Implementierung,
-fassen Aufwand genauer als benötigten (Speicher-)Platz oder Laufzeit.
+In \emph{Kapitel 2} beschäftigen wir uns mit dem Gegenbegriff zum Problem:
+Dessen Lösung, auch \emph{Algorithmus} genannt.
+Wir differenzieren zwischen Algorithmus und Implementierung
+und lernen einen Formalismus zur Implementierung von Algorithmen kennen:
+Deterministisch Finiten Automaten (DFA).
+DFAs ``erkennen'' eine spezielle Klasse von formalen Sprachen,
+\emph{regulären Sprachen},
+das heißt alle Probleme, die mit regulären Sprachen repräsentiert werden können,
+können von DFAs berechnet werden.
+In einem Exkurs über \emph{reguläre Ausdrücke},
+wird ein in der Praxis sehr relevantes Handwerkzeug einer IT-Fachkraft vermittelt.
+
+In \emph{Kapitel 3} zeigen wir, 
+wie wir den \emph{Aufwand} quantifizieren können,
+den Berechnungen verursachen. 
+Wir fassen Aufwand genauer als Laufzeit eines Automaten (zeitlicher Aufwand) 
+dessen benötigten (Speicher-)Platz (räumlicher Aufwand).
+DFAs erlauben es diese Konzepte von Speicherplatz und Laufzeit präzise zu fassen.
 Das Wachstum von Speicherplatz und Laufzeit lässt sich
 mit der Landau-Notation quantitativ fassen.
 Die Diskussion um Grenzen und Vorteile dieser Methode
 gegenüber empirischen Messungen runden das Kapitel ab.
 
-In \emph{Kapitel 3} kehren wir zu den formalen Sprachen als kodierten Problemen zurück.
-Viele Einführungen in die theoretische Informatik beginnen
-mit einer speziellen Klasse von formalen Sprachen,
-den \emph{regulären Sprachen} und
-den Deterministisch Finiten Automaten (DFA),
-welche die kodierten Probleme lösen (``berechenen'')
-beziehungsweise die entsprechende Sprache erkennen.
-In diesem Skript werden diese DFAs
-als eine Art ``Hello World'' der Automatentheorie diskutiert:
-Wie beim Erlernen einer neuen Programmiersprache
-ist es auch für die Automatentheorie zielführend
-ein möglichst einfaches formales Konzept einzuführen,
-um daran das generelle ``Handling'' von Sprachen und formalen Werkzeugen zu zeigen.
-DFAs erlauben es die im vorigen Kapitel eingeführten
-Konzepte von Speicherplatz und Laufzeit präzise zu fassen.
-In einem Exkurs über reguläre Ausdrücke,
-wird ein in der Praxis sehr relevantes Handwerkzeug einer IT-Fachkraft vermittelt.
-Die ``Berechnungen'', die mit einem DFA möglich sind,
-haben allerdings Grenzen, deren Diskussion das Kapitel abschließt.
-
-Mit den Turing-Maschinen lernen wir in \emph{Kapitel 4} einen Formalismus kennen,
+Zu Beginn von \emph{Kapitel 4} identifizieren wir Probleme,
+die mit einem DFA nicht zu lösen sind
+und die Methode, wir wir diese Beschränkung beweisen können.
+Mit den \emph{Turing-Maschinen} lernen wir in einen Formalismus kennen,
 der diese Beschränkungen nicht teilt.
 Turing-Maschinen sind der zentrale Formalismus sowohl
 in der Komplexitätstheorie,
