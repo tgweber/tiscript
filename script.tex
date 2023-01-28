@@ -10,7 +10,6 @@
 
 \newif\ifusechapterhead
 \usechapterheadtrue
-\usepackage[table]{xcolor}
 \usepackage{a4wide}
 \usepackage{amsmath}
 \usepackage{fancyhdr}
@@ -46,7 +45,6 @@ maxbibnames=99
 \addbibresource{bibliographie.bib}
 \newcommand\citeallnames{\AtNextCite{\defcounter{maxnames}{99}}\citename}
 
-\usepackage{todonotes}
 \usepackage{catoptions} % \Autoref commands
 %\usepackage[acronym,nopostdot]{glossaries}
 %\makeglossaries
@@ -84,18 +82,22 @@ maxbibnames=99
 \usepackage{tcolorbox}
 \usepackage{gitinfo2}
 
-%%%%%%%%%%%%%%%%%%%%
-% TODONOTES
-%%%%%%%%%%%%%%%%%%%%
-% Always inline
-% https://tex.stackexchange.com/questions/219351/latex-todonotes-package-set-default-to-inline
-\makeatother
-\usepackage{regexpatch}
-\makeatletter
-\xpatchcmd{\@todo}{\setkeys{todonotes}{#1}}{\setkeys{todonotes}{inline,#1}}{}{}
-\makeatother
-\setcounter{section}{-1}
+% Automaten
+\usepackage{tikz}
+\usetikzlibrary{automata, positioning, arrows, arrows.meta}
+\tikzset{
+	->, % makes the edges directed
+	>=stealth', % makes the arrow heads bold
+	node distance=3cm, % specifies the minimum distance between two nodes. Change if necessary.
+	every state/.style={thick, fill=gray!10}, % sets the properties for each ’state’ node
+	initial text=$ $, % sets the text that appears on the start arrow
+    every edge/.style = {draw, semithick},
+}
 
+
+
+
+\setcounter{section}{-1}
 \setcounter{tocdepth}{1}
 
 \title{Theoretische Informatik für Problemlöser:innen

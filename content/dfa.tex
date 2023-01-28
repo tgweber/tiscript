@@ -12,7 +12,7 @@ so dass wir auf den Überlegungen zu formalen Sprachen im letzten Kapitel aufbau
 
 Was genau ist aber ein Algorithmus?
 Frei nach Donald E. Knuth (\cite{knuth1}, 4-6)
-ist eine Algorithmus ist eine schrittweise Anweisung zur Lösung eines Problems,
+ist ein Algorithmus eine schrittweise Anweisung zur Lösung eines Problems,
 welche die folgenden fünf Eigenschaften erfüllt:\footnote{
     In \cite{knuth1} (ebd.) finden wir auch eine Liste ähnlicher Begriffe:
     Rezept, Prozess, Methode, Technik, Prozedur oder Routine.
@@ -32,30 +32,37 @@ von der wir nicht wissen, ob sie für jeden gegebenen Input in endlichen Schritt
 Output liefert.
 Wir werden diesen Unterschied in \autoref{derBarbierUndDerLuegner} wieder aufgreifen.
 
-Am besten diskutieren wir die Kriterien anhand eines ersten Beispiels.
+Am besten machen wir die Bedeutung der Kriterien anhand eines Beispiels klar.
 Wir wollen einen Algorithmus angeben, der unser \textbf{EVEN}-Problem löst.
-Dabei nutzen wir die Tatsache,
-dass alle geraden Zahlen in der in \autoref{einleitung} eingeführten Kodierung
-auf das Zeichen 0 enden.
-Da wir noch keine geeignete Form für den Algorithmus identifiziert haben,
-müssen wir den Algorithmus informell angeben:
+Zur Erinnerung: \textbf{EVEN} ist die Menge aller geraden Zahlen
+in der in \autoref{einleitung} eingeführten Kodierung.
+Ein Algorithmus löst dieses Problem,
+indem er angibt,
+ob für ein gegebenes Wort $w \in \{0,1\}^*$ gilt: $w \in EVEN$.
+Wir nutzen für unseren Algorithmus die Tatsache,
+dass alle geraden Zahlen in der gewählten Kodierung auf das Zeichen 0 enden.
+Da wir noch keine Alternative eingeführt haben,
+geben wir den Algorithmus informell an:
 
 \begin{enumerate}
+    \item Setze den Ausgabewert auf 0 (oder falsch).
     \item Lese das nächste Zeichen $a$, beginnend am linken Rand des Input-Wortes.
-    \item Wenn $a$ das letzte Zeichen ist und $a = 1$, gib 0 (oder falsch) zurück.
-    \item Wenn $a$ das letzte Zeichen ist und $a = 0$, gib 1 (oder wahr) zurück.
-    \item Wenn $a$ nicht das letzte Zeichen ist, gehen zu Schritt 1.
+    \item Wenn $a = 1$, setze den Ausgabewert auf 0 (oder falsch) vor.
+    \item Wenn $a = 0$, setze den Ausgabewert auf 1 (oder wahr) vor.
+    \item Wenn $a$ nicht das letzte Zeichen ist, gehe zu Schritt 1.
+    \item Wenn $a$ das letzte Zeichen war, gib die vorbereitete Ausgabe aus.
 \end{enumerate}
 
 Der Algorithmus ist endlich (Kriterium 1),
 denn er endet,
-sobald das letzte Zeichen des Wortes gelesen wurde.
-Er ist so unmissverständlich formuliert (Kriterium 2),
-wie das in der deutschen Sprache möglich ist.
+sobald das letzte Zeichen des Wortes gelesen wurde und alle Worte endlich sind.
+Er ist so unmissverständlich formuliert,
+wie das in der deutschen Sprache möglich ist (Kriterium 2).
 Er hat auch einen Input (die Zahl als binärkodiertes Wort, Kriterium 3)
-und einen Output (0 oder 1, beziehungsweise falsch oder wahr, Kriterium 4).
-Jeder seiner Einzelschritte ist prinzipiell durchführbar,
-wir verlangen also keine unmöglichen Dinge Dinge (Kriterium 5).
+und einen Output (0 oder 1, beziehungsweise falsch oder wahr),
+der angibt, ob die Zahl (nicht) gerade ist (Kriterium 4).
+Jeder seiner Einzelschritte ist einfach und durchführbar,
+wir verlangen also keine unmöglichen Dinge (Kriterium 5).
 
 Wenn wir für ein Problem einen Algorithmus angeben können,
 dann ist das Problem \emph{berechenbar}.
@@ -65,11 +72,10 @@ Sei ein Algorithmus A für ein Problem gegeben, dann ist der Algorithmus A', der
 nur zusätzlich $1+1$ errechnet und das Ergebnis ignoriert,
 auch eine Lösung für das Problem, aber von A unterschiedlich.}
 Wie können wir den Aufwand für diese Algorithmen sinnvoll angeben?
-Welchen Aufwand braucht der Algorithmus, der das Problem ``am besten'' löst?
-Wie können wir beweisen, dass es keinen ``besseren Algorithmus'' gibt?
-Diese Fragen werden wir in den folgenden Kapiteln beantworten,
-nun brauchen wir aber zunächst das entsprechende formale Werkzeug dazu,
-das bedeutet, wir müssen uns die Frage stellen, wie wir Algorithmen angeben können,
+Gibt es einen Algorithmus, der das Problem ``am besten'' löst?
+Wie können wir beweisen, dass es keinen ``besseren'' Algorithmus gibt?
+Diese Fragen werden wir in den folgenden Kapiteln beantworten.
+Nun müssen wir uns zunächst die Frage stellen, wie wir Algorithmen angeben können,
 damit die obigen Fragen sinnvoll und formal korrekt beantwortet werden können.
 
 In der IT-Praxis werden Algorithmen in Programmen ausformuliert,
@@ -79,11 +85,19 @@ Für einen Algorithmus kann es mehrere Implementierungen geben.
 Wir suchen für die Beantwortung der Fragen der theoretischen Informatik
 eine Möglichkeit Algorithmen zu implementieren,
 die es uns erlaubt die obigen Fragen zu beantworten.
-Man könnte auch sagen, wir suchen eine geeignete Formalisierung für Algorithmen.
+Warum benutzen wir hierfür nicht einfach schon bekannte Programmiersprachen?
+Fassen wir eine Programmiersprache als
+Menge aller syntaktisch wohlgeformten Programme in dieser Sprache auf, 
+haben wir als Gegenstand eine formale Sprache.
+In diesem Fall wäre es also nicht notwendig,
+ein neues Konzept einzuführen.
+Allerdings sind Programmiersprachen für praktische Zwecke angelegt,
+unser Fokus ist ein theoretischer:
+Wir wollen mit Beweisen und Definitionen arbeiten
+und hier ist es sinnvoller mit einem Formalismus zu arbeiten,
+der ``einfacher'' ist als eine typische Programmiersprache.
+% Hier noch eine Erläuterung für einfach?
 
-%Warum nicht in Programmiersprachen?
-%Die Menge aller syntaktisch wohlgeformten Programme einer Programmiersprache
-%können wir zwar auch als formale Sprache auffassen.
 Eine Möglichkeit,
 die Implementierungen von Algorithmen in der theoretischen Informatik
 anzugeben, sind \emph{Automaten}.
@@ -92,8 +106,6 @@ die einen Input bekommt,
 dabei mit simplen Einzelschritten läuft
 und einen definiten Output liefert.
 % TODO Bild.
-Wir haben also vier der fünf Kriterien für den Algorithmus abgedeckt.
-Kriterium 1 (Endlichkeit des Laufs) wird uns im Laufe des Skriptes weiter beschäftigen.
 
 Der Zusammenhang zwischen einer formalen Sprache und dem Automat kann so formuliert werden:
 Ein Automat bekommt ein Wort als Input und entscheidet,
@@ -104,10 +116,83 @@ wie das Problem gelöst werden kann.
 Man kann auch sagen:
 Der Automat ist eine Implementierung eines Algorithmus der das Problem löst.
 
-Im folgenden wollen wir eine sehr einfache Art von Automaten einführen,
-um diese einführenden Bemerkungen zu konkretisieren.
-
 \section{Deterministisch Finite Automaten}
+
+Kommen wir noch einmal auf den Beispielsalgorithmus aus dem vorangegangen Abschnitt zurück.
+Der Automat,
+der unserem Algorithmus entspricht lässt sich graphisch so
+wie in \autoref{fig:dfaeven} angeben.
+
+\begin{figure}[ht] % ’ht’ tells LaTeX to place the figure ’here’ or at the top of the page
+\centering % centers the figure
+\begin{tikzpicture}
+	\node[state, initial] (z1) {$z_1$};
+	\node[state, accepting, right of=z1] (z0) {$z_0$};
+	\draw (z1) edge[bend left, above] node{0} (z0)
+	(z1) edge[loop above] node{1} (z1)
+	(z0) edge[bend left, below] node{1} (z1)
+	(z0) edge[loop above] node{0} (z0);
+\end{tikzpicture}
+\caption{Automat, der den naiven Algorithmus für EVEN implementiert.}
+\label{fig:dfaeven}
+\end{figure}
+
+
+und überlegen uns, welche Komponenten der Automat haben muss,
+um den genannten Algorithmus zu implementieren:
+\begin{itemize}
+    \item Teil es Automaten muss in jedem Fall eine Menge von Zeichen sein,
+        aus denen die Inputwörter zusammengesetzt sind.
+        Wir nennen diese Menge \emph{Eingabealphabet}
+        und bezeichnen dieses wie bei den formalen Sprachen mit $\Sigma$,
+        für unser Beispiel gilt $\Sigma = \{0,1\}$.
+
+    \item Ein Automat hat eine Menge von \emph{Zuständen}, in denen er sich befindet.
+        Der Automat, den wir suchen, scheint zwei Zustände zu haben:
+        \begin{enumerate}
+            \item Das letzte gelesene Zeichen war eine 1
+                (oder wir haben noch kein Zeichen gelesen).
+            \item Das letzte gelesene Zeichen war eine 0.
+        \end{enumerate}
+        Die Menge der Zustände eines Automaten bezeichnen wir mit $Z$.
+        In unserem Fall ist $Z = \{z_1, z_0\}$.
+
+    \item Während wir das Eingabewort lesen,
+        kann sich der Zustand des Automaten ändern.
+        Dies geben wir mit der \emph{Übergangsfunktion} $\delta$ an:
+        $\delta: \Sigma \times Z \rightarrow Z$.
+        In unserem Fall können wir $\delta$ so angeben:
+        \begin{itemize}
+            \item Lesen wir eine 0 und sind in Zustand $z_1$,
+                dann gehen wir in Zustand $z_0$:\linebreak
+                $[0,z_1,z_0]$
+            \item Lesen wir eine 1 und sind in Zustand $z_1$,
+                dann bleiben wir in Zustand $z_1$:\linebreak
+                $[1,z_1,z_1]$
+            \item Lesen wir eine 0 und sind in Zustand $z_0$,
+                dann bleiben wir in Zustand $z_0$:\linebreak
+                $[0,z_0,z_0]$
+            \item Lesen wir eine 1 und sind in Zustand $z_0$,
+                dann gehen wir in Zustand $z_1$:\linebreak
+                $[1,z_0,z_1]$
+        \end{itemize}
+        Also ist $\delta = \{[0,z_1,z_0] [1,z_1,z_1] [0,z_0,z_0] [1,z_0,z_1]\}$
+
+    \item Wir müssen noch angeben, in welchem Zustand der Automat ``startet'',
+        der \emph{Anfangszustand} (allgemein bezeichnet mit $z_i$)
+        ist in unserem Beispiel $z_1$.
+
+    \item Als letztes müssen wir den Ausgabewert definieren,
+        also ob der Automat das Wort akzeptiert oder nicht.
+        Dies wird durch den Zustand definiert, indem sich der Automat
+        befindet, wenn das letzte Zeichen gelesen wurde.
+        Generell kann es mehr als einen akzeptierenden Zustand geben,
+        daher geben wir die \emph{Endzustände} $E$ als Menge an,
+        in unserem Beispiel: $E = \{z_0\}$.
+\end{itemize}
+
+
+
 In diesem Kapitel werden wir das \textbf{MATCH}-Problem genauer unter die Lupe nehmen
 und dabei unseren ersten Automaten-Typ formal einführen.
 Zur Wiederholung die User-Story-Version des \textbf{MATCH}-Problems:
@@ -193,6 +278,9 @@ Ein Algorithmus, der das \textbf{MATCH}-Problem löst, könnte so aussehen:
     \item Wenn der Input noch nicht zu Ende ist: Gehe zu Schritt 3.
     \item Gib 1 aus.
 \end{enumerate}
+
+%TODO Automatentheorie: Akzeptor vs Transduktor
+
 \section{Minimalisierung}
 \section{Reguläre Ausdrücke}
 
