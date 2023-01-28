@@ -2,45 +2,86 @@
 
 \section{Algorithmus und Implementierung}
 
-In Kapitel \autoref{einleitung} haben wir schon festgehalten:
+In \autoref{einleitung} haben wir festgehalten:
 Probleme lassen sich als als formale Sprachen repräsentieren.
-Wie machen wir diese Formalisierung aber operabel,
+Wie machen wir diese Formalisierung operabel,
 also wie können wir \emph{Lösungen} für Probleme angeben?
-Im Sprachgebrauch der Informatik werden Problemlösungen
-mit \emph{Algorithmen} gleichgesetzt
+In der Informatik nennen wir Problemlösungen \emph{Algorithmen}.
+Wir suchen also nach einer geeigneten Repräsentation eines Algorithmus,
+so dass wir auf den Überlegungen zu formalen Sprachen im letzten Kapitel aufbauen können.
 
-Frei nach Donald E. Knuth (\cite{knuth1}, 4-6) ist ein Algorithmus nicht identisch
-zu den ähnlichen Begriffen 
-Rezept, Prozess, Methode, Technik, Prozedur, Routine oder gar Rigmarole.
-Ein Algorithmus ist eine schrittweise Anweisung zur Lösung eines Problems,
-welche die folgenden fünf Eigenschaften erfüllt:
+Was genau ist aber ein Algorithmus?
+Frei nach Donald E. Knuth (\cite{knuth1}, 4-6)
+ist eine Algorithmus ist eine schrittweise Anweisung zur Lösung eines Problems,
+welche die folgenden fünf Eigenschaften erfüllt:\footnote{
+    In \cite{knuth1} (ebd.) finden wir auch eine Liste ähnlicher Begriffe:
+    Rezept, Prozess, Methode, Technik, Prozedur oder Routine.
+    Aber ein Algorithmus ist von diesen zu unterscheiden,
+    auch wenn der Vergleich eine hilfreiche Verständnisanalogie sein kann.
+}
 \begin{enumerate}
-    \item Sie ist endlich (``finiteness'').
-    \item Sie ist unmissverständlich formuliert (``definiteness'').
-    \item Sie hat einen (möglicherweise leeren) Input.
-    \item Sie liefert einen (möglicherweise komplexen) Output, abhängig vom Input.
-    \item Sie lässt sich prinzipiell durchführen (``effectiveness'').
+    \item Seine Durchführung endet (``finiteness'').
+    \item Er ist unmissverständlich formuliert (``definiteness'').
+    \item Er hat einen (möglicherweise leeren) Input.
+    \item Er liefert einen (möglicherweise komplexen) Output, abhängig vom Input.
+    \item Er lässt sich durchführen (``effectiveness'').
 \end{enumerate}
+
+Das Kriterium 1 unterscheidet einen Algorithmus von einer Berechnungsmethode,
+von der wir nicht wissen, ob sie für jeden gegebenen Input in endlichen Schritten einen
+Output liefert.
+Wir werden diesen Unterschied in \autoref{derBarbierUndDerLuegner} wieder aufgreifen.
+
+Am besten diskutieren wir die Kriterien anhand eines ersten Beispiels.
+Wir wollen einen Algorithmus angeben, der unser \textbf{EVEN}-Problem löst.
+Dabei nutzen wir die Tatsache,
+dass alle geraden Zahlen in der in \autoref{einleitung} eingeführten Kodierung
+auf das Zeichen 0 enden.
+Da wir noch keine geeignete Form für den Algorithmus identifiziert haben,
+müssen wir den Algorithmus informell angeben:
+
+\begin{enumerate}
+    \item Lese das nächste Zeichen $a$, beginnend am linken Rand des Input-Wortes.
+    \item Wenn $a$ das letzte Zeichen ist und $a = 1$, gib 0 (oder falsch) zurück.
+    \item Wenn $a$ das letzte Zeichen ist und $a = 0$, gib 1 (oder wahr) zurück.
+    \item Wenn $a$ nicht das letzte Zeichen ist, gehen zu Schritt 1.
+\end{enumerate}
+
+Der Algorithmus ist endlich (Kriterium 1),
+denn er endet,
+sobald das letzte Zeichen des Wortes gelesen wurde.
+Er ist so unmissverständlich formuliert (Kriterium 2),
+wie das in der deutschen Sprache möglich ist.
+Er hat auch einen Input (die Zahl als binärkodiertes Wort, Kriterium 3)
+und einen Output (0 oder 1, beziehungsweise falsch oder wahr, Kriterium 4).
+Jeder seiner Einzelschritte ist prinzipiell durchführbar,
+wir verlangen also keine unmöglichen Dinge Dinge (Kriterium 5).
+
+Wenn wir für ein Problem einen Algorithmus angeben können,
+dann ist das Problem \emph{berechenbar}.
 Offensichtlich gibt es zu einem Problem mehr als einen Algorithmus,
-der es löst.\footnote{Für diejenigen, die dies nicht so einfach akzeptieren wollen:
+der es löst, daher schließen sich auch interessante Fragen an:\footnote{Für diejenigen, die dies nicht so einfach akzeptieren wollen:
 Sei ein Algorithmus A für ein Problem gegeben, dann ist der Algorithmus A', der wie A ist,
 nur zusätzlich $1+1$ errechnet und das Ergebnis ignoriert,
 auch eine Lösung für das Problem, aber von A unterschiedlich.}
+Wie können wir den Aufwand für diese Algorithmen sinnvoll angeben?
+Welchen Aufwand braucht der Algorithmus, der das Problem ``am besten'' löst?
+Wie können wir beweisen, dass es keinen ``besseren Algorithmus'' gibt?
 
 In der IT-Praxis werden Algorithmen in Programmen ausformuliert,
 geschrieben in einer Programmiersprache.
 Diese Programme sind \emph{Implementierungen} des Algorithmus.
-Ein Algorithmus verhält sich zu seiner Implementierung also wie
-ein Patent zu einer Fertigungsanlage.
-Auch hier gilt: für einen Algorithmus kann es mehrere Implementierungen geben. 
+Für einen Algorithmus kann es mehrere Implementierungen geben. 
+Wir suchen für die Beantwortung der Fragen der theoretischen Informatik
+eine Möglichkeit Algorithmen zu implementieren,
+die es uns erlaubt die obigen Fragen zu beantworten.
+Man könnte auch sagen, wir suchen eine geeignete Formalisierung für Algorithmen.
 
-Die Menge aller syntaktisch wohlgeformten Programme einer Programmiersprache
-können wir zwar auch als formale Sprache auffassen.
-Aber wir geben Implementierungen von Algorithmen in der theoretischen Informatik
-oft \emph{Automaten} an.\footnote{
-    Wir kehren zum Zusammenhang zwischen Automaten und Programmiersprachen
-    in \autoref{turingVollstaendigkeit} zurück.
-}
+%Die Menge aller syntaktisch wohlgeformten Programme einer Programmiersprache
+%können wir zwar auch als formale Sprache auffassen.
+Eine Möglichkeit,
+die Implementierungen von Algorithmen in der theoretischen Informatik
+anzugeben, sind \emph{Automaten}.
 Ein Automat kann als eine abstrakte Maschine verstanden werden,
 die einen Input bekommt, 
 dabei mit simplen Einzelschritten läuft
