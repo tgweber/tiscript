@@ -6,7 +6,7 @@ In \autoref{einleitung} haben wir festgehalten:
 Probleme lassen sich als als formale Sprachen repräsentieren.
 Wie machen wir diese Formalisierung operabel,
 also wie können wir \emph{Lösungen} für Probleme angeben?
-In der Informatik nennen wir Problemlösungen \emph{Algorithmen}.
+In der Informatik nutzen wir für Problemlösungen \emph{Algorithmen}.
 Wir suchen also nach einer geeigneten Repräsentation eines Algorithmus,
 so dass wir auf den Überlegungen zu formalen Sprachen im letzten Kapitel aufbauen können.
 
@@ -16,8 +16,8 @@ ist ein Algorithmus eine schrittweise Anweisung zur Lösung eines Problems,
 welche die folgenden fünf Eigenschaften erfüllt:\footnote{
     In \cite{knuth1} (ebd.) finden wir auch eine Liste ähnlicher Begriffe:
     Rezept, Prozess, Methode, Technik, Prozedur oder Routine.
-    Aber ein Algorithmus ist von diesen zu unterscheiden,
-    auch wenn der Vergleich eine hilfreiche Verständnisanalogie sein kann.
+    Ein Algorithmus ist von diesen zu unterscheiden,
+    auch wenn Vergleiche als hilfreiche Verständnisanalogien dienen können.
 }
 \begin{enumerate}
     \item Seine Durchführung endet (``finiteness'').
@@ -27,9 +27,9 @@ welche die folgenden fünf Eigenschaften erfüllt:\footnote{
     \item Er lässt sich durchführen (``effectiveness'').
 \end{enumerate}
 
-Das Kriterium 1 unterscheidet einen Algorithmus von einer Berechnungsmethode,
-von der wir nicht wissen, ob sie für jeden gegebenen Input in endlichen Schritten einen
-Output liefert.
+Das Kriterium 1 unterscheidet einen Algorithmus von einer \emph{Berechnungsmethode},
+von der wir nicht wissen,
+ob sie für jeden gegebenen Input in endlichen Schritten einen Output liefert.
 Wir werden diesen Unterschied in \autoref{derBarbierUndDerLuegner} wieder aufgreifen.
 
 Am besten machen wir die Bedeutung der Kriterien anhand eines Beispiels klar.
@@ -39,23 +39,23 @@ in der in \autoref{einleitung} eingeführten Kodierung.
 Ein Algorithmus löst dieses Problem,
 indem er angibt,
 ob für ein gegebenes Wort $w \in \{0,1\}^*$ gilt: $w \in EVEN$.
-Wir nutzen für unseren Algorithmus die Tatsache,
+Wir nutzen für unsere erste Idee die Tatsache,
 dass alle geraden Zahlen in der gewählten Kodierung auf das Zeichen 0 enden.
 Da wir noch keine Alternative eingeführt haben,
-geben wir den Algorithmus informell an:
+geben wir diesen ``naiven'' Algorithmus informell an:
 
 \begin{enumerate}
     \item Setze den Ausgabewert auf 0 (oder falsch).
-    \item Lese das nächste Zeichen $a$, beginnend am linken Rand des Input-Wortes.
-    \item Wenn $a = 1$, setze den Ausgabewert auf 0 (oder falsch) vor.
-    \item Wenn $a = 0$, setze den Ausgabewert auf 1 (oder wahr) vor.
-    \item Wenn $a$ nicht das letzte Zeichen ist, gehe zu Schritt 1.
-    \item Wenn $a$ das letzte Zeichen war, gib die vorbereitete Ausgabe aus.
+    \item Wenn kein Zeichen mehr übrig ist, gib den Ausgabewert aus.
+    \item Lese das nächste Zeichen $a$.
+    \item Wenn $a = 1$, setze den Ausgabewert auf 0 (oder falsch).
+    \item Wenn $a = 0$, setze den Ausgabewert auf 1 (oder wahr).
+    \item Gehe zu Schritt 2.
 \end{enumerate}
 
 Der Algorithmus ist endlich (Kriterium 1),
 denn er endet,
-sobald das letzte Zeichen des Wortes gelesen wurde und alle Worte endlich sind.
+sobald das letzte Zeichen des Wortes gelesen wurde.
 Er ist so unmissverständlich formuliert,
 wie das in der deutschen Sprache möglich ist (Kriterium 2).
 Er hat auch einen Input (die Zahl als binärkodiertes Wort, Kriterium 3)
@@ -64,6 +64,14 @@ der angibt, ob die Zahl (nicht) gerade ist (Kriterium 4).
 Jeder seiner Einzelschritte ist einfach und durchführbar,
 wir verlangen also keine unmöglichen Dinge (Kriterium 5).
 
+Der Algorithmus ist zwar einfach, aber wir haben ihn mit Grund naiv genannt,
+denn er erkennt nicht nur \textbf{EVEN}, sondern $EVEN \cup 0^*$.
+Für unseren Zweck,
+also zu zeigen wie wir Algorithmen in der theoretischen Informatik fassen können,
+ist dieser Fehler zunächst verkraftbar und wir wollen uns nicht damit aufhalten.
+Wie der Algorithmus korrigiert werden kann,
+ist Gegenstand von Aufgabe 2.
+
 Wenn wir für ein Problem einen Algorithmus angeben können,
 dann ist das Problem \emph{berechenbar}.
 Offensichtlich gibt es zu einem Problem mehr als einen Algorithmus,
@@ -71,32 +79,45 @@ der es löst, daher schließen sich auch interessante Fragen an:\footnote{Für d
 Sei ein Algorithmus A für ein Problem gegeben, dann ist der Algorithmus A', der wie A ist,
 nur zusätzlich $1+1$ errechnet und das Ergebnis ignoriert,
 auch eine Lösung für das Problem, aber von A unterschiedlich.}
-Wie können wir den Aufwand für diese Algorithmen sinnvoll angeben?
-Gibt es einen Algorithmus, der das Problem ``am besten'' löst?
-Wie können wir beweisen, dass es keinen ``besseren'' Algorithmus gibt?
+\begin{itemize}
+    \item Wie können wir den Aufwand für diese Algorithmen sinnvoll angeben?
+    \item Gibt es einen Algorithmus, der das Problem ``am besten'' löst?
+    \item Wie können wir beweisen, dass es keinen ``besseren'' Algorithmus gibt?
+\end{itemize}
 Diese Fragen werden wir in den folgenden Kapiteln beantworten.
-Nun müssen wir uns zunächst die Frage stellen, wie wir Algorithmen angeben können,
-damit die obigen Fragen sinnvoll und formal korrekt beantwortet werden können.
+Nun müssen wir uns zunächst die Frage stellen,
+in welcher Form wir Algorithmen angeben können,
+damit diese Fragen überhaupt sinnvoll und formal korrekt beantwortet werden können.
 
 In der IT-Praxis werden Algorithmen in Programmen ausformuliert,
 geschrieben in einer Programmiersprache.
-Diese Programme sind \emph{Implementierungen} des Algorithmus.
-Für einen Algorithmus kann es mehrere Implementierungen geben. 
-Wir suchen für die Beantwortung der Fragen der theoretischen Informatik
-eine Möglichkeit Algorithmen zu implementieren,
-die es uns erlaubt die obigen Fragen zu beantworten.
+Diese Programme nennt man \emph{Implementierungen} des Algorithmus.
+Eine Implementierung ist also eine konkrete Realisierung des Algorithmus.
+Für einen Algorithmus kann es mehrere Implementierungen geben,
+selbst in einer Programmiersprache.
+Wir suchen eine Möglichkeit Algorithmen zu implementieren,
+die es uns erlaubt die obigen Fragen möglichst einfach zu beantworten.
 Warum benutzen wir hierfür nicht einfach schon bekannte Programmiersprachen?
 Fassen wir eine Programmiersprache als
 Menge aller syntaktisch wohlgeformten Programme in dieser Sprache auf, 
 haben wir als Gegenstand eine formale Sprache.
 In diesem Fall wäre es also nicht notwendig,
 ein neues Konzept einzuführen.
+
 Allerdings sind Programmiersprachen für praktische Zwecke angelegt,
-unser Fokus ist ein theoretischer:
+unser Fokus ist ein Theoretischer:
 Wir wollen mit Beweisen und Definitionen arbeiten
 und hier ist es sinnvoller mit einem Formalismus zu arbeiten,
 der ``einfacher'' ist als eine typische Programmiersprache.
-% Hier noch eine Erläuterung für einfach?
+Um Programierer:innen bei ihrer Arbeit möglichst effizient zu unterstützen,
+ist eine Programmiersprache typischerweise sehr ausdrucksstark.
+Der von von uns gesuchte Formalismus hat aber idealerweise nur wenige, einfache Bestandteile.
+Damit gelingt es uns zum Beispiel schneller Kriterium 5 zu behandeln:
+Wir müssen nur für wenige ``Bauteile'' einer Implementierung zeigen,
+dass sie alle einfach und prinzipiell nutzbar sind.\footnote{
+    Natürlich hat unser Formalismus letztlich eine Verbindung zu Programmiersprachen,
+    diese wollen wir in \autoref{keller} und \autoref{ch:theorie} diskutieren.
+}
 
 Eine Möglichkeit,
 die Implementierungen von Algorithmen in der theoretischen Informatik
@@ -106,38 +127,20 @@ die einen Input bekommt,
 dabei mit simplen Einzelschritten läuft
 und einen definiten Output liefert.
 % TODO Bild.
-
 Der Zusammenhang zwischen einer formalen Sprache und dem Automat kann so formuliert werden:
-Ein Automat bekommt ein Wort als Input und entscheidet,
+Ein Automat bekommt ein Wort als Input und entscheidet über ein Outputsignal,
 ob es zu der formalen Sprache gehört oder nicht.
 Wenn eine formale Sprache ein Problem repräsentiert,
 gibt der Automat also ein Verfahren an, 
 wie das Problem gelöst werden kann.
 Man kann auch sagen:
-Der Automat ist eine Implementierung eines Algorithmus der das Problem löst.
+Der Automat ist eine Implementierung eines Algorithmus,
+der das Problem löst.
 
 \section{Deterministisch Finite Automaten}
 
-Kommen wir noch einmal auf den Beispielsalgorithmus aus dem vorangegangen Abschnitt zurück.
-Der Automat,
-der unserem Algorithmus entspricht lässt sich graphisch so
-wie in \autoref{fig:dfaeven} angeben.
-
-\begin{figure}[ht] % ’ht’ tells LaTeX to place the figure ’here’ or at the top of the page
-\centering % centers the figure
-\begin{tikzpicture}
-	\node[state, initial] (z1) {$z_1$};
-	\node[state, accepting, right of=z1] (z0) {$z_0$};
-	\draw (z1) edge[bend left, above] node{0} (z0)
-	(z1) edge[loop above] node{1} (z1)
-	(z0) edge[bend left, below] node{1} (z1)
-	(z0) edge[loop above] node{0} (z0);
-\end{tikzpicture}
-\caption{Automat, der den naiven Algorithmus für EVEN implementiert.}
-\label{fig:dfaeven}
-\end{figure}
-
-
+Kommen wir noch einmal auf den (naiven) Beispielsalgorithmus
+aus dem vorangegangen Abschnitt zurück
 und überlegen uns, welche Komponenten der Automat haben muss,
 um den genannten Algorithmus zu implementieren:
 \begin{itemize}
@@ -191,54 +194,86 @@ um den genannten Algorithmus zu implementieren:
         in unserem Beispiel: $E = \{z_0\}$.
 \end{itemize}
 
-
-
-In diesem Kapitel werden wir das \textbf{MATCH}-Problem genauer unter die Lupe nehmen
-und dabei unseren ersten Automaten-Typ formal einführen.
-Zur Wiederholung die User-Story-Version des \textbf{MATCH}-Problems:
-\begin{center}
-``Als Einkaufsmanager:in möchte ich, dass nur valide Lieferanten-IDs gespeichert werden
-(beginnend mit einem ``L'', gefolgt von einer Zahl),
-um Fehler in der Datenbank zu vermeiden.''
-\end{center}
-Abstrahieren und Formalisieren wir das Problem erscheint folgende informelle Formulierung
-als mögliches Ergebnis:
+Ganz allgemein können wir einen Automaten A in der Sprache der Mengenlehre
+als 5-Tupel (oder Quintupel angeben): $A = [\Sigma, Z, \delta, z_i, E]$:
 \begin{itemize}
-\item \textbf{Gegeben}: Eine Zeichenfolge (String)
-\item \textbf{Gesucht}: Entspricht die Zeichenfolge einem bestimmten Muster?
+    \item $\Sigma$ ist das Eingabealphabet.
+    \item Z ist die Menge der Zustände.
+    \item $\delta: \Sigma \times Z \rightarrow Z$ ist die Übergangsfunktion.
+    \item $z_i$ ist der Startzustand.
+    \item $E$ ist die Menge der Endzustände.
 \end{itemize}
-Die gesuchte Funktion $f_{MATCH}$ hat als Definitionsmenge also eine Zeichenfolge
-über einem Alphabet $\Sigma$ und als Wertemenge die booleschen Werte wahr/falsch,
-bzw. 1/0: $f_{MATCH}: \Sigma \rightarrow \{0,1\}$.
+Einen solchen Automat nennen wir Deterministisch Finiten Automat (DFA).
+Bevor wir die beiden Begriffe deterministisch und finit diskutieren,
+wollen wir noch die graphische Spezifikation für Automaten kennenlernen. 
+Der Automat,
+der unserem Algorithmus entspricht lässt sich so wie in \autoref{fig:dfaeven} angeben.
 
-Die informelle Version des Problems lässt schon vermuten,
-dass seine Berechnung uns nicht vor große theoretische Probleme stellt.
-Daher trägt dieses Kapitel auch den Titel ''Das Hello World der Automatentheorie'':
-Hello-World-Programme sind einfache Code-Schnipsel,
-um ein erstes und einfaches Programm einer Programmiersprache zum Laufen zu bringen
-und den Ablauf kennenzulernen (Aufruf des Compilers/Interpreters, grundlegende Syntax, etc).
-Analog wollen wir es mit der Automatentheorie halten:
-\textbf{MATCH} ist einfach genug, um erste formale Konzepte einzuführen.
+\begin{figure}[ht] % ’ht’ tells LaTeX to place the figure ’here’ or at the top of the page
+\centering % centers the figure
+\begin{tikzpicture}
+	\node[state, initial] (z1) {$z_1$};
+	\node[state, accepting, right of=z1] (z0) {$z_0$};
+	\draw (z1) edge[bend left, above] node{0} (z0)
+	(z1) edge[loop above] node{1} (z1)
+	(z0) edge[bend left, below] node{1} (z1)
+	(z0) edge[loop above] node{0} (z0);
+\end{tikzpicture}
+\caption{Automat, der den naiven Algorithmus für EVEN implementiert.}
+\label{fig:dfaeven}
+\end{figure}
+
+Dabei entsprechen die Kreise den Zuständen,
+die Pfeile definieren die Überangsfunktion,
+ein freistehender Pfeil auf einen einzelnen Zustand bestimmt den Startzustand
+und alle Kreise mit doppeltem Radius sind Endzustände.
+Das Eingabealphabet lässt sich aus den Pfeilbeschriftungen ableiten.
+
+Um zu verstehen, was determinstisch und finit genau bedeutet,
+müssen wir ein paar Hilfskonzepte einführen:
+\begin{itemize}
+    \item Ein \emph{Schnappschuss} s eines DFA A ist ein geordnetes Paar $s = [z, w]$
+        mit $z \in Z$ und $w \in \Sigma^*$.
+        Ein Schnappschuss beschreibt,
+        in welchem Zustand A ist und welches Wort A noch zu lesen hat.
+        Nehmen wir den DFA von oben, dann wäre $[0010,z_1]$ ein Beispiel:
+        Wir müssen noch $0010$ lesen und sind dabei in Zustand $z_1$.
+    \item Eine \emph{Schnappschussfolge} S auf einem DFA A
+        ist ein n-Tupel von Schnapp-schüssen. 
+        Für jedes Paar aufeinanderfolgender Schnappschüsse $s_n$ und $s_{n+1}$ gilt,
+        dass sie einen Übergang des Automaten A auf dem verbliebenen Restwort repräsentieren:
+        \begin{itemize}
+            \item $z_{n+1} = \delta(tw(w_{n},0,1), z_n)$
+            \item $w_{n+1} = tw(w,1,|w|-1)$.
+        \end{itemize}
+        Zum Beispiel ist dies eine Schnappschussfolge für das obige Beispiel:\linebreak
+        $[[0010,z_1],[010, z_0],[10, z_0],[0,z_1],[\epsilon,z_0]]$.
+    \item Eine Schnappschussfolge $S = [s_0, \ldots s_{w-1}]$ auf A
+        heißt \emph{Lauf} für $w$ auf A, wenn gilt:
+        \begin{itemize}
+            \item Wir haben $w$ als Input und starten beim Anfangszustand:
+                $s_0 = [w,z_i]$ 
+            \item Wir enden, wenn das Wort ``aufgebraucht'' ist:
+                $s_{w-1} = [\epsilon, z]$ mit $z \in Z$,
+
+        \end{itemize}
+    \item Ein Lauf für w auf A heißt \emph{akzeptierend}, wenn gilt:
+        $z_{w-1} \in E$,
+        wenn der letzte Zustand des letzten Schnappschusses in der Schnappschussfolge
+        ein Endzustand ist.
+        Wir schreiben kurz: $w \rightarrow A,E$
+        für ``der Lauf von w auf A ist akzeptierend''. 
 
 
+\end{itemize}
 
-Für Match würde dies bedeuten, dass wir eine Sprache suchen,
-die analog zu $f_{MATCH}$ genau die Kombinationen von Zeichenfolgen und booleschen Werten beinhaltet,
-die anzeigen, ob die Zeichenfolge nun einem Muster entspricht oder nicht.
+Ein DFA A ist \emph{deterministisch}, weil es genau einen Lauf
+für ein beliebiges Wort w gibt (der Lauf ist eindeutig determiniert).
+Ein DFA A ist \emph{finit}, also endlich, weil der Lauf für jedes w auf A endlich ist.
 
-Wenn die Funktion, die wir formalisieren wollen, als Wertemenge die booleschen Werte hat,
-können wir allerdings eine kleine Vereinfachung anwenden:
-Das Entscheidungsproblem, also die Fragestellung, ob ein Wort zu einer Sprache gehört,
-gibt ja schon einen booleschen Wert zurück.
-Daher können wir die Wertemenge im Fall von \textbf{MATCH} als redundant ignorieren
-und kommen zu folgender Sprache:
-Alle Zeichenketten, die einem Muster entsprechen
-(z.B. beginnend mit einem ''L'' gefolgt von einer Zahl).
-In der Sprache $L_{MATCH}$ wären also z.B. 'L0101' oder 'L111',
-nicht aber '1L1' oder 'abc'.
-
-Im folgenden Abschnitt wollen wir uns formale Methoden anschauen,
-wie wir eine solche Sprache erkennen können.
+Ein DFA A bestimmt also immer eine Sprache L aller der Wörter,
+deren Lauf auf A akzeptierend ist.
+Wir schreiben auch kurz: $L(A) = \{w|w \rightarrow A,E\}$.
 
 
 Viele formale Sprachen haben unendlich viele Wörter,
@@ -266,22 +301,7 @@ sollte diesen Unterschied präsent haben.}
 Unser Fokus wird auf den Sprach-Akzeptoren liegen,
 da sie sich gut für einen Problem-orientierten Ansatz eignen.
 
-Was für einen Sprach-Akzeptor können wir also für $L_{MATCH}$ heranziehen?
-Bühne frei für den Deterministisch Finiten Automaten (kurz: DFA).
-Bevor wir DFAs formal einführen, wollen wir ihn informell motivieren: 
-Ein Algorithmus, der das \textbf{MATCH}-Problem löst, könnte so aussehen:
-\begin{enumerate}
-    \item Lese das erste Zeichen $c_1$ des Inputs.
-    \item wenn $z_1 \neq $ `$L$', gib 0 aus.
-    \item Lese das nächste Zeichen $z_i$ des Inputs.
-    \item Wenn $z_i \neq $ `$1$' oder $z_i \neq $ `$0$', gib 0 aus.
-    \item Wenn der Input noch nicht zu Ende ist: Gehe zu Schritt 3.
-    \item Gib 1 aus.
-\end{enumerate}
-
 %TODO Automatentheorie: Akzeptor vs Transduktor
 
 \section{Minimalisierung}
 \section{Reguläre Ausdrücke}
-
-

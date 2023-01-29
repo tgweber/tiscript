@@ -239,7 +239,14 @@ Es gilt $|\epsilon| = 0$.\\
 \noindent
 Für ein Wort $w$ mit $|w| > 1$ bezeichnet $w_i$ mit $0 \leq i < n$
 genau das Zeichen in $w$ an der i-ten Stelle.
-Sei zum Beispiel $w = 101$, dann ist $w_1 = 0$ (der Index ist null-basiert).\\
+Sei zum Beispiel $w = 101$, dann ist $w_1 = 0$
+(der Index ist null-basiert, wie bei Tupeln).\\
+
+\noindent
+Die \emph{Teilwortfunktion}
+$tw: \Sigma^* \times \mathbb{N} \times \mathbb{N} \rightarrow \Sigma^*$
+lässt definieren als das $tw(w, i, l) = w_iw_{i+1}\ldots{}w_{i+l}$,
+zum Beispiel ist $tw(1001, 1, 2) = 00$.\\
 
 \noindent
 Für die n-malige Wiederholung eines Zeichens oder Wortes führen wir den \emph{Wiederholungsoperator}
