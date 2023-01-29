@@ -144,14 +144,14 @@ aus dem vorangegangen Abschnitt zurück
 und überlegen uns, welche Komponenten der Automat haben muss,
 um den genannten Algorithmus zu implementieren:
 \begin{itemize}
-    \item Teil es Automaten muss in jedem Fall eine Menge von Zeichen sein,
+    \item Wir brauchen eine Menge von Zeichen,
         aus denen die Inputwörter zusammengesetzt sind.
         Wir nennen diese Menge \emph{Eingabealphabet}
         und bezeichnen dieses wie bei den formalen Sprachen mit $\Sigma$,
         für unser Beispiel gilt $\Sigma = \{0,1\}$.
 
     \item Ein Automat hat eine Menge von \emph{Zuständen}, in denen er sich befindet.
-        Der Automat, den wir suchen, scheint zwei Zustände zu haben:
+        Unser Automat hat zwei Zustände:
         \begin{enumerate}
             \item Das letzte gelesene Zeichen war eine 1
                 (oder wir haben noch kein Zeichen gelesen).
