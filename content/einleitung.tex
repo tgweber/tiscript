@@ -42,9 +42,10 @@ Diese Beispiele für Userstories sollen uns im Skript begleiten:
 
 Erfahrene und kompetente IT-Fachkräfte identifizieren beim ersten Lesen einer Userstory
 einen logischen ``Kern'',
-also etwas das in unterschiedlichem Gewand in der Praxis oft wiederkehrt.
-Diesen Kern wollen wir als ``Problem'' bezeichnen,
-bis wir eine bessere Definition dieses Begriffs finden.
+also etwas das in unterschiedlichem Gewand öfters wiederkehrt.
+Bis wir eine bessere Definition dieses Begriffs finden,
+wollen wir diesen Kern als ``Problem'' bezeichnen,
+
 Mit den Methoden der theoretischen Informatik ausgerüstet,
 kann man einiges über die Userstories und deren zugrundeliegende Probleme sagen:
 \begin{itemize}
@@ -141,10 +142,11 @@ um schnell und effizient zu guten Ergebnissen zu kommen.
 
 Aber die theoretische Informatik spielt hierbei keine explizite Rolle.
 Ihre Methoden sind formal,
-daher wird die formalisierten Version von \textbf{I\textsubscript{EVEN}} benötigt,
+daher reicht auch \textbf{I\textsubscript{EVEN}} noch nicht aus,
+wir benötigen eine formalere Version des Problems,
 die wir mit \textbf{EVEN} bezeichnen.
 Warum sollten wir diesen zusätzlichen Schritt gehen?
-Wir können über die Expertise erfahrener IT-Fachkräfte hinausgehen
+Wir können so über die Expertise erfahrener IT-Fachkräfte hinausgehen
 und zweifelsfrei \emph{beweisen},
 dass manche Probleme einfach, aufwändig oder unlösbar sind.\footnote{
     Eine etwas längere Antwort geben wir in \autoref{messenVsBeweisen}.
@@ -237,7 +239,7 @@ nennen wir das \emph{leere Wort}, kurz: $\epsilon$.
 Es gilt $|\epsilon| = 0$.\\
 
 \noindent
-Für ein Wort $w$ mit $|w| > 1$ bezeichnet $w_i$ mit $0 \leq i < n$
+Für ein Wort $w$ mit $|w| \geq 1$ bezeichnet $w_i$ mit $0 \leq i < n$
 genau das Zeichen in $w$ an der i-ten Stelle.
 Sei zum Beispiel $w = 101$, dann ist $w_1 = 0$
 (der Index ist null-basiert, wie bei Tupeln).\\
@@ -245,7 +247,9 @@ Sei zum Beispiel $w = 101$, dann ist $w_1 = 0$
 \noindent
 Die \emph{Teilwortfunktion}
 $tw: \Sigma^* \times \mathbb{N} \times \mathbb{N} \rightarrow \Sigma^*$
-lässt definieren als das $tw(w, i, l) = w_iw_{i+1}\ldots{}w_{i+l}$,
+lässt sich definieren als das Teilwort $v$ beginnend an Index $i \in \mathbb{N}$
+mit der Länge $|v| = l$ mit $l \in \mathbb{N}$:
+$tw(w, i, l) = w_iw_{i+1}\ldots{}w_{i+l}$,
 zum Beispiel ist $tw(1001, 1, 2) = 00$.\\
 
 \noindent
@@ -455,7 +459,7 @@ oder anderen Alphabeten repräsentieren können.\footnote{
     Interessierte Leser:innen kommen in \cite{knuth2}, Chapter 4 (194-213) auf ihre Kosten.
 }
 Das obige Beispiel ist mit dem binären Alphabet im wahrsten Sinne des Wortes durchbuchstabiert,
-weil es unseren Gewohnheiten entsprioht
+weil es unseren Gewohnheiten entspricht
 - deswegen nennen wir es \emph{kanonisch}.
 Mit dem Begriff ``kanonisch'' weisen wir
 auf eine quasi allgegenwärtige und akzeptierte Konvention hin,
@@ -513,7 +517,7 @@ interpretieren kann.
 In unserem Skript konzentieren wir uns auf die Rolle von formalen Sprachen als
 Repräsentation von Problemen,
 in \autoref{ch:theorie} werden wir Hinweise durchgehen,
-wo man das Studium der formalen Sprachen vertiefen kann.
+wie man das Studium der formalen Sprachen vertiefen kann.
 
 
 \subsection{Zusammenfassung}
