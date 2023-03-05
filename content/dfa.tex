@@ -32,25 +32,78 @@ von der wir nicht wissen,
 ob sie für jeden gegebenen Input in endlichen Schritten einen Output liefert.
 Wir werden diesen Unterschied in \autoref{derBarbierUndDerLuegner} wieder aufgreifen.
 
-Am besten machen wir die Bedeutung der Kriterien anhand eines Beispiels klar.
-Wir wollen einen Algorithmus angeben, der unser \textbf{EVEN}-Problem löst.
+Besonders klärungsbedürftig ist vielleicht das letzte Kriterium:
+Was bedeutet es, dass sich eine schrittweise Anweisung durchführen lässt?
+Dies ist dann der Fall, wenn jeder einzelne Schritt so einfach ist,
+dass an seiner Durchführbarkeit kein Zweifel ist.
+Der Algorithmus ist dann einfach nur eine (endliche)
+Abfolge durchführbarer Schritte.\footnote{TODO: Verweis auf primitive Rekursion.}
+
+Wir können uns dieses Kriterium am besten vergegenwärtigen,
+wenn wir uns einen Automaten erdenken,
+dessen Bestandteile so einfach sind,
+dass seine Wirkweise zweifelsfrei effektiv ist:
+
+\begin{itemize}
+    \item Die Maschine liest ein Wort $w \in \Sigma^*$ (beginnend am ersten Buchstaben, von links nach rechts ohne dabei ein Zeichen zu überspringen).
+    \item Die Maschine hat $n$ Zustände, in denen sie sich befinden kann.
+    \item Wenn die Maschine einen Buchstaben liest, dann kann sie in einen beliebigen Zustand wchseln oder im gleichen Zustand bleiben.
+    \item Die Maschine startet in genau einem der Zustände.
+    \item Die Maschine hat einen oder mehrere Zustände, die anzeigen
+        ob die Maschine ein Wort akzeptiert:
+        Wenn das Wort komplett gelesen ist
+        und die Maschine sich in einem dieser Zustände befindet,
+        dann wird das Wort akzeptiert (Ausgabe 1 oder wahr),
+        ansonsten nicht (Ausgabe 0 oder falsch).
+\end{itemize}
+
+Mit einem solchen Automaten können wir also einen Algorithmus implementieren, 
+der die fünf Bedingungen von oben erfüllt:
+\begin{itemize}
+    \item Der Automat läuft nur so lange, wie das Inputwort Zeichen hat.
+    \item Der Automat lässt keine Missverständnisse zu.  
+    \item Der Input ist das Inputwort.
+    \item Der Output ist 0 (kein akzeptierender Zustand) oder 1 (akzeptierender Zustand).
+    \item Jeder Automat, der dem obigen Schema entspricht, lässt sich prinzipiell bauen.
+\end{itemize}
+
+
+Die folgenden Arten von Schritten erfüllen dieses Kriterium:
+\begin{enumerate}
+    \item Lese das nächste Zeichen $a$ vom Input (Hierbei gilt:
+            Beginne beim ersten Zeichen,
+            lese von links nach rechts,
+            überspringe kein Zeichen.)
+    \item Gehe in Zustand 0.
+    \item Gehe in Zustand 1.
+    \item Wenn $a = b$ (für ein $b \in \Sigma$) ist, gehe in Zustand 0.
+    \item Wenn $a = b$ (für ein $b \in \Sigma$) ist, gehe in Zustand 1.
+    \item Gehe zu einem beliebigen anderen Schritt.
+    \item Wenn kein Zeichen mehr übrig ist, gib den Ausgabewert aus:
+        falsch wenn in Zustand 0, wahr wenn in Zustand 1.
+
+\end{enumerate}
+
+Wir wollen versuchen, einen Algorithmus anzugeben,
+der unser \textbf{EVEN}-Problem löst
+und der nur aus den diesen Grundschritten besteht.
 Zur Erinnerung: \textbf{EVEN} ist die Menge aller geraden Zahlen
-in der in \autoref{einleitung} eingeführten Kodierung.
+(in der in \autoref{einleitung} eingeführten Kodierung).
 Ein Algorithmus löst dieses Problem,
 indem er angibt,
 ob für ein gegebenes Wort $w \in \{0,1\}^*$ gilt: $w \in EVEN$.
-Wir nutzen für unsere erste Idee die Tatsache,
-dass alle geraden Zahlen in der gewählten Kodierung auf das Zeichen 0 enden.
-Da wir noch keine Alternative eingeführt haben,
-geben wir diesen ``naiven'' Algorithmus informell an:
+Wir nutzen die Tatsache,
+dass alle geraden Zahlen in der gewählten Kodierung auf das Zeichen 0 enden:
 
 \begin{enumerate}
-    \item Setze den Ausgabewert auf 0 (oder falsch).
+    \item Lese das nächste Zeichen $a$ vom Input.
+    \item Setze den Ausgabewert auf 0 (falsch)
+    \item Wenn $a = 0$, setze den Ausgabewert auf 1 (oder wahr).
     \item Wenn kein Zeichen mehr übrig ist, gib den Ausgabewert aus.
-    \item Lese das nächste Zeichen $a$.
+    \item Lese das nächste Zeichen $a$ vom Input.
     \item Wenn $a = 1$, setze den Ausgabewert auf 0 (oder falsch).
     \item Wenn $a = 0$, setze den Ausgabewert auf 1 (oder wahr).
-    \item Gehe zu Schritt 2.
+    \item Gehe zu Schritt 4.
 \end{enumerate}
 
 Der Algorithmus ist endlich (Kriterium 1),
@@ -63,6 +116,26 @@ und einen Output (0 oder 1, beziehungsweise falsch oder wahr),
 der angibt, ob die Zahl (nicht) gerade ist (Kriterium 4).
 Jeder seiner Einzelschritte ist einfach und durchführbar,
 wir verlangen also keine unmöglichen Dinge (Kriterium 5).
+
+
+\begin{figure}[ht] % ’ht’ tells LaTeX to place the figure ’here’ or at the top of the page
+\centering % centers the figure
+\begin{tikzpicture}
+	\node[state, initial] (z0) {$z_0$};
+	\node[state, accepting, right of=z0] (z1) {$z_1$};
+	\draw (z0) edge[bend left, above] node{0} (z1)
+	(z0) edge[loop above] node{1} (z0)
+	(z1) edge[bend left, below] node{1} (z0)
+	(z1) edge[loop above] node{0} (z1);
+\end{tikzpicture}
+\caption{Automat, der den naiven Algorithmus für EVEN implementiert.}
+\label{fig:dfaeven}
+\end{figure}
+
+Als Darstellung für den Algorithmus ist \autoref{fig:dfaeven}
+vielleicht ein bisschen besser zu verstehen, als die Auflistung der Schritte weiter oben.
+Die beiden Zustände $z_0$ und $z_1$ symbolisieren die Ausgabewerte.
+Der Pfeil signalisiert, wo wir enden.
 
 Der Algorithmus ist zwar einfach, aber wir haben ihn mit Grund naiv genannt,
 denn er erkennt nicht nur \textbf{EVEN}, sondern $EVEN \cup 0^*$.
@@ -209,19 +282,6 @@ wollen wir noch die graphische Spezifikation für Automaten kennenlernen.
 Der Automat,
 der unserem Algorithmus entspricht lässt sich so wie in \autoref{fig:dfaeven} angeben.
 
-\begin{figure}[ht] % ’ht’ tells LaTeX to place the figure ’here’ or at the top of the page
-\centering % centers the figure
-\begin{tikzpicture}
-	\node[state, initial] (z1) {$z_1$};
-	\node[state, accepting, right of=z1] (z0) {$z_0$};
-	\draw (z1) edge[bend left, above] node{0} (z0)
-	(z1) edge[loop above] node{1} (z1)
-	(z0) edge[bend left, below] node{1} (z1)
-	(z0) edge[loop above] node{0} (z0);
-\end{tikzpicture}
-\caption{Automat, der den naiven Algorithmus für EVEN implementiert.}
-\label{fig:dfaeven}
-\end{figure}
 
 Dabei entsprechen die Kreise den Zuständen,
 die Pfeile definieren die Überangsfunktion,
