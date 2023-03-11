@@ -103,7 +103,7 @@ theoretische Fragen möglichst einfach zu beantworten:
     \item Gibt es einen Algorithmus, der das Problem ``am besten'' löst?
     \item Können wir beweisen, dass es keinen ``besseren'' Algorithmus gibt?
 \end{itemize}
-Diese Fragen lassen sich mit Experimenten, also empirisch, nicht beantorten.
+Diese Fragen lassen sich mit Experimenten, also empirisch, nicht beantworten.
 Wir müssen daher mit Beweisen und Definitionen arbeiten
 und hier ist es sinnvoller mit einem Formalismus zu arbeiten,
 der ``einfacher'' ist als eine typische Programmiersprache.
@@ -122,76 +122,16 @@ und ein Beispiel für einen Automaten angeben.
 
 % TODO Bild.
 \section{Deterministisch Finite Automaten}
-\begin{figure}[ht] % ’ht’ tells LaTeX to place the figure ’here’ or at the top of the page
-\centering % centers the figure
-\begin{tikzpicture}
-	\node[state, initial] (z0) {$z_0$};
-	\node[state, accepting, right of=z0] (z1) {$z_1$};
-	\draw (z0) edge[bend left, above] node{0} (z1)
-	(z0) edge[loop above] node{1} (z0)
-	(z1) edge[bend left, below] node{1} (z0)
-	(z1) edge[loop above] node{0} (z1);
-\end{tikzpicture}
-\caption{Automat, der den naiven Algorithmus für EVEN implementiert.}
-\label{fig:dfaeven}
-\end{figure}
 
-Kommen wir noch einmal auf den (naiven) Beispielsalgorithmus
-aus dem vorangegangen Abschnitt zurück
-und überlegen uns, welche Komponenten der Automat haben muss,
-um den genannten Algorithmus zu implementieren:
-\begin{itemize}
-    \item Wir brauchen eine Menge von Zeichen,
-        aus denen die Inputwörter zusammengesetzt sind.
-        Wir nennen diese Menge \emph{Eingabealphabet}
-        und bezeichnen dieses wie bei den formalen Sprachen mit $\Sigma$,
-        für unser Beispiel gilt $\Sigma = \{0,1\}$.
-
-    \item Ein Automat hat eine Menge von \emph{Zuständen}, in denen er sich befindet.
-        Unser Automat hat zwei Zustände:
-        \begin{enumerate}
-            \item Das letzte gelesene Zeichen war eine 1
-                (oder wir haben noch kein Zeichen gelesen).
-            \item Das letzte gelesene Zeichen war eine 0.
-        \end{enumerate}
-        Die Menge der Zustände eines Automaten bezeichnen wir mit $Z$.
-        In unserem Fall ist $Z = \{z_1, z_0\}$.
-
-    \item Während wir das Eingabewort lesen,
-        kann sich der Zustand des Automaten ändern.
-        Dies geben wir mit der \emph{Übergangsfunktion} $\delta$ an:
-        $\delta: \Sigma \times Z \rightarrow Z$.
-        In unserem Fall können wir $\delta$ so angeben:
-        \begin{itemize}
-            \item Lesen wir eine 0 und sind in Zustand $z_1$,
-                dann gehen wir in Zustand $z_0$:\linebreak
-                $[0,z_1,z_0]$
-            \item Lesen wir eine 1 und sind in Zustand $z_1$,
-                dann bleiben wir in Zustand $z_1$:\linebreak
-                $[1,z_1,z_1]$
-            \item Lesen wir eine 0 und sind in Zustand $z_0$,
-                dann bleiben wir in Zustand $z_0$:\linebreak
-                $[0,z_0,z_0]$
-            \item Lesen wir eine 1 und sind in Zustand $z_0$,
-                dann gehen wir in Zustand $z_1$:\linebreak
-                $[1,z_0,z_1]$
-        \end{itemize}
-        Also ist $\delta = \{[0,z_1,z_0] [1,z_1,z_1] [0,z_0,z_0] [1,z_0,z_1]\}$
-
-    \item Wir müssen noch angeben, in welchem Zustand der Automat ``startet'',
-        der \emph{Anfangszustand} (allgemein bezeichnet mit $z_i$)
-        ist in unserem Beispiel $z_1$.
-
-    \item Als letztes müssen wir den Ausgabewert definieren,
-        also ob der Automat das Wort akzeptiert oder nicht.
-        Dies wird durch den Zustand definiert, indem sich der Automat
-        befindet, wenn das letzte Zeichen gelesen wurde.
-        Generell kann es mehr als einen akzeptierenden Zustand geben,
-        daher geben wir die \emph{Endzustände} $E$ als Menge an,
-        in unserem Beispiel: $E = \{z_0\}$.
-\end{itemize}
-
-Ganz allgemein können wir einen Automaten A in der Sprache der Mengenlehre
+Formalismen, um Algorithmen anzugeben, gibt es viele.
+Der Typ Automat, den wir im vorigen Kapitel informell eingeführt haben,
+ist einer davon:
+Der Deterministisch Finite Automate (DFA).\footnote{
+    Wir folgen hier der englischen Literatur (Deterministic Finite Automaton),
+    in deutschen Lehrbüchern findet man oftmals den Begriff
+    Deterministischer Endlicher Automat (DEA).
+}
+Ganz allgemein können wir einen DFA A in der Sprache der Mengenlehre
 als 5-Tupel (oder Quintupel angeben): $A = [\Sigma, Z, \delta, z_i, E]$:
 \begin{itemize}
     \item $\Sigma$ ist das Eingabealphabet.
@@ -200,7 +140,84 @@ als 5-Tupel (oder Quintupel angeben): $A = [\Sigma, Z, \delta, z_i, E]$:
     \item $z_i$ ist der Startzustand.
     \item $E$ ist die Menge der Endzustände.
 \end{itemize}
-Einen solchen Automat nennen wir Deterministisch Finiten Automat (DFA).
+
+Am besten geben wir ein Beispiel für einen Automaten an,
+der ein uns bekanntes Problem löst,
+also die entsprechende formale Sprache erkennt.
+Wir nehmen hierfür die formale Sprache \textbf{EVEN} aus dem vorigen Kapitel her.
+Neben der Angabe in der Sprache der Mengenlehre,
+lassen sich Automaten auch sehr gut grafisch darstellen.
+\autoref{fig:dfaeven} gibt einen DFA $A_{EVEN}$ an,
+der \textbf{EVEN} erkennt.
+
+\begin{figure}[ht] % ’ht’ tells LaTeX to place the figure ’here’ or at the top of the page
+\centering % centers the figure
+\begin{tikzpicture}
+	\node[state, initial] (zi) {$z_i$};
+	\node[state, accepting, above right of=zi] (z0) {$z_0$};
+    \node[state, right of=z0] (zn) {$z_{NaN}$};
+    \node[state, below right of=zi] (zo) {$z_{odd}$};
+    \node[state, right of=zo] (ze) {$z_{even}$};
+	\draw 
+        (zi) edge[above] node{0} (z0)
+        (zi) edge[below] node{1} (zo)
+        (z0) edge[above] node{0,1} (zn)
+        (zn) edge[loop above] node{0,1} (zn)
+        (zo) edge[loop above] node{1} (zo)
+        (zo) edge[bend left, above] node{0} (ze)
+        (ze) edge[loop above] node{0} (ze)
+        (ze) edge[bend left, above] node{1} (zo)
+    ;
+\end{tikzpicture}
+\caption{DFA für EVEN}
+\label{fig:dfaeven}
+\end{figure}
+
+Wir können alle Komponenten eines DFAs von einer solchen grafischen Darstellung ablesen:
+\begin{itemize}
+    \item $\Sigma$ ergibt sich aus den ausgehenden Pfeilen eines beliebigen Kreises.
+    \item Z ist die Menge aller Kreise.
+    \item $\delta$ ist durch alle Pfeile bestimmt.
+    \item $z_i$ ist der Zustand,
+        der von einem Pfeil erreicht wird,
+        der nicht von einem anderen Zustand ausgeht. 
+    \item Z sind alle Kreise mit doppeltem Umfang.
+\end{itemize}
+
+In der Sprache der Mengenlehre können wir die Komponenten so angeben:
+\begin{itemize}
+    \item Das Eingabealphabet $\Sigma = \{0,1\}$.
+    \item Die Menge der Zustände Z = $\{z_i, z_0, z_{NaN}, z_{odd}, z_{even}\}$
+    \item Die Übergangsfunktion $\delta$ wie in \autoref{tab:deltaeven} angegeben.
+    \item Der Anfangszustand $z_i = z_i$.
+    \item Die Menge der Endzustände E = $\{z_0, z_{even}\}$ 
+\end{itemize}
+
+\begin{table}[ht]
+    \caption{$\delta$ für DFA $A_{EVEN}$}
+    \centering
+    \begin{tabular}{|c|c|c|}
+    \hline
+         $\downarrow$ Zustand \linebreak
+         $\rightarrow$ Zeichen
+        & 0
+        & 1
+        \\
+        \hline
+          $z_i$
+        & $z_0$
+        & $z_{odd}$
+        \\
+        \hline
+          $z_i$
+        & $z_0$
+        & $z_{odd}$
+        \\
+        \hline
+    \end{tabular}
+    \label{tab:deltaeven}
+\end{table}
+
 Bevor wir die beiden Begriffe deterministisch und finit diskutieren,
 wollen wir noch die graphische Spezifikation für Automaten kennenlernen. 
 Der Automat,
@@ -289,3 +306,5 @@ da sie sich gut für einen Problem-orientierten Ansatz eignen.
 
 \section{Minimalisierung}
 \section{Reguläre Ausdrücke}
+
+Aufgabe 1: Warum ist die Bezeichnung $Z_{NaN}$ in \autoref{fig:dfaeven} nicht ganz akkurat?
