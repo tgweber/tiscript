@@ -6,19 +6,28 @@ In \autoref{einleitung} haben wir festgehalten:
 Probleme lassen sich als als formale Sprachen repräsentieren.
 Wie machen wir diese Formalisierung operabel,
 also wie können wir \emph{Lösungen} für Probleme angeben?
-In der Informatik nutzen wir für Problemlösungen \emph{Algorithmen}.
-Wir suchen also nach einer geeigneten Repräsentation eines Algorithmus,
-so dass wir auf den Überlegungen zu formalen Sprachen im letzten Kapitel aufbauen können.
-
-Was genau ist aber ein Algorithmus?
-Frei nach Donald E. Knuth (\cite{knuth1}, 4-6)
-ist ein Algorithmus eine schrittweise Anweisung zur Lösung eines Problems,
-welche die folgenden fünf Eigenschaften erfüllt:\footnote{
+Wenn wir für ein Problem einen \emph{Algorithmus}\footnote{
     In \cite{knuth1} (ebd.) finden wir auch eine Liste ähnlicher Begriffe:
     Rezept, Prozess, Methode, Technik, Prozedur oder Routine.
     Ein Algorithmus ist von diesen zu unterscheiden,
     auch wenn Vergleiche als hilfreiche Verständnisanalogien dienen können.
 }
+angeben können, dann ist das Problem lösbar,
+wir nennen es dann auch \emph{berechenbar}.
+Was ist aber genau ein Algorithmus und wie geben wir ihn am besten an?
+In der IT-Praxis werden Algorithmen in Programmen ausformuliert,
+geschrieben in einer Programmiersprache.
+Diese Programme nennt man \emph{Implementierungen} des Algorithmus.
+Eine Implementierung ist also eine konkrete Realisierung des Algorithmus.\footnote{
+    Ein Algorithmus (die ``Idee'') ist also von
+    der Implementierung (die ``Realisierung'' der Idee) zu unterscheiden!
+    Schon allein deshalb,
+    weil ein Algorithmus mehrere Implmentierungen haben kann,
+    sogar in einer Programmiersprache.}
+Die Frage, was genau ein Algorithmus ist, ist aber noch nicht beantwortet.
+Nach Donald E. Knuth (\cite{knuth1}, 4-6)
+ist ein Algorithmus eine schrittweise Anweisung zur Lösung eines Problems,
+welche die folgenden fünf Eigenschaften erfüllt:
 \begin{enumerate}
     \item Seine Durchführung endet (``finiteness'').
     \item Er ist unmissverständlich formuliert (``definiteness'').
@@ -27,97 +36,92 @@ welche die folgenden fünf Eigenschaften erfüllt:\footnote{
     \item Er lässt sich durchführen (``effectiveness'').
 \end{enumerate}
 
-Das Kriterium 1 unterscheidet einen Algorithmus von einer \emph{Berechnungsmethode},
+Kriterium 1 unterscheidet einen Algorithmus von einer \emph{Berechnungsmethode},
 von der wir nicht wissen,
 ob sie für jeden gegebenen Input in endlichen Schritten einen Output liefert.
 Wir werden diesen Unterschied in \autoref{derBarbierUndDerLuegner} wieder aufgreifen.
-
 Besonders klärungsbedürftig ist vielleicht das letzte Kriterium:
-Was bedeutet es, dass sich eine schrittweise Anweisung durchführen lässt?
+Was bedeutet es, dass sich ein Algorithmus durchführen lässt?
 Dies ist dann der Fall, wenn jeder einzelne Schritt so einfach ist,
-dass an seiner Durchführbarkeit kein Zweifel ist.
+dass an seiner Durchführbarkeit kein Zweifel besteht.
 Der Algorithmus ist dann einfach nur eine (endliche)
-Abfolge durchführbarer Schritte.\footnote{TODO: Verweis auf primitive Rekursion.}
+Abfolge durchführbarer Schritte.\footnote{Der Begriff der primitiven Rekursion
+lässt sich mit einem ähnlichen Gedankengang motivieren (siehe \cite{schoening} 109ff).}
 
-Wir können uns dieses Kriterium am besten vergegenwärtigen,
-wenn wir uns einen Automaten erdenken,
+Neben Programmen einer Programmiersprache kann man auch
+\emph{Automaten} spezifizieren,
+um Algorithmen zu implementieren.
+Ein Automat ist eine abstrakte Maschine,
+die einen Input bekommt, 
+dabei mit simplen Einzelschritten läuft
+und einen definiten Output liefert.
+Wir können uns damit Kriterium 5 gut vergegenwärtigen,
+da wir uns einen Automaten erdenken,
 dessen Bestandteile so einfach sind,
-dass seine Wirkweise zweifelsfrei effektiv ist:
+dass seine Wirkweise zweifelsfrei durchführbar ist:
 
 \begin{itemize}
-    \item Die Maschine liest ein Wort $w \in \Sigma^*$ (beginnend am ersten Buchstaben, von links nach rechts ohne dabei ein Zeichen zu überspringen).
-    \item Die Maschine hat $n$ Zustände, in denen sie sich befinden kann.
-    \item Wenn die Maschine einen Buchstaben liest, dann kann sie in einen beliebigen Zustand wchseln oder im gleichen Zustand bleiben.
-    \item Die Maschine startet in genau einem der Zustände.
-    \item Die Maschine hat einen oder mehrere Zustände, die anzeigen
-        ob die Maschine ein Wort akzeptiert:
-        Wenn das Wort komplett gelesen ist
-        und die Maschine sich in einem dieser Zustände befindet,
-        dann wird das Wort akzeptiert (Ausgabe 1 oder wahr),
-        ansonsten nicht (Ausgabe 0 oder falsch).
+    \item Der Automat liest ein Wort $w \in \Sigma^*$ Zeichen für Zeichen
+        (beginnend am ersten Zeichen, von links nach rechts, ohne dabei zu springen).
+    \item Der Automat hat $n$ Zustände, in denen sie sich befinden kann.
+    \item Wenn der Automat einen Buchstaben liest,
+        dann kann sie in einen beliebigen Zustand wechseln oder im gleichen Zustand bleiben.
+    \item Der Automat startet in genau einem der Zustände.
+    \item Der Automat gibt durch seine Zustände an,
+        ob er $w$ akzeptiert (Ausgabe 1 oder wahr),
+        oder nicht (Ausgabe 0 oder falsch).
 \end{itemize}
 
-Mit einem solchen Automaten können wir also einen Algorithmus implementieren, 
-der die fünf Bedingungen von oben erfüllt:
-\begin{itemize}
+Der Zusammenhang zwischen einer formalen Sprache und dem Automat kann so formuliert werden:
+Ein Automat bekommt ein Wort als Input und entscheidet über ein Outputsignal,
+ob es zu der formalen Sprache gehört oder nicht.
+Wenn eine formale Sprache ein Problem repräsentiert,
+gibt der Automat also ein Verfahren an, 
+wie das Problem gelöst werden kann.
+Man kann auch sagen:
+Der Automat ist eine Implementierung eines Algorithmus,
+der das Problem löst.
+Ein solcher Automat erfüllt die fünf Bedingungen von oben:
+\begin{enumerate}
     \item Der Automat läuft nur so lange, wie das Inputwort Zeichen hat.
-    \item Der Automat lässt keine Missverständnisse zu.  
+    \item Die Spezifikation des Automaten ist unmissverständlich.  
     \item Der Input ist das Inputwort.
-    \item Der Output ist 0 (kein akzeptierender Zustand) oder 1 (akzeptierender Zustand).
-    \item Jeder Automat, der dem obigen Schema entspricht, lässt sich prinzipiell bauen.
+    \item Der Output ist 0 oder 1 (akzeptierender oder nicht-akzeptierender Zustand).
+    \item Der Automat lässt sich realisieren. 
+\end{enumerate}
+
+Bevor wir im nächsten Abschnitt den Automaten genauer fassen wollen,
+erscheint eine Frage offensichtlich:
+Warum nutzen wir nicht Programmiersprachen, um einen Algorithmus zu implementieren?
+Warum also braucht es einen solchen Automaten?
+Der Grund hierfür:
+Wir suchen eine Möglichkeit Algorithmen zu implementieren,
+die es uns erlaubt,
+theoretische Fragen möglichst einfach zu beantworten:
+\begin{itemize}
+    \item Wie können wir den Aufwand sinnvoll angeben, den ein Algorithmus verursacht?
+    \item Gibt es einen Algorithmus, der das Problem ``am besten'' löst?
+    \item Können wir beweisen, dass es keinen ``besseren'' Algorithmus gibt?
 \end{itemize}
+Diese Fragen lassen sich mit Experimenten, also empirisch, nicht beantorten.
+Wir müssen daher mit Beweisen und Definitionen arbeiten
+und hier ist es sinnvoller mit einem Formalismus zu arbeiten,
+der ``einfacher'' ist als eine typische Programmiersprache.
+Um Programierer:innen bei ihrer Arbeit möglichst effizient zu unterstützen,
+ist eine Programmiersprache typischerweise eher ausdrucksstark.
+Der von von uns gesuchte Formalismus hat aber idealerweise nur wenige, einfache Bestandteile.
+Damit gelingt es uns zum Beispiel schneller Kriterium 5 zu behandeln:
+Wir müssen nur für wenige ``Bauteile'' einer Implementierung zeigen,
+dass sie alle einfach und prinzipiell nutzbar sind.\footnote{
+    Natürlich hat unser Formalismus letztlich eine Verbindung zu Programmiersprachen,
+    diese wollen wir in \autoref{keller} und \autoref{ch:theorie} diskutieren.
+}
 
+Im folgenden Abschnitt wollen wir den Begriff des Automaten formal einführen
+und ein Beispiel für einen Automaten angeben. 
 
-Die folgenden Arten von Schritten erfüllen dieses Kriterium:
-\begin{enumerate}
-    \item Lese das nächste Zeichen $a$ vom Input (Hierbei gilt:
-            Beginne beim ersten Zeichen,
-            lese von links nach rechts,
-            überspringe kein Zeichen.)
-    \item Gehe in Zustand 0.
-    \item Gehe in Zustand 1.
-    \item Wenn $a = b$ (für ein $b \in \Sigma$) ist, gehe in Zustand 0.
-    \item Wenn $a = b$ (für ein $b \in \Sigma$) ist, gehe in Zustand 1.
-    \item Gehe zu einem beliebigen anderen Schritt.
-    \item Wenn kein Zeichen mehr übrig ist, gib den Ausgabewert aus:
-        falsch wenn in Zustand 0, wahr wenn in Zustand 1.
-
-\end{enumerate}
-
-Wir wollen versuchen, einen Algorithmus anzugeben,
-der unser \textbf{EVEN}-Problem löst
-und der nur aus den diesen Grundschritten besteht.
-Zur Erinnerung: \textbf{EVEN} ist die Menge aller geraden Zahlen
-(in der in \autoref{einleitung} eingeführten Kodierung).
-Ein Algorithmus löst dieses Problem,
-indem er angibt,
-ob für ein gegebenes Wort $w \in \{0,1\}^*$ gilt: $w \in EVEN$.
-Wir nutzen die Tatsache,
-dass alle geraden Zahlen in der gewählten Kodierung auf das Zeichen 0 enden:
-
-\begin{enumerate}
-    \item Lese das nächste Zeichen $a$ vom Input.
-    \item Setze den Ausgabewert auf 0 (falsch)
-    \item Wenn $a = 0$, setze den Ausgabewert auf 1 (oder wahr).
-    \item Wenn kein Zeichen mehr übrig ist, gib den Ausgabewert aus.
-    \item Lese das nächste Zeichen $a$ vom Input.
-    \item Wenn $a = 1$, setze den Ausgabewert auf 0 (oder falsch).
-    \item Wenn $a = 0$, setze den Ausgabewert auf 1 (oder wahr).
-    \item Gehe zu Schritt 4.
-\end{enumerate}
-
-Der Algorithmus ist endlich (Kriterium 1),
-denn er endet,
-sobald das letzte Zeichen des Wortes gelesen wurde.
-Er ist so unmissverständlich formuliert,
-wie das in der deutschen Sprache möglich ist (Kriterium 2).
-Er hat auch einen Input (die Zahl als binärkodiertes Wort, Kriterium 3)
-und einen Output (0 oder 1, beziehungsweise falsch oder wahr),
-der angibt, ob die Zahl (nicht) gerade ist (Kriterium 4).
-Jeder seiner Einzelschritte ist einfach und durchführbar,
-wir verlangen also keine unmöglichen Dinge (Kriterium 5).
-
-
+% TODO Bild.
+\section{Deterministisch Finite Automaten}
 \begin{figure}[ht] % ’ht’ tells LaTeX to place the figure ’here’ or at the top of the page
 \centering % centers the figure
 \begin{tikzpicture}
@@ -131,86 +135,6 @@ wir verlangen also keine unmöglichen Dinge (Kriterium 5).
 \caption{Automat, der den naiven Algorithmus für EVEN implementiert.}
 \label{fig:dfaeven}
 \end{figure}
-
-Als Darstellung für den Algorithmus ist \autoref{fig:dfaeven}
-vielleicht ein bisschen besser zu verstehen, als die Auflistung der Schritte weiter oben.
-Die beiden Zustände $z_0$ und $z_1$ symbolisieren die Ausgabewerte.
-Der Pfeil signalisiert, wo wir enden.
-
-Der Algorithmus ist zwar einfach, aber wir haben ihn mit Grund naiv genannt,
-denn er erkennt nicht nur \textbf{EVEN}, sondern $EVEN \cup 0^*$.
-Für unseren Zweck,
-also zu zeigen wie wir Algorithmen in der theoretischen Informatik fassen können,
-ist dieser Fehler zunächst verkraftbar und wir wollen uns nicht damit aufhalten.
-Wie der Algorithmus korrigiert werden kann,
-ist Gegenstand von Aufgabe 2.
-
-Wenn wir für ein Problem einen Algorithmus angeben können,
-dann ist das Problem \emph{berechenbar}.
-Offensichtlich gibt es zu einem Problem mehr als einen Algorithmus,
-der es löst, daher schließen sich auch interessante Fragen an:\footnote{Für diejenigen, die dies nicht so einfach akzeptieren wollen:
-Sei ein Algorithmus A für ein Problem gegeben, dann ist der Algorithmus A', der wie A ist,
-nur zusätzlich $1+1$ errechnet und das Ergebnis ignoriert,
-auch eine Lösung für das Problem, aber von A unterschiedlich.}
-\begin{itemize}
-    \item Wie können wir den Aufwand für diese Algorithmen sinnvoll angeben?
-    \item Gibt es einen Algorithmus, der das Problem ``am besten'' löst?
-    \item Wie können wir beweisen, dass es keinen ``besseren'' Algorithmus gibt?
-\end{itemize}
-Diese Fragen werden wir in den folgenden Kapiteln beantworten.
-Nun müssen wir uns zunächst die Frage stellen,
-in welcher Form wir Algorithmen angeben können,
-damit diese Fragen überhaupt sinnvoll und formal korrekt beantwortet werden können.
-
-In der IT-Praxis werden Algorithmen in Programmen ausformuliert,
-geschrieben in einer Programmiersprache.
-Diese Programme nennt man \emph{Implementierungen} des Algorithmus.
-Eine Implementierung ist also eine konkrete Realisierung des Algorithmus.
-Für einen Algorithmus kann es mehrere Implementierungen geben,
-selbst in einer Programmiersprache.
-Wir suchen eine Möglichkeit Algorithmen zu implementieren,
-die es uns erlaubt die obigen Fragen möglichst einfach zu beantworten.
-Warum benutzen wir hierfür nicht einfach schon bekannte Programmiersprachen?
-Fassen wir eine Programmiersprache als
-Menge aller syntaktisch wohlgeformten Programme in dieser Sprache auf, 
-haben wir als Gegenstand eine formale Sprache.
-In diesem Fall wäre es also nicht notwendig,
-ein neues Konzept einzuführen.
-
-Allerdings sind Programmiersprachen für praktische Zwecke angelegt,
-unser Fokus ist ein Theoretischer:
-Wir wollen mit Beweisen und Definitionen arbeiten
-und hier ist es sinnvoller mit einem Formalismus zu arbeiten,
-der ``einfacher'' ist als eine typische Programmiersprache.
-Um Programierer:innen bei ihrer Arbeit möglichst effizient zu unterstützen,
-ist eine Programmiersprache typischerweise sehr ausdrucksstark.
-Der von von uns gesuchte Formalismus hat aber idealerweise nur wenige, einfache Bestandteile.
-Damit gelingt es uns zum Beispiel schneller Kriterium 5 zu behandeln:
-Wir müssen nur für wenige ``Bauteile'' einer Implementierung zeigen,
-dass sie alle einfach und prinzipiell nutzbar sind.\footnote{
-    Natürlich hat unser Formalismus letztlich eine Verbindung zu Programmiersprachen,
-    diese wollen wir in \autoref{keller} und \autoref{ch:theorie} diskutieren.
-}
-
-Eine Möglichkeit,
-die Implementierungen von Algorithmen in der theoretischen Informatik
-anzugeben, sind \emph{Automaten}.
-Ein Automat kann als eine abstrakte Maschine verstanden werden,
-die einen Input bekommt, 
-dabei mit simplen Einzelschritten läuft
-und einen definiten Output liefert.
-% TODO Bild.
-Der Zusammenhang zwischen einer formalen Sprache und dem Automat kann so formuliert werden:
-Ein Automat bekommt ein Wort als Input und entscheidet über ein Outputsignal,
-ob es zu der formalen Sprache gehört oder nicht.
-Wenn eine formale Sprache ein Problem repräsentiert,
-gibt der Automat also ein Verfahren an, 
-wie das Problem gelöst werden kann.
-Man kann auch sagen:
-Der Automat ist eine Implementierung eines Algorithmus,
-der das Problem löst.
-
-\section{Deterministisch Finite Automaten}
 
 Kommen wir noch einmal auf den (naiven) Beispielsalgorithmus
 aus dem vorangegangen Abschnitt zurück
