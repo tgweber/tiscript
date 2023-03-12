@@ -1,6 +1,6 @@
 \chapter{Reguläre Sprachen}
 
-\section{Algorithmus und Implementierung}
+\section{Algorithmus und Implementierung}\label{algoundimpl}
 
 In \autoref{einleitung} haben wir festgehalten:
 Probleme lassen sich als als formale Sprachen repräsentieren.
@@ -123,7 +123,7 @@ und ein Beispiel für einen Automaten angeben.
 % TODO Bild.
 \section{Deterministisch Finite Automaten}
 
-Formalismen, um Algorithmen anzugeben, gibt es viele.
+Um Algorithmen anzugeben, beziehungsweis zu implementieren, gibt es viele Formalismen.
 Der Typ Automat, den wir im vorigen Kapitel informell eingeführt haben,
 ist einer davon:
 Der Deterministisch Finite Automate (DFA).\footnote{
@@ -131,8 +131,10 @@ Der Deterministisch Finite Automate (DFA).\footnote{
     in deutschen Lehrbüchern findet man oftmals den Begriff
     Deterministischer Endlicher Automat (DEA).
 }
+
+\subsection{Spezfifikation: Mengenlehre und Grafik}
 Ganz allgemein können wir einen DFA A in der Sprache der Mengenlehre
-als 5-Tupel (oder Quintupel angeben): $A = [\Sigma, Z, \delta, z_i, E]$:
+als 5-Tupel (oder Quintupel) angeben: $A = [\Sigma, Z, \delta, z_i, E]$:
 \begin{itemize}
     \item $\Sigma$ ist das Eingabealphabet.
     \item Z ist die Menge der Zustände.
@@ -144,7 +146,7 @@ als 5-Tupel (oder Quintupel angeben): $A = [\Sigma, Z, \delta, z_i, E]$:
 Am besten geben wir ein Beispiel für einen Automaten an,
 der ein uns bekanntes Problem löst,
 also die entsprechende formale Sprache erkennt.
-Wir nehmen hierfür die formale Sprache \textbf{EVEN} aus dem vorigen Kapitel her.
+Wir nehmen hierfür die formale Sprache \textbf{EVEN} aus dem vorigen Kapitel.
 Neben der Angabe in der Sprache der Mengenlehre,
 lassen sich Automaten auch sehr gut grafisch darstellen.
 \autoref{fig:dfaeven} gibt einen DFA $A_{EVEN}$ an,
@@ -157,7 +159,7 @@ der \textbf{EVEN} erkennt.
 	\node[state, accepting, above right of=zi] (z0) {$z_0$};
     \node[state, right of=z0] (zn) {$z_{NaN}$};
     \node[state, below right of=zi] (zo) {$z_{odd}$};
-    \node[state, right of=zo] (ze) {$z_{even}$};
+    \node[state, accepting, right of=zo] (ze) {$z_{even}$};
 	\draw 
         (zi) edge[above] node{0} (z0)
         (zi) edge[below] node{1} (zo)
@@ -173,14 +175,15 @@ der \textbf{EVEN} erkennt.
 \label{fig:dfaeven}
 \end{figure}
 
-Wir können alle Komponenten eines DFAs von einer solchen grafischen Darstellung ablesen:
+Die Funktionsweise des Automaten wird klarer, wenn wir uns ein Wort wählen
+und dann Buchstabenweise den Pfeilen folgen.
+Wir können dabei alle Komponenten eines DFAs von seiner grafischen Darstellung ablesen:
 \begin{itemize}
     \item $\Sigma$ ergibt sich aus den ausgehenden Pfeilen eines beliebigen Kreises.
     \item Z ist die Menge aller Kreise.
     \item $\delta$ ist durch alle Pfeile bestimmt.
     \item $z_i$ ist der Zustand,
-        der von einem Pfeil erreicht wird,
-        der nicht von einem anderen Zustand ausgeht. 
+        der von vom ``ursprungslosen'' Pfeil erreicht wird.
     \item Z sind alle Kreise mit doppeltem Umfang.
 \end{itemize}
 
@@ -188,48 +191,24 @@ In der Sprache der Mengenlehre können wir die Komponenten so angeben:
 \begin{itemize}
     \item Das Eingabealphabet $\Sigma = \{0,1\}$.
     \item Die Menge der Zustände Z = $\{z_i, z_0, z_{NaN}, z_{odd}, z_{even}\}$
-    \item Die Übergangsfunktion $\delta$ wie in \autoref{tab:deltaeven} angegeben.
+    \item Die Übergangsfunktion $\delta$:
+    \begin{align*} \{
+     &  [0, z_i, z_0],
+        [1, z_i, z_{odd}],
+        [0, z_0, z_{NaN}],
+        [1, z_0, z_{NaN}],
+        [0, z_{NaN}, z_{NaN}], \notag\\
+     &  [1, z_{NaN}, z_{NaN}],
+        [0, z_{odd}, z_{even}],
+        [1, z_{odd}, z_{odd}],
+        [0, z_{even}, z_{even}],
+        [1, z_{even}, z_{odd}] \notag
+    \} \end{align*}
     \item Der Anfangszustand $z_i = z_i$.
     \item Die Menge der Endzustände E = $\{z_0, z_{even}\}$ 
 \end{itemize}
 
-\begin{table}[ht]
-    \caption{$\delta$ für DFA $A_{EVEN}$}
-    \centering
-    \begin{tabular}{|c|c|c|}
-    \hline
-         $\downarrow$ Zustand \linebreak
-         $\rightarrow$ Zeichen
-        & 0
-        & 1
-        \\
-        \hline
-          $z_i$
-        & $z_0$
-        & $z_{odd}$
-        \\
-        \hline
-          $z_i$
-        & $z_0$
-        & $z_{odd}$
-        \\
-        \hline
-    \end{tabular}
-    \label{tab:deltaeven}
-\end{table}
-
-Bevor wir die beiden Begriffe deterministisch und finit diskutieren,
-wollen wir noch die graphische Spezifikation für Automaten kennenlernen. 
-Der Automat,
-der unserem Algorithmus entspricht lässt sich so wie in \autoref{fig:dfaeven} angeben.
-
-
-Dabei entsprechen die Kreise den Zuständen,
-die Pfeile definieren die Überangsfunktion,
-ein freistehender Pfeil auf einen einzelnen Zustand bestimmt den Startzustand
-und alle Kreise mit doppeltem Radius sind Endzustände.
-Das Eingabealphabet lässt sich aus den Pfeilbeschriftungen ableiten.
-
+\subsection{Akzeptanz: Schnappschüsse und Läufe}
 Um zu verstehen, was determinstisch und finit genau bedeutet,
 müssen wir ein paar Hilfskonzepte einführen:
 \begin{itemize}
@@ -241,7 +220,8 @@ müssen wir ein paar Hilfskonzepte einführen:
         Wir müssen noch $0010$ lesen und sind dabei in Zustand $z_1$.
     \item Eine \emph{Schnappschussfolge} S auf einem DFA A
         ist ein n-Tupel von Schnapp-schüssen. 
-        Für jedes Paar aufeinanderfolgender Schnappschüsse $s_n$ und $s_{n+1}$ gilt,
+        Für jedes Paar aufeinanderfolgender Schnappschüsse $s_n = [z_n, w_n]$
+        und $s_{n+1} = [z_{n+1}, w_{n+1}]$ gilt,
         dass sie einen Übergang des Automaten A auf dem verbliebenen Restwort repräsentieren:
         \begin{itemize}
             \item $z_{n+1} = \delta(tw(w_{n},0,1), z_n)$
@@ -255,14 +235,14 @@ müssen wir ein paar Hilfskonzepte einführen:
             \item Wir haben $w$ als Input und starten beim Anfangszustand:
                 $s_0 = [w,z_i]$ 
             \item Wir enden, wenn das Wort ``aufgebraucht'' ist:
-                $s_{w-1} = [\epsilon, z]$ mit $z \in Z$,
+                $s_{|w|} = [\epsilon, z]$ mit $z \in Z$,
 
         \end{itemize}
     \item Ein Lauf für w auf A heißt \emph{akzeptierend}, wenn gilt:
-        $z_{w-1} \in E$,
+        $z_{|w|} \in E$,
         wenn der letzte Zustand des letzten Schnappschusses in der Schnappschussfolge
         ein Endzustand ist.
-        Wir schreiben kurz: $w \rightarrow A,E$
+        Wir schreiben kurz: $A(w) = E$
         für ``der Lauf von w auf A ist akzeptierend''. 
 
 
@@ -272,27 +252,31 @@ Ein DFA A ist \emph{deterministisch}, weil es genau einen Lauf
 für ein beliebiges Wort w gibt (der Lauf ist eindeutig determiniert).
 Ein DFA A ist \emph{finit}, also endlich, weil der Lauf für jedes w auf A endlich ist.
 
-Ein DFA A bestimmt also immer eine Sprache L aller der Wörter,
-deren Lauf auf A akzeptierend ist.
-Wir schreiben auch kurz: $L(A) = \{w|w \rightarrow A,E\}$.
-
+\subsection{Automaten und Formale Sprachen}
 
 Viele formale Sprachen haben unendlich viele Wörter,
-so auch $L_{MATCH}$.
+so auch $EVEN$.
 Daraus folgt: wir können sie nicht einfach extensiv angeben (''aufzählen''),
 sondern müssen Mittel und Wege finden, sie formal zu charakterisieren.
 Zwei Methoden bieten sich an:
 \begin{enumerate}
-    \item Sprach-\emph{Generatoren}, d.h. Formalismen,
-        mit denen alle Wörter einer Sprache abgeleitet werden können
-        (und nicht mehr).
     \item Sprach-\emph{Akzeptoren}, d.h. Formalismen,
         die für eine gegebenes Wort entscheiden,
         ob es zur Sprache gehört (oder nicht).\footnote{
             Wie wir in \autoref{derBarbierUndDerLuegner} sehen werden,
             ist dieses ''oder nicht'' leider nicht so trivial.}
+
+    \item Sprach-\emph{Generatoren}, d.h. Formalismen,
+        mit denen alle Wörter einer Sprache abgeleitet werden können
+        (und nicht mehr).
 \end{enumerate}
 
+%TODO Automatentheorie: Akzeptor vs Transduktor?
+
+Ein DFA A ist so ein Akzeptor:
+er spezifiert eine Sprache L aller der Wörter,
+deren Lauf auf A akzeptierend ist.
+Wir schreiben auch kurz: $L(A) = \{w|A(w) = E\}$.
 Sprach-Generatoren sind nicht der Fokus dieses Skriptes, obwohl wir mit den Grammatiken
 in \autoref{grammatiken} einen solchen Formalismus kennen lernen werden.\footnote{
 Einige Lehrbücher der theoretischen Informatik bauen Ihren Stoff didaktisch anhand der Grammatiken
@@ -302,9 +286,189 @@ sollte diesen Unterschied präsent haben.}
 Unser Fokus wird auf den Sprach-Akzeptoren liegen,
 da sie sich gut für einen Problem-orientierten Ansatz eignen.
 
-%TODO Automatentheorie: Akzeptor vs Transduktor
+Da wir formale Sprachen in \autoref{einleitung} als Problem-Kodierungen eingeführt haben,
+und in \autoref{algoundimpl} Automaten als Algorithmen-Kodierung,
+ist nun ein guter Zeitpunkt den Begriff der DFA-Berechnbarkeit einzuführen:
+Ein Problem ist DFA-berechenbar,
+wenn es sich in einer formalen Sprache kodieren lässt,
+die von einem DFA erkannt wird.
+Nun stellt sich eine interessante Frage:
+Gibt es Formale Sprachen, die nicht von einem DFA erkannt werden?
+Oder in anderen Worten: Gibt es Probleme, die nicht DFA-berechenbar sind?
+Dieses Problem werden wir in \autoref{pumping} weiter vertiefen.
+
+Für den Rest dieses Kapitels
+werden wir uns mit einer nützlichen formalen Eigenschaft von DFAs beschäftigen
+und wir werden mit den regulären Ausdrücken ein Programmierparadigma kennen lernen,
+das praktisch sehr relevant ist.
 
 \section{Minimalisierung}
+
+\subsection{Methode zur Minimalisierung von DFAs}
+
+Eine nützliche formale Eigenschaft von DFAs ist,
+dass wir sie minimalisieren können.
+Wir können also eine Methode angeben,
+mit der wir aus einem DFA A einen DFA A' ableiten können,
+dessen Anzahl an Zuständen minimal ist 
+und für den gilt $L(A) = L(A')$,
+das heißt es gibt keinen DFA A'' für den gilt:
+\[|Z''| < |Z'| \wedge L(A'') = L(A') \]
+
+Die grundlegende Idee der Methode besteht darin,
+Zustände zu identifizieren,
+die miteinander verschmolzen werden können
+(so hat der DFA keine redundanten Zustände mehr).
+Sie lässt sich wie folgt angeben:\footnote{
+    Siehe \cite{schoening} 42-48
+    für eine formale Herleitung und alternative Angabe der Methode.}
+
+\begin{enumerate}
+    \item Erstelle eine Tabelle, in der alle Zustandspaare aufgeführt sind.
+    \item Markiere die Diagonale 
+    \item Markiere alle Zustandspaare von End- und Nicht-Endzuständen.
+    \item Bis sich die Tabelle nicht mehr ändert,
+        wiederhole für alle unmarkierten Zustandspaare (z, z'):\\
+        Wenn es ein $a \in \Sigma$ gibt,
+        für das gilt:
+        Wenn $\delta(a,z) \neq \delta(a,z')$ und $\delta(a, z), \delta(a, z')$ ist markiert,
+        dann markiere z,z'.
+\end{enumerate}
+
+Alle Zustände, die nach der Methode unmarkiert bleiben,
+können verschmolzen werden.
+In Schritt zwei markieren wir alle identischen Paare
+(diese zu verschmelzen wäre sinnlos).
+Mit Schritt drei schließen wir aus,
+dass Endzustände und Nicht-Endzustände verschmolzen werden. 
+Würden wir diese verschmelzen,
+würde gelten $L(A) \neq L(A')$,
+weil auf einmal ``neue'' Worte akzeptiert werden würden.
+Schritt 4 basiert auf der Annahme, dass zwei Zustände (z, z') verschmolzen werden können,
+wenn gilt: $\forall a(a \in \Sigma \wedge \delta(a, z) = \delta(a, z'))$,
+also dass man von ihnen die gleichen Zielzustände erreichen kann.
+Die Wiederholung ist nötig,
+da wir am Anfang gegegebenenfalls noch nicht alle Zielzustände identifiziert haben.
+
+
+\begin{figure}[ht] % ’ht’ tells LaTeX to place the figure ’here’ or at the top of the page
+\centering % centers the figure
+\begin{tikzpicture}
+	\node[state, initial] (z0) {$z_0$};
+	\node[state, accepting, right of=z0] (z1) {$z_1$};
+    \node[state, right of=z1] (z2) {$z_2$};
+	\draw 
+        (z0) edge[loop above] node{0} (z0)
+        (z0) edge[above] node{1} (z1)
+        (z1) edge[loop above] node{1} (z1)
+        (z1) edge[bend left, above] node{0} (z2)
+        (z2) edge[loop above] node{0} (z2)
+        (z2) edge[bend left, above] node{1} (z1)
+    ;
+\end{tikzpicture}
+\caption{Zu minimalisierender DFA}
+\label{fig:dfazumin}
+\end{figure}
+
+Wir wollen die Methode an einem Beispiel aufzeigen.
+Sei ein DFA wie in \autoref{fig:dfazumin} gegeben.
+\begin{enumerate}
+    \item Nach dem ersten Schritt ergibt sich diese Minimalisierungstabelle: 
+        \begin{table}[H]
+            \centering
+            \begin{tabular}{|c|c|c|c|}
+            \hline
+                \textbackslash  & $z_0$   & $z_1$               & $z_2$ \\ \hline
+                $z_0$           &         & \cellcolor{gray}    & \cellcolor{gray} \\ \hline
+                $z_1$           &         &                     & \cellcolor{gray} \\ \hline
+                $z_2$           &         &                     & \\ \hline
+            \end{tabular}
+            \label{tab:mintab1}
+        \end{table}
+        Die grauen Zellen sind Duplikate,
+        die wir ignorieren können (wir müssen jedes Zustandspaar nur einmal betrachten).
+
+    \item Nach Schritt zwei ergibt sich diese Tabelle:
+        \begin{table}[H]
+            \centering
+            \begin{tabular}{|c|c|c|c|}
+            \hline
+                \textbackslash  & $z_0$   & $z_1$               & $z_2$ \\ \hline
+                $z_0$           & x       & \cellcolor{gray}    & \cellcolor{gray} \\ \hline
+                $z_1$           &         & x                   & \cellcolor{gray} \\ \hline
+                $z_2$           &         &                     & x \\ \hline
+            \end{tabular}
+            \label{tab:mintab2}
+        \end{table}
+    \item Nach Schritt drei ergibt sich folgendes Bild ($z_1$ ist der einzige Endzustand).
+        \begin{table}[H]
+            \centering
+            \begin{tabular}{|c|c|c|c|}
+            \hline
+                \textbackslash  & $z_0$   & $z_1$               & $z_2$ \\ \hline
+                $z_0$           & x       & \cellcolor{gray}    & \cellcolor{gray} \\ \hline
+                $z_1$           & x       & x                   & \cellcolor{gray} \\ \hline
+                $z_2$           &         & x                   & x \\ \hline
+            \end{tabular}
+            \label{tab:mintab3}
+        \end{table}
+    \item Für Schritt vier bleibt also nur ein Zustandspaar zu prüfen: $z_0, z_2$.
+        \begin{itemize}
+            \item $\delta(0, z_0) = z_0$ und $\delta(0, z_2) = z_2$. 
+                $z_0 \neq z_2$ und $z_0, z_2$ ist noch nicht markiert,
+                also machen wir nichts.
+            \item $\delta(1, z_0) = z_1$ und $\delta(1, z_2) = z_1$. 
+                $z_1 = z_1$, also machen wir nichts.
+        \end{itemize}
+        Da die Tabelle vor Schritt vier und nach Schritt vier identisch ist,
+        sind wir fertig. Wir können $z_0$ und $z_2$ verschmelzen
+        (siehe \autoref{fig:mindfa}).
+\end{enumerate}
+
+\begin{figure}[ht] % ’ht’ tells LaTeX to place the figure ’here’ or at the top of the page
+\centering % centers the figure
+\begin{tikzpicture}
+	\node[state, initial] (z0) {$z_0$/$z_2$};
+	\node[state, accepting, right of=z0] (z1) {$z_1$};
+	\draw 
+        (z0) edge[loop above] node{0} (z0)
+        (z0) edge[bend left, above] node{1} (z1)
+        (z1) edge[loop above] node{1} (z1)
+        (z1) edge[bend left, below] node{0} (z0)
+    ;
+\end{tikzpicture}
+\caption{Minimalisierter DFA}
+\label{fig:mindfa}
+\end{figure}
+
+\subsection{Das Äquivalenzproblem formaler Sprachen}
+
+Warum aber ist die Minimalisierung von DFAs eine nützliche Sache? 
+Die Antwort auf diese Frage wird klar,
+wenn wir uns das \emph{Äquivalenzproblem} formaler Sprachen (\textbf{EQUIV})
+vor Augen führen.
+Wir geben dieses Problem informell an ($I_{EQUIV}$):
+\begin{itemize}
+    \item \textbf{Gegeben:} Zwei Automaten A,A'.
+    \item \textbf{Gesucht:} Ein Wahrheitswert, der anzeigt, ob L(A) = L(A').
+\end{itemize}
+Die Methode zur Minimalisierung gibt uns einen Algorithmus an,
+mit dem wir dieses Problem lösen, also berechnen können.
+Das bedeutet, wir können programmatisch entscheiden,
+indem wir den Minimalautomaten finden:
+\begin{itemize}
+    \item Sind die beiden Probleme L(A) und L(A') identisch?
+        (Haben sie den selben Minimalautomaten)
+    \item Ist der Algorithmus minimal, den A (bzw. A') kodiert?
+\end{itemize}
+
+Wenn sich nun alle Probleme als reguläre Sprache angeben ließen,
+hätte die Lösung von \textbf{EQUIV} also mächtige Konsequenzen:
+Wir könnten auf einen Schlag die meinsten IT-Fachkräfte überflüssig machen.
+Es besteht aber kein Grund zur Sorge, wie wir in \autoref{pumping} sehen werden.
+
 \section{Reguläre Ausdrücke}
 
 Aufgabe 1: Warum ist die Bezeichnung $Z_{NaN}$ in \autoref{fig:dfaeven} nicht ganz akkurat?
+ Für welchen Zustand trifft das noch zu?
+Aufgabe 2: Wie viele Elemente hat die Übergangsfunktion $\delta$ eines beliebigen DFA?

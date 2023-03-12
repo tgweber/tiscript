@@ -1,7 +1,8 @@
 \RequirePackage[2020-02-02]{latexrelease}
 \documentclass[
     12pt,
-    a4paper
+    a4paper,
+    table
 ]{book}
 %DEBUG SETTINGS
 %\usepackage{showframe}% http://ctan.org/pkg/showframe
@@ -10,9 +11,9 @@
 
 \newif\ifusechapterhead
 \usechapterheadtrue
-\usepackage{a4wide}
+
+
 \usepackage{amsmath}
-\usepackage{fancyhdr}
 \usepackage{geometry}
 \geometry{
     headheight=27.19pt
@@ -20,7 +21,6 @@
 \usepackage{graphicx}
 \usepackage{ngerman}
 \PassOptionsToPackage{hyphens}{url}
-
 \usepackage[hidelinks]{hyperref}
 \hypersetup {
     pdfpagemode = {UseNone},
@@ -28,6 +28,7 @@
     pdfauthor = {Dr. Tobias Weber},
     pdflang = {en-US}
 }
+
 \hyphenation{Ent-scheid-ungs-hilfe}
 
 \renewcommand{\figureautorefname}{Abbildung}
@@ -51,35 +52,23 @@ maxbibnames=99
 %\loadglsentries{content/glossary} % Conclusion
 %\makeindex
 
-% Listings
-\DeclareFixedFont{\ttb}{T1}{txtt}{bx}{n}{12} % for bold
-\DeclareFixedFont{\ttm}{T1}{txtt}{m}{n}{12}  % for normal
-
-\usepackage{booktabs} % tables
-\usepackage{tabularx} % tables
-\usepackage{amssymb} % tables
-\usepackage{datetime} % dates on footer
-\fancyhf{}
-\fancyfoot[L]{\today\ \currenttime}
-%\usepackage{dirtytalk} % quotes (provides \say{})
-\usepackage{nameref} % referencing chapter names (provides \nameref{})
+% tables
+\usepackage{float} % keep tables in sections
+\usepackage{amssymb} 
 \usepackage{array} % for custom table columns
-\newcolumntype{P}[1]{>{\raggedright}p{#1 cm}}
+
 \usepackage{titlesec} % for customizing headings
 
-\usepackage{float} % keep tables in sections
 
 
 % Drop space before chapter headings
-
 \usepackage{etoolbox}% http://ctan.org/pkg/etoolbox
 \makeatletter
 \patchcmd{\@makechapterhead}{\vspace*{50\p@}}{}{}{}% Removes space above \chapter head
 \patchcmd{\@makeschapterhead}{\vspace*{50\p@}}{}{}{}% Removes space above \chapter* head
 \makeatother
 % end drop space before chapter headings
-\usepackage{enumitem}
-\usepackage{tcolorbox}
+
 \usepackage{gitinfo2}
 
 % Automaten
@@ -94,7 +83,9 @@ maxbibnames=99
     every edge/.style = {draw, semithick},
 }
 
-
+% Zeilenumbrüche in Tabellenfeldern
+\newcommand{\specialcell}[2][c]{%
+  \begin{tabular}[#1]{@{}c@{}}#2\end{tabular}}
 
 
 \setcounter{section}{-1}
