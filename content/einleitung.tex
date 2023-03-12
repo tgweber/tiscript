@@ -23,12 +23,12 @@ Diese Beispiele für Userstories sollen uns im Skript begleiten:
     \item \textbf{U\textsubscript{EVEN}}: Als Kommisionier:in
          möchte ich die Anzahl der geplanten Paletten pro LKW kennen,
          um zu sehen, ob Platz für den Hubwagen bleibt. 
-% TODO: Einkommentieren und Bearbeiten, wenn das jeweilige Kapitel geschrieben ist.
+    \item \textbf{SUPPLIERID}: Als Einkaufsmanager:in möchte ich,
+        dass nur valide Lieferanten-IDs gespeichert werden
+        (beginnend mit einem ``S'', gefolgt von einer Zahl),
+        um Fehler in der Datenbank zu vermeiden.
+%TODO: Einkommentieren und Bearbeiten, wenn das jeweilige Kapitel geschrieben ist.
 %        kennen, um meine Lieferungen zu optimieren.
-%    \item \textbf{MATCH}: Als Einkaufsmanager:in möchte ich,
-%        dass nur valide Lieferanten-IDs gespeichert werden
-%        (beginnend mit einem ``L'', gefolgt von einer Zahl),
-%        um Fehler in der Datenbank zu vermeiden.
 %    \item \textbf{HALT}: Als Product Owner des Serverless-Computings möchte ich,
 %        dass nur terminierende Code-Snippets deployt werden,
 %        um die verfügbaren Ressourcen effizient zu nutzen.
@@ -216,7 +216,9 @@ wird die Konketanation nicht explizit mit einem eigenen Zeichen repräsentiert.
 \subsubsection{Worte}
 Das Ergebnis einer beliebig oft ausgeführten Konkatenation,
 also eine Zeichenfolge,
-bezeichnen wir als \emph{Wort}, z.B.: $110$\\
+bezeichnen wir als \emph{Wort}, zum Beispiel: $110$.
+Worte selbst lassen sich ebenfalls konkatenieren,
+Sei $v = 11$ und $w = 0$ dann ist $vw = 110$\\
 
 \noindent
 Die Menge aller Wörter,
@@ -519,8 +521,8 @@ Repräsentation von Problemen,
 in \autoref{ch:theorie} werden wir Hinweise durchgehen,
 wie man das Studium der formalen Sprachen vertiefen kann.
 
-
-\subsection{Zusammenfassung}
+\section{Kapitelabschluss}
+\subsection*{Zusammenfassung}
 \begin{itemize}
     \item Erfahrene und kompetente IT-Fachkräfte erfassen den logische Kernn
         von IT-Alltagsaufgaben und können ihre Aufgaben daher effizient erledigen.
@@ -530,3 +532,10 @@ wie man das Studium der formalen Sprachen vertiefen kann.
     \item Formale Sprachen lassen sich mit den Methoden der theoretischen Informatik
         bearbeiten.
 \end{itemize}
+\subsection*{Aufgaben}
+\begin{enumerate}
+    \item Sei $I_{PLAYTASK}$: Gegeben: Eine Zahl $x \in \mathbb{N} < 4$ - Gesucht: $x + 1$.\\
+        Kodieren Sie $I_{PLAYTASK}$ in eine formale Sprache über $\Sigma = \{0,1\}$.
+    \item Geben sie ein Merkmal an, in dem sich sich \textbf{PLAYTASK} von allen Problemen
+        in diesem Kapitel unterscheidet.
+\end{enumerate}

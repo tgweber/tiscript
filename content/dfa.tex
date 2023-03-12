@@ -1,4 +1,4 @@
-\chapter{Reguläre Sprachen}
+\chapter{Reguläre Sprachen}\label{reg}
 
 \section{Algorithmus und Implementierung}\label{algoundimpl}
 
@@ -321,7 +321,8 @@ die miteinander verschmolzen werden können
 (so hat der DFA keine redundanten Zustände mehr).
 Sie lässt sich wie folgt angeben:\footnote{
     Siehe \cite{schoening} 42-48
-    für eine formale Herleitung und alternative Angabe der Methode.}
+    für eine formale Herleitung und alternative Angabe der Methode.
+    Siehe dort für die Verknüpfung von Minimalautomat und Satz von Myhill und Nerode.}
 
 \begin{enumerate}
     \item Erstelle eine Tabelle, in der alle Zustandspaare aufgeführt sind.
@@ -366,7 +367,7 @@ da wir am Anfang gegegebenenfalls noch nicht alle Zielzustände identifiziert ha
         (z2) edge[bend left, above] node{1} (z1)
     ;
 \end{tikzpicture}
-\caption{Zu minimalisierender DFA}
+\caption{Zu minimalisierender DFA A}
 \label{fig:dfazumin}
 \end{figure}
 
@@ -437,9 +438,13 @@ Sei ein DFA wie in \autoref{fig:dfazumin} gegeben.
         (z1) edge[bend left, below] node{0} (z0)
     ;
 \end{tikzpicture}
-\caption{Minimalisierter DFA}
+\caption{Minimalisierter DFA M}
 \label{fig:mindfa}
 \end{figure}
+
+Die Sprache $L(A) = L(M)$ kann wie folgt umschrieben werden:
+Alle Wörter, die auf 1 enden.
+Wir wollen die Sprache daher \textbf{ENDS1} nennen.
 
 \subsection{Das Äquivalenzproblem formaler Sprachen}
 
@@ -462,13 +467,106 @@ indem wir den Minimalautomaten finden:
     \item Ist der Algorithmus minimal, den A (bzw. A') kodiert?
 \end{itemize}
 
-Wenn sich nun alle Probleme als reguläre Sprache angeben ließen,
-hätte die Lösung von \textbf{EQUIV} also mächtige Konsequenzen:
+Wenn sich nun alle Probleme durch einen DFA charakterisieren ließen,
+also DFA-berechenbar wären,
+hätte die Lösung von \textbf{EQUIV} mächtige Konsequenzen:
 Wir könnten auf einen Schlag die meinsten IT-Fachkräfte überflüssig machen.
 Es besteht aber kein Grund zur Sorge, wie wir in \autoref{pumping} sehen werden.
 
 \section{Reguläre Ausdrücke}
 
-Aufgabe 1: Warum ist die Bezeichnung $Z_{NaN}$ in \autoref{fig:dfaeven} nicht ganz akkurat?
- Für welchen Zustand trifft das noch zu?
-Aufgabe 2: Wie viele Elemente hat die Übergangsfunktion $\delta$ eines beliebigen DFA?
+\subsection{Induktive Definition regulärer Ausdrücke}
+Eine Frage, auf die wir die Antwort noch schuldig sind:
+Warum heißt dieses Kapitel ``\nameref{reg}''?
+Wir kommen nicht umhin, dies mit der Einführung eines weiteren Formalismus zu begründen,
+der aber für jede:n Programmier:in große praktische Relevanz hat:
+\emph{reguläre Ausdrücke}.
+Wir definieren einen reguläre Ausdruck $\gamma$
+und die davon definierte Sprache $L(\gamma)$ induktiv:
+\begin{itemize}
+    \item \textbf{Formelgrad 0} - Die folgenden Ausdrücke sind regulär:
+        \begin{itemize}
+            \item $\emptyset$, es gilt: $L(\emptyset) = \emptyset$.
+            \item $\epsilon$,  es gilt: $L(\epsilon) = \{\epsilon\}$.
+            \item $a$ wenn $a \in \Sigma$, es gilt: $L(a) = \{a\}$.
+        \end{itemize}
+    \item \textbf{Formelgard n+1}: Wenn $\alpha$  und $\beta$ regulär sind (Formelgrad n),
+        dann sind auch folgende Ausdrücke regulär:
+        \begin{itemize}
+            \item $\alpha\beta$,
+                es gilt $L(\alpha\beta) = \{wv| w \in L(\alpha) \wedge v \in L(\beta)\}$.
+            \item $\alpha|\beta$,
+                es gilt $L(\alpha|\beta) = L(\alpha) \cup L(\beta)$. 
+            \item $\alpha^*$,
+                es gilt $L(\alpha^*) = \{w* | w \in L(\alpha)\}$.
+        \end{itemize}
+\end{itemize}
+
+Z.B. ist $L(0|1(01)^*0) =$ \textbf{EVEN} und $L((0|1)^*1) =$ \textbf{ENDS1}.
+Nach dem Satz von Kleene kann man zeigen, dass für alle Sprachen L gilt:
+Genau dann, wenn es einen DFA A gibt, dann gibt es auch einen regulären Ausdruck $\gamma$
+mit $L(A) = L(\gamma)$.
+Das bedeutet, dass die Menge an Sprachen identisch sind.
+Genau deshalb nennt man die Sprachen, die von einem DFA erkannt werden, \emph{regulär}.
+
+Eine interessante Konsequenz des Satzes von Kleene:
+\emph{Alle endlichen Sprachen sind regulär}.
+Für ein Wort $w$ ist $w$ auch ein regulärer Ausdruck.
+Wenn $|L| = n$, dann gilt $L = L(w_0|\dots{}w_i|\dots{}w_{n-1})$ für $w_i \in L$, d.h. L ist regulär.
+
+\subsection{Praktische Relevanz regulärer Ausdrücke}
+
+Jede produktiv genutzte Programmiersprache bietet eine Möglichkeit an,
+reguläre Sprachen zu nutzen.
+Somit lassen sich String-Matching (also die Frage, ob ein String einem Muster entspricht)
+und String-Splitting (also das Aufteilen einen Strings in Substrings nach einem Muster)
+konzise und elegant lösen.
+
+Tatsächlich haben wir auch schon ein Problem kennengelernt,
+das sich mit einem regulären Ausdruck elegant lösen lässt: \textbf{SUPPLIERID}:
+Als Einkaufsmanager:in möchte ich,
+        dass nur valide Lieferanten-IDs gespeichert werden
+        (beginnend mit einem ``S'', gefolgt von einer Zahl),
+        um Fehler in der Datenbank zu vermeiden.
+Dies lässt sich mit einem regulären Ausdruck einfach bewerkstelligen:
+$S(1|2|3|4|5|6|7|8|9)(0|1|2|3|4|5|6|7|8|9)^*$
+
+Viele Programmiersprachen bieten zusätzlichen ``syntaktischen Zucker'' an,
+um reguläre Ausdrücke kürzer spezifizieren zu können.
+So lässt sich in PCRE-kompatiblen\footnote{
+    siehe \href{https://www.pcre.org/}{https://www.pcre.org} [abgerufen 2023-03-12]}
+regulären Ausdrücken [0-9] nutzen, um ein beliebigen Numeral 
+oder \textbackslash{}d um eine beliebige Dezimalzahl zu matchen.
+So lässt sich \textbf{SUPPLIERID} mit folgendem Python-Boilerplate-Code elegant lösen:
+
+\begin{lstlisting}[language=Python, caption=Python-Boilerplate für \textbf{SUPPLIERID}]
+import re
+
+//...
+
+if re.fullmatch("S(0|[1-9]\d*)", supplierid):
+    // add to database
+else:
+    // handle error
+\end{lstlisting}
+
+\section*{Kapitelabschluss}
+\subsection*{Zusammenfassung}
+\begin{itemize}
+    \item Algorithmen sind schrittweise Berechnungsvorschriften mit In- und Output,
+        die endlich, unmisssverständlich und durchführbar sind.
+    \item Deterministisch Finite Automate sind eine Möglichkeit (zumindest einige)
+        Algorithmen zu formaliseren.
+    \item DFAs und reguläre Ausdrücke beschreiben die gleiche Menge an Sprachen,
+        daher nennen wir diese \emph{reguläre} Sprachen.
+    \item DFAs lassen sich minimieren.
+        Damit ist das Äquivalenzproblem für reguläre Sprachen lösbar.
+\end{itemize}
+
+\subsection*{Aufgaben}
+
+\begin{enumerate}
+    \item Warum ist die Bezeichnung $Z_{NaN}$ in \autoref{fig:dfaeven} nicht ganz akkurat?
+          Für welchen Zustand trifft das noch zu?
+    \item Wie viele Elemente hat die Übergangsfunktion $\delta$ eines beliebigen DFA?
+\end{enumerate}
