@@ -230,7 +230,7 @@ müssen wir ein paar Hilfskonzepte einführen:
         Zum Beispiel ist dies eine Schnappschussfolge für das obige Beispiel:\linebreak
         $[[0010,z_1],[010, z_0],[10, z_0],[0,z_1],[\epsilon,z_0]]$.
     \item Eine Schnappschussfolge $S = [s_0, \ldots s_{w-1}]$ auf A
-        heißt \emph{Lauf} für $w$ auf A, wenn gilt:
+        heißt \emph{Lauf} $l_{w,A}$ für $w$ auf A, wenn gilt:
         \begin{itemize}
             \item Wir haben $w$ als Input und starten beim Anfangszustand:
                 $s_0 = [w,z_i]$ 
@@ -238,13 +238,17 @@ müssen wir ein paar Hilfskonzepte einführen:
                 $s_{|w|} = [\epsilon, z]$ mit $z \in Z$,
 
         \end{itemize}
-    \item Ein Lauf für w auf A heißt \emph{akzeptierend}, wenn gilt:
+    \item Der Lauf $l_{w,A}$ heißt \emph{akzeptierend}, wenn gilt:
         $z_{|w|} \in E$,
         wenn der letzte Zustand des letzten Schnappschusses in der Schnappschussfolge
         ein Endzustand ist.
         Wir schreiben kurz: $A(w) = E$
         für ``der Lauf von w auf A ist akzeptierend''. 
-
+    \item Aus formalen Gründen führen wir noch das Konzept der \emph{Länge} des Laufes ein.
+        Für einen DFA $A$ gilt stets: $len(l_{w,A}) = |w|$.\footnote{
+        Dies mag trivial erscheinen,
+        aber wir werden mit den Turingmaschinen in \autoref{turing} 
+        noch Formalismen kennenlernen, deren Lauf keine einfache Längenfunktion hat.} 
 
 \end{itemize}
 

@@ -1,39 +1,123 @@
 \chapter{Aufwand}
-
- Was müssen alle Maschinen gemein haben, die $f_{EVEN}$ berechnen?
- Wir müssen verlangen,
- dass jede Maschine eine Eingabe und eine Ausgabe hat,
- mit denen wir $n$ übergeben und den Wahrheitswert ablesen.
- Wie müssten wir den Input und Output der Maschine gestalten,
- d.h. in welche Form müssten wir das \textbf{EVEN}-Problem bringen,
- dass die Maschine es lesen kann und wir den Output wieder verstehen können? 
-
- Ein zugängliches Modell für den Input ist die Tastatur und der Bildschirm:
- Eine endliche Menge von Zeichen (angezeigt durch Drücken der Knöpfe einer Tastatur)
- werden von der Maschine übersetzt in eine Reaktion der Maschine 
- (angezeigt durch die Pixel einer digitalen Ausgabe).
- Tatsächlich werden die meisten Informationen,
- die eine Maschine oder ein Computer verarbeiten,
- intern in eine sehr kleine Menge an Zeichen übersetzt:
- in Zeichenfolgen bestehend aus Nullen und Einsen.
- Tastaturen und Bildschirme machen uns die Interaktion mit der Maschine einfacher,
- allerdings sind sie für die Maschine selbst nicht nötig.
-
- Ganz allgemein könnte man also sagen, dass alle Probleme, die ein Computer lösen soll,
-sich in diese Form bringen lassen:
- \begin{itemize}
-    \item \textbf{Gegeben:} Eine binäre Zeichenfolge.
-    \item \textbf{Gesucht:} Eine binäre Zeichenfolge.
- \end{itemize}
-
- Die Sprache ist also der großen Tabelle nicht unähnlich,
- in der man die ``richtigen'' $n$-Werte ablesen kann.
- Wir wissen, dass diese Sprache unendlich viele Wörter hat und dass es unwirtschaftlich wäre
- die Sprache wirklich aufzuschreiben (wir würden nie fertig werden).
- Perspektivisch müssen wir also nach endlichen Methoden suchen,
- (potentiell) unendliche Sprachen zu verarbeiten.
+Das Thema dieses Kapitels lässt sich mit einer Frage zusammenfassen:
+Wie bemessen wir den Aufwand,
+den ein implementierter Algorithmus benötigt, um ein Problem zu lösen?
+In \autoref{einleitung} haben wir formale Sprachen als Repräsentation von Problemen eingeführt,
+in \autoref{reg} wurde eine Möglichkeit eingeführt, Algorithmen zu implementieren,
+der DFA.
+Probleme, für deren Lösung wir einen DFA angeben können, haben wir DFA-berechenbar genannt.
+Offen ist noch der Beweis, ob es Probleme gibt, die nicht DFA-berechenbar sind.
+Um in die grundlegenden Konzepte dieses Kapitels einzuführen,
+können wir diese Frage hintanstellen.
+Wir nehmen den DFA als ein \emph{Beispiel},
+wie wir anhand eines Formalismus den Aufwand einer Berechnung quantifizieren können.
 
 \section{Zeit und Raum}
+
+Was meinen wir, wenn wir von Aufwand oder Effizienz eines Algorithmus sprechen?
+Meist wird als erstes die Zeit genannt,
+die es braucht,
+damit ein Algorithmus ein Problem löst.
+Den Speicherplatz,
+den eine Implementierung benötigt,
+um den Input,
+eventuelle Zwischenergebnisse
+und den Output zu speichern,
+kann man ebenfalls anführen.
+Beides, Zeit und ``Raum'' sind valide Größen,
+anhand derer wir Aufwand oder Effizienz bemessen können.
+
+Bevor wir die beiden Formalismen DFA und formale Sprachen kennengelernt haben,
+wäre es uns schwer gefallen,
+diese Idee der Zeit- beziehungsweise Raumeffizienz genau zu fassen.
+Wir haben zwar alle eine gute Intuition,
+da wir vielleicht leidvoll auf die Ausgabe eines inperformanten Programmes gewartet haben,
+oder feststellen mussten, das der verfügbare Speicherplatz für eine IT-Aufgabe nicht ausreicht.
+Aber diese Erfahrungen haben uns nur ein sehr diffuses Bild vom Aufwand gegeben:
+Es bleibt unklar:
+Ist das Problem ein unzureichendes Hardware-Setup oder ist die Aufgabe,
+die wir lösen wollen zu schwer?
+Wäre das Problem gegenfalls nicht aufgetreten,
+wenn unser System in einem anderen Zustand wäre
+(Grundlast, Eintreffende Requests, Zustand von Caches, Aktualität der Software)?
+Diesen Gedankengang wollen wir am Ende des Kapitels (\autoref{messenVsBeweisen})
+noch einmal aufgreifen.
+
+In der theoretischen Informatik abstrahieren wir von einem empirischen Zustand (s.o.)
+und machen Aussagen über die Effizienz von Implementierungen nur von zwei Größen abhängig:
+\begin{itemize}
+    \item Das Problem, gegeben als \emph{formale Sprache}.
+    \item Den Algorithmus, implementiert als \emph{DFA}.
+\end{itemize}
+Beides sind formal sauber eingeführte Konzepte
+und wir können Zeit und Platzaufwand daran genau definieren.
+Für die Verarbeitung eines Wortes können wir also die folgenden Funktionen einführen:
+\begin{itemize}
+    \item $time: \Sigma^* \times DFA \rightarrow \mathbb{N}$ ist die Funktion,
+        die für ein Wort $w \in \Sigma^*$ den Zeitaufwand auf einem DFA A angibt.\\
+        Es gilt: $time(w,A) =  length(l_{w,A}) = |w|$.
+    \item $space: \Sigma^* \times DFA \rightarrow \mathbb{N}$ ist die Funktion,
+        die für ein Wort $w  \in \Sigma^*$ den Platzaufwand auf einem DFA A angibt.\\
+        Es gilt: $space(w,A) = |\delta_{A}|$, also die Größe der Übergangsfunktion.
+\end{itemize}
+
+Bemerkenswert scheint die Tatsache, dass $space$ nicht vom gegebenen Wort 
+und $time$ nicht vom gegebenen Automaten abhängt.
+Beides sollte uns stutzig machen:
+Nach der Erfahrung gibt es Algorithmen, die mehr als konstanten Platzaufwand haben
+und mehr (und weniger) als linearen Zeitaufwand.\footnote{
+    Die Bedeutung konstanter bzw. linearer Aufwand wird im folgenden Abschnitt eingeführt.}
+Ob wir mit der DFA-Berechenbarkeit tatsächlich alle Algorithmen abbilden können,
+ist ja noch eine offene Frage, die wir in \autoref{turing} final beantworten wollen.
+Dennoch haben wir uns mit $time$ und $space$
+eine einfache und unmissverständliche formale Handhabe geschaffen,
+den Aufwand für die Verarbeitung eines Wortes zu quantifizieren.\footnote{
+Wenn wir einen ``mächtigeren'' Berechnungsbegriff als die DFA-Berechenbarkeit einführen,
+können wir auf den Überlegungen dieses Kapitels aufbauen.}
+
+
+Bisher haben wir aber nur über den Aufwand gesprochen,
+den ein \emph{Wort} verursacht,
+nicht aber über den Aufwand,
+den ein ganzes Problem, also eine Menge von Wörtern,
+also eine \emph{formale Sprache} verursacht.
+Wenn wir die Effizienz einer Problemlösung angeben,
+haben wir prinzipiell drei Szenarien im Kopf:
+\begin{itemize}
+    \item \textbf{Best Case}: Wir wählen das Wort aus der formalen Sprache aus,
+        für das der Algorithmus die geringste Zeit
+        beziehungsweise den geringsten Platz benötigt.
+        Wir betrachten also das Minimum von $time$ beziehungsweise $space$.
+    \item \textbf{Average Case}: Wir nutzen statistische Methoden, um die wahrscheinlichste
+        Dauer bzw. den wahrscheinlichsten Speicherplatzbedarf eines beliebigen Wortes aus
+        der formalen Sprache zu quantifizieren.
+        Wir betrachten also zum Beispiel das arithmetische Mittel von $time$ beziehungsweise
+        $space$.\footnote{Der Median wäre ein weiteres Lagemaß, dass genutzt werden kann,
+        oder wir achten auf die Standardabweichung (Streuungsmaß), oder auf eine Kombination 
+        mehrerer Maße, was die einfache Vergleichbarkeit von Algorithmen wiederum erschwert.}
+    \item \textbf{Worst Case}: Wir wählen das Wort aus der formalen Sprache aus,
+        für das der Algorithmus die meiste Zeit bzw. den meisten Platz benötigt.
+        Wir betrachten also das Maximum von $time$ beziehungsweise $space$.
+\end{itemize} 
+
+Da der Best Case meist wenig Aussagekraft über die Güte des Algorithmus besitzt,
+wird er selten als Maß für den Aufwand eines Problems genutzt.
+Am aussagekräftigsten ist der Average Case,
+aber um ihn formal sauber anzuwenden braucht es
+entsprechendes statistisches Werkzeug.\footnote{
+    Für interessierte Leser:innen sei \cite{knuth1}, 96ff bzw. 1.2.10 empfohlen,
+    hier spielt Knuth die probabilistische Analyse eines recht simplen Algorithmus durch.} 
+Da dies den Rahmen des Skriptes sprengen würde,
+konzentrieren wir uns auf den Worst Case.
+Wir vereinbaren also: Wenn wir vom Aufwand eines Problems sprechen,
+sprechen wir dabei stets vom Worst Case.
+
+
+
+
+
+
+
 \section{Landau und Big-O: Wachstum}
 \section{Messen vs. Beweisen}\label{messenVsBeweisen}
 
