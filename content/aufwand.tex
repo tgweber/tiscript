@@ -55,10 +55,13 @@ Für die Verarbeitung eines Wortes können wir also die folgenden Funktionen ein
 \begin{itemize}
     \item $time: \Sigma^* \times DFA \rightarrow \mathbb{N}$ ist die Funktion,
         die für ein Wort $w \in \Sigma^*$ den Zeitaufwand auf einem DFA A angibt.\\
-        Es gilt: $time(w,A) =  length(l_{w,A}) = |w|$.
+        Wir legen fest:\\
+        $time(w,A) =  length(l_{w,A}) = |w|$.
     \item $space: \Sigma^* \times DFA \rightarrow \mathbb{N}$ ist die Funktion,
         die für ein Wort $w  \in \Sigma^*$ den Platzaufwand auf einem DFA A angibt.\\
-        Es gilt: $space(w,A) = |\delta_{A}|$, also die Größe der Übergangsfunktion.
+        Wir legen fest:\\
+        $space(w,A) = |\delta_A| + |E_A|$,\\
+        also die Summe aus der Größe der Übergangsfunktion und die Anzahl an Endzuständen.
 \end{itemize}
 
 Bemerkenswert scheint die Tatsache, dass $space$ nicht vom gegebenen Wort 
@@ -112,11 +115,19 @@ konzentrieren wir uns auf den Worst Case.
 Wir vereinbaren also: Wenn wir vom Aufwand eines Problems sprechen,
 sprechen wir dabei stets vom Worst Case.
 
-
-
-
-
-
+Mit $time$ und $space$ und dem Worst Case-Wert können wir Aussagen über den Aufwand treffen,
+den ein bestimmter Algorithmus für ein bestimmtes Problem verursacht.
+Wir treffen allerdings keine Aussagen darüber,
+wie viel Aufwand das Problem \emph{an sich} erzeugt.
+Dazu müssten wir Aussagen über alle prinzipiell \emph{möglichen} Algorithmen treffen,
+die das Problem lösen
+und über alle formale Sprachen, die das Problem repräsentieren:
+Den Aufwand eines Problems würden wir dann mit dem effizientestem Algorithmus 
+auf einer der Repräsentationen gleichsetzen.
+Oftmals ist der Nachweis sehr schwer, ob es (k)einen effizienteren Algorithmus
+für ein Problem gibt.
+Den aktuellen Stand der Forschung erlernt man typischer Weise in Vorlesungen über
+Algorithmen und Datenstrukturen.
 
 \section{Landau und Big-O: Wachstum}
 \section{Messen vs. Beweisen}\label{messenVsBeweisen}

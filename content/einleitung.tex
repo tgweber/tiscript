@@ -20,21 +20,32 @@ um \textless Ziel\textgreater\ zu erreichen.''
 Diese Beispiele für Userstories sollen uns im Skript begleiten:
 
 \begin{itemize}
-    \item \textbf{U\textsubscript{EVEN}}: Als Kommisionier:in
-         möchte ich die Anzahl der geplanten Paletten pro LKW kennen,
-         um zu sehen, ob Platz für den Hubwagen bleibt. 
-    \item \textbf{SUPPLIERID}: Als Einkaufsmanager:in möchte ich,
+%TODO: Einkommentieren und Bearbeiten, wenn Kapitel geschrieben.
+    \item \textbf{U\textsubscript{EVEN}}:
+        >Als Kommisionier:in möchte ich die Anzahl der geplanten Paletten pro LKW kennen,
+         um zu sehen, ob Platz für den Hubwagen bleibt.
+     \item \textbf{U\textsubscript{SUPPLIERID}}:
+         Als Einkaufsmanager:in möchte ich,
         dass nur valide Lieferanten-IDs gespeichert werden
         (beginnend mit einem ``S'', gefolgt von einer Zahl),
         um Fehler in der Datenbank zu vermeiden.
-%TODO: Einkommentieren und Bearbeiten, wenn das jeweilige Kapitel geschrieben ist.
-%        kennen, um meine Lieferungen zu optimieren.
-%    \item \textbf{HALT}: Als Product Owner des Serverless-Computings möchte ich,
-%        dass nur terminierende Code-Snippets deployt werden,
-%        um die verfügbaren Ressourcen effizient zu nutzen.
-%    \item \textbf{ROUTE}: Als Kommissionierer:in möchte ich,
-%        dass morgens die optimalen Routen für die LKWs in die 24 Filialen berechnet werden,
-%        um die Lieferzeit zu minimieren.
+     \item \textbf{U\textsubscript{ARTICLESORT}}:
+        Als Verantwortliche:r fürs Spiegel-Management
+        will ich eine nach Verkaufszahlen sortierte Liste von Artikeln,
+        um die Regalaufteilung daran auszurichten.
+    \item \textbf{U\textsubscript{SORTIMENT}}:
+        Als Einkaufsmanager:in möchte ich,
+        dass das Sortiment in allen Filialien identisch ist,
+        um alle anderen Prozesse darauf ausrichten zu können.
+    \item \textbf{U\textsubscript{SUPPLYROUTE}}:
+        Als Kommissionierer:in möchte ich,
+        dass morgens die optimalen Routen für die LKWs in die 24 Filialen berechnet werden,
+        um die Lieferzeit zu minimieren.
+    \item \textbf{U\textsubscript{CLOUDHALT}}:
+        Als Product Owner des Serverless-Computings möchte ich,
+        dass nur terminierende Code-Snippets deployt werden,
+        um die verfügbaren Ressourcen effizient zu nutzen.
+%TODO: Einkommentieren und Bearbeiten, wenn nötig
 %    \item \textbf{QUANTUMSEC}: Als Chief Security Officer möchte ich,
 %        dass die firmen-interne Kommunikation quantensicher verschlüsselt wird,
 %        um die Vertraulichkeit der Absprachen zu garantieren.
@@ -74,7 +85,7 @@ die für einen gegebenen Zweck wesentlich sind.
 Die Abstraktion ist der Weg von einer sehr speziellen Aufgabenbeschreibung,
 wie einer Userstory, zu einem abstrakten Problem,
 dessen Lösung in vielen spezifischen Kontexten anwendbar wird.
-Im besten Fall ist diese Lösung bereits implementiert, frei verfügbar 
+Im besten Fall ist diese Lösung bereits implementiert, frei verfügbar
 und daher leicht nachnutzbar.
 
 Es gibt leider keinen einfachen, eindeutigen oder automatisierbaren Weg
@@ -83,7 +94,7 @@ Dafür sind intellektuelle Kreativität
 und ein gutes Verständnis des vorliegenden Zwecks notwendig.
 Ein möglicher Fehler ist zum Beispiel,
 zu wenige Aspekte auszulassen,
-so dass das abstrakte Problem nicht so einfach wie möglich ist. 
+so dass das abstrakte Problem nicht so einfach wie möglich ist.
 Ebenso ist es ein Fehler, zu viele Aspekte auszulassen,
 so dass das abstrakte Problem nicht so detailreich wie nötig ist,
 um dem vorliegenden Zweck gerecht zu werden.
@@ -119,7 +130,7 @@ Wir kommen so auf den Kern der Userstory \textbf{U\textsubscript{EVEN}},
 den wir \textbf{I\textsubscript{EVEN}} nennen wollen:
 \begin{itemize}
     \item \textbf{Gegeben:} Eine Zahl
-    \item \textbf{Gesucht:} Ein Wahrheitswert, der anzeigt, ob die Zahl gerade ist. 
+    \item \textbf{Gesucht:} Ein Wahrheitswert, der anzeigt, ob die Zahl gerade ist.
 \end{itemize}
 Diese Form der Problemangabe (Gegeben/Gesucht) bezeichnen wir als \emph{informell}
 (daher das I).
@@ -154,12 +165,12 @@ dass manche Probleme einfach, aufwändig oder unlösbar sind.\footnote{
 Wir stellen also daher drei Fragen exemplarisch für \textbf{EVEN},
 die sich prinzipiell aber für alle Probleme ergeben:
 \begin{enumerate}
-    \item Welche Form muss \textbf{EVEN} haben, damit eine Maschine es lösen kann?\\ 
-        In anderen Worten: Wie kann \textbf{EVEN} \emph{formalisiert} werden? 
+    \item Welche Form muss \textbf{EVEN} haben, damit eine Maschine es lösen kann?\\
+        In anderen Worten: Wie kann \textbf{EVEN} \emph{formalisiert} werden?
     \item Wie effizient kann eine Maschine \textbf{EVEN} lösen?\\
         In anderen Worten: Wie \emph{komplex} ist \textbf{EVEN}?
     \item Kann eine Maschine \textbf{EVEN} überhaupt lösen?\\
-        In anderen Worten: Ist \textbf{EVEN} \emph{berechenbar}?  
+        In anderen Worten: Ist \textbf{EVEN} \emph{berechenbar}?
 \end{enumerate}
 Drei grundlegende Teildisziplinen der theoretischen Informatik
 geben Antwort auf diese Art der Fragen:
@@ -182,7 +193,7 @@ werden wir in drei Schritten vorgehen:
 \begin{enumerate}
     \item Erklären, was eine formale Sprache ist (\autoref{subsec:formaleSprachen})
     \item Mit \textbf{I\textsubscript{EVEN}} beispielhaft zeigen,
-        wie man ein informelles Problem in eine formale Sprache übersetzen kann 
+        wie man ein informelles Problem in eine formale Sprache übersetzen kann
         (\autoref{subsec:problemeAlsFormaleSprachen})
     \item Diskutieren, warum formale Sprachen geeignete Repräsentationen für Probleme sind
         (\autoref{subsec:warumFormaleSprachen})
@@ -292,7 +303,7 @@ Diese Überlegung trifft nicht nur auf Worte, sondern auch auf \emph{Sprachen} z
 \textbf{Eine Sprache im Sinne der theoretischen Informatik ist einfach eine Menge von Worten.}
 Z.B. ist $L = \{0, 1, 00, 01, 10, 11 \}$ die Sprache der Worte,
 die aus einem oder zwei Binärzeichen bestehen.
-Eine formale Sprache ist also als \emph{Menge} im Sinne der Mengenlehre aufzufassen, 
+Eine formale Sprache ist also als \emph{Menge} im Sinne der Mengenlehre aufzufassen,
 nicht als Kommunikationsmedium mit einer eigenen Sprachgeschichte und Sprachgemeinschaft.\\
 
 \noindent
@@ -314,7 +325,7 @@ die sowohl Element von $L_1$ als auch von $L_2$ sind.
 \subsection{Probleme als formale Sprachen}\label{subsec:problemeAlsFormaleSprachen}
 
 \subsubsection{Einstellige Wahrheitsfunktionen}
-Wie bekommen wir nun ein Problem, gegeben wie \textbf{I\textsubscript{EVEN}} 
+Wie bekommen wir nun ein Problem, gegeben wie \textbf{I\textsubscript{EVEN}}
 (Gegeben: Eine Zahl / Gesucht: Ein Wahrheitswert, der anzeigt, ob die Zahl gerade ist)
 in die Gestalt einer formalen Sprache?
 Für \textbf{EVEN} ist dies recht unkompliziert:
@@ -324,7 +335,7 @@ $bin_{\mathbb{N}}: \mathbb{N} \rightarrow \Sigma^*$:
 \[
     bin_{\mathbb{N}}(x) = a_{0}a_{1} \ldots a_{n}
 \]
-mit $x \in \mathbb{N}$ und $a_i \in \Sigma$ und 
+mit $x \in \mathbb{N}$ und $a_i \in \Sigma$ und
 \[
     x = \sum_{i=0}^n 2^{n-i} \cdot a_i
 \]
@@ -411,7 +422,7 @@ damit ``markieren'' wir alle Binärzeichen,
 die tatsächlich ein Zeichen eines Elements eines Tupels kodieren.
 Damit verdoppeln wir die Länge der Binärwörter, die element eines Tupels $t$ sind.
 \[
-    |bin_{word}(w)| = 2|w| 
+    |bin_{word}(w)| = 2|w|
 \]
 Gesucht ist nun noch eine Funktion $bin_{\mathcal{T}}: \mathcal{T} \rightarrow \{1,0\}^*$.
 Sei $t \in \mathcal{T}$, dann bezeichnet $t_i$ genau das Binärwort an Position $i$.
@@ -425,7 +436,7 @@ können wir so die Grenze der Binärwörter (die Kommata) im Tupel kodieren.
 Damit haben wir eine generische Kodierung einer beliebigen Funktion
 über $\Sigma = \{0,1\}$ angegeben.
 
-Nach dieser Kodierung wäre also 
+Nach dieser Kodierung wäre also
 \[
     L_{EVEN}^{'} = \{001101, 011100, 01001101, 01011100, \ldots \}
 \]
@@ -456,7 +467,7 @@ wird auch in \cite{quine} und der Folgeliteratur besprochen.}
 Zudem muss man ein Problem nicht in einer Sprache über einem binären Alphabet
 $\Sigma = \{0,1\}$ kodieren,
 wie wir es im vorangegangenen Abschnitt exemplarisch getan haben.
-Man hätte auch Probleme mit einem unären, ternären 
+Man hätte auch Probleme mit einem unären, ternären
 oder anderen Alphabeten repräsentieren können.\footnote{
     Interessierte Leser:innen kommen in \cite{knuth2}, Chapter 4 (194-213) auf ihre Kosten.
 }
@@ -505,7 +516,7 @@ für die Fragestellung der theoretischen Informatik zu nutzen:
         den ``Raum'' der Probleme zu behandeln.
     \item Formale Sprachen haben Worte als Elemente und Zeichen als Teile der Worte.
         Dies erlaubt uns Zusammenhänge zwischen Problemen untersuchbar zu machen,
-        indem wir einen Blick in ihre innere Struktur der Probleme werfen.  
+        indem wir einen Blick in ihre innere Struktur der Probleme werfen.
     \item Wir können All- und Existenzaussagen über Probleme als formale Sprachen formulieren
         und zum Teil beweisen.
     \item Aussagen über (effiziente) Berechenbarkeit werden mit den Methoden der Mathematik
