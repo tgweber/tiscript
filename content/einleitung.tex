@@ -89,7 +89,7 @@ Im besten Fall ist diese Lösung bereits implementiert, frei verfügbar
 und daher leicht nachnutzbar.
 
 Es gibt leider keinen einfachen, eindeutigen oder automatisierbaren Weg
-duch Abstraktion von einer Userstory zu einem abstrakten Problem zu kommen.
+durch Abstraktion von einer Userstory zu einem abstrakten Problem zu kommen.
 Dafür sind intellektuelle Kreativität
 und ein gutes Verständnis des vorliegenden Zwecks notwendig.
 Ein möglicher Fehler ist zum Beispiel,
@@ -101,12 +101,12 @@ um dem vorliegenden Zweck gerecht zu werden.
 Unser vorliegender Zweck ist die Einteilung der Userstories anhand deren Lösbarkeit.
 So könnte eine Abstraktion von \textbf{U\textsubscript{EVEN}} für diesen Zweck aussehen:
 \begin{enumerate}
-    \item \emph{Als Kommisionier:in
+    \item \emph{Als Kommissionier:in
          möchte ich die Anzahl der geplanten Paletten pro LKW kennen,
          um zu sehen, ob Platz für den Hubwagen bleibt.
         } (ursprüngliche Userstory).
     \item \emph{Identifikation der Anzahl an Paletten, um verfügbaren Platz zu quantifzieren.}
-        (Wer die Anzahl kennen will und wofür der Platz gedacht ist,
+        (die Kenntnis der tatsächlichen Anzahl und wofür der Platz gedacht ist,
         ist für unseren Zweck gleichgültig.)
     \item \emph{Ist die Anzahl an Paletten (un)gerade?}
         (Es ist z.B. egal,
@@ -120,7 +120,7 @@ Wie wir im Laufe des Skriptes sehen werden,
 führt die letzte Formulierung zu der wesentlichen Vorstufe,
 um die Methoden der theoretischen Informatik anzuwenden.\footnote{
 Es ist natürlich möglich,
-dass die gezeigten Schritte nicht das richtige Resultat für einen anderen Zweck liefert.
+dass die gezeigten Schritte nicht das richtige Resultat für einen anderen Zweck liefern.
 Für eine Kommissionierer:in mag die Anzahl noch aus anderen Gründen interessant sein,
 z.B. um die Auslastung der LKWs zu bewerten und zu optimieren.
 Oder es mag nicht gleichgültig sein, ob zwei, drei oder mehr Paletten nebeneinander passen.
@@ -145,8 +145,8 @@ zu den ``Ausgabewerten'' im Gesucht-Teil
 (der Wertemenge).
 
 Die Fähigkeit via Abstraktion von vielen Alltagsaufgaben zu informellen Problemen zu kommen,
-macht kompetenten IT-Fachkräfte das Leben leichter:
-Die Lösungen für wiederkehrenden Probleme können
+macht kompetenten IT-Fachkräften das Leben leichter:
+Die Lösungen für wiederkehrende Probleme können
 in Libraries, Best Practices und Dokumentationen gefunden oder eben festgehalten werden.
 So sind Schablonen parat,
 um schnell und effizient zu guten Ergebnissen zu kommen.
@@ -308,7 +308,7 @@ nicht als Kommunikationsmedium mit einer eigenen Sprachgeschichte und Sprachgeme
 
 \noindent
 Wir verwenden $L$ (ggf. mit unterschiedlichen Subskripten) als Variable für Sprachen;
-wenn wir $L$ verwenden und nichts Anderslautendes angeben ist,
+wenn wir $L$ verwenden und nichts Anderslautendes angegeben ist,
 gilt implizit $L \subseteq \Sigma^*$ für ein gegebenes $\Sigma$.\\
 
 \noindent
@@ -325,7 +325,7 @@ die sowohl Element von $L_1$ als auch von $L_2$ sind.
 \subsection{Probleme als formale Sprachen}\label{subsec:problemeAlsFormaleSprachen}
 
 \subsubsection{Einstellige Wahrheitsfunktionen}
-Wie bekommen wir nun ein Problem, gegeben wie \textbf{I\textsubscript{EVEN}}
+Wie bekommen wir nun ein Problem wie \textbf{I\textsubscript{EVEN}}
 (Gegeben: Eine Zahl / Gesucht: Ein Wahrheitswert, der anzeigt, ob die Zahl gerade ist)
 in die Gestalt einer formalen Sprache?
 Für \textbf{EVEN} ist dies recht unkompliziert:
@@ -351,7 +351,7 @@ Analog könnten wir ein Problem \textbf{ODD} als formale Sprache kodieren:
 \]
 
 Dies ist eine sehr einfache Lösung, um zu sehen,
-wie man manche Probleme als formale Sprachen darstellen kann.
+wie man manche Probleme als formale Sprache darstellen kann.
 Ein Nachteil ist allerdings, dass diese Darstellung
 nur für eine bestimmte Art von Problemen funktioniert,
 nämlich solche, die man als einstellige Wahrheitsfunktionen beschreiben kann.
@@ -378,7 +378,7 @@ wenn $x$ komplex ist (d.h. $f_{PROBLEM}$ ist mehrstellig),
 oder der Wertebereich aus mehr als zwei Werten besteht.
 
 Da mit diesem Trick die formale Sprache $L_{EVEN}$ sehr elegant und platzsparend
-\textbf{I\textsubscript{EVEN}} beziehungsfweise $f_{EVEN}$ kodiert,
+\textbf{I\textsubscript{EVEN}} beziehungsweise $f_{EVEN}$ kodiert,
 werden wir diesen auch im weiteren Verlauf des Skriptes anwenden.
 
 \subsubsection{Beliebige Funktionen}
@@ -420,7 +420,7 @@ Wir definieren zunächst die Hilfsfunktion $bin_{word}: \{0,1\}^* \rightarrow \{
 $bin_{word}$ fügt jedem Zeichen das Präfix 0 hinzu,
 damit ``markieren'' wir alle Binärzeichen,
 die tatsächlich ein Zeichen eines Elements eines Tupels kodieren.
-Damit verdoppeln wir die Länge der Binärwörter, die element eines Tupels $t$ sind.
+Damit verdoppeln wir die Länge der Binärwörter, die Element eines Tupels $t$ sind.
 \[
     |bin_{word}(w)| = 2|w|
 \]
@@ -504,8 +504,8 @@ Es gibt aber einige Gründe,
 die Repräsentation als formale Sprachen
 für die Fragestellung der theoretischen Informatik zu nutzen:
 \begin{itemize}
-    \item Formale Sprachen sind konzise, unmissverständliche Beschreibung von Problemen,
-        die prinzipiell von jeder Maschinen verarbeitet werden kann,
+    \item Formale Sprachen sind konzise, unmissverständliche Beschreibungen von Problemen,
+        die prinzipiell von jeder Maschine verarbeitet werden können,
         ohne dass wir uns auf eine bestimmte Hardware-Architektur oder Programmiersprache
         festlegen müssen.
     \item Formale Sprachen sind Mengen, daher können wir die Operationen der Mengenlehre
@@ -516,7 +516,7 @@ für die Fragestellung der theoretischen Informatik zu nutzen:
         den ``Raum'' der Probleme zu behandeln.
     \item Formale Sprachen haben Worte als Elemente und Zeichen als Teile der Worte.
         Dies erlaubt uns Zusammenhänge zwischen Problemen untersuchbar zu machen,
-        indem wir einen Blick in ihre innere Struktur der Probleme werfen.
+        indem wir einen Blick in die innere Struktur der Probleme werfen.
     \item Wir können All- und Existenzaussagen über Probleme als formale Sprachen formulieren
         und zum Teil beweisen.
     \item Aussagen über (effiziente) Berechenbarkeit werden mit den Methoden der Mathematik
@@ -535,7 +535,7 @@ wie man das Studium der formalen Sprachen vertiefen kann.
 \section{Kapitelabschluss}
 \subsection*{Zusammenfassung}
 \begin{itemize}
-    \item Erfahrene und kompetente IT-Fachkräfte erfassen den logische Kernn
+    \item Erfahrene und kompetente IT-Fachkräfte erfassen den logischen Kern
         von IT-Alltagsaufgaben und können ihre Aufgaben daher effizient erledigen.
     \item Den logischen Kern können wir im gegeben/gesucht-Format fassen
         und so als Funktion verstehen. Diese Auffassung von Problemen nennen wir informell.
@@ -547,6 +547,6 @@ wie man das Studium der formalen Sprachen vertiefen kann.
 \begin{enumerate}
     \item Sei $I_{PLAYTASK}$: Gegeben: Eine Zahl $x \in \mathbb{N} < 4$ - Gesucht: $x + 1$.\\
         Kodieren Sie $I_{PLAYTASK}$ in eine formale Sprache über $\Sigma = \{0,1\}$.
-    \item Geben sie ein Merkmal an, in dem sich sich \textbf{PLAYTASK} von allen Problemen
+    \item Geben sie ein Merkmal an, in dem sich \textbf{PLAYTASK} von allen Problemen
         in diesem Kapitel unterscheidet.
 \end{enumerate}
