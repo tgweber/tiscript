@@ -1,4 +1,19 @@
 \chapter{Alan Turing}\label{turing}
+
+In diesem Kapitel lernen wir ein Problem kennen,
+dass nicht DFA-berechenbar ist,
+d.h. für dessen Formale Sprache kein akzeptierender DFA existiert.
+Dies beweisen wir mit Hilfe des Pumping-Lemmas,
+das wir informell herleiten.
+Mit den Turingmaschinen lernen wir einen Formalismus kennen,
+deren Berechenbarkeitsumfang größer ist.
+Die Church-Turing-These besagt,
+dass es keinen bekannten Berechenbarkeitsformalismus gibt,
+der mächtiger ist als der, der Turing-Berechenbarkeit.
+Wir schließen das Kapitel ab mit einer formalen Fingerübung:
+Es ist möglich Turingmaschinen selbst als Input für Turingmaschinen zu kodieren.
+Wir können also fragen, welche Eigenschaften von Turingmaschinen berechenbar sind.
+
 \section{Grenzen endlicher Automaten}\label{pumping}
 Wir haben im vorangegangen Kapitel offen gelassen,
 ob sich \emph{alle} Probleme als reguläre Sprache darstellen lassen,
@@ -6,13 +21,101 @@ haben aber erhebliche Zweifel angemeldet.
 In diesem Abschnitt werden wir ein Problem kennenlernen,
 dass sich nicht als reguläre Sprache darstellen lässt.
 Es ist abgeleitet von U\textsubscript{SORTIMENT}:
-Als Einkaufsmanager:in möchte ich,
+``Als Einkaufsmanager:in möchte ich,
 dass das Sortiment in allen Filialien identisch ist,
-um alle anderen Prozesse darauf ausrichten zu können.
+um alle anderen Prozesse darauf ausrichten zu können.``
+Die informelle Form 
+I\textsubscript{SORTIMENT}
+wollen wir so angeben:
+\begin{itemize}
+    \item Gegeben: Zwei Zahlen
+    \item Gesucht: Sind die beiden Zahlen identisch?
+\end{itemize}
+Die formale Sprache $SORTIMENT$ wollen wir noch ein wenig simpler halten:
+$\{0^n1^m|n=m\}$. Hier verstehen wir die konkatenierten Nullen als unäre Repräsentation der ersten Zahl
+und die konkatenierten Einsen als unäre Repräsentation der zweiten Zahl.
+Ein DFA müsste also entscheiden können, ob die Anzahl der Nullen und Einsen identisch sind.
+Da endliche Automaten keine Form des Speichers haben
+(die einzige Information, die sich speichern lässt, ist der aktuelle Zustand)
+erscheint es intuitiv, dass dieses Problem von keinem DFA gelöst werden kann.
+Diese Intuition wollen wir nun etwas formaler greifen,
+bevor wir sie nutzen, um zu zeigen, dass $SORTIMENT$ nicht regulär ist.
 
+\subsection{Das Pumping-Lemma}
+
+Wir wollen uns dem Pumping-Lemma mit einer Reihe von Beobachtungen nähern.
+
+\subsubsection{Notwendige und hinreichende Bedingung für Regularität}
+
+Wie wir in \autoref{regex} festgestellt haben, sind alle endlichen Sprachen regulär.
+Daher kann man sagen, dass Endlichkeit \emph{hinreichend} für die Regularität einer Sprache ist.
+Oder formal ausgedrückt: $L \text{ endlich} \rightarrow L \text{ regulär}$.
+Es kann aber auch unendliche Sprachen geben, die regulär sind,
+also ist Endlichkeit keine \emph{notwendige} Bedingung für Regularität.
+
+Das Pumping-Lemma dagegen formuliert eine notwendige Eigenschaft für Regularität,
+die nicht zureichend ist:
+Informell besagt das Lemma,
+dass alle regulären Sprachen entweder endlich sind
+oder sich auf eine bestimmte Weise ``aufpumpen`` lassen (daher der Name).
+ $L \text{ regulär} \rightarrow L \text{ endlich} \vee L \text{ ist aufpumpbar}$.
+Da es auch nicht-reguläre Sprachen gibt, die in unserem Sinne ``aufpumpbar'' sind,\footnote{
+    Siehe \cite{schoening} 40 für ein Beispiel.}
+kann man das Pumping-Lemma nicht für einen direkten Beweis der Regularität nutzen.
+Momentan suchen wir aber nach einer Methode zu zeigen,
+dass $SORTIMENT$ \emph{nicht} regulär ist
+und dafür kann man das Pumping-Lemma nutzen:
+Ist eine Sprache weder endlich, noch in unserem Sinne ``aufpumbar'',
+dann kann sie nicht regulär sein.
+Wir wollen uns diesem Lemma und seiner Prädikaten-logischen Form anhand eines Beispiels nähern.
+
+\subsubsection{uvw-Zerlegung aufpumbarer Worte}
+
+Als Beispiel dafür, was wir mit ``aufpumpbar'' meinen,
+wollen wir die Sprache betrachten, die durch den DFA in \autoref{fig:dfapump} oder den
+regulären Ausdruck $10^*1|0000$ gegeben ist.
+\begin{figure}[ht] % ’ht’ tells LaTeX to place the figure ’here’ or at the top of the page
+\centering % centers the figure
+\begin{tikzpicture}
+	\node[state, initial] (zi) {$z_i$};
+        \node[state, above right of=zi] (z1) {$z_1$};
+        \node[state, accepting, right of=z1] (z2) {$z_2$};
+
+        \node[state, below right of=zi] (z3) {$z_3$};
+        \node[state, right of=z3] (z4) {$z_4$};
+        \node[state, right of=z4] (z5) {$z_5$};
+        \node[state, accepting, right of=z5] (z6) {$z_6$};
+
+        \node[state, right of=zi, above of=z4] (z7) {$z_7$};
+	\draw 
+        (zi) edge[below] node{0} (z3)
+        (zi) edge[above] node{u: 1} (z1)
+
+        (z1) edge[loop above] node{v: 0} (z1)
+        (z1) edge[above] node{w: 1} (z2)
+
+        (z2) edge[above] node{0,1} (z7)
+
+        (z3) edge[above] node{0} (z4)
+        (z3) edge[above] node{1} (z7)
+
+        (z4) edge[above] node{0} (z5)
+        (z4) edge[above] node{1} (z7)
+
+        (z5) edge[above] node{0} (z6)
+        (z5) edge[above] node{1} (z7)
+
+        (z6) edge[above] node{0,1} (z7)
+
+
+        (z7) edge[loop above] node{0,1} (z7)
+    ;
+\end{tikzpicture}
+\caption{DFA für $10^*1|0000$}
+\label{fig:dfapump}
+\end{figure}
 
 \section{Turingmaschinen}
-\subsection{Quantifikation von Aufwand}
-\section{Turing-Berechenbarkeit}
+\section{Turing-Berechenbarkeit und Church-Turing-These}
 \subsection{Turing-Vollständigkeit}\label{turingVollstaendigkeit}
 \section{Virtualisierung: Die Universale Turingmaschine}
