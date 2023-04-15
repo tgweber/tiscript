@@ -158,15 +158,17 @@ $|uv| \leq n$, in unserem Falle ist $|uv| = 4$ ($uv = 1000$).
 
 Wir können diese Eigenschaft für L etwas formaler fassen:
 \[
-    \phi(L) = \exists n \forall x \exists u \exists v \exists w 
+    \phi(L) = \exists n \forall x (
+        x \in L
+        \wedge  |x| \geq n
+        \wedge \exists u \exists v \exists w 
         (
-                    x \in L
-            \wedge  |x| \geq n
-            \wedge  x = uvw 
+            x = uvw 
             \wedge  \forall i \in \mathbb{N} (uv^iw \in L)
             \wedge  |v| \geq 1  
             \wedge  |uv| \leq n
         )
+    )
 \]
 
 Diese Aussage trifft auf jeden Fall auf unser L = $10^*1|0000$ zu.
@@ -208,15 +210,18 @@ um zu beweisen, dass eine Sprache L \emph{nicht} regulär ist:
 \]
 Buchstabieren wir $\neg \phi(L)$ aus:
 \[
-    \forall n \exists x \forall u \forall v \forall w 
-        \neg(
-                    x \in L
-            \wedge  |x| \geq n
-            \wedge  x = uvw 
-            \wedge  \forall i \in \mathbb{N} (uv^iw \in L)
+    \forall n \exists x
+    (
+        x \in L
+        \wedge  |x| \geq n
+        \rightarrow
+        \forall u \forall v \forall w (
+            x = uvw 
             \wedge  |v| \geq 1  
             \wedge  |uv| \leq n
+            \rightarrow  \exists i \in \mathbb{N} (uv^iw \notin L)
         )
+    )
 \]
 Hier ergibt sich eine Blaupause,
 mit der wir die Nicht-Regularität einer Sprache beweisen können:
@@ -233,8 +238,243 @@ wegen $|uv| \leq n$ besteht $v$ nur aus Nullen.
 Mit $i = 0$ gilt: $uw \notin L$, da $uw = 0^{n-|v|}1^n$.
 Also ist die Sprache nicht regulär und kann nicht von einem DFA erkannt werden.
 
+\subsection{Grenzen der DFA-Berechenbarkeit}
+$SORTIMENT$ ist ein Problem, das uns \emph{intuitiv} berechenbar erscheint.
+Aber DFAs als Formalismus, um Algorithmen anzugeben,
+ist beweisbar nicht mächtig genug,
+um $SORTIMENT$ zu berechnen.
+
+Der wesentliche Grund hierfür: ein DFA hat keinen ``Speicher'',
+d.h. Algorithmen, die mehr brauchen, als den aktuellen Zustand,
+in dem sie sich gerade befinden,
+können auf einem DFA nicht berechnet werden.
+Nichtdestotrotz ist ein DFA mächtig genug,
+um für ein gegebenes $n \in \mathbb{N}$ die Sprache
+$L = \{0^i1^i| i \leq n\}$ zu erkennen!
+Dies ist darin begründet,
+dass $L$ endlich ist.\footnote{
+    \cite{aul} ist ein lesenswertes Studienbuch, dass diesen Gedanken formal ausbuchstabiert.
+}
+
+Im nächsten Abschnitt lernen wir einen Formalismus kennen,
+der mächtiger ist, als ein DFA.
 
 \section{Turingmaschinen}
-\section{Turing-Berechenbarkeit und Church-Turing-These}
+\subsection{Wer war Alan Turing?}
+Der Namensgeber des aktuellen Kapitels ist es wert,
+dass wir ein paar autobiographische Notizen über ihn verlieren.
+Alan Turing (1912-1954) war ein britischer Mathematiker,
+dessen Bedeutung für die Informatik schwer zu überschätzen ist.
+Hier nur eine Auswahl von Aspekten seines Werkes,
+die nicht oder nicht unmittelbar mit dem Thema unseres Skriptes zu tun haben:
+\begin{itemize}
+    \item Der \emph{Turing-Test} ist ein viel diskutierter Gradmesser,
+        inwiefern wir Maschinen ``künstliche'' Intelligenz zusprechen,
+        grob gesagt dann, wenn sich die Interaktion der Maschine für Proband:innen
+        für diese nicht signifikant von der Interaktion mit anderen Menschen unterscheidet.
+    \item Die \emph{Turing-Bombe}, eine elektro-magnetische Maschine,
+        die von Alan Turing konzipiert wurde,
+        half den zweiten Weltkrieg zu entscheiden,
+        da sie es ermöglichte,
+        deutsche Funksprüche zu entschlüsseln,
+        die mit der Enigma-Verschlüsselungsmaschine verschlüsselt wurden.
+    \item Der \emph{Turing-Award} gilt als die höchste Auszeichnung der Informatik
+        (``Nobelpreis der Informatik'') und wird jährlich von der
+        Association for Computing Machinery (ACM) verliehen.
+\end{itemize}
+Es gibt noch mannigfaltige Gründe,
+sich für das Leben von Alan Turing zu interessieren.
+Besonders tragisch ist die Tatsache,
+dass Turing früh verstarb:
+Er wurde aufgrund seiner Homosexualität (seinerzeit eine Straftat in Großbrittanien)
+1952 zur chemischen Kastration verurteilt.
+Er erkrankte aufgrund der Folgen der Hormontherapie an einer Depression
+und nahm sich 1954 das Leben.
+
+\subsection{Was ist eine Turingmaschine?}
+
+Wir führen den Begriff der Turingmaschine analog zum DFA ein.
+Eine (deterministische) Turingmaschine TM ist ein 7-Tupel 
+$TM = [Z, \Sigma, \Gamma, \delta, z_0, \square, E]$:
+\begin{itemize}
+    \item $Z$ ist die Menge der Zustände.
+    \item $\Sigma$ ist das Eingabealphabet.
+    \item $\Gamma$ ist das Arbeitsalphabet. Es gilt: $\Sigma \subsetneq \Gamma$.
+    \item $\delta: \Gamma \times Z \rightarrow Z \times \Gamma \times \{R,L,-\}$
+        ist die \emph{partielle} Übergangsfunktion.
+    \item $z_0$ ist der Startzustand.
+    \item $\square$ ist das Blank.
+        Es gilt $\square \in \Gamma \wedge \square \notin \Sigma$.
+    \item E ist die Menge der Endzustände.
+\end{itemize}
+
+\noindent
+Eine Turingmaschine funktioniert intuitiv so:
+\begin{itemize}
+    \item Zusätzlich zum DFA hat sie ein unendliches beschreibbares Band.
+    \item Der Input steht vor dem Lauf auf dem Band.
+        Ist ein Input mehrstellig, sind die Wert durch Blanks ($\square$) getrennt.
+        Auf allen anderen Position auf dem Band sind Blanks.
+    \item Der ``Zeiger'' der Turingmaschine zeigt vor dem Lauf auf das erste Zeichen des Inputs.
+    \item Startet die Turingmaschine,
+        so liest sie das erste Zeichen
+        und führt die folgenden drei Dinge wie von $\delta$ angegeben aus:
+        \begin{enumerate}
+            \item Das Zeichen wird überschrieben oder bleib identisch.
+            \item Der Zustand wechselt oder bleibt gleich.
+            \item Der Zeicher bewegt sich nach
+                rechts (R),
+                links (L)
+                oder bleibt auf der Position stehen (-).
+        \end{enumerate}
+    \item Die Turingmaschine stoppt,
+        wenn $\delta$ undefiniert ist ($\delta$ ist partiell).
+    \item Der Output der Turing-Maschine ist alles von der Zeigerposition an rechts. 
+\end{itemize}
+
+Ebenfalls analog zum DFA lassen sich die folgenden Begriffe definieren:
+
+Ein \emph{Schnappschuss} $s$ einer Turingmaschine TM ist ein 4-Tupel $[z,u,v,w]$:
+\begin{itemize}
+    \item $z$ ist der aktuelle Zustand.
+    \item $u$ ist der Bandinhalt links vom Zeiger\\(ohne die Menge an unendlichen Blanks).
+    \item $v$ ist das Zeichen, auf das der Zeiger aktuell zeigt.
+    \item $w$ ist der Bandinhalt rechts vom Zeiger\\(ohne die Menge an unendlichen Blanks).
+\end{itemize}
+Ein Tupel $S$ von Schnappschüssen heißt \emph{Schnappschussfolge},
+wenn für je zwei aufeinanderfolgende Schnappschüsse $s_n$ und $s_{n+1}$ gilt:
+\begin{itemize}
+    \item $z_{n+1} = \delta(v, z_n)_0$
+    \item $u_{n+1} = \begin{cases}
+            tw'(u_n, 0, |u_n|-1) & \text{wenn } \delta(v_n, z_n)_2 = L\\
+            u_n                  & \text{wenn } \delta(v_n, z_n)_2 = -\\
+            u_n\delta(v_n,z_n)_1 & \text{wenn } \delta(v_n, z_n)_2 = R
+        \end{cases}$
+    \item $v_{n+1} = \begin{cases}
+            tw'(u_n, |u_n|-1, 1) & \text{wenn } \delta(v_n, z_n)_2 = L\\
+            \delta(v_n, z_n)_1   & \text{wenn } \delta(v_n, z_n)_2 = -\\
+            tw'(w_n, 0, 1)       & \text{wenn } \delta(v_n, z_n)_2 = R
+        \end{cases}$
+    \item $w_{n+1} = \begin{cases}
+            \delta(v_n,z_n)_1w_n & \text{wenn } \delta(v_n, z_n)_2 = L\\
+            w_n                  & \text{wenn } \delta(v_n, z_n)_2 = -\\
+            tw'(w_n, 1, |w_n|-1) & \text{wenn } \delta(v_n, z_n)_2 = R
+        \end{cases}$
+\end{itemize}
+\noindent
+$tw'$ ist hierbei eine angepasste Version der Teilwortfunktion $tw$ aus \autoref{words}:
+\begin{itemize}
+    \item $tw'(x, 0, -1) = \square$
+    \item $tw'(x, -1, 1) = \square$
+    \item $tw'(x, 1, -1) = \square$
+    \item $tw'(x, 0, 1) = \square$, wenn $|x| = 0$ (nicht mehr $\epsilon$)
+    \item Ansonsten ist $tw'(x, n, m) = tw(x, n, m)$ für $n, m \in \mathbb{N}$.
+\end{itemize}
+Diese Anpassung ist nötig, damit wir u und w bei Bedarf mit Blanks ``auffüllen'' können.
+\\
+
+\noindent
+Die Länge $len(S)$ einer Schnappschussfolge S entspricht der Länge des Tupels.
+\\
+
+\noindent
+Eine Schnappschussfolge S heißt
+\emph{Lauf} für $x$ auf einer Turingmaschine $tm$ $l_{x, tm}$
+wenn gilt:
+\begin{itemize}
+    \item $s_0 = [z_i, \square, tw'(x,0,1), tw'(x,1,|w|-1)]$
+    \item $s_{len(S)} = [z \in Z, u \in \Gamma^*, v \in \Gamma, w \in \Gamma^*]$
+        mit $\delta(v, z)$ undefiniert.
+\end{itemize}
+
+\noindent
+Ein Lauf $l_{x, tm}$ heißt \emph{akzeptierend},
+wenn $(s_{len(l_{x, tm})})_0 \in E$.
+\\
+
+\noindent
+Die Sprache $TM(L)$, die von einer Turingmaschine akzeptiert wird, ist definiert als
+$TM(L) = 
+\{x|
+    x = yz 
+    \wedge 
+        \exists s(
+            s = (l_{y,tm})_{len(l_{y,tm})} 
+            \wedge z = s_2s_3
+            \wedge s_0 \in E
+        )
+\}$.
+Also die Worte,
+die aus der Konkatenation des Inputs der Turingmaschine
+mit dem Bandinhalt rechts vom Zeiger nach einem akzeptierenden Lauf entstehen.
+
+\section{Turing-Berechenbarkeit}
+
+Turingmaschinen führen genauso wie DFAs zu einem Berechenbarkeitsbegriff:
+Ein Problem ist \emph{Turing-berechenbar},
+wenn es eine Turingmaschine gibt,
+die die zugehörige formale Sprache erkennt.
+
+Wir besprechen nun in diesem Abschnitt die folgenden Inhalte:
+\begin{itemize}
+    \item Alle regulären Sprachen werden von einer Turingmaschine erkannt
+    \item Es gibt nicht-reguläre Sprachen, die von einer Turingmaschine erkannt werden.
+    \item Es ist kein Formalismus bekannt, der eine formale Sprache erkennt,
+        die nicht schon von einer Turingmaschine erkannt wird (Church-Turing-These).
+\end{itemize}
+
+\subsection{Simulation eines DFAs mit einer Turingmaschine}
+Sei ein DFA $A = [Z_A, \Sigma, \delta_A, z_i, E_A]$ gegeben.
+Dann können wir A mit der folgenden Turingmaschine TM simulieren:
+$TM = [Z_A, \Sigma, \Sigma \cup \{\square\}, \delta_{TM}, z_i, \square, E_A]$,
+wobei gilt:
+$\delta_{TM}(a, z) = [\delta_A(a, z), a, R]$,
+das heißt, wir lassen den Zeiger einfach das Wort entlang laufen,
+bis wir auf ein Blank stoßen.
+Da $\delta_A(\square, z)$ nicht definiert sein kann,
+ist es auch $\delta_{TM}(a,z)$ nicht.
+Also verhält sich $TM$ exakt wie $A$.
+$L(TM) = L(A)$ (da der Inhalt des Bandes rechts vom Zeiger immer leer ist).
+
+\subsection{Turing-Berechenbarkeit ist echt mächtiger als DFA-Berechenbarkeit}
+Das beste Beispiel um zu beweisen,
+dass es Probleme gibt, die von einer Turingmaschine erkannt werden,
+aber nicht von einem DFA ist $SORTIMENT = \{0^n1^n| n \in \mathbb{N}\}$,
+da wir hier in \autoref{pumping} schon bewiesen haben,
+dass $SORTIMENT$ nicht DFA-berechenbar ist.
+
+Die Turingmaschine aus \autoref{fig:tmsortiment} akzeptiert SORTIMENT.
+
+\begin{figure}[ht] % ’ht’ tells LaTeX to place the figure ’here’ or at the top of the page
+\centering % centers the figure
+\begin{tikzpicture}
+	\node[state, initial] (zi) {$z_i$};
+	\node[state, right of=zi] (z1) {$z_1$};
+	\node[state, right of=z1] (z2) {$z_2$};
+	\node[state, right of=z2] (z3) {$z_3$};
+	\node[state, below of=z3] (z4) {$z_4$};
+	\node[state, accepting, right of=z4] (za) {$z_a$};
+	\node[state, left of=z4] (z5) {$z_5$};
+	\node[state, left of=z5] (z6) {$z_6$};
+	\draw 
+        (zi) edge[above] node{0,$\square$,R} (z1)
+        (z1) edge[loop above] node{0,0,R} (z1)
+        (z1) edge[above] node{1,1,R} (z2)
+        (z2) edge[loop above] node{1,1,R} (z2)
+        (z2) edge[above] node{$\square$,$\square$,L} (z3)
+        (z3) edge[right] node{1,$\square$,L} (z4)
+        (z4) edge[above] node{$\square$,$\square$,-} (za)
+        (z4) edge[above] node{1,1,L} (z5)
+        (z5) edge[loop above] node{1,1,L} (z5)
+        (z5) edge[above] node{0,0,L} (z6)
+        (z6) edge[loop above] node{0,0,L} (z6)
+        (z6) edge[left] node{$\square$,$\square$,R} (zi)
+    ;
+\end{tikzpicture}
+\caption{Turingmaschine, die $SORTIMENT$ akzeptiert}
+\label{fig:tmsortiment}
+\end{figure}
+
+TODO: Schnappschussfolge für $0011$ und $011$
 \subsection{Turing-Vollständigkeit}\label{turingVollstaendigkeit}
 \section{Virtualisierung: Die Universale Turingmaschine}
