@@ -43,7 +43,7 @@ clean:
 publish:
 		$(LATEXMK) $(LATEXMKOPT) \
 			-pdflatex="$(LATEX) $(LATEXOPT) %O %S" $(MAIN)
-		scp $(MAIN).pdf melchior@kushida.uberspace.de:html/$(MAIN)_bkp.pdf
+		scp $(MAIN).pdf melchior@kushida.uberspace.de:html/ti/$(MAIN).pdf
 		git push origin master
 
 once:

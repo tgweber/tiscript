@@ -32,7 +32,8 @@ wollen wir so angeben:
     \item Gesucht: Sind die beiden Zahlen identisch?
 \end{itemize}
 Die formale Sprache $SORTIMENT$ wollen wir noch ein wenig simpler halten:
-$\{0^n1^m|n=m\}$. Hier verstehen wir die konkatenierten Nullen als unäre Repräsentation der ersten Zahl
+$\{0^n1^m|n=m\}$.
+Hier verstehen wir die konkatenierten Nullen als unäre Repräsentation der ersten Zahl
 und die konkatenierten Einsen als unäre Repräsentation der zweiten Zahl.
 Ein DFA müsste also entscheiden können, ob die Anzahl der Nullen und Einsen identisch sind.
 Da endliche Automaten keine Form des Speichers haben
@@ -72,8 +73,48 @@ Wir wollen uns diesem Lemma und seiner Prädikaten-logischen Form anhand eines B
 \subsubsection{uvw-Zerlegung aufpumbarer Worte}
 
 Als Beispiel dafür, was wir mit ``aufpumpbar'' meinen,
-wollen wir die Sprache betrachten, die durch den DFA in \autoref{fig:dfapump} oder den
-regulären Ausdruck $10^*1|0000$ gegeben ist.
+wollen wir die Sprache L betrachten, die durch den DFA in \autoref{fig:dfapump}
+oder den regulären Ausdruck $10^*1|0000$ gegeben ist.
+Der DFA zu L hat zwei Arten von Läufen zu einem Endzustand:
+\begin{enumerate}
+    \item Einen ``Einzellauf'' via $z_i, z_3, z_4, z_5$ zu $z_6$.
+        Auf diesem Pfad wird genau ein Wort akzeptiert: $0000$.
+    \item Einen ``Zirkellauf'' via $z_i, z_1^*, z_2$.
+        Auf diesem Pfad werden unendlich viele Wörter akzeptiert ($11, 101, 10001, \ldots$).
+        Dieser Zirkellauf enthält, daher der Name, einen Zirkel, bzw. einen Loop.
+\end{enumerate}
+
+Unsere \textbf{erste} Beobachtung:
+Ab einer gewissen Länge von Wörtern in L kommen wir nur über den Zirkellauf zu einem
+Endzustand.
+Wir wollen diese Länge $n$ nennen. Im Falle von L ist die Länge 5.
+
+Unsere \textbf{zweite} Beobachtung:
+Für ein Wort $x \in L$ mit $|x| \geq n = 5$ gilt: Wir können es in drei Teile zerlegen
+$x = uvw$:
+\begin{enumerate}
+    \item $u$ ist der Teil des Wortes,
+        dessen Schnappschussfolge mit $s_u = [u,z_1]$ endet.
+        $z_1$ ist der Zustand am \emph{Ende des Loops}.\\
+        Ein Merkwort für diesen Teil: ``\textbf{u}nterwegs''.
+    \item $v$ ist der Teil des Wortes,
+        dessen Schnappschussfolge von \emph{variabler Länge} ist.
+        Formal: $|v| \in \mathbb{N}$.\\
+        Ein Merkwort für diesen Teil: ``\textbf{v}erweile''.
+    \item $w$ ist der Teil des Wortes,
+        dessen Schappschussfolge vom Ende des Loops \emph{zum Endzustand} führt.\\
+        Ein Merkwort für diesen Teil: ``\textbf{w}eiter''.
+\end{enumerate}
+Hier wird klar, was wir mit ``aufpumpen'' meinen:
+Wir können über die variable Länge von $v$ L auf unendlich viele Worte aufpumpen
+(beziehungsweise da $n = 5$ auch auf $11$, $101$, oder $1001$ ``komprimieren'').
+
+Eine \textbf{dritte} Beobachtung:
+$|v| \geq 1$, da $n = 5$ erzwingt,
+dass wir dreimal den Loop im Lauf ``passieren''.
+
+Eine \textbf{vierte} Beobachtung:
+$|uv| \leq n$, in unserem Falle ist $|uv| = 4$ ($uv = 1000$). 
 \begin{figure}[ht] % ’ht’ tells LaTeX to place the figure ’here’ or at the top of the page
 \centering % centers the figure
 \begin{tikzpicture}
@@ -114,6 +155,84 @@ regulären Ausdruck $10^*1|0000$ gegeben ist.
 \caption{DFA für $10^*1|0000$}
 \label{fig:dfapump}
 \end{figure}
+
+Wir können diese Eigenschaft für L etwas formaler fassen:
+\[
+    \phi(L) = \exists n \forall x \exists u \exists v \exists w 
+        (
+                    x \in L
+            \wedge  |x| \geq n
+            \wedge  x = uvw 
+            \wedge  \forall i \in \mathbb{N} (uv^iw \in L)
+            \wedge  |v| \geq 1  
+            \wedge  |uv| \leq n
+        )
+\]
+
+Diese Aussage trifft auf jeden Fall auf unser L = $10^*1|0000$ zu.
+Wir können tatsächlich ohne Beschränkung der Allgemeinheit diese Eigenschaft $\phi$ auf
+\emph{alle} regulären Sprachen anwenden:\footnote{
+    Der Beweis in \cite{schoening} 39 argumentiert alternativ,
+    dass man $n$ durch die Anzahl der Zustände finden kann,
+    ignoriert aber den Fall der endlichen regulären Sprachen.
+    Dies lässt sich aber leicht ergänzen.
+    Er ist in jedem Fall eine Lektüre wert.}
+\begin{enumerate}
+    \item Ist $L$ endlich, dann lassen sich die vier Beobachtungen ``nullerweise'' erfüllen,
+        das heißt man wähle $n$ so,
+        dass es länger ist, als das längste Wort in L.
+    \item Ist $L$ so geschaffen, dass der Weg zum Loop ``leer'' ist, 
+        also $|u| = 0$,
+        weil der Loop im Anfangszustand endet, 
+        gelten die vier Beobachtungen dennoch.
+    \item Ist $L$ so geschaffen, dass der Weg vom Loop zum Endzustand ``leer'' ist, 
+        also $|w| = 0$,
+        weil der Loop selbst den Endzustand enthält,
+        gelten die vier Beobachtungen dennoch.
+    \item Hat $L$ mehr als einen Zirkel auf dem Weg zu einem Endzustand,
+        finden wir für jedes Wort eine solche Zerlegung auf einem der Zirkel.
+\end{enumerate}
+$\phi$ bietet eine formalere Beschreibung der Eigenschaft
+``$L \text{ endlich } \vee L \text{ ist aufpumpbar}$''.
+\subsection{Beweis der Nicht-Regularität}
+Das Pumpinglemma können wir nun wie folgt formulieren:
+\[
+    L \text{ regulär} \rightarrow \phi(L)
+\]
+$\phi$ ist wie bereits geschrieben nur eine \emph{notwendige},
+keine \emph{zureichende} Bedingung für die Regularität einer Sprache.
+Durch die Kontraposition des Pumpinglemmas, können wir es aber nutzen,
+um zu beweisen, dass eine Sprache L \emph{nicht} regulär ist:
+\[
+    \neg \phi(L) \rightarrow L \text{ nicht regulär}
+\]
+Buchstabieren wir $\neg \phi(L)$ aus:
+\[
+    \forall n \exists x \forall u \forall v \forall w 
+        \neg(
+                    x \in L
+            \wedge  |x| \geq n
+            \wedge  x = uvw 
+            \wedge  \forall i \in \mathbb{N} (uv^iw \in L)
+            \wedge  |v| \geq 1  
+            \wedge  |uv| \leq n
+        )
+\]
+Hier ergibt sich eine Blaupause,
+mit der wir die Nicht-Regularität einer Sprache beweisen können:
+\begin{enumerate}
+    \item Sei ein beliebiges $n$ gegeben.
+    \item Wähle ein Wort $x \in L$ mit $|x| \geq n $.
+    \item Nimm an, dass die Bedingungen $x = uvw$, $|v| \geq 1$, $|uv| \leq n$ wahr sind.
+    \item Zeige, dass es ein $i \in \mathbb{N}$ gibt, für das gilt: $uv^iw \notin L$
+\end{enumerate}
+
+Auf unserem Problem SORTIMENT ($\{0^n1^m|n=m\}$) angewandt:\footnote{Der Beweis ist direkt aus \cite{schoening} 41 übernommen.}
+Sei $x = 0^n1^n$, wegen $|v| \geq 1$ ist $v$ nicht leer,
+wegen $|uv| \leq n$ besteht $v$ nur aus Nullen.
+Mit $i = 0$ gilt: $uw \notin L$, da $uw = 0^{n-|v|}1^n$.
+Also ist die Sprache nicht regulär und kann nicht von einem DFA erkannt werden.
+
 
 \section{Turingmaschinen}
 \section{Turing-Berechenbarkeit und Church-Turing-These}
