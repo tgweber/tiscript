@@ -475,6 +475,127 @@ Die Turingmaschine aus \autoref{fig:tmsortiment} akzeptiert SORTIMENT.
 \label{fig:tmsortiment}
 \end{figure}
 
-TODO: Schnappschussfolge für $0011$ und $011$
+Die folgende Schnappschussfolge zeigt, wie diese Turingmaschine operiert:\footnote{
+    Für Turingmaschinen gibt des diverse online Tools mit denen man Testläufe durchführen kann:
+    z.B. \url{https://turingmachinesimulator.com/shared/wwydbamznw}
+}
+\[
+    01: [[z_i, \epsilon, 0, 1],
+         [z_1, \epsilon, 1, \square],
+         [z_2, 1, \square, \square],
+         [z_3, \square, 1, \square],
+         [z_4, \square, \square, \square],
+         [z_a, \square, \square, \square]]
+\]
+
+%TODO: Schnappschussfolge für $0011$ und $011$
+
 \subsection{Turing-Vollständigkeit}\label{turingVollstaendigkeit}
-\section{Virtualisierung: Die Universale Turingmaschine}
+
+Wir haben nun gezeigt,
+dass alle Algorithmen,
+die auf einem DFA realisiert werden können,
+auch auf einer Turingmaschine realisiert werden können.
+Wir haben auch gezeigt,
+dass wir mit Turingmaschinen Algorithmen implementieren können,
+die auf einem DFA aus beweisbaren Gründen nicht möglich sind.
+In diesem Abschnitt gehen wir noch einen Schritt weiter,
+indem wir die \emph{Church-Turing-These} einführen:
+\textbf{Die Klasse der \emph{intuitiv} berechenbaren Probleme
+ist identisch mit der Klasse der Turing-berechenbaren Probleme.}
+Die Church-Turing-These besagt,
+dass es keinen Formalismus gibt,
+der Berechnungs-mächtiger ist als Turingmaschinen.
+Ein wichtiges Merkmal dieser These ist ihre \emph{empirische} Natur,
+das bedeutet: sie lässt sich nicht beweisen, nur widerlegen.
+
+Wie sähe eine Widerlegung aus?
+Man müsste einen Formalismus finden,
+der ein Problem löst,
+das beweisbar auf einer Turingmaschine nicht gelöst werden kann,
+der aber eine Turingmaschine simulieren kann (so wie die Turingmaschine den DFA simuliert).
+Ein solcher Formalismus wäre echt mächtiger als die Turingmaschine.
+Bisher ist aber nicht gelungen einen solchen Formalismus zu finden.
+Für die folgenden Formalismen wurde gezeigt,
+dass sie \emph{Turing-vollständig} sind,
+das bedeutet:
+Man kann auf ihnen eine Turingmaschine simulieren. 
+Es gilt aber auch,
+dass eine Turingmaschine den Formalismus simulieren kann,
+sie sind also von gleicher Berechnungsstärke:
+\begin{itemize}
+    \item While-Progamme (siehe \cite{schoening}, 100-108)
+    \item Goto-Programme (siehe \cite{schoening}, 100-108)
+    \item $\mu$-rekursive Funktionen (siehe \cite{schoening}, 109-116)
+    \item Abacus-Maschinen (siehe \cite{cal}, 45-62)
+    \item Jede bekannte Allzweck-Programmiersprache
+\end{itemize}
+
+
+Die folgenden Formalismen sind nicht Turing-vollständig,
+können aber von einer Turingmaschine simuliert werden:
+\begin{itemize}
+    \item Primitiv-rekursive Funktionen (siehe \cite{schoening} 109-115)
+    \item Loop-Programme (siehe \cite{schoening} 100-102)
+    \item Keller-Automaten (siehe \autoref{keller})
+\end{itemize}
+Ein Beispiel für eine Funktion,
+die turing-berechenbar, aber nicht primitiv-rekursiv ist bzw. Loop-berechenbar 
+ist die \emph{Ackermann-Funktion} (siehe \cite{schoening}, 116-122).
+
+Wir schlussfolgern aus der Annahme,
+dass die Church-Turing-These wahr ist:
+Alle Aussagen bzgl. der Komplexität einer Berechnung und der Berechenbarkeit eines Problems
+lassen sich an Turing-Maschinen zeigen.
+Daher kann man sagen,
+dass die Turingmaschinen die \emph{lingua franca} der theoretischen Informatik sind.
+
+\section{Turingmaschinen: Algorithmus und formale Sprache}
+Wir haben Turingmaschinen als primäres Werkzeug kennengelernt,
+um Algorithmen für die Fragestellungen der theoretischen Informatik zu implementieren.
+Aus der Definition des Algorithmus in \autoref{algoundimpl}
+können wir vier der fünf Kriterien als erfüllt ansehen:
+\begin{itemize}
+    \item Turingmaschinen sind wie DFAs formal spezfiziert und damit unmissverständlich.
+    \item Turingmaschinen haben einen Input (Bandinhalt vor dem Start)
+    \item Turingmaschinen haben einen vom Input abhängigen Output 
+        (Bandinhalt vom Zeiger ab rechts nach dem Lauf)
+    \item Turingmaschinen sind wie DFAs realisierbar,
+        damit sind auch die implementierten Algorithmen durchführbar.
+\end{itemize}
+Der einzig unerfüllte Punkt:
+Wir können von Turingmaschinen nicht mit Sicherheit sagen,
+ob sie nach endlichen Schritten terminieren.
+Diese Diskussion schieben wir aber bis \autoref{derBarbierUndDerLuegner}.
+Hier halten wir fest: Turingmaschinen repräsentieren in jedem Fall \emph{Berechnungsmethoden}.
+
+Ein letzter Twist bleibt aber für dieses Kapitels:
+Turingmaschinen lassen sich auch als formale Sprache repräsentieren,
+d.h. wir können den 7-Tupel zum Beispiel in eine Binärrepräsentation bringen.
+Diese Tatsache öffnet das Tor zu einer Reihe von möglichen Fragestellungen:
+\begin{itemize}
+    \item Welche Eigenschaften einer Turingmaschine kann man ``errechnen'',
+        indem man einer Turingmaschine diese Turingmaschine als Input gibt?
+    \item Kann man Turingmaschinen auch ``virtualisieren'' also eine Universale
+        Turingmaschine angeben, die eine Turingmaschine als Input bekommt,
+        diese ``lädt'' und entsprechend ausführt?
+\end{itemize}
+Die erste Frage wird wiederum in \autoref{derBarbierUndDerLuegner} aufgegriffen.
+Für die zweite Frage können wir hier schon ein Aussage treffen:
+Eine solche Universal-Turingmaschine gibt es (siehe \cite{CC} 20/21).
+Damit verschwimmen die Grenzen zwischen Algorithmus und formaler Sprache etwas,
+ungefähr in dem Maße,
+wie Virtualisierung und Infrastructure-as-Code in modernen IT-Systemen
+den Unterschied zwischen Hard- und Software verschwimmen lassen.
+
+\subsection*{Aufgaben}
+
+\begin{enumerate}
+    \item Gib zwei verschiedene Läufe für Wörter auf der Turingmaschien aus
+        \autoref{fig:tmsortiment} an.
+    \item Gib eine Turingmaschine an, die auf dem Alphabet $\Sigma = \{+\}$,
+        die unäre Addition realisiert.
+        Man kann davon ausgehen, dass der Input (zwei Zahlen in unärer Darstellung)
+        mit einem $\square$ getrennt beim Start auf dem Band der Turingmaschine steht.
+        In unärer Kodierung gilt: $0 = +, 1 = ++, 2 = +++, \ldots$
+\end{enumerate}
