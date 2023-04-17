@@ -63,9 +63,9 @@ dass seine Wirkweise zweifelsfrei durchführbar ist:
 \begin{itemize}
     \item Der Automat liest ein Wort $w \in \Sigma^*$ Zeichen für Zeichen
         (beginnend am ersten Zeichen, von links nach rechts, ohne dabei zu springen).
-    \item Der Automat hat $n$ Zustände, in denen sie sich befinden kann.
+    \item Der Automat hat $n$ Zustände, in denen er sich befinden kann.
     \item Wenn der Automat einen Buchstaben liest,
-        dann kann sie in einen beliebigen Zustand wechseln oder im gleichen Zustand bleiben.
+        dann kann er in einen beliebigen Zustand wechseln oder im gleichen Zustand bleiben.
     \item Der Automat startet in genau einem der Zustände.
     \item Der Automat gibt durch seine Zustände an,
         ob er $w$ akzeptiert (Ausgabe 1 oder wahr),
@@ -113,8 +113,8 @@ Der von von uns gesuchte Formalismus hat aber idealerweise nur wenige, einfache 
 Damit gelingt es uns zum Beispiel schneller Kriterium 5 zu behandeln:
 Wir müssen nur für wenige ``Bauteile'' einer Implementierung zeigen,
 dass sie alle einfach und prinzipiell nutzbar sind.\footnote{
-    Natürlich hat unser Formalismus letztlich eine Verbindung zu Programmiersprachen,
-    diese wollen wir in \autoref{keller} und \autoref{ch:theorie} diskutieren.
+    Natürlich hat unser Formalismus letztlich eine Verbindung zu Programmiersprachen.
+    Diese wollen wir in \autoref{keller} und \autoref{ch:theorie} diskutieren.
 }
 
 Im folgenden Abschnitt wollen wir den Begriff des Automaten formal einführen
@@ -123,12 +123,12 @@ und ein Beispiel für einen Automaten angeben.
 % TODO Bild.
 \section{Deterministisch Finite Automaten}
 
-Um Algorithmen anzugeben, beziehungsweis zu implementieren, gibt es viele Formalismen.
+Um Algorithmen anzugeben, beziehungsweise zu implementieren, gibt es viele Formalismen.
 Der Typ Automat, den wir im vorigen Kapitel informell eingeführt haben,
 ist einer davon:
-Der Deterministisch Finite Automate (DFA).\footnote{
-    Wir folgen hier der englischen Literatur (Deterministic Finite Automaton),
-    in deutschen Lehrbüchern findet man oftmals den Begriff
+Der Deterministisch Finite Automat (DFA).\footnote{
+    Wir folgen hier der englischen Literatur (Deterministic Finite Automation).
+    In deutschen Lehrbüchern findet man oftmals den Begriff
     Deterministischer Endlicher Automat (DEA).
 }
 
@@ -176,14 +176,14 @@ der \textbf{EVEN} erkennt.
 \end{figure}
 
 Die Funktionsweise des Automaten wird klarer, wenn wir uns ein Wort wählen
-und dann Buchstabenweise den Pfeilen folgen.
+und dann buchstabenweise den Pfeilen folgen.
 Wir können dabei alle Komponenten eines DFAs von seiner grafischen Darstellung ablesen:
 \begin{itemize}
     \item $\Sigma$ ergibt sich aus den ausgehenden Pfeilen eines beliebigen Kreises.
     \item Z ist die Menge aller Kreise.
     \item $\delta$ ist durch alle Pfeile bestimmt.
     \item $z_i$ ist der Zustand,
-        der von vom ``ursprungslosen'' Pfeil erreicht wird.
+        der vom ``ursprungslosen'' Pfeil erreicht wird.
     \item Z sind alle Kreise mit doppeltem Umfang.
 \end{itemize}
 
@@ -265,7 +265,7 @@ sondern müssen Mittel und Wege finden, sie formal zu charakterisieren.
 Zwei Methoden bieten sich an:
 \begin{enumerate}
     \item Sprach-\emph{Akzeptoren}, d.h. Formalismen,
-        die für eine gegebenes Wort entscheiden,
+        die für ein gegebenes Wort entscheiden,
         ob es zur Sprache gehört (oder nicht).\footnote{
             Wie wir in \autoref{derBarbierUndDerLuegner} sehen werden,
             ist dieses ''oder nicht'' leider nicht so trivial.}
@@ -278,11 +278,11 @@ Zwei Methoden bieten sich an:
 %TODO Automatentheorie: Akzeptor vs Transduktor?
 
 Ein DFA A ist so ein Akzeptor:
-er spezifiert eine Sprache L aller der Wörter,
+er spezifiziert eine Sprache L aller der Wörter,
 deren Lauf auf A akzeptierend ist.
 Wir schreiben auch kurz: $L(A) = \{w|A(w) = E\}$.
 Sprach-Generatoren sind nicht der Fokus dieses Skriptes, obwohl wir mit den Grammatiken
-in \autoref{grammatiken} einen solchen Formalismus kennen lernen werden.\footnote{
+in \autoref{grammatiken} einen solchen Formalismus kennenlernen werden.\footnote{
 Einige Lehrbücher der theoretischen Informatik bauen Ihren Stoff didaktisch anhand der Grammatiken
 auf (sie erlauben die Sprachen hierarchisch zu klassifizieren).
 Wer dieses Skript begleitend z.B. zu \cite{schoening} liest,
@@ -303,7 +303,7 @@ Dieses Problem werden wir in \autoref{pumping} weiter vertiefen.
 
 Für den Rest dieses Kapitels
 werden wir uns mit einer nützlichen formalen Eigenschaft von DFAs beschäftigen
-und wir werden mit den regulären Ausdrücken ein Programmierparadigma kennen lernen,
+und wir werden mit den regulären Ausdrücken ein Programmierparadigma kennenlernen,
 das praktisch sehr relevant ist.
 
 \section{Minimalisierung}
@@ -337,7 +337,7 @@ Sie lässt sich wie folgt angeben:\footnote{
         Wenn es ein $a \in \Sigma$ gibt,
         für das gilt:
         Wenn $\delta(a,z) \neq \delta(a,z')$ und $\delta(a, z), \delta(a, z')$ ist markiert,
-        dann markiere z,z'.
+        dann markiere (z, z').
 \end{enumerate}
 
 Alle Zustände, die nach der Methode unmarkiert bleiben,
@@ -353,7 +353,7 @@ Schritt 4 basiert auf der Annahme, dass zwei Zustände (z, z') verschmolzen werd
 wenn gilt: $\forall a(a \in \Sigma \wedge \delta(a, z) = \delta(a, z'))$,
 also dass man von ihnen die gleichen Zielzustände erreichen kann.
 Die Wiederholung ist nötig,
-da wir am Anfang gegegebenenfalls noch nicht alle Zielzustände identifiziert haben.
+da wir am Anfang gegebenenfalls noch nicht alle Zielzustände identifiziert haben.
 
 
 \begin{figure}[ht] % ’ht’ tells LaTeX to place the figure ’here’ or at the top of the page
@@ -485,7 +485,7 @@ Warum heißt dieses Kapitel ``\nameref{reg}''?
 Wir kommen nicht umhin, dies mit der Einführung eines weiteren Formalismus zu begründen,
 der aber für jede:n Programmier:in große praktische Relevanz hat:
 \emph{reguläre Ausdrücke}.
-Wir definieren einen reguläre Ausdruck $\gamma$
+Wir definieren einen regulären Ausdruck $\gamma$
 und die davon definierte Sprache $L(\gamma)$ induktiv:
 \begin{itemize}
     \item \textbf{Formelgrad 0} - Die folgenden Ausdrücke sind regulär:
@@ -494,7 +494,7 @@ und die davon definierte Sprache $L(\gamma)$ induktiv:
             \item $\epsilon$,  es gilt: $L(\epsilon) = \{\epsilon\}$.
             \item $a$ wenn $a \in \Sigma$, es gilt: $L(a) = \{a\}$.
         \end{itemize}
-    \item \textbf{Formelgard n+1}: Wenn $\alpha$  und $\beta$ regulär sind (Formelgrad n),
+    \item \textbf{Formelgrad n+1}: Wenn $\alpha$  und $\beta$ regulär sind (Formelgrad n),
         dann sind auch folgende Ausdrücke regulär:
         \begin{itemize}
             \item $\alpha\beta$,
@@ -539,7 +539,7 @@ Viele Programmiersprachen bieten zusätzlichen ``syntaktischen Zucker'' an,
 um reguläre Ausdrücke kürzer spezifizieren zu können.
 So lässt sich in PCRE-kompatiblen\footnote{
     siehe \href{https://www.pcre.org/}{https://www.pcre.org} [abgerufen 2023-03-12]}
-regulären Ausdrücken [0-9] nutzen, um ein beliebigen Numeral 
+regulären Ausdrücken [0-9] nutzen, um ein beliebiges Numeral 
 oder \textbackslash{}d um eine beliebige Dezimalzahl zu matchen.
 So lässt sich \textbf{SUPPLIERID} mit folgendem Python-Boilerplate-Code elegant lösen:
 
@@ -558,9 +558,9 @@ else:
 \subsection*{Zusammenfassung}
 \begin{itemize}
     \item Algorithmen sind schrittweise Berechnungsvorschriften mit In- und Output,
-        die endlich, unmisssverständlich und durchführbar sind.
-    \item Deterministisch Finite Automate sind eine Möglichkeit (zumindest einige)
-        Algorithmen zu formaliseren.
+        die endlich, unmissverständlich und durchführbar sind.
+    \item Deterministisch Finite Automaten sind eine Möglichkeit (zumindest einige)
+        Algorithmen zu formalisieren.
     \item DFAs und reguläre Ausdrücke beschreiben die gleiche Menge an Sprachen,
         daher nennen wir diese \emph{reguläre} Sprachen.
     \item DFAs lassen sich minimieren.
@@ -570,7 +570,7 @@ else:
 \subsection*{Aufgaben}
 
 \begin{enumerate}
-    \item Warum ist die Bezeichnung $Z_{NaN}$ in \autoref{fig:dfaeven} nicht ganz akkurat?
+    \item Warum ist die Bezeichnung $z_{NaN}$ in \autoref{fig:dfaeven} nicht ganz akkurat?
           Für welchen Zustand trifft das noch zu?
     \item Wie viele Elemente hat die Übergangsfunktion $\delta$ eines beliebigen DFA?
 \end{enumerate}
