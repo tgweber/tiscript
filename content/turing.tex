@@ -156,21 +156,24 @@ $|uv| \leq n$, in unserem Falle ist $|uv| = 4$ ($uv = 1000$).
 \label{fig:dfapump}
 \end{figure}
 
+\noindent
 Wir können diese Eigenschaft für L etwas formaler fassen:
-\[
-    \phi(L) = \exists n \forall x (
+\begin{multline*}
+    \phi(L) =
+        \exists n \forall x (
         x \in L
-        \wedge  |x| \geq n
-        \wedge \exists u \exists v \exists w 
+        \wedge  |x| \geq n \rightarrow \\
+        \exists u,v,w 
         (
             x = uvw 
-            \wedge  \forall i \in \mathbb{N} (uv^iw \in L)
             \wedge  |v| \geq 1  
             \wedge  |uv| \leq n
+            \wedge  \forall i \in \mathbb{N} (uv^iw \in L)
         )
     )
-\]
+\end{multline*}
 
+\noindent
 Diese Aussage trifft auf jeden Fall auf unser L = $10^*1|0000$ zu.
 Wir können tatsächlich ohne Beschränkung der Allgemeinheit diese Eigenschaft $\phi$ auf
 \emph{alle} regulären Sprachen anwenden:\footnote{
@@ -209,21 +212,21 @@ um zu beweisen, dass eine Sprache L \emph{nicht} regulär ist:
     \neg \phi(L) \rightarrow L \text{ nicht regulär}
 \]
 Buchstabieren wir $\neg \phi(L)$ aus:
-\[
+\begin{multline*}
     \forall n \exists x
     (
         x \in L
         \wedge  |x| \geq n
-        \rightarrow
-        \forall u \forall v \forall w (
+        \rightarrow \\
+        \forall u,v,w (
             x = uvw 
             \wedge  |v| \geq 1  
             \wedge  |uv| \leq n
             \rightarrow  \exists i \in \mathbb{N} (uv^iw \notin L)
         )
     )
-\]
-Hier ergibt sich eine Blaupause,
+\end{multline*}
+Hieraus ergibt sich eine Blaupause,
 mit der wir die Nicht-Regularität einer Sprache beweisen können:
 \begin{enumerate}
     \item Sei ein beliebiges $n$ gegeben.
@@ -288,8 +291,7 @@ Besonders tragisch ist die Tatsache,
 dass Turing früh verstarb:
 Er wurde aufgrund seiner Homosexualität (seinerzeit eine Straftat in Großbrittanien)
 1952 zur chemischen Kastration verurteilt.
-Er erkrankte aufgrund der Folgen der Hormontherapie an einer Depression
-und nahm sich 1954 das Leben.
+1954 nahm er sich unter ungeklärten Umständen das Leben.
 
 \subsection{Was ist eine Turingmaschine?}
 
@@ -452,19 +454,20 @@ Die Turingmaschine aus \autoref{fig:tmsortiment} akzeptiert SORTIMENT.
 	\node[state, right of=zi] (z1) {$z_1$};
 	\node[state, right of=z1] (z2) {$z_2$};
 	\node[state, right of=z2] (z3) {$z_3$};
-	\node[state, below of=z3] (z4) {$z_4$};
-	\node[state, accepting, right of=z4] (za) {$z_a$};
-	\node[state, left of=z4] (z5) {$z_5$};
-	\node[state, left of=z5] (z6) {$z_6$};
+	\node[state, right of=z3] (z4) {$z_4$};
+	\node[state, accepting, below of=z4] (za) {$z_a$};
+	\node[state, above of=z3] (z5) {$z_5$};
+	\node[state, above of=z1] (z6) {$z_6$};
 	\draw 
         (zi) edge[above] node{0,$\square$,R} (z1)
+        (zi) edge[below] node{$\square$,$\square$,-} (za)
         (z1) edge[loop above] node{0,0,R} (z1)
         (z1) edge[above] node{1,1,R} (z2)
         (z2) edge[loop above] node{1,1,R} (z2)
         (z2) edge[above] node{$\square$,$\square$,L} (z3)
-        (z3) edge[right] node{1,$\square$,L} (z4)
-        (z4) edge[above] node{$\square$,$\square$,-} (za)
-        (z4) edge[above] node{1,1,L} (z5)
+        (z3) edge[above] node{1,$\square$,L} (z4)
+        (z4) edge[right] node{$\square$,$\square$,-} (za)
+        (z4) edge[right] node{1,1,L} (z5)
         (z5) edge[loop above] node{1,1,L} (z5)
         (z5) edge[above] node{0,0,L} (z6)
         (z6) edge[loop above] node{0,0,L} (z6)
