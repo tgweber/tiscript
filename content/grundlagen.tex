@@ -127,11 +127,16 @@ vertieft werden.
     \label{tab:al}
 \end{table}
 
-TODO:
+Die folgenden Äquivalenzen werden in diesem Skript als Schlussregeln genutzt,
+sie lassen sich mit Wahrheitstabellen rechtfertigen:
 \begin{itemize}
-    \item Kontraposition
-    \item DeMorgan
-    \item Tilge $\vee$ mit $\neg$ und $\rightarrow$
+    \item Kontraposition:
+        $A \rightarrow B \leftrightarrow \neg B \rightarrow A$
+    \item DeMorgan (I):
+        $\neg (A \wedge B) \leftrightarrow \neg A \vee \neg B$
+
+    \item Tilge $\vee$ mit $\neg$ und $\rightarrow$:
+        $A \vee B \leftrightarrow \neg A \rightarrow B$
 \end{itemize}
 
 
@@ -173,6 +178,13 @@ sie hat es ermöglicht, zentrale Ergebnisse der Mathematik präzise zu formulier
 Dies trifft auch auf wichtige Ergebnisse der theoretischen Informatik zu.
 Wir werden in \autoref{pumping} das Pumping-Lemma als ein Beispiel hierfür kennenlernen.
 
+Eine weitere Regel für die Manipulation von Prädikatenlogischen Formeln
+sind die Regeln zur \emph{Quantorennegation}:
+\begin{itemize}
+    \item $\neg \forall x \phi \leftrightarrow \exists x \neg \phi$
+    \item $\neg \exists x \phi \leftrightarrow \forall x \neg \phi$
+\end{itemize}
+
 Die Inhalte dieses Abschnittes können in \cite{link}
 (Einleitung, 9-13 und Kapitel 4, 6, 8 und 12)
 oder in \cite{hoffmann} (Kapitel 3.2)
@@ -181,7 +193,7 @@ vertieft werden.
 %System formalisiert werden, dass es uns erlaubt aus grundg
 %Axiomatisierung von AL und PL (\cite{link} 13)
 
-TODO: Quantorennegation
+
 
 \subsection{Mengenlehre}\label{mengenlehre}
 In diesem Abschnitt werden die folgenden Inhalte erläutert:
