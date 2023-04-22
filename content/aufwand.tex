@@ -1,14 +1,15 @@
 \chapter{Aufwand}
 Das Thema dieses Kapitels lässt sich mit einer Frage zusammenfassen:
 Wie bemessen wir den Aufwand,
-den ein implementierter Algorithmus benötigt, um ein Problem zu lösen?
+den es braucht ein Problem durch einen Algorithmus zu lösen?
 In \autoref{einleitung} haben wir formale Sprachen als Repräsentation von Problemen eingeführt,
+in \autoref{reg} haben wir gelernt, was ein Algorithmus ist und
 in \autoref{turing} wurde eine Möglichkeit eingeführt,
-alle bekannten Algorithmen zu implementieren,
+alle bekannten Algorithmen zu implementieren:
 die Turingmaschine.
-Dieser Formalismus erlaubt es uns,
-den Aufwand einer spezifischen Berechnung zu quantifizieren,
-und den Aufwand eines Algorithmus anzugeben.
+Diesen Formalismus wollen wir in diesem Kapitel nutzen,
+um genau zu spezifizieren,
+was Aufwand bedeutet.
 
 \section{Effizienz in Zeit (und Raum)}
 
@@ -24,14 +25,13 @@ und den Output zu speichern,
 kann man ebenfalls anführen.
 Beides, Zeit und ``Raum'' sind valide Größen,
 anhand derer wir Aufwand oder Effizienz bemessen können.
-
 Wir werden uns in diesem Skript auf Zeit-Effizienz beschränken,
 weswegen wir bei Aufwand beziehungsweise Effizienz immer von
 zeitlichem Aufwand beziehungsweise zeitlicher Effizienz sprechen.
 Allerdings kann vieles auf Raum-Effizienz übertragen werden,
 das wir in diesem Kapitel entwickeln.
 
-Wir wollen über diese drei folgenden Schritte zu einem Verständnis von Aufwand zu kommmen:
+Wir wollen über diese drei folgenden Schritte zu einem Verständnis von Aufwand zu kommen:
 \begin{itemize}
     \item Aufwand für einen Lauf einer spezifischen Turingmaschine auf einem spezifischen Wort.
     \item Abschätzung für die Länge von Läufen einer spezifischen Turingmaschine
@@ -42,21 +42,27 @@ Wir wollen über diese drei folgenden Schritte zu einem Verständnis von Aufwand
 Die folgenden Abschnitte hangeln sich an diesen Schritten entlang.
 
 \subsection{Aufwand eines spezfischen Laufs}
-
+Am Anfang unserer Überlegung haben wir diese zwei Komponenten:
 \begin{itemize}
-    \item Das konkrete Problem, gegeben als \emph{formale Sprache L}.
     \item Die konkrete Problemstellung, gegeben als \emph{Wort $w \in L$}.
-    \item Den konkreten Algorithmus, implementiert als \emph{Turingmaschine tm}.
+    \item Den konkreten Algorithmus,
+        implementiert als \emph{Turingmaschine $tm \in TM$}.\footnote{
+            $TM$ bezeichnet die Menge aller Turingmaschinen.}
 \end{itemize}
-
 Dies sind formal korrekt eingeführte Konzepte
 und wir können Zeit und Platzaufwand daran genau definieren.
+Gesucht ist also eine Funktion $\tau: L \times TM \rightarrow \mathbb{N}$,
+die für ein Wort $w \in L$ auf einer bestimmten Turingmaschine $tm \in TM$
+den zeitlichen Aufwand in einer natürlichen ausdrückt.
 
-$time: \Sigma^* \times TM \rightarrow \mathbb{N}$ ist die Funktion,
+Glücklicherweise haben wir in \autoref{turing} bereits ein Konzept eingeführt,
+dass wir hierfür nutzen können:
+Die Länge des Laufes von $w$ auf $tm$:
+$\tau: \Sigma^* \times TM \rightarrow \mathbb{N}$ ist die Funktion,
 die für ein Wort $w \in \Sigma^*$ den Zeitaufwand auf einer Turingmaschine TM angibt.
-Wir legen fest: $time(w,A) =  length(l_{w,TM}) = |w|$.
-        
-       
+Wir legen fest: $\tau(w,tm) =  length(l_{w,tm})$.
+Für ein Wort $w \in L$ ergibt sich eine Folge von Schnappschüssen,
+dessen Länge wir als zeitlichen Aufwand definieren.
 
 \subsection{Abschätzung des Aufwandes aller Läufe}
 
@@ -71,17 +77,17 @@ haben wir prinzipiell drei Szenarien im Kopf:
     \item \textbf{Best Case}: Wir wählen das Wort aus der formalen Sprache aus,
         für das der Algorithmus die geringste Zeit
         beziehungsweise den geringsten Platz benötigt.
-        Wir betrachten also das Minimum von $time$ beziehungsweise $space$.
+        Wir betrachten also das Minimum von $\tau$.
     \item \textbf{Average Case}: Wir nutzen statistische Methoden, um die wahrscheinlichste
         Dauer bzw. den wahrscheinlichsten Speicherplatzbedarf eines beliebigen Wortes aus
         der formalen Sprache zu quantifizieren.
-        Wir betrachten also zum Beispiel das arithmetische Mittel von $time$ beziehungsweise
-        $space$.\footnote{Der Median wäre ein weiteres Lagemaß, dass genutzt werden kann,
+        Wir betrachten also zum Beispiel das arithmetische Mittel von $\tau$\footnote{
+            Der Median wäre ein weiteres Lagemaß, dass genutzt werden kann,
         oder wir achten auf die Standardabweichung (Streuungsmaß), oder auf eine Kombination 
         mehrerer Maße, was die einfache Vergleichbarkeit von Algorithmen wiederum erschwert.}
     \item \textbf{Worst Case}: Wir wählen das Wort aus der formalen Sprache aus,
         für das der Algorithmus die meiste Zeit bzw. den meisten Platz benötigt.
-        Wir betrachten also das Maximum von $time$ beziehungsweise $space$.
+        Wir betrachten also das Maximum von $\tau$. 
 \end{itemize} 
 
 Da der Best Case meist wenig Aussagekraft über die Güte des Algorithmus besitzt,
@@ -97,20 +103,28 @@ Wir vereinbaren also: Wenn wir vom Aufwand eines Problems sprechen,
 sprechen wir dabei stets vom Worst Case.
 
 \subsection{Untere und Obere Schranken für den Aufwand}
-Mit $time$ und $space$ und dem Worst Case-Wert können wir Aussagen über den Aufwand treffen,
+Mit $\tau$ und dem Worst Case-Wert können wir Aussagen über den Aufwand treffen,
 den ein bestimmter Algorithmus für ein bestimmtes Problem verursacht.
 Wir treffen allerdings keine Aussagen darüber,
 wie viel Aufwand das Problem \emph{an sich} erzeugt.
-Dazu müssten wir Aussagen über alle prinzipiell \emph{möglichen} Algorithmen treffen,
-die das Problem lösen
-und über alle formale Sprachen, die das Problem repräsentieren:
-Den Aufwand eines Problems würden wir dann mit dem effizientestem Algorithmus 
-auf einer der Repräsentationen gleichsetzen.
-Oftmals ist der Nachweis sehr schwer, ob es (k)einen effizienteren Algorithmus
+Dazu müssten wir Aussagen über alle prinzipiell \emph{möglichen} Algorithmen,
+also Turingmaschinen treffen,
+die das Problem lösen:
+Den Aufwand eines Problems würden wir dann mit dem effizientestem Algorithmus gleichsetzen.
+Oftmals ist der Nachweis sehr schwer,
+ob es (k)einen effizienteren Algorithmus
 für ein Problem gibt.
 Den aktuellen Stand der Forschung erlernt man typischer Weise in Vorlesungen über
 Algorithmen und Datenstrukturen.
 
+Ein Beispiel hierfür ergibt sich aus $U\textsubscript{ARTICLESORT}$.
+Fassen wir dieses Problem informell so auf $I\textsubscript{ARTICLESORT}$:
+\begin{itemize}
+    \item Gegeben ein Tupel von Zahlen
+    \item Gesucht: die Permutatio des Tupels, die absteigend sortiert ist
+\end{itemize}
+So gibt es viele Algorithmen, die dieses Problem lösen.
+Für vergleichbasierte Sortieralgorithmen lässt sich eine untere Schranke finden. 
 \section{Landau und Big-O: Wachstum}
 \section{Messen vs. Beweisen}\label{messenVsBeweisen}
 
