@@ -14,15 +14,17 @@ was Aufwand bedeutet.
 \section{Effizienz in Zeit (und Raum)}
 
 Was meinen wir, wenn wir von Aufwand oder Effizienz einer Berechnung sprechen?
-Meist wird als erstes die Zeit genannt,
+Meist wird als erstes die \emph{Zeit} genannt,
 die es braucht,
 damit eine Berechnung ein Ergebnis liefert.
-Den Speicherplatz,
+Es wäre ebenso möglich,
+den \emph{Speicherplatz}\footnote{
+    Im Englischen sprechen wir von ``space'', daher die Überschrift des Abschnitts.}
+als Aufwandsdimension zu verstehen,
 den eine Implementierung benötigt,
 um den Input,
 eventuelle Zwischenergebnisse
-und den Output zu speichern,
-kann man ebenfalls anführen.
+und den Output zu speichern.
 Beides, Zeit und ``Raum'' sind valide Größen,
 anhand derer wir Aufwand oder Effizienz bemessen können.
 Wir werden uns in diesem Skript auf Zeit-Effizienz beschränken,
@@ -53,7 +55,7 @@ Dies sind formal korrekt eingeführte Konzepte
 und wir können Zeit und Platzaufwand daran genau definieren.
 Gesucht ist also eine Funktion $\tau: L \times TM \rightarrow \mathbb{N}$,
 die für ein Wort $w \in L$ auf einer bestimmten Turingmaschine $tm \in TM$
-den zeitlichen Aufwand in einer natürlichen ausdrückt.
+den zeitlichen Aufwand in einer natürlichen Zahl ausdrückt.
 
 Glücklicherweise haben wir in \autoref{turing} bereits ein Konzept eingeführt,
 dass wir hierfür nutzen können:
@@ -63,6 +65,8 @@ die für ein Wort $w \in \Sigma^*$ den Zeitaufwand auf einer Turingmaschine TM a
 Wir legen fest: $\tau(w,tm) =  length(l_{w,tm})$.
 Für ein Wort $w \in L$ ergibt sich eine Folge von Schnappschüssen,
 dessen Länge wir als zeitlichen Aufwand definieren.
+
+
 
 \subsection{Abschätzung des Aufwandes aller Läufe}
 
@@ -75,18 +79,20 @@ Wenn wir die Effizienz einer Problemlösung angeben,
 haben wir prinzipiell drei Szenarien im Kopf:
 \begin{itemize}
     \item \textbf{Best Case}: Wir wählen das Wort aus der formalen Sprache aus,
-        für das der Algorithmus die geringste Zeit
-        beziehungsweise den geringsten Platz benötigt.
+        für das der Algorithmus den kürzesten Lauf hat,
+        also die geringste Zeit benötigt.
         Wir betrachten also das Minimum von $\tau$.
-    \item \textbf{Average Case}: Wir nutzen statistische Methoden, um die wahrscheinlichste
-        Dauer bzw. den wahrscheinlichsten Speicherplatzbedarf eines beliebigen Wortes aus
-        der formalen Sprache zu quantifizieren.
-        Wir betrachten also zum Beispiel das arithmetische Mittel von $\tau$\footnote{
-            Der Median wäre ein weiteres Lagemaß, dass genutzt werden kann,
-        oder wir achten auf die Standardabweichung (Streuungsmaß), oder auf eine Kombination 
-        mehrerer Maße, was die einfache Vergleichbarkeit von Algorithmen wiederum erschwert.}
+    \item \textbf{Average Case}: Wir nutzen statistische Methoden,
+        um die wahrscheinliche Länge eines Laufs zu quantifizieren.
+        Wir betrachten also zum Beispiel den Erwartungswert von $\tau$,
+        wenn wir per Zufall ein Wort aus L auswählen.\footnote{
+            Der Modus (entspricht dem Median in einer endlichen Stichprobe) wäre eine Alternative.
+        Mit der Standardabweichung (Streuungsmaß) oder einer Kombination mehrerer Maße,
+        verbessert sich die Aussagekraft,
+        was aber die einfache Vergleichbarkeit von Algorithmen wiederum erschwert.}
     \item \textbf{Worst Case}: Wir wählen das Wort aus der formalen Sprache aus,
-        für das der Algorithmus die meiste Zeit bzw. den meisten Platz benötigt.
+        für das der Algorithmus den längsten Lauf hat,
+        also die meiste Zeit benötigt.
         Wir betrachten also das Maximum von $\tau$. 
 \end{itemize} 
 
@@ -102,8 +108,20 @@ konzentrieren wir uns auf den Worst Case.
 Wir vereinbaren also: Wenn wir vom Aufwand eines Problems sprechen,
 sprechen wir dabei stets vom Worst Case.
 
+Ein verbleibendes Problem: Minimum, Maximum und die statistischen Maße 
+können für eine (unendliche) Sprache gar nicht definiert sein.
+Was ist zum Beispiel das Maximium von $\tau$ auf EVEN und der
+dazu in \autoref{turing} dargestellten Turingmaschine?
+Um also sinnvoll von Aufwand zu sprechen müssen wir die \emph{Länge},
+also $|w|$ in Verhältnis zum Aufwand setzen:
+Sei $t_{tm}: \mathbb{N} \rightarrow \mathbb{N}$ so definiert:
+$t_{tm}(n) = max({\tau(w, tm)| |w| = n})$
+$t_{tm}$ gibt also die jeweilige Worst Case Laufzeit für ein Wort der Länge $n$ an.
+Dies erlaubt es uns auch über unendlich große formale Sprachen Aussagen zu treffen,
+indem wir angeben, wie sich der Aufwand bei steigender Inputgröße entwickelt.
+
 \subsection{Untere und Obere Schranken für den Aufwand}
-Mit $\tau$ und dem Worst Case-Wert können wir Aussagen über den Aufwand treffen,
+Mit $t_{tm}$ und dem Worst Case-Wert können wir Aussagen über den Aufwand treffen,
 den ein bestimmter Algorithmus für ein bestimmtes Problem verursacht.
 Wir treffen allerdings keine Aussagen darüber,
 wie viel Aufwand das Problem \emph{an sich} erzeugt.
@@ -117,14 +135,32 @@ für ein Problem gibt.
 Den aktuellen Stand der Forschung erlernt man typischer Weise in Vorlesungen über
 Algorithmen und Datenstrukturen.
 
-Ein Beispiel hierfür ergibt sich aus $U\textsubscript{ARTICLESORT}$.
-Fassen wir dieses Problem informell so auf $I\textsubscript{ARTICLESORT}$:
-\begin{itemize}
-    \item Gegeben ein Tupel von Zahlen
-    \item Gesucht: die Permutatio des Tupels, die absteigend sortiert ist
-\end{itemize}
-So gibt es viele Algorithmen, die dieses Problem lösen.
-Für vergleichbasierte Sortieralgorithmen lässt sich eine untere Schranke finden. 
+%Ein Beispiel hierfür ergibt sich aus $U\textsubscript{ARTICLESORT}$.
+%Fassen wir dieses Problem informell so auf $I\textsubscript{ARTICLESORT}$:
+%\begin{itemize}
+%    \item Gegeben ein Tupel von Zahlen
+%    \item Gesucht: die Permutatio des Tupels, die absteigend sortiert ist
+%\end{itemize}
+%So gibt es viele Algorithmen, die dieses Problem lösen.
+%Für vergleichbasierte Sortieralgorithmen lässt sich eine untere Schranke finden. 
+
 \section{Landau und Big-O: Wachstum}
+
+$t_{tm}$ ist eine Möglichkeit,
+die Aufwandsentwicklung für steigende Inputgrößen formal zu spezfifizieren.
+Für die meisten Fälle ist $t_{tm}$ aber zu feingranular:
+Wir interessieren uns beispielsweise nur,
+ob das Laufzeitverhalten sinnvoll beschränken lässt,
+d.h. ob es eine asymptotische obere oder untere Schranke für den Aufwand gibt.
+
+Dies wird typischerweise mit der Landau-Notation angeben.
+Wir definieren eine Menge von Funktionen in Abhängigkeit einer oberen Schranke
+und lassen dabei Faktoren außen vor,
+die für die Wachstumsdynamik unwesentlich sind:
+
+\[
+O(g(n)) = \{f|\forall c \exists n_0 \forall n (n \geq n_0 \rightarrow f(n) \leq c \cdot g(n))\}
+\]
+
 \section{Messen vs. Beweisen}\label{messenVsBeweisen}
 
