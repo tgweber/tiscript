@@ -162,5 +162,35 @@ die für die Wachstumsdynamik unwesentlich sind:
 O(g(n)) = \{f|\forall c \exists n_0 \forall n (n \geq n_0 \rightarrow f(n) \leq c \cdot g(n))\}
 \]
 
+TODO: Ergänze andere Klassen (o, $\theta$ usw).
+
 \section{Messen vs. Beweisen}\label{messenVsBeweisen}
 
+Messen ist schwierig:
+\begin{itemize}
+  \item Man kann nur den Zeit- oder Platzaufwand von Implementierungen via Messung ermitteln
+  \item Man kann den Aufwand von Algorithmen oder gar Probleme nicht via Messung ermitteln!
+  \item Die Menge der möglichen Inputs vieler Algorithmen ist unendlich (Stichproben + Statistiken)
+  \item Das „Rauschen“ bei Messungen muss berücksichtigt werden:
+  \item Genutzte Hardware
+  \item Genutztes Betriebssystem
+  \item Spezifische Versionen (z.B. Compiler, Browser, OS)
+  \item Lastsituation auf der Maschine
+  \item Virtualisierung
+  \item Netz
+\end{itemize}
+
+Aber: Theoretische Annahmen:
+\begin{itemize}
+  \item Operationen haben identischen Aufwand
+  \item Daten und Zwischenergebnisse nutzen identischen Speicherplatz
+  \item Der Input kann unendlich wachsen
+  \item Ist jeder Input gleich wahrscheinlich?
+\end{itemize}
+
+\section{Relativer Aufwand}
+Hier Diskussion Sortierungsalgorithmen.
+\begin{itemize}
+    \item Relativ zur Implementierungssprache (Mehrbandturingmaschinen, Registermaschinen)
+    \item Relativ zur Datenrepräsentation (Größe des Alphabets, Art der Datenstrukturen)
+\end{itemize}
