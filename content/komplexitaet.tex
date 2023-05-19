@@ -125,3 +125,32 @@ welche die formale Sprache des Problems erkennt und für die gilt $t_dtm \in O(n
 
 %Annahme $P \neq NP$.
 %Konsequenzen wenn identisch.
+
+\subsection*{Aufgaben}
+\begin{enumerate}
+    \item Sei der NFA wie in \autoref{fig:nfaex} gegeben.
+        Determinisieren sie den NFA mit der Potenzmengenkonstruktion (nicht erreichbare Zustände dürfen ausgelassen werden).
+\end{enumerate}
+
+\begin{figure}[ht] % ’ht’ tells LaTeX to place the figure ’here’ or at the top of the page
+\centering % centers the figure
+\begin{tikzpicture}
+	\node[state, initial] (zi) {$z_i$};
+	\node[state, right of=zi] (z1) {$z_1$};
+    \node[state, below of=zi] (z2) {$z_2$};
+    \node[state, accepting, right of=z2] (z3) {$z_3$};
+	\draw 
+        (zi) edge[above] node{0} (z1)
+        (zi) edge[below left] node{0} (z2)
+        (zi) edge[below] node{1} (z3)
+        
+        (z1) edge[above right] node{1} (z3)
+        (z1) edge[loop above] node{1} (z1)
+        
+        (z2) edge[above] node{0} (z3)
+        (z2) edge[above] node{1} (z1)
+        (z2) edge[loop below] node{0} (z2)
+    ;
+\end{tikzpicture}
+\caption{Zu determinisierender NFA}\label{fig:nfaex}
+\end{figure}
