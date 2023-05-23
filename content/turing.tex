@@ -601,4 +601,46 @@ den Unterschied zwischen Hard- und Software verschwimmen lassen.
         Man kann davon ausgehen, dass der Input (zwei Zahlen in unärer Darstellung)
         mit einem $\square$ getrennt beim Start auf dem Band der Turingmaschine steht.
         In unärer Kodierung gilt: $0 = +, 1 = ++, 2 = +++, \ldots$
+    \item Gegeben sei die Turing Maschine M wie in \autoref{fig:tm33}.
+        \begin{enumerate}
+            \item Geben Sie M in der Sprache der Mengenlehre an.
+            \item Geben Sie den Lauf von M auf dem Input $||-|$ an.
+            \item Nehmen Sie an, M startet auf einem Band mit einem Input,
+                der dem regulären Ausdruck $||*-||*$ entspricht. 
+                Beschreiben Sie, welche Funktion M berechnet, wenn Sie die Anzahl Striche als
+                unäre Kodierung für die natürlichen Zahlen interpretieren.
+        \end{enumerate}
 \end{enumerate}
+
+\begin{figure}[ht] % ’ht’ tells LaTeX to place the figure ’here’ or at the top of the page
+\centering % centers the figure
+\begin{tikzpicture}
+	\node[state, initial] (zi) {$z_i$};
+	\node[state, right of=zi] (zl) {$z_l$};
+	\node[state, above of=zl] (zg) {$z_g$};
+	\node[state, accepting, right of=zg] (zp) {$z_p$};
+	\node[state, right of=zl] (zm) {$z_m$};
+	\node[state, right of=zm] (zd) {$z_d$};
+	\node[state, below of=zd] (zc) {$z_c$};
+	\node[state, accepting, right of=zc] (zn) {$z_n$};
+	\node[state, left of=zc] (zr) {$z_r$};
+	\draw (zi) edge[loop above] node[text width=1cm, align=center]{$|,|,R$\\-,-,R} (zi)
+	(zi) edge[above] node{$\square$, $\square$, L} (zl)
+	(zl) edge[left] node{$-,|,L$} (zg)
+	(zg) edge[loop left] node{$|,|,L$} (zg)
+	(zg) edge[above] node{$\square$,$\square$,R} (zp)
+	(zl) edge[above] node{$|,\square$,L} (zm)
+	(zm) edge[loop above] node[text width=1cm, align=center]{$|,|,L$\\-,-,L} (zm)
+	(zm) edge[above] node{$\square$,$\square$,R} (zd)
+	(zd) edge[right] node{$|,\square$,R} (zc)
+	(zc) edge[above] node{$-,|,L$} (zn)
+	(zn) edge[loop right] node{$\square$,-,N} (zn)
+	(zc) edge[above] node{$|,|,R$} (zr)
+	(zr) edge[loop left]  node[text width=1cm, align=center]{$|,|,R$\\-,-,R} (zr)
+	(zr) edge[left] node{$\square$,$\square$,L} (zl)
+    ;
+\end{tikzpicture}
+\caption{Turing Maschine M für Übung 3.3}
+\label{fig:tm33}
+\end{figure}
+
