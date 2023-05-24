@@ -184,7 +184,7 @@ Wir können dabei alle Komponenten eines DFAs von seiner grafischen Darstellung 
     \item $\delta$ ist durch alle Pfeile bestimmt.
     \item $z_i$ ist der Zustand,
         der vom ``ursprungslosen'' Pfeil erreicht wird.
-    \item Z sind alle Kreise mit doppeltem Umfang.
+    \item $E$ sind alle Kreise mit doppeltem Umfang.
 \end{itemize}
 
 In der Sprache der Mengenlehre können wir die Komponenten so angeben:
@@ -216,8 +216,8 @@ müssen wir ein paar Hilfskonzepte einführen:
         mit $z \in Z$ und $w \in \Sigma^*$.
         Ein Schnappschuss beschreibt,
         in welchem Zustand A ist und welches Wort A noch zu lesen hat.
-        Nehmen wir den DFA von oben, dann wäre $[0010,z_1]$ ein Beispiel:
-        Wir müssen noch $0010$ lesen und sind dabei in Zustand $z_1$.
+        Nehmen wir den DFA von oben, dann wäre $[z_1,0010]$ ein Beispiel:
+        Wir sind in Zustand $z_1$ und müssen noch $0010$ lesen.
     \item Eine \emph{Schnappschussfolge} S auf einem DFA A
         ist ein n-Tupel von Schnapp-schüssen. 
         Für jedes Paar aufeinanderfolgender Schnappschüsse $s_n = [z_n, w_n]$
@@ -228,7 +228,7 @@ müssen wir ein paar Hilfskonzepte einführen:
             \item $w_{n+1} = tw(w,1,|w|-1)$.
         \end{itemize}
         Zum Beispiel ist dies eine Schnappschussfolge für das obige Beispiel:\linebreak
-        $[[0010,z_1],[010, z_0],[10, z_0],[0,z_1],[\epsilon,z_0]]$.
+        $[[z_i,110,],[z_{odd},10],[z_{odd},0],[z_{even},\epsilon]]$.
     \item Eine Schnappschussfolge $S = [s_0, \ldots s_{w-1}]$ auf A
         heißt \emph{Lauf} $l_{w,A}$ für $w$ auf A, wenn gilt:
         \begin{itemize}
@@ -292,7 +292,7 @@ da sie sich gut für einen Problem-orientierten Ansatz eignen.
 
 Da wir formale Sprachen in \autoref{einleitung} als Problem-Kodierungen eingeführt haben,
 und in \autoref{algoundimpl} Automaten als Algorithmen-Kodierung,
-ist nun ein guter Zeitpunkt den Begriff der DFA-Berechnbarkeit einzuführen:
+ist nun ein guter Zeitpunkt den Begriff der DFA-Berechenbarkeit einzuführen:
 Ein Problem ist DFA-berechenbar,
 wenn es sich in einer formalen Sprache kodieren lässt,
 die von einem DFA erkannt wird.
@@ -480,7 +480,7 @@ Es besteht aber kein Grund zur Sorge, wie wir in \autoref{pumping} sehen werden.
 \section{Reguläre Ausdrücke}\label{regex}
 
 \subsection{Induktive Definition regulärer Ausdrücke}
-Eine Frage, auf die wir die Antwort noch schuldig sind:
+Eine Frage, der wir die Antwort noch schuldig sind:
 Warum heißt dieses Kapitel ``\nameref{reg}''?
 Wir kommen nicht umhin, dies mit der Einführung eines weiteren Formalismus zu begründen,
 der aber für jede:n Programmier:in große praktische Relevanz hat:

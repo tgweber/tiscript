@@ -1,0 +1,93 @@
+\section{Lösungen}
+3.3\\
+(a) $M = [\Sigma, \Sigma \cup \square, Z, \delta, z_1, \square, E]$ mit
+\begin{itemize}
+    \item $\Sigma = \{|,-\}$
+    \item $Z = \{z_i, z_l, z_g, z_p, z_m, z_d, z_c, z_n, z_r\}$
+    \item $
+        \begin{array}{llll}
+            \delta = \{&
+                [|, z_i, z_i, |, R], &
+                [-, z_i, z_i, -, R], &
+                [\square, z_i, z_l, \square, L], \\
+            &
+                [|, z_l, z_m, \square, L], &
+                [-, z_l, z_g, |, L], \\
+            &
+                [|, z_g, z_g, |, L], &
+                [\square, z_g, z_p, \square, R], \\
+            &
+                [|, z_m, z_m, |, L], &
+                [-, z_m, z_m, -, L], &
+                [\square, z_m, z_d, \square, R], \\
+            & 
+                [|, z_d, z_c, \square, R], \\
+            & 
+                [|, z_c, z_r, |, R], &
+                [-, z_c, z_n, |, R], \\
+            &
+                [\square, z_n, z_n, -, N], \\
+            &
+                [|, z_r, z_r, |, R], &
+                [-, z_r, z_r, -, R], &
+                [\square, z_r, z_l, \square, L] \\
+            \}
+        \end{array}
+    $
+    \item $E = \{z_n, z_p\}$
+\end{itemize}
+(b)
+$
+\begin{array}{llrlrl}
+    [ & [ z_i, &    \square, &                  |, &        |-|] & , \\
+      & [ z_i, &    \square|, &                 |, &        -|] & , \\
+      & [ z_i, &    \square||, &                -, &        |] & , \\
+      & [ z_i, &    \square||-, &               |, &        \square] & , \\
+      & [ z_i, &    \square||-|, &              \square, &  \square] & , \\
+      & [ z_l, &    \square||-, &               |, &        \square\square] & , \\
+      & [ z_m, &    \square||, &                -, &        \square\square\square] & , \\
+      & [ z_m, &    \square|, &                 |, &        -\square\square\square] & , \\
+      & [ z_m, &    \square, &                  |, &        |-\square\square\square] & , \\
+      & [ z_m, &    \square, &                  \square, &  ||-\square\square\square] & , \\
+      & [ z_d, &    \square\square, &           |, &        |-\square\square\square] & , \\
+      & [ z_c, &    \square\square\square, &    |, &        -\square\square\square] & , \\
+      & [ z_r, &    \square\square\square|, &   -, &        \square\square\square] & , \\
+      & [ z_r, &    \square\square\square|-, &  \square, &  \square\square] & , \\
+      & [ z_l, &    \square\square\square|, &   - &         \square\square\square] & , \\
+      & [ z_g, &    \square\square\square, &    | &         |\square\square\square] & , \\
+      & [ z_g, &    \square\square, &           \square &   ||\square\square\square] & , \\
+      & [ z_p, &    \square\square\square, &    | &         |\square\square\square] & ]\\
+\end{array}
+$
+
+(c) M berechnet die Subtraktion auf unär kodierten ganzen Zahlen.
+5.1
+\begin{figure}[ht] % ’ht’ tells LaTeX to place the figure ’here’ or at the top of the page
+\centering % centers the figure
+\begin{tikzpicture}
+    \node[state, initial] (zi) {$\{z_i\}$};
+    \node[state, right of=zi] (z12) {$\{z_1,z_2\}$};
+    \node[state, right of=z12, accepting] (z23) {$\{z_2,z_3\}$};
+    \node[state, below of=zi,  accepting] (z3) {$\{z_3\}$};
+    \node[state, right of=z3] (z1) {$\{z_1\}$};
+    \node[state, right of=z1, accepting] (z13) {$\{z_1,z_3\}$};
+	\node[state, below of=z1] (ze) {$\emptyset$};
+	\draw 
+    (zi) edge[above] node{0} (z12)
+    (zi) edge[left] node{1} (z3)
+    (z12) edge[above] node{0} (z23)
+    (z12) edge[left] node{1} (z1)
+    (z23) edge[loop right] node{0} (z23)
+    (z23) edge[left] node{1} (z1)
+    (z3) edge[left] node{0,1} (ze)
+    (z1) edge[left] node{0} (ze)
+    (z1) edge[above] node{1} (z13)
+    (z13) edge[above] node{0} (ze)
+    (z13) edge[loop right] node{1} (z13)
+    ;
+
+
+\end{tikzpicture}
+\caption{Lösungsautomat zu Aufgabe 5.1}
+\label{fig:sol51}
+\end{figure}
