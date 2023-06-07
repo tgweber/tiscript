@@ -24,7 +24,7 @@ Es ist abgeleitet von U\textsubscript{SORTIMENT}:
 ``Als Einkaufsmanager:in möchte ich,
 dass das Sortiment in allen Filialien identisch ist,
 um alle anderen Prozesse darauf ausrichten zu können.``
-Die informelle Form 
+Die informelle Form
 I\textsubscript{SORTIMENT}
 wollen wir so angeben:
 \begin{itemize}
@@ -114,7 +114,7 @@ $|v| \geq 1$, da $n = 5$ erzwingt,
 dass wir dreimal den Loop im Lauf ``passieren''.
 
 Eine \textbf{vierte} Beobachtung:
-$|uv| \leq n$, in unserem Falle ist $|uv| = 4$ ($uv = 1000$). 
+$|uv| \leq n$, in unserem Falle ist $|uv| = 4$ ($uv = 1000$).
 \begin{figure}[ht] % ’ht’ tells LaTeX to place the figure ’here’ or at the top of the page
 \centering % centers the figure
 \begin{tikzpicture}
@@ -128,7 +128,7 @@ $|uv| \leq n$, in unserem Falle ist $|uv| = 4$ ($uv = 1000$).
         \node[state, accepting, right of=z5] (z6) {$z_6$};
 
         \node[state, right of=zi, above of=z4] (z7) {$z_7$};
-	\draw 
+	\draw
         (zi) edge[below] node{0} (z3)
         (zi) edge[above] node{u: 1} (z1)
 
@@ -163,10 +163,10 @@ Wir können diese Eigenschaft für L etwas formaler fassen:
         \exists n \forall x (
         x \in L
         \wedge  |x| \geq n \rightarrow \\
-        \exists u,v,w 
+        \exists u,v,w
         (
-            x = uvw 
-            \wedge  |v| \geq 1  
+            x = uvw
+            \wedge  |v| \geq 1
             \wedge  |uv| \leq n
             \wedge  \forall i \in \mathbb{N} (uv^iw \in L)
         )
@@ -186,11 +186,11 @@ Wir können tatsächlich ohne Beschränkung der Allgemeinheit diese Eigenschaft 
     \item Ist $L$ endlich, dann lassen sich die vier Beobachtungen ``nullerweise'' erfüllen,
         das heißt man wähle $n$ so,
         dass es länger ist, als das längste Wort in L.
-    \item Ist $L$ so geschaffen, dass der Weg zum Loop ``leer'' ist, 
+    \item Ist $L$ so geschaffen, dass der Weg zum Loop ``leer'' ist,
         also $|u| = 0$,
-        weil der Loop im Anfangszustand endet, 
+        weil der Loop im Anfangszustand endet,
         gelten die vier Beobachtungen dennoch.
-    \item Ist $L$ so geschaffen, dass der Weg vom Loop zum Endzustand ``leer'' ist, 
+    \item Ist $L$ so geschaffen, dass der Weg vom Loop zum Endzustand ``leer'' ist,
         also $|w| = 0$,
         weil der Loop selbst den Endzustand enthält,
         gelten die vier Beobachtungen dennoch.
@@ -219,8 +219,8 @@ Buchstabieren wir $\neg \phi(L)$ aus:
         \wedge  |x| \geq n
         \rightarrow \\
         \forall u,v,w (
-            x = uvw 
-            \wedge  |v| \geq 1  
+            x = uvw
+            \wedge  |v| \geq 1
             \wedge  |uv| \leq n
             \rightarrow  \exists i \in \mathbb{N} (uv^iw \notin L)
         )
@@ -296,7 +296,7 @@ Er wurde aufgrund seiner Homosexualität (seinerzeit eine Straftat in Großbritt
 \subsection{Was ist eine Turingmaschine?}
 
 Wir führen den Begriff der Turingmaschine analog zum DFA ein.
-Eine (deterministische) Turingmaschine TM ist ein 7-Tupel 
+Eine (deterministische) Turingmaschine TM ist ein 7-Tupel
 $TM = [Z, \Sigma, \Gamma, \delta, z_0, \square, E]$:
 \begin{itemize}
     \item $Z$ ist die Menge der Zustände.
@@ -331,7 +331,7 @@ Eine Turingmaschine funktioniert intuitiv so:
         \end{enumerate}
     \item Die Turingmaschine stoppt,
         wenn $\delta$ undefiniert ist ($\delta$ ist partiell).
-    \item Der Output der Turing-Maschine ist alles von der Zeigerposition an rechts. 
+    \item Der Output der Turing-Maschine ist alles von der Zeigerposition an rechts.
 \end{itemize}
 
 Ebenfalls analog zum DFA lassen sich die folgenden Begriffe definieren:
@@ -396,12 +396,12 @@ wenn $(s_{len(l_{x, tm})})_0 \in E$.
 
 \noindent
 Die Sprache $TM(L)$, die von einer Turingmaschine akzeptiert wird, ist definiert als
-$TM(L) = 
+$TM(L) =
 \{x|
-    x = yz 
-    \wedge 
+    x = yz
+    \wedge
         \exists s(
-            s = (l_{y,tm})_{len(l_{y,tm})} 
+            s = (l_{y,tm})_{len(l_{y,tm})}
             \wedge z = s_2s_3
             \wedge s_0 \in E
         )
@@ -458,7 +458,7 @@ Die Turingmaschine aus \autoref{fig:tmsortiment} akzeptiert SORTIMENT.
 	\node[state, accepting, below of=z4] (za) {$z_a$};
 	\node[state, above of=z3] (z5) {$z_5$};
 	\node[state, above of=z1] (z6) {$z_6$};
-	\draw 
+	\draw
         (zi) edge[above] node{0,$\square$,R} (z1)
         (zi) edge[below] node{$\square$,$\square$,-} (za)
         (z1) edge[loop above] node{0,0,R} (z1)
@@ -522,7 +522,7 @@ Bisher ist aber nicht gelungen einen solchen Formalismus zu finden.
 Für die folgenden Formalismen wurde gezeigt,
 dass sie \emph{Turing-vollständig} sind,
 das bedeutet:
-Man kann auf ihnen eine Turingmaschine simulieren. 
+Man kann auf ihnen eine Turingmaschine simulieren.
 Es gilt aber auch,
 dass eine Turingmaschine den Formalismus simulieren kann,
 sie sind also von gleicher Berechnungsstärke:
@@ -543,7 +543,7 @@ können aber von einer Turingmaschine simuliert werden:
     \item Keller-Automaten (siehe \autoref{keller})
 \end{itemize}
 Ein Beispiel für eine Funktion,
-die turing-berechenbar, aber nicht primitiv-rekursiv ist bzw. Loop-berechenbar 
+die turing-berechenbar, aber nicht primitiv-rekursiv ist bzw. Loop-berechenbar
 ist die \emph{Ackermann-Funktion} (siehe \cite{schoening}, 116-122).
 
 Wir schlussfolgern aus der Annahme,
@@ -561,7 +561,7 @@ können wir vier der fünf Kriterien als erfüllt ansehen:
 \begin{itemize}
     \item Turingmaschinen sind wie DFAs formal spezfiziert und damit unmissverständlich.
     \item Turingmaschinen haben einen Input (Bandinhalt vor dem Start)
-    \item Turingmaschinen haben einen vom Input abhängigen Output 
+    \item Turingmaschinen haben einen vom Input abhängigen Output
         (Bandinhalt vom Zeiger ab rechts nach dem Lauf)
     \item Turingmaschinen sind wie DFAs realisierbar,
         damit sind auch die implementierten Algorithmen durchführbar.
@@ -596,17 +596,29 @@ den Unterschied zwischen Hard- und Software verschwimmen lassen.
 \begin{enumerate}
     \item Gib zwei verschiedene Läufe für Wörter auf der Turingmaschien aus
         \autoref{fig:tmsortiment} an.
+    \item Gegeben sei die folgende Turingmaschine
+        $M = \{Z, \{*\}, \{*, \square\}, \delta, z_0, \square, \{z_2\}\}$,
+        mit $Z = \{z_0, z_1, z_2\}$ und \\
+        $\delta = \{
+            [*,z_0,z_0,*,R],
+            [\square,z_0,z_1,*,L],
+            [*,z_1,z_1,*,L],
+            [\square,z_1,z_2,\square,R]
+        \}$.
+        Gib M in grafischer Darstellung an und beschreibe, welche Funktion M berechnet.
+        Findest Du eine ``kleinere'' Turingmaschine (weniger Zustände, kleineres $\delta$),
+        welche die gleiche Funktion berechnet?
     \item Gib eine Turingmaschine an, die auf dem Alphabet $\Sigma = \{+\}$,
         die unäre Addition realisiert.
         Man kann davon ausgehen, dass der Input (zwei Zahlen in unärer Darstellung)
         mit einem $\square$ getrennt beim Start auf dem Band der Turingmaschine steht.
         In unärer Kodierung gilt: $0 = +, 1 = ++, 2 = +++, \ldots$
-    \item Gegeben sei die Turing Maschine M wie in \autoref{fig:tm33}.
+    \item Gegeben sei die Turing Maschine M wie in \autoref{fig:tm34}.
         \begin{enumerate}
             \item Geben Sie M in der Sprache der Mengenlehre an.
             \item Geben Sie den Lauf von M auf dem Input $||-|$ an.
             \item Nehmen Sie an, M startet auf einem Band mit einem Input,
-                der dem regulären Ausdruck $||*-||*$ entspricht. 
+                der dem regulären Ausdruck $||*-||*$ entspricht.
                 Beschreiben Sie, welche Funktion M berechnet, wenn Sie die Anzahl Striche als
                 unäre Kodierung für die natürlichen Zahlen interpretieren.
         \end{enumerate}
@@ -641,6 +653,6 @@ den Unterschied zwischen Hard- und Software verschwimmen lassen.
     ;
 \end{tikzpicture}
 \caption{Turing Maschine M für Übung 3.3}
-\label{fig:tm33}
+\label{fig:tm34}
 \end{figure}
 

@@ -1,5 +1,43 @@
 \section{Lösungen}
-3.3\\
+3.2\\
+\begin{figure}[ht] % ’ht’ tells LaTeX to place the figure ’here’ or at the top of the page
+\centering % centers the figure
+\begin{tikzpicture}
+	\node[state, initial] (z0) {$z_0$};
+	\node[state, right of=z0] (z1) {$z_1$};
+	\node[state, right of=z1, accepting] (z2) {$z_2$};
+	\draw
+    (z0) edge[loop above] node[text width=1cm, align=center]{$*,*,R$} (z0)
+	(z0) edge[above] node{$\square$, *, L} (z1)
+    (z1) edge[loop above] node[text width=1cm, align=center]{$*,*,L$} (z1)
+	(z1) edge[above] node{$\square$, $\square$, R} (z2)
+    ;
+\end{tikzpicture}
+\caption{Turing Maschine M für Übung 3.2}
+\label{fig:tm32}
+\end{figure}
+
+Die TM aus \autoref{fig:tm32} berechnet das unäre Inkrement,
+d.h. gegeben eine unäre Zahl erhöht sie deren Wert um eins.
+Die Turingmaschine aus \autoref{fig:tm32alt} berechnet die gleiche Funktion:
+\begin{figure}[ht] % ’ht’ tells LaTeX to place the figure ’here’ or at the top of the page
+\centering % centers the figure
+\begin{tikzpicture}
+	\node[state, initial] (z0) {$z_0$};
+	\node[state, right of=z0, accepting] (z1) {$z_1$};
+	\draw
+    (z0) edge[loop above] node[text width=1cm, align=center]{$*,*,L$} (z0)
+	(z0) edge[above] node{$\square$, *, -} (z1)
+    ;
+\end{tikzpicture}
+\caption{Turing Maschine M für Übung 3.2}
+\label{fig:tm32}
+\end{figure}
+
+
+
+\noindent
+3.4\\
 (a) $M = [\Sigma, \Sigma \cup \square, Z, \delta, z_1, \square, E]$ mit
 \begin{itemize}
     \item $\Sigma = \{|,-\}$
@@ -20,9 +58,9 @@
                 [|, z_m, z_m, |, L], &
                 [-, z_m, z_m, -, L], &
                 [\square, z_m, z_d, \square, R], \\
-            & 
+            &
                 [|, z_d, z_c, \square, R], \\
-            & 
+            &
                 [|, z_c, z_r, |, R], &
                 [-, z_c, z_n, |, R], \\
             &
@@ -72,7 +110,7 @@ $
     \node[state, right of=z3] (z1) {$\{z_1\}$};
     \node[state, right of=z1, accepting] (z13) {$\{z_1,z_3\}$};
 	\node[state, below of=z1] (ze) {$\emptyset$};
-	\draw 
+	\draw
     (zi) edge[above] node{0} (z12)
     (zi) edge[left] node{1} (z3)
     (z12) edge[above] node{0} (z23)
