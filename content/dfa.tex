@@ -109,7 +109,7 @@ und hier ist es sinnvoller mit einem Formalismus zu arbeiten,
 der ``einfacher'' ist als eine typische Programmiersprache.
 Um Programierer:innen bei ihrer Arbeit möglichst effizient zu unterstützen,
 ist eine Programmiersprache typischerweise eher ausdrucksstark.
-Der von von uns gesuchte Formalismus hat aber idealerweise nur wenige, einfache Bestandteile.
+Der von uns gesuchte Formalismus hat aber idealerweise nur wenige, einfache Bestandteile.
 Damit gelingt es uns zum Beispiel schneller Kriterium 5 zu behandeln:
 Wir müssen nur für wenige ``Bauteile'' einer Implementierung zeigen,
 dass sie alle einfach und prinzipiell nutzbar sind.\footnote{
@@ -233,7 +233,7 @@ müssen wir ein paar Hilfskonzepte einführen:
         heißt \emph{Lauf} $l_{w,A}$ für $w$ auf A, wenn gilt:
         \begin{itemize}
             \item Wir haben $w$ als Input und starten beim Anfangszustand:
-                $s_0 = [w,z_i]$ 
+                $s_0 = [w, z_i]$ 
             \item Wir enden, wenn das Wort ``aufgebraucht'' ist:
                 $s_{|w|} = [\epsilon, z]$ mit $z \in Z$,
 
@@ -313,10 +313,10 @@ das praktisch sehr relevant ist.
 Eine nützliche formale Eigenschaft von DFAs ist,
 dass wir sie minimalisieren können.
 Wir können also eine Methode angeben,
-mit der wir aus einem DFA A einen DFA A' ableiten können,
+mit der wir aus einem DFA A einen DFA A$'$ ableiten können,
 dessen Anzahl an Zuständen minimal ist 
 und für den gilt $L(A) = L(A')$,
-das heißt es gibt keinen DFA A'' für den gilt:
+das heißt es gibt keinen DFA A$''$ für den gilt:
 \[|Z''| < |Z'| \wedge L(A'') = L(A') \]
 
 Die grundlegende Idee der Methode besteht darin,
@@ -349,7 +349,7 @@ dass Endzustände und Nicht-Endzustände verschmolzen werden.
 Würden wir diese verschmelzen,
 würde gelten $L(A) \neq L(A')$,
 weil auf einmal ``neue'' Worte akzeptiert werden würden.
-Schritt 4 basiert auf der Annahme, dass zwei Zustände (z, z') verschmolzen werden können,
+Schritt vier basiert auf der Annahme, dass zwei Zustände (z, z') verschmolzen werden können,
 wenn gilt: $\forall a(a \in \Sigma \wedge \delta(a, z) = \delta(a, z'))$,
 also dass man von ihnen die gleichen Zielzustände erreichen kann.
 Die Wiederholung ist nötig,
@@ -458,23 +458,23 @@ wenn wir uns das \emph{Äquivalenzproblem} formaler Sprachen (\textbf{EQUIV})
 vor Augen führen.
 Wir geben dieses Problem informell an ($I_{EQUIV}$):
 \begin{itemize}
-    \item \textbf{Gegeben:} Zwei Automaten A,A'.
-    \item \textbf{Gesucht:} Ein Wahrheitswert, der anzeigt, ob L(A) = L(A').
+    \item \textbf{Gegeben:} Zwei Automaten A, A$'$.
+    \item \textbf{Gesucht:} Ein Wahrheitswert, der anzeigt, ob L(A) = L(A$'$).
 \end{itemize}
 Die Methode zur Minimalisierung gibt uns einen Algorithmus an,
 mit dem wir dieses Problem lösen, also berechnen können.
 Das bedeutet, wir können programmatisch entscheiden,
 indem wir den Minimalautomaten finden:
 \begin{itemize}
-    \item Sind die beiden Probleme L(A) und L(A') identisch?
+    \item Sind die beiden Probleme L(A) und L(A$'$) identisch?
         (Haben sie den selben Minimalautomaten)
-    \item Ist der Algorithmus minimal, den A (bzw. A') kodiert?
+    \item Ist der Algorithmus minimal, den A (bzw. A$'$) kodiert?
 \end{itemize}
 
 Wenn sich nun alle Probleme durch einen DFA charakterisieren ließen,
 also DFA-berechenbar wären,
 hätte die Lösung von \textbf{EQUIV} mächtige Konsequenzen:
-Wir könnten auf einen Schlag die meinsten IT-Fachkräfte überflüssig machen.
+Wir könnten auf einen Schlag die meisten IT-Fachkräfte überflüssig machen.
 Es besteht aber kein Grund zur Sorge, wie wir in \autoref{pumping} sehen werden.
 
 \section{Reguläre Ausdrücke}\label{regex}
@@ -548,7 +548,7 @@ import re
 
 //...
 
-if re.fullmatch("S(0|[1-9]\d*)", supplierid):
+if re.fullmatch("S([1-9][0-9]*)", supplierid):
     // add to database
 else:
     // handle error
