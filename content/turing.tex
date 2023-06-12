@@ -2,7 +2,7 @@
 
 In diesem Kapitel lernen wir ein Problem kennen,
 dass nicht DFA-berechenbar ist,
-d.h. für dessen Formale Sprache kein akzeptierender DFA existiert.
+d.h. für dessen formale Sprache kein akzeptierender DFA existiert.
 Dies beweisen wir mit Hilfe des Pumping-Lemmas,
 das wir informell herleiten.
 Mit den Turingmaschinen lernen wir einen Formalismus kennen,
@@ -244,7 +244,7 @@ Also ist die Sprache nicht regulär und kann nicht von einem DFA erkannt werden.
 \subsection{Grenzen der DFA-Berechenbarkeit}
 $SORTIMENT$ ist ein Problem, das uns \emph{intuitiv} berechenbar erscheint.
 Aber DFAs als Formalismus, um Algorithmen anzugeben,
-ist beweisbar nicht mächtig genug,
+sind beweisbar nicht mächtig genug,
 um $SORTIMENT$ zu berechnen.
 
 Der wesentliche Grund hierfür: ein DFA hat keinen ``Speicher'',
@@ -313,7 +313,7 @@ $TM = [Z, \Sigma, \Gamma, \delta, z_0, \square, E]$:
 \noindent
 Eine Turingmaschine funktioniert intuitiv so:
 \begin{itemize}
-    \item Zusätzlich zum DFA hat sie ein unendliches beschreibbares Band.
+    \item Zusätzlich zum DFA hat sie ein unendliches, beschreibbares Band.
     \item Der Input steht vor dem Lauf auf dem Band.
         Ist ein Input mehrstellig, sind die Wert durch Blanks ($\square$) getrennt.
         Auf allen anderen Position auf dem Band sind Blanks.
@@ -322,9 +322,9 @@ Eine Turingmaschine funktioniert intuitiv so:
         so liest sie das erste Zeichen
         und führt die folgenden drei Dinge wie von $\delta$ angegeben aus:
         \begin{enumerate}
-            \item Das Zeichen wird überschrieben oder bleib identisch.
+            \item Das Zeichen wird überschrieben oder bleibt identisch.
             \item Der Zustand wechselt oder bleibt gleich.
-            \item Der Zeicher bewegt sich nach
+            \item Der Zeiger bewegt sich nach
                 rechts (R),
                 links (L)
                 oder bleibt auf der Position stehen (-).
@@ -572,7 +572,7 @@ ob sie nach endlichen Schritten terminieren.
 Diese Diskussion schieben wir aber bis \autoref{derBarbierUndDerLuegner}.
 Hier halten wir fest: Turingmaschinen repräsentieren in jedem Fall \emph{Berechnungsmethoden}.
 
-Ein letzter Twist bleibt aber für dieses Kapitels:
+Ein letzter Twist bleibt aber für dieses Kapitel:
 Turingmaschinen lassen sich auch als formale Sprache repräsentieren,
 d.h. wir können den 7-Tupel zum Beispiel in eine Binärrepräsentation bringen.
 Diese Tatsache öffnet das Tor zu einer Reihe von möglichen Fragestellungen:
@@ -594,7 +594,7 @@ den Unterschied zwischen Hard- und Software verschwimmen lassen.
 \subsection*{Aufgaben}
 
 \begin{enumerate}
-    \item Gib zwei verschiedene Läufe für Wörter auf der Turingmaschien aus
+    \item Gib zwei verschiedene Läufe für Wörter auf der Turingmaschine aus
         \autoref{fig:tmsortiment} an.
     \item Gegeben sei die folgende Turingmaschine
         $M = \{Z, \{*\}, \{*, \square\}, \delta, z_0, \square, \{z_2\}\}$,
@@ -613,7 +613,7 @@ den Unterschied zwischen Hard- und Software verschwimmen lassen.
         Man kann davon ausgehen, dass der Input (zwei Zahlen in unärer Darstellung)
         mit einem $\square$ getrennt beim Start auf dem Band der Turingmaschine steht.
         In unärer Kodierung gilt: $0 = +, 1 = ++, 2 = +++, \ldots$
-    \item Gegeben sei die Turing Maschine M wie in \autoref{fig:tm34}.
+    \item Gegeben sei die Turingmaschine M wie in \autoref{fig:tm34}.
         \begin{enumerate}
             \item Geben Sie M in der Sprache der Mengenlehre an.
             \item Geben Sie den Lauf von M auf dem Input $||-|$ an.
