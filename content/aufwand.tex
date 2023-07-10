@@ -33,7 +33,7 @@ zeitlichem Aufwand beziehungsweise zeitlicher Effizienz sprechen.
 Allerdings kann vieles auf Raum-Effizienz übertragen werden,
 das wir in diesem Kapitel entwickeln.
 
-Wir wollen über diese drei folgenden Schritte zu einem Verständnis von Aufwand zu kommen:
+Wir wollen über diese drei folgenden Schritte zu einem Verständnis von Aufwand kommen:
 \begin{itemize}
     \item Aufwand für einen Lauf einer spezifischen Turingmaschine auf einem spezifischen Wort.
     \item Abschätzung für die Länge von Läufen einer spezifischen Turingmaschine
@@ -120,7 +120,7 @@ $t_{tm}$ gibt also die jeweilige Worst Case Laufzeit für ein Wort der Länge $n
 Dies erlaubt es uns auch über unendlich große formale Sprachen Aussagen zu treffen,
 indem wir angeben, wie sich der Aufwand bei steigender Inputgröße entwickelt.
 
-\subsection{Untere und Obere Schranken für den Aufwand}
+\subsection{Untere und obere Schranken für den Aufwand}
 Mit $t_{tm}$ und dem Worst Case-Wert können wir Aussagen über den Aufwand treffen,
 den ein bestimmter Algorithmus für ein bestimmtes Problem verursacht.
 Wir treffen allerdings keine Aussagen darüber,
@@ -128,7 +128,7 @@ wie viel Aufwand das Problem \emph{an sich} erzeugt.
 Dazu müssten wir Aussagen über alle prinzipiell \emph{möglichen} Algorithmen,
 also Turingmaschinen treffen,
 die das Problem lösen:
-Den Aufwand eines Problems würden wir dann mit dem effizientestem Algorithmus gleichsetzen.
+Den Aufwand eines Problems würden wir dann mit dem effizientesten Algorithmus gleichsetzen.
 Oftmals ist der Nachweis sehr schwer,
 ob es (k)einen effizienteren Algorithmus
 für ein Problem gibt.
@@ -149,8 +149,8 @@ Algorithmen und Datenstrukturen.
 $t_{tm}$ ist eine Möglichkeit,
 die Aufwandsentwicklung für steigende Inputgrößen formal zu spezfifizieren.
 Für die meisten Fälle ist $t_{tm}$ aber zu feingranular:
-Wir interessieren uns beispielsweise nur,
-ob das Laufzeitverhalten sinnvoll beschränken lässt,
+Wir interessieren uns beispielsweise nur dafür,
+ob sich das Laufzeitverhalten sinnvoll beschränken lässt,
 d.h. ob es eine asymptotische obere oder untere Schranke für den Aufwand gibt.
 
 Dies wird typischerweise mit der Landau-Notation angeben.
@@ -162,7 +162,7 @@ die für die Wachstumsdynamik unwesentlich sind:
 O(g(n)) = \{f|\forall c \exists n_0 \forall n (n \geq n_0 \rightarrow f(n) \leq c \cdot g(n))\}
 \]
 
-TODO: Ergänze andere Klassen (o, $\theta$ usw).
+% TODO: Ergänze andere Klassen (o, $\theta$ usw).
 
 \section{Messen vs. Beweisen}\label{messenVsBeweisen}
 

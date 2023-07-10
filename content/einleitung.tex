@@ -22,10 +22,10 @@ Diese Beispiele für Userstories sollen uns im Skript begleiten:
 \begin{itemize}
 %TODO: Einkommentieren und Bearbeiten, wenn Kapitel geschrieben.
     \item \textbf{U\textsubscript{EVEN}}:
-        >Als Kommisionier:in möchte ich die Anzahl der geplanten Paletten pro LKW kennen,
-         um zu sehen, ob Platz für den Hubwagen bleibt.
+        Als Kommisionier:in möchte ich die Anzahl der geplanten Paletten pro LKW kennen, 
+        um zu sehen, ob Platz für den Hubwagen bleibt.
      \item \textbf{U\textsubscript{SUPPLIERID}}:
-         Als Einkaufsmanager:in möchte ich,
+        Als Einkaufsmanager:in möchte ich,
         dass nur valide Lieferanten-IDs gespeichert werden
         (beginnend mit einem ``S'', gefolgt von einer Zahl),
         um Fehler in der Datenbank zu vermeiden.
@@ -124,7 +124,7 @@ dass die gezeigten Schritte nicht das richtige Resultat für einen anderen Zweck
 Für eine Kommissionierer:in mag die Anzahl noch aus anderen Gründen interessant sein,
 z.B. um die Auslastung der LKWs zu bewerten und zu optimieren.
 Oder es mag nicht gleichgültig sein, ob zwei, drei oder mehr Paletten nebeneinander passen.
-Wie man Abstraktionen im Sinne der Software Entwicklung einsetzen kann,
+Wie man Abstraktionen im Sinne der Softwareentwicklung einsetzen kann,
 lehrt die Disziplin des Software Engineerings.}
 Wir kommen so auf den Kern der Userstory \textbf{U\textsubscript{EVEN}},
 den wir \textbf{I\textsubscript{EVEN}} nennen wollen:
@@ -330,7 +330,7 @@ Wie bekommen wir nun ein Problem wie \textbf{I\textsubscript{EVEN}}
 in die Gestalt einer formalen Sprache?
 Für \textbf{EVEN} ist dies recht unkompliziert:
 Wir nutzen $\Sigma = \{0,1\}$ als Alphabet
-und kodieren Zahlen mit Hilfe der folgenden (kanonischen) Binärrepresentation
+und kodieren Zahlen mit Hilfe der folgenden (kanonischen) Binärrepräsentation
 $bin_{\mathbb{N}}: \mathbb{N} \rightarrow \Sigma^*$:
 \[
     bin_{\mathbb{N}}(x) = a_{0}a_{1} \ldots a_{n}
@@ -372,7 +372,7 @@ noch einstellig.
 $f_{EVEN}: \mathbb{N} \rightarrow \{0,1\}$ dagegen ist beides.
 
 Für ein Wort $w$, das einen (einfachen) Wert $x$ kodiert,
-gilt $w \in L_{PROBLEM}$, genau dann wenn $f_{PROBLEM}(x) = 1$.
+gilt $w \in L_{PROBLEM}$, genau dann, wenn $f_{PROBLEM}(x) = 1$.
 Dieser Trick funktioniert nicht,
 wenn $x$ komplex ist (d.h. $f_{PROBLEM}$ ist mehrstellig),
 oder der Wertebereich aus mehr als zwei Werten besteht.
@@ -468,7 +468,7 @@ Zudem muss man ein Problem nicht in einer Sprache über einem binären Alphabet
 $\Sigma = \{0,1\}$ kodieren,
 wie wir es im vorangegangenen Abschnitt exemplarisch getan haben.
 Man hätte auch Probleme mit einem unären, ternären
-oder anderen Alphabeten repräsentieren können.\footnote{
+oder anderen Alphabet repräsentieren können.\footnote{
     Interessierte Leser:innen kommen in \cite{knuth2}, Chapter 4 (194-213) auf ihre Kosten.
 }
 Das obige Beispiel ist mit dem binären Alphabet im wahrsten Sinne des Wortes durchbuchstabiert,
@@ -532,16 +532,16 @@ Repräsentation von Problemen,
 in \autoref{ch:theorie} werden wir Hinweise durchgehen,
 wie man das Studium der formalen Sprachen vertiefen kann.
 
-\section{Kapitelabschluss}
+\section*{Kapitelabschluss}
 \subsection*{Zusammenfassung}
 \begin{itemize}
     \item Erfahrene und kompetente IT-Fachkräfte erfassen den logischen Kern
         von IT-Alltagsaufgaben und können ihre Aufgaben daher effizient erledigen.
     \item Den logischen Kern können wir im gegeben/gesucht-Format fassen
         und so als Funktion verstehen. Diese Auffassung von Problemen nennen wir informell.
-    \item Probleme lassen sich als formale Sprachen repräsentieren.
-    \item Formale Sprachen lassen sich mit den Methoden der theoretischen Informatik
-        bearbeiten.
+    \item Probleme lassen sich (aber auch) als formale Sprachen repräsentieren.
+    \item Vorteil von formalen Sprachen ist, dass sie sich mit den Methoden der theoretischen Informatik
+        bearbeiten lassen.
 \end{itemize}
 \subsection*{Aufgaben}
 \begin{enumerate}

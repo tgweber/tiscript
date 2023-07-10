@@ -131,7 +131,7 @@ Die folgenden Äquivalenzen werden in diesem Skript als Schlussregeln genutzt,
 sie lassen sich mit Wahrheitstabellen rechtfertigen:
 \begin{itemize}
     \item Kontraposition:
-        $A \rightarrow B \leftrightarrow \neg B \rightarrow A$
+        $A \rightarrow B \leftrightarrow \neg B \rightarrow \neg A$
     \item DeMorgan (I):
         $\neg (A \wedge B) \leftrightarrow \neg A \vee \neg B$
 
@@ -154,12 +154,12 @@ die interne Struktur von Aussagen zu analysieren.
 Die grundlegende Struktur von Aussagen ist dabei die \emph{Prädikation},
 eben die Aussage, dass 1-n Objekte in einem Verhältnis stehen.
 Zum Beispiel würde die Aussage
-``a ist ein Vokal'' formal mit $V(a)$ wiedergeben,
+``a ist ein Vokal'' formal mit $V(a)$ wiedergegeben,
 wobei $V(x)$ das Prädikat ``x ist ein Vokal'' darstellt
 und ``a'' der Name eines Objekts ist.
 $V(x)$ ist \emph{einstellig},
 Prädikate können aber auch \emph{mehrstellig} sein:
-$ABC(x,y)$ könnte zum Beispiel bedeutet: nach x kommt y im Alphabet.
+$ABC(x,y)$ könnte zum Beispiel bedeuten: nach x kommt y im Alphabet.
 
 Die wesentliche Analysetiefe bekommt die Prädikatenlogik aber dadurch,
 dass sie es erlaubt, mit \emph{Quantoren} Existenz- und Allaussagen zu formalisieren.
@@ -178,7 +178,7 @@ sie hat es ermöglicht, zentrale Ergebnisse der Mathematik präzise zu formulier
 Dies trifft auch auf wichtige Ergebnisse der theoretischen Informatik zu.
 Wir werden in \autoref{pumping} das Pumping-Lemma als ein Beispiel hierfür kennenlernen.
 
-Eine weitere Regel für die Manipulation von Prädikatenlogischen Formeln
+Eine weitere Regel für die Manipulation von prädikatenlogischen Formeln
 sind die Regeln zur \emph{Quantorennegation}:
 \begin{itemize}
     \item $\neg \forall x \phi \leftrightarrow \exists x \neg \phi$
@@ -219,7 +219,7 @@ zum Beispiel ist $\mathbb{N}$ die Menge der natürlichen Zahlen.
 Da es unendlich viele natürlichen Zahlen gibt,
 können wir die Extension nicht angeben
 (alles Papier der Welt wäre nicht genug).
-1,2,3 sind Elemente in beiden Mengen Menge.
+1,2,3 sind Elemente in beiden Mengen.
 Wir schreiben zum Beispiel $1 \in A$ und $1 \in \mathbb{N}$
 um die Elementschaftsbeziehung zwischen Objekt/Element und Menge formal auszudrücken.
 Die leere Menge ist eine spezielle Menge, die keine Elemente enthält,
@@ -239,7 +239,7 @@ Mit dem Begriff \emph{Universum}\footnote{
 } bezeichnen wir die Gesamtheit der Elemente,
 über die wir Aussagen treffen.
 Zum Beispiel wären die natürlichen Zahlen ein Universum.
-Man kann man Mengen auch \emph{intensional} angeben,
+Man kann Mengen auch \emph{intensional} angeben,
 d.h.\ wir geben eine Bedingung an,
 die alle Elemente eines Universums erfüllen müssen.
 Für alle geraden natürlichen Zahlen wäre das z.B.:
@@ -326,7 +326,7 @@ Das Folgende sollten bekannt sein:
     \item Ein Tupel mit n    Elementen heißt n-Tupel.
     \item Das kartesische Produkt zweier Mengen A und B wird mit $A \times B$ bezeichnet
           und ist definiert als: $\{[a,b]|a \in A \wedge b \in B\}$.
-    \item Analog lässts sich das kartesische Produkt von mehr als zwei Mengen definieren.
+    \item Analog lässt sich das kartesische Produkt von mehr als zwei Mengen definieren.
     \item Für einen Tupel $t$ bezeichnet $t_n$ genau das n-te Element des Tupels.
         $n$ heißt Index des Tupels. Die erste Position im Tupel hat den Index 0.
 \end{itemize}
@@ -438,6 +438,6 @@ Ein grundlegendes formales Verständnis von Relationen und Funktionen ist besond
 bei der Frage, wie Maschinen feststellen können,
 ob eine Relation zwischen zwei Objekten besteht
 und noch vielmehr bei der Frage, wie Maschinen Funktionen berechnen können.
-In \autoref{subsec:problemeSprachen} werden wir uns genau diesen Fragen widmen.
+In \autoref{subsec:problemeAlsFormaleSprachen} werden wir uns genau diesen Fragen widmen.
 
 %\subsection{Beweisstrategien \& Beweisskizzen}\label{bew}
