@@ -46,18 +46,18 @@ als auch in der Berechnungstheorie.
 Es konnte bisher kein Formalismus gefunden werden,
 der ``mächtiger'' als Turingmaschinen ist.
 Mit den Turing-Maschinen haben wir das nötige Konzept an der Hand,
-um die Hauptfrage des Skriptes in den folgenden beiden Kapiteln zu beantworten.
+um die Hauptfrage des Skriptes zu beantworten.
 
 In \emph{Kapitel 4} zeigen wir, 
 wie wir den \emph{Aufwand} quantifizieren können,
 den Berechnungen verursachen. 
-Wir fassen Aufwand genauer als Laufzeit eines Automaten (zeitlicher Aufwand) 
+Wir fassen Aufwand genauer als Laufzeit einer Turingmaschine (zeitlicher Aufwand) 
 oder dessen benötigten (Speicher-)Platz (räumlicher Aufwand).
-Sowohl DFAs als auch Turingmaschinen erlauben es,
-diese Konzepte von Speicherplatz und Laufzeit präzise zu fassen.
-Das Wachstum von Speicherplatz und Laufzeit lässt sich
+Das Wachstum von Laufzeit und Speicherplatz lässt sich
 mit der Landau-Notation quantitativ fassen.
-Die Diskussion um Grenzen und Vorteile dieser Methode
+Da man andere Implementierungsformalismen für Algorithmen auf Turingmaschinen simulieren kann,
+können wir die Aufwandsquantifkation von Turinmaschinen auf jene Formalismen übersetzen.
+Die Diskussion um Grenzen und Vorteile theoretischer Methoden 
 gegenüber empirischen Messungen runden das Kapitel ab.
 
 Zentrale Ergebnisse und einige offene Fragen der Komplexitätstheorie
@@ -106,17 +106,15 @@ Auch Kapitel 7 und 8 bauen auf Vorhergeschriebenes auf,
 sie sind allerdings optional
 und für das Verständnis des Hauptnarrativs nicht notwendig.
 
-Wenn wir zurück zur Daseinsberechtigung dieses Skriptes kommen,
-stellen wir fest:
 Viele zentrale Ergebnisse, Hintergründe und Konzepte
 der theoretischen Informatik,
 die für den gerade dargestellten Erzählstrang irrelvant sind,
-finden sich nur in Fußnoten und Referenzen:
+finden sich in diesem Skript nur in Fußnoten und Referenzen:
 Wir werden nichts über Abzählbarkeit,
 wenig über Abschlusseigenschaften formaler Sprachen,
 linear-beschränkte Turingmaschinen,
 oder Transduktoren zu sagen haben.
-Das Ziel des Skriptes ist aber nicht Vollständigkeit in der Breite,
+Ein Alleinstellungsmerkmal dieses Skriptes ist nicht Vollständigkeit in der Breite,
 sondern argumentative Kraft in der Tiefe:
 Nach der Lektüre wird hoffentlich klar,
 warum eine weitere Vertiefung des Faches lohnenswert ist,
@@ -144,9 +142,9 @@ dass sich Studierende der theoretischen Informatik
 \emph {leichter} mit dem klassischen Handwerkszeug tun,
 wenn sie Antworten auf diese Fragestellungen mitdiskutieren.
 
-Ein dritter Aspekt, der dieses Skript von anderen Einführungen unterscheidet,
-ist der Fokus auf die Komplexitätstheorie,
-also die Theorie von Problemklassen,
+Ein dritter Aspekt, der dieses Skript von einigen anderen Einführungen unterscheidet,
+ist die prominentere Rolle der Komplexitätstheorie,
+also der Theorie von Problemklassen,
 die sich aufgrund ihrer Schwierigkeit unterscheiden.
 Dieser Aspekt und der Zusammhang zwischen theoretischer Informatik und ``Algorithmik''\footnote{
     Wir verstehen darunter die Fähigkeit,
@@ -164,7 +162,7 @@ Für wen ist dieses Skript nun geschrieben?
 Das ursprüngliche Skript wurde begleitend zur Veranstaltung
 \emph{Theoretische Informatik (Wirtschaftsinformatik)}
 an der DHBW Heilbronn erstellt.
-Es richtet sich vor allem an Fachhochschul- und BA-Student:innen,
+Es richtet sich vor allem an Fachhochschul- und duale Student:innen,
 die Informatik eher als Teil- oder Nebenfach belegen.
 Desweiteren wird das Skript aus oben genannten Gründen auch für Studierende der Philosophie
 in der analytisch-angelsächischen Tradition (d.h. mit einem Fokus auf formales Arbeiten)
@@ -176,10 +174,8 @@ um den klassischen Prüfungsstoff erfolgreich zu beherrschen.
 Die folgende Aufstellung von Einführungen in die theoretische Informatik
 listet geeignete Kandidaten für diese Ergänzung auf
 und spiegelt dabei lediglich den Geschmack beziehungsweise den Kenntnisstand des Autors wieder
-und hat daher keinen Anspruch auf Vollständigkeit:
+und hat keinen Anspruch auf Vollständigkeit:
 \begin{itemize}
-    \item  \cite{hoffmann} bietet ein sehr umfassendes Kompendium
-            und ist für alle geeignet, die sich von den weiteren Alternativen nicht angesprochen fühlen.
     \item  Einen kurzen und konzisen Überblick bietet \cite{schoening}.
     \item  Für eine Compiler-zentrierte Einführung ist \cite{hedtstueck}
            zu empfehlen.
@@ -191,6 +187,8 @@ und hat daher keinen Anspruch auf Vollständigkeit:
            für puristische und historisch interessierte Leser:innen zu empfehlen.
     \item  \cite{barak} ist ein Skript in der Entstehung,
            es ist in englisch verfasst und offen im Netz zugänglich.
+    \item  \cite{hoffmann} bietet ein sehr umfassendes Kompendium
+            und ist für alle geeignet, die sich von den weiteren Alternativen nicht angesprochen fühlen.
 \end{itemize}
 
 Um das Skript lesen und verstehen zu können,
@@ -199,6 +197,6 @@ die wir in \autoref{sec:grundlagen} kurz streifen.
 Der Abschnitt ist als Wiederholung und Kontrolle gedacht,
 nicht als allumfassende Einführung in die genannten Konzepte.
 Werden beim Durchlesen Lücken bemerkt,
-beinhaltet das Kapitel ausreichend Literaturempfehlungen,
+beinhaltet das Kapitel Literaturempfehlungen,
 um diese zu schließen.
 
