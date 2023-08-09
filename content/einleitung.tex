@@ -58,7 +58,7 @@ Bis wir eine bessere Definition dieses Begriffs finden,
 wollen wir diesen Kern als ``Problem'' bezeichnen,
 
 Mit den Methoden der theoretischen Informatik ausgerüstet,
-kann man einiges über die Userstories und deren zugrundeliegende Probleme sagen:
+kann man einiges über die eben aufgeführten Userstories und deren zugrundeliegende Probleme sagen:
 \begin{itemize}
     \item Mindestens eine Userstory ist leicht zu realisieren.
     \item Für mindestens eine Userstory kann man mit vertretbarem Aufwand nur suboptimale Lösungen finden.
@@ -67,10 +67,11 @@ kann man einiges über die Userstories und deren zugrundeliegende Probleme sagen
 Um unnötige Arbeit zu vermeiden
 und die besten der bekannten Lösungen zu implementieren,
 ist natürlich von Interesse,
-welche Userstory in welche Kategorie fällt.
+welche Userstory in welche dieser Kategorien fällt.
 Dafür müssen wir die Ergebnisse und Werkzeuge
 der theoretischen Informatik kennen und anwenden;
 die Form der Userstory ist jedoch dafür nicht geeignet.
+
 Damit wir das volle Potential der theoretischen Informatik schöpfen können,
 müssen wir zwei Schritte gehen:
 Wir müssen von den Userstories \emph{abstrahieren}
@@ -78,6 +79,7 @@ und diese Abstraktion \emph{formalisieren}.
 Die beiden folgenden Abschnitte zeigen anhand \textbf{U\textsubscript{EVEN}}
 beispielhaft, was damit gemeint ist.
 Dabei werden wir die ersten zentralen Begriffe dieses Skriptes einführen und diskutieren.
+
 \section{Abstraktion}
 
 \emph{Abstraktion} ist die ausschließliche Betrachtung der Aspekte eines Sachverhalts,
@@ -188,8 +190,7 @@ und Konsequenzen für die eingangs erwähnten Userstories ziehen.
 
 Damit wir die Werkzeuge der theoretischen Informatik anwenden können,
 werden wir Probleme wie \textbf{EVEN} als formale Sprachen repräsentieren.
-Um zu verstehen, warum dies sinnvoll ist,
-werden wir in drei Schritten vorgehen:
+Dabei gehen wir in drei Schritten vor:
 \begin{enumerate}
     \item Erklären, was eine formale Sprache ist (\autoref{subsec:formaleSprachen})
     \item Mit \textbf{I\textsubscript{EVEN}} beispielhaft zeigen,
@@ -234,7 +235,7 @@ Sei $v = 11$ und $w = 0$ dann ist $vw = 110$\\
 \noindent
 Die Menge aller Wörter,
 die sich aus einem Alphabet bilden lassen,
-bezeichnen wir als \emph{Kleenesche Hülle}, dargestellt als Stern: $\Sigma^*$.\\
+bezeichnen wir als \emph{Kleenesche Hülle}, dargestellt als hochgestellter Stern: $\Sigma^*$.\\
 
 \noindent
 Wir verwenden diese Variablen für Worte:
@@ -379,7 +380,8 @@ oder der Wertebereich aus mehr als zwei Werten besteht.
 
 Da mit diesem Trick die formale Sprache $L_{EVEN}$ sehr elegant und platzsparend
 \textbf{I\textsubscript{EVEN}} beziehungsweise $f_{EVEN}$ kodiert,
-werden wir diesen auch im weiteren Verlauf des Skriptes anwenden.
+präferieren wir bei einstelligen Wahrheitsfunktionen diese über die folgende Methode,
+die im nächsten Abschnitt alle übrigen Funktionen gezeigt wird.
 
 \subsubsection{Beliebige Funktionen}
 Um beliebige Funktionen binär zu kodieren,
@@ -409,20 +411,22 @@ aus denen man auswählen kann.\footnote{
 }\\
 
 \noindent
-Sei nun $\cal{T}$ die Menge aller Tupel über $\{0,1\}$, also
-\[
-    \mathcal{T} = \{[0], [1], [0,0], [0,1], [1,0], [1,1], [0,0,0], \ldots \}
-\]
-Wir definieren zunächst die Hilfsfunktion $bin_{word}: \{0,1\}^* \rightarrow \{0,1\}^*$:
+Wir definieren zunächst eine Hilfsfunktion $bin_{word}: \{0,1\}^* \rightarrow \{0,1\}^*$:
 \[
     bin_{word}(w) = 0w_00w_1\ldots0w_n \text{ mit } |w| = n
 \]
-$bin_{word}$ fügt jedem Zeichen das Präfix 0 hinzu,
+$bin_{word}$ fügt jedem Zeichen in $w$ das Präfix 0 hinzu,
 damit ``markieren'' wir alle Binärzeichen,
 die tatsächlich ein Zeichen eines Elements eines Tupels kodieren.
 Damit verdoppeln wir die Länge der Binärwörter, die Element eines Tupels $t$ sind.
 \[
     |bin_{word}(w)| = 2|w|
+\]
+
+\noindent
+Sei nun $\cal{T}$ die Menge aller Tupel über $\{0,1\}$, also
+\[
+    \mathcal{T} = \{[0], [1], [0,0], [0,1], [1,0], [1,1], [0,0,0], \ldots \}
 \]
 Gesucht ist nun noch eine Funktion $bin_{\mathcal{T}}: \mathcal{T} \rightarrow \{1,0\}^*$.
 Sei $t \in \mathcal{T}$, dann bezeichnet $t_i$ genau das Binärwort an Position $i$.
@@ -430,6 +434,13 @@ Somit können wir $bin_{\mathcal{T}}$ definieren:
 \[
     bin_{\mathcal{T}}(t) = bin_{word}(t_0)11bin_{word}(t_1)\ldots 11bin_{word}(t_{n})
 \]
+
+\begin{figure}[htb]
+\centering
+    \makebox[\textwidth]{\includegraphics[width=\linewidth]{figures/fl.png}}
+    \caption{Beispielhafte Repräsentation einer Funktion in einer formalen Sprache}\label{fig:fl}
+\end{figure}
+
 Z.B. ist $bin_{\mathcal{T}}([1,1,0]) = 0111011100$.
 Da die Zeichenfolge 11 nicht Element der Wertemenge von $bin_{word}$ ist,
 können wir so die Grenze der Binärwörter (die Kommata) im Tupel kodieren.
