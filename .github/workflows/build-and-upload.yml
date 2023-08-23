@@ -1,5 +1,5 @@
 name: build-and-upload
-run-name: ${{ github.actor }} is creating the script 
+run-name: ${{ github.actor }} is creating the script
 on: [push]
 jobs:
   build:
@@ -16,6 +16,7 @@ jobs:
           latexmk_shell_escape: true
   upload:
     runs-on: ubuntu-latest
+    steps:
       - uses: actions/upload-artifact@v3
         with:
           name: PDF
