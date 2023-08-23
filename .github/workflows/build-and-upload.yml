@@ -1,8 +1,8 @@
-name: learn-github-actions
-run-name: ${{ github.actor }} is learning GitHub Actions
+name: build-and-upload
+run-name: ${{ github.actor }} is creating the script 
 on: [push]
 jobs:
-  create-pdf:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -14,7 +14,7 @@ jobs:
           root_file: script.tex
           args: -bibtex -pdf -bibtex -file-line-error -halt-on-error -interaction=nonstopmode
           latexmk_shell_escape: true
-  upload-pdf:
+  upload:
     runs-on: ubuntu-latest
       - uses: actions/upload-artifact@v3
         with:
