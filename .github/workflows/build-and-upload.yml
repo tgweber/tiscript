@@ -1,0 +1,23 @@
+name: build-and-upload
+run-name: ${{ github.actor }} is creating the script
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: "Create gitHeadInfo file"
+        run: ./utils/gitinfo2/create_gitinfo.sh
+        shell: bash
+      - uses: xu-cheng/latex-action@v2
+        with:
+          root_file: script.tex
+          args: -bibtex -pdf -bibtex -file-line-error -halt-on-error -interaction=nonstopmode
+          latexmk_shell_escape: true
+  upload:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/upload-artifact@v3
+        with:
+          name: PDF
+          path: script.pdf
