@@ -1,13 +1,6 @@
 name: build-and-upload
 run-name: ${{ github.actor }} is creating the script
-on:
-  push:
-    branches:
-      - main
-  pull_request:
-    types:
-      - opened
-      - reopened
+on: [push, pull_request]
 jobs:
   build:
     name: "Build script"
