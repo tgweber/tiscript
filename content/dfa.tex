@@ -597,4 +597,32 @@ else:
 	  \item Geben Sie drei Wörter an, die A \textbf{nicht} akzeptiert. 
 	  \item Geben Sie die von A erkannte Sprache in Ihren eigenen Worten an. 
     \end{enumerate}            
-\end{enumerate}
+    \item Gegeben sei der DFA B wie in \autoref{fig:min}.
+        \begin{enumerate}
+            \item Minimieren Sie B und stellen Sie den minimierten DFA graphisch dar
+                (achten Sie bitte bei der Minimerung auf eine saubere, tabellarische Aufstellung).
+            \item Geben Sie jeweils drei Worte an, die der A akzeptiert und nicht akzeptiert.
+        \end{enumerate}
+    \end{enumerate}
+
+\begin{figure}[ht] % ’ht’ tells LaTeX to place the figure ’here’ or at the top of the page
+\centering % centers the figure
+\begin{tikzpicture}
+	\node[state, initial, accepting] (z0) {$z_0$};
+	\node[state, below right of=z0] (z1) {$z_1$};
+	\node[state, below of=z0] (z2) {$z_2$};
+	\node[state, accepting, right of=z0] (z3) {$z_3$};
+	\node[state, above of=z0] (z4) {$z_4$};
+	\draw 
+	(z0) edge[above] node{0} (z3)
+    (z0) edge[bend left, right] node{1} (z2)
+	(z1) edge[right] node{0,1} (z0)
+	(z2) edge[bend left, left] node{0,1} (z0)
+	(z3) edge[above] node{0} (z4)
+    (z3) edge[right] node{1} (z1)
+	(z4) edge[left] node{0,1} (z0)
+    ;
+\end{tikzpicture}
+\caption{DFA B}
+\label{fig:min}
+\end{figure}
