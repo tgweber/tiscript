@@ -306,12 +306,12 @@ werden wir uns mit einer nützlichen formalen Eigenschaft von DFAs beschäftigen
 und wir werden mit den regulären Ausdrücken ein Programmierparadigma kennenlernen,
 das praktisch sehr relevant ist.
 
-\section{Minimalisierung}
+\section{Minimalautomat}
 
-\subsection{Methode zur Minimalisierung von DFAs}
+\subsection{Methode zur Minimierung von DFAs}
 
 Eine nützliche formale Eigenschaft von DFAs ist,
-dass wir sie minimalisieren können.
+dass wir sie minimieren können.
 Wir können also eine Methode angeben,
 mit der wir aus einem DFA A einen DFA A$'$ ableiten können,
 dessen Anzahl an Zuständen minimal ist 
@@ -371,14 +371,14 @@ da wir am Anfang gegebenenfalls noch nicht alle Zielzustände identifiziert habe
         (z2) edge[bend left, above] node{1} (z1)
     ;
 \end{tikzpicture}
-\caption{Zu minimalisierender DFA A}
+\caption{Zu minierender DFA A}
 \label{fig:dfazumin}
 \end{figure}
 
 Wir wollen die Methode an einem Beispiel aufzeigen.
 Sei ein DFA wie in \autoref{fig:dfazumin} gegeben.
 \begin{enumerate}
-    \item Nach dem ersten Schritt ergibt sich diese Minimalisierungstabelle: 
+    \item Nach dem ersten Schritt ergibt sich diese Minimierungstabelle: 
         \begin{table}[H]
             \centering
             \begin{tabular}{|c|c|c|c|}
@@ -442,7 +442,7 @@ Sei ein DFA wie in \autoref{fig:dfazumin} gegeben.
         (z1) edge[bend left, below] node{0} (z0)
     ;
 \end{tikzpicture}
-\caption{Minimalisierter DFA M}
+\caption{Minimierter DFA M}
 \label{fig:mindfa}
 \end{figure}
 
@@ -452,7 +452,7 @@ Wir wollen die Sprache daher \textbf{ENDS1} nennen.
 
 \subsection{Das Äquivalenzproblem formaler Sprachen}
 
-Warum aber ist die Minimalisierung von DFAs eine nützliche Sache? 
+Warum aber ist die Minimerung von DFAs eine nützliche Sache? 
 Die Antwort auf diese Frage wird klar,
 wenn wir uns das \emph{Äquivalenzproblem} formaler Sprachen (\textbf{EQUIV})
 vor Augen führen.
@@ -461,7 +461,7 @@ Wir geben dieses Problem informell an ($I_{EQUIV}$):
     \item \textbf{Gegeben:} Zwei Automaten A, A$'$.
     \item \textbf{Gesucht:} Ein Wahrheitswert, der anzeigt, ob L(A) = L(A$'$).
 \end{itemize}
-Die Methode zur Minimalisierung gibt uns einen Algorithmus an,
+Die Methode zur Minimierung gibt uns einen Algorithmus an,
 mit dem wir dieses Problem lösen, also berechnen können.
 Das bedeutet, wir können programmatisch entscheiden,
 indem wir den Minimalautomaten finden:
@@ -569,8 +569,32 @@ else:
 
 \subsection*{Aufgaben}
 
+\begin{figure}[ht] % ’ht’ tells LaTeX to place the figure ’here’ or at the top of the page
+\centering % centers the figure
+\begin{tikzpicture}
+	\node[state, initial, accepting] (z1) {$z_1$};
+	\node[state, accepting, right of=z1] (z2) {$z_2$};
+	\node[state, below right of=z1] (z3) {$z_3$};
+	\node[state, accepting, right of=z3] (z4) {$z_4$};
+	\draw (z1) edge[above] node{a} (z2)
+	(z1) edge[above] node{b} (z3)
+	(z2) edge[loop above] node{a,b} (z2)
+	(z3) edge[loop below] node{b} (z3)
+	(z3) edge[bend left, above] node{a} (z4)
+	(z4) edge[bend left, below] node{b} (z3)
+	(z4) edge[loop below] node{a} (z4);
+\end{tikzpicture}
+\caption{DFA A}
+\label{fig:dfaueb}
+
+\end{figure}
 \begin{enumerate}
-    \item Warum ist die Bezeichnung $z_{NaN}$ in \autoref{fig:dfaeven} nicht ganz akkurat?
-          Für welchen Zustand trifft das noch zu?
     \item Wie viele Elemente hat die Übergangsfunktion $\delta$ eines beliebigen DFA?
+    \item Gegeben sei der DFA A wie in \autoref{fig:dfaueb}.
+    \begin{enumerate}
+	  \item Geben Sie A formal in der Sprache der Mengenlehre an.
+	  \item Geben Sie einen regulären Ausdruck an, der die gleiche Sprache beschreibt. 
+	  \item Geben Sie drei Wörter an, die A \textbf{nicht} akzeptiert. 
+	  \item Geben Sie die von A erkannte Sprache in Ihren eigenen Worten an. 
+    \end{enumerate}            
 \end{enumerate}
