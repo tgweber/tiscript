@@ -6,10 +6,10 @@ d.h. für dessen formale Sprache kein akzeptierender DFA existiert.
 Dies beweisen wir mit Hilfe des Pumping-Lemmas,
 das wir informell herleiten.
 Mit den Turingmaschinen lernen wir einen Formalismus kennen,
-deren Berechenbarkeitsumfang größer ist.
+deren ``Berechenbarkeitsmacht'' größer ist.
 Die Church-Turing-These besagt,
 dass es keinen bekannten Berechenbarkeitsformalismus gibt,
-der mächtiger ist als der, der Turing-Berechenbarkeit.
+der mächtiger ist als die Turing-Berechenbarkeit.
 Wir schließen das Kapitel ab mit einer formalen Fingerübung:
 Es ist möglich Turingmaschinen selbst als Input für Turingmaschinen zu kodieren.
 Wir können also fragen, welche Eigenschaften von Turingmaschinen berechenbar sind.
@@ -80,8 +80,8 @@ Der DFA zu L hat zwei Arten von Läufen zu einem Endzustand:
     \item Einen ``Einzellauf'' via $z_i, z_3, z_4, z_5$ zu $z_6$.
         Auf diesem Pfad wird genau ein Wort akzeptiert: $0000$.
     \item Einen ``Zirkellauf'' via $z_i, z_1^*, z_2$.
-        Auf diesem Pfad werden unendlich viele Wörter akzeptiert ($11, 101, 10001, \ldots$).
-        Dieser Zirkellauf enthält, daher der Name, einen Zirkel, bzw. einen Loop.
+        Auf diesem Pfad werden unendlich viele Wörter akzeptiert ($11, 101, 1001, 10001, \ldots$).
+        Dieser Lauf enthält einen Zirkel (bzw. einen Loop) - daher der Name Zirkellauf.
 \end{enumerate}
 
 Unsere \textbf{erste} Beobachtung:
@@ -90,20 +90,24 @@ Endzustand.
 Wir wollen diese Länge $n$ nennen. Im Falle von L ist die Länge 5.
 
 Unsere \textbf{zweite} Beobachtung:
-Für ein Wort $x \in L$ mit $|x| \geq n = 5$ gilt: Wir können es in drei Teile zerlegen
+Für ein Wort $x \in L$ mit $|x| \geq n = 5$ gilt:
+Wir können es in drei Teile zerlegen
 $x = uvw$:
 \begin{enumerate}
     \item $u$ ist der Teil des Wortes,
         dessen Schnappschussfolge mit $s_u = [u,z_1]$ endet.
         $z_1$ ist der Zustand am \emph{Ende des Loops}.\\
         Ein Merkwort für diesen Teil: ``\textbf{u}nterwegs''.
+        In unserem Beispiel ist $u = 100$
     \item $v$ ist der Teil des Wortes,
         dessen Schnappschussfolge von \emph{variabler Länge} ist.
         Formal: $|v| \in \mathbb{N}$.\\
         Ein Merkwort für diesen Teil: ``\textbf{v}erweile''.
+        In unserem Beispiel ist $v = 0$
     \item $w$ ist der Teil des Wortes,
         dessen Schappschussfolge vom Ende des Loops \emph{zum Endzustand} führt.\\
         Ein Merkwort für diesen Teil: ``\textbf{w}eiter''.
+        In unserem Beispiel ist $w = 1$
 \end{enumerate}
 Hier wird klar, was wir mit ``aufpumpen'' meinen:
 Wir können über die variable Länge von $v$ L auf unendlich viele Worte aufpumpen
@@ -130,10 +134,10 @@ $|uv| \leq n$, in unserem Falle ist $|uv| = 4$ ($uv = 1000$).
         \node[state, right of=zi, above of=z4] (z7) {$z_7$};
 	\draw
         (zi) edge[below] node{0} (z3)
-        (zi) edge[above] node{u: 1} (z1)
+        (zi) edge[above] node{1} (z1)
 
-        (z1) edge[loop above] node{v: 0} (z1)
-        (z1) edge[above] node{w: 1} (z2)
+        (z1) edge[loop above] node{0} (z1)
+        (z1) edge[above] node{1} (z2)
 
         (z2) edge[above] node{0,1} (z7)
 
@@ -199,6 +203,7 @@ Wir können tatsächlich ohne Beschränkung der Allgemeinheit diese Eigenschaft 
 \end{enumerate}
 $\phi$ bietet eine formalere Beschreibung der Eigenschaft
 ``$L \text{ endlich } \vee L \text{ ist aufpumpbar}$''.
+
 \subsection{Beweis der Nicht-Regularität}
 Das Pumpinglemma können wir nun wie folgt formulieren:
 \[
@@ -265,7 +270,7 @@ der mächtiger ist, als ein DFA.
 \section{Turingmaschinen}
 \subsection{Wer war Alan Turing?}
 Der Namensgeber des aktuellen Kapitels ist es wert,
-dass wir ein paar autobiographische Notizen über ihn verlieren.
+dass wir ein paar autobiographische Bemerkungen über ihn tätigen.
 Alan Turing (1912-1954) war ein britischer Mathematiker,
 dessen Bedeutung für die Informatik schwer zu überschätzen ist.
 Hier nur eine Auswahl von Aspekten seines Werkes,
