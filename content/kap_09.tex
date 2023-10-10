@@ -1,5 +1,115 @@
 \section{Lösungen}
-3.2\\
+
+\subsection*{Aufgaben aus Kapitel 2}
+\subsubsection*{2.1}
+
+$|\delta| = |\Sigma| * |Z|$\\
+
+
+\subsubsection*{2.2}
+
+\begin{enumerate}[label=(\alph*)]
+    \item $A = [\Sigma, Z, \delta, z_i, E]$ mit:
+        \begin{itemize}
+            \item $\Sigma = \{a,b\}$
+            \item $Z = \{z_1, z_2, z_3, z_4\}$
+            \item $\delta = \{
+                    [a, z_1, z_2], [b, z_1, z_3],
+                    [a, z_2, z_2], [b, z_2, z_2],
+                    [a, z_3, z_4], [b, z_3, z_3],
+                    [a, z_4, z_4], [b, z_4, z_3]
+                \}$
+            \item $z_i = z_1$
+            \item $E = \{z_1, z_2, z_4\}$
+        \end{itemize}
+
+    \item $\epsilon|a(a|b)^*|b(a|b)^*a$
+
+    \item Zum Beispiel: b, bb, bab
+
+    \item A akzeptiert alle Worte, die entweder mit b beginnen oder nicht mit b enden.
+\end{enumerate}
+
+\subsubsection*{2.3}
+Die Hilfstabelle nach dem letzten Schritt:
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|c|}
+        \hline % Beginn Zeile 1
+            \textbackslash
+            & $z_0$
+            & $z_1$
+            & $z_2$
+            & $z_3$
+            & $z_4$
+            \\
+        \hline % Beginn Zeile 2
+            $z_0$
+            & \cellcolor{gray}
+            & \cellcolor{gray}
+            & \cellcolor{gray}
+            & \cellcolor{gray}
+            & \cellcolor{gray}
+            \\
+        \hline % Beginn Zeile 3
+            $z_1$
+            & x
+            & \cellcolor{gray}
+            & \cellcolor{gray}
+            & \cellcolor{gray}
+            & \cellcolor{gray}
+            \\
+        \hline % Beginn Zeile 4
+            $z_2$
+            & x
+            &
+            & \cellcolor{gray}
+            & \cellcolor{gray}
+            & \cellcolor{gray}
+            \\
+        \hline % Beginn Zeile 5
+            $z_3$
+            & x
+            & x
+            & x
+            & \cellcolor{gray}
+            & \cellcolor{gray}
+            \\
+        \hline % Beginn Zeile 6
+            $z_4$
+            & x
+            &
+            &
+            & x
+            & \cellcolor{gray}
+            \\
+        \hline % Endelinie
+    \end{tabular}
+    \label{tab:sol23}
+\end{table}
+
+Grafik \autoref{fig:sol23} zeigt den resultierenden Automaten.
+
+\begin{figure}[ht] % ’ht’ tells LaTeX to place the figure ’here’ or at the top of the page
+\centering % centers the figure
+\begin{tikzpicture}
+	\node[state, accepting, initial] (z0) {$z_0$};
+	\node[state, accepting, right of=z0] (z3) {$z_3$};
+    \node[state, below right of=z0] (z124) {$z_{124}$};
+	\draw 
+        (z0) edge[above] node{0} (z3)
+        (z0) edge[bend left, above] node{1} (z124)
+        (z3) edge[bend left, right] node{0,1} (z124)
+        (z124) edge[bend left, below] node{0,1} (z0)
+    ;
+\end{tikzpicture}
+\caption{Minimierter DFA B}
+\label{fig:sol23}
+\end{figure}
+
+\subsection*{Aufgaben aus Kapitel 3}
+
+\subsubsection{3.2}
 \begin{figure}[ht] % ’ht’ tells LaTeX to place the figure ’here’ or at the top of the page
 \centering % centers the figure
 \begin{tikzpicture}
@@ -37,7 +147,7 @@ Die Turingmaschine aus \autoref{fig:tm32alt} berechnet die gleiche Funktion:
 
 
 \noindent
-3.4\\
+\subsubsection*{3.4}
 (a) $M = [\Sigma, \Sigma \cup \square, Z, \delta, z_1, \square, E]$ mit
 \begin{itemize}
     \item $\Sigma = \{|,-\}$
@@ -99,7 +209,9 @@ $
 $
 
 (c) M berechnet die Subtraktion auf unär kodierten ganzen Zahlen.
-5.1
+
+\subsection*{Aufgaben aus Kapitel 5}
+\subsubsection*{5.1}
 \begin{figure}[ht] % ’ht’ tells LaTeX to place the figure ’here’ or at the top of the page
 \centering % centers the figure
 \begin{tikzpicture}
