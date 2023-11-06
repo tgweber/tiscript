@@ -25,9 +25,11 @@ die er für einen bestimmten Input läuft.
 Hierbei ergeben sich einige Schwierigkeiten:
 \begin{itemize}
   \item Die Menge der möglichen Inputs vieler Algorithmen ist unendlich,
-      daher kann man nur Stichproben aus den möglichen Inputs nehmen und muss sich der Methodik der Statistik bedienen,
-        allgemeine Aussagen zu rechtfertigen
-    \item Das „Rauschen“ bei Messungen muss berücksichtigt werden (die folgende Aufzählung ist wahrscheinlich nicht vollständig):
+      daher kann man nur Stichproben aus den möglichen Inputs nehmen
+        und muss sich der Methodik der Statistik bedienen,
+        um allgemeine Aussagen zu rechtfertigen
+    \item Das „Rauschen“ bei Messungen muss berücksichtigt werden
+        (die folgende Aufzählung ist wahrscheinlich nicht vollständig):
       \begin{itemize}
           \item Genutzte Hardware
           \item Genutztes Betriebssystem
@@ -105,10 +107,12 @@ dessen Länge wir als zeitlichen Aufwand definieren.
 Bisher haben wir aber nur über den Aufwand gesprochen,
 den ein \emph{Wort} verursacht,
 nicht aber über den Aufwand,
-den ein ganzes Problem, also eine Menge von Wörtern,
-also eine \emph{formale Sprache} verursacht.
+den ein ganzes Problem verursacht
+Probleme repräsentieren wir als \emph{formale Sprache},
+also eine Menge von Wörtern.
+
 Wenn wir die Effizienz einer Problemlösung angeben,
-haben wir prinzipiell drei Szenarien im Kopf:
+gibt es prinzipiell drei Szenarien:
 \begin{itemize}
     \item \textbf{Best Case}: Wir wählen das Wort aus der formalen Sprache aus,
         für das der Algorithmus den kürzesten Lauf hat,
@@ -179,7 +183,7 @@ Algorithmen und Datenstrukturen.
 \section{Landau und Big-O: Wachstum}
 
 $t_{tm}$ ist eine Möglichkeit,
-die Aufwandsentwicklung für steigende Inputgrößen formal zu spezfifizieren.
+die Aufwandsentwicklung für steigende Inputgrößen formal zu spezifizieren.
 Für die meisten Fälle ist $t_{tm}$ aber zu feingranular:
 Wir interessieren uns beispielsweise nur dafür,
 ob sich das Laufzeitverhalten sinnvoll beschränken lässt,
@@ -198,8 +202,16 @@ O(g(n)) = \{f|\forall c \exists n_0 \forall n (n \geq n_0 \rightarrow f(n) \leq 
 
 \section{Simulationen}
 
+Warum nutzen wir (in diesem Skript) Turingmaschinen zur Aufwandsquantifikation?
+Wir haben die Church-Turing-These eingeführt und operieren auf der Annahme,
+dass sich jedes (berechenbare) Problem durch eine Turingmaschine lösen lässt.
 
-\section{Relativer Aufwand}
+Andere Formalismen lassen sich auf einer Turingmaschine simulieren und
+der Aufwand der Simulation lässt sich quantifizieren,
+d.h. wir können die ``Beschleunigigung'' durch andere Formalismen
+(z.B. solche, die einen realistisches Speicherkonzept haben)
+genau beziffern.
+
 Hier Diskussion Sortierungsalgorithmen.
 \begin{itemize}
     \item Relativ zur Implementierungssprache (Mehrbandturingmaschinen, Registermaschinen)
