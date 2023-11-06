@@ -109,7 +109,29 @@ Grafik \autoref{fig:sol23} zeigt den resultierenden Automaten.
 
 \subsection*{Aufgaben aus Kapitel 3}
 
-\subsubsection{3.2}
+\subsubsection*{3.1}
+
+\begin{itemize}
+    \item Lauf auf $01$:
+
+$[
+    [z_i, \square, 0, 1],
+    [z_1, \square\square, 1, \square],
+    [z_2, \square\square 1, \square,\square],$
+
+$
+    [z_3, \square\square , 1,\square\square],
+    [z_4, \square\square\square , \square,\square],
+    [z_a, \square\square\square , \square,\square]
+]$
+    \item Lauf auf $1$:
+
+$[
+    [z_i, \square, 1, \square]
+]$
+\end{itemize}
+
+\subsubsection*{3.2}
 \begin{figure}[ht] % ’ht’ tells LaTeX to place the figure ’here’ or at the top of the page
 \centering % centers the figure
 \begin{tikzpicture}
@@ -146,7 +168,32 @@ Die Turingmaschine aus \autoref{fig:tm32alt} berechnet die gleiche Funktion:
 
 
 
-\noindent
+
+\subsubsection*{3.3}
+Siehe \autoref{fig:tm33} oder \url{http://turingmachinesimulator.com/shared/idlvtuqvpo}.
+\begin{figure}[ht] % ’ht’ tells LaTeX to place the figure ’here’ or at the top of the page
+\centering % centers the figure
+\begin{tikzpicture}
+	\node[state, initial] (z0) {$z_0$};
+	\node[state, right of=z0] (z1) {$z_1$};
+	\node[state, right of=z1] (z2) {$z_2$};
+	\node[state, right of=z2] (z3) {$z_3$};
+	\node[state, right of=z3] (z4) {$z_4$};
+	\node[state, right of=z4, accepting] (z5) {$z_5$};
+	\draw
+    (z0) edge[above] node{$+,\square,R$} (z1)
+	(z1) edge[loop, above] node{$+,+,R$} (z1)
+	(z1) edge[above] node{$\square,+,R$} (z2)
+	(z2) edge[above] node{$+,+,L$} (z3)
+	(z3) edge[loop, above] node{$+,+,L$} (z3)
+	(z3) edge[above] node{$\square,\square,R$} (z4)
+	(z4) edge[above] node{$+,\square,R$} (z5)
+    ;
+\end{tikzpicture}
+\caption{Turing Maschine für Übung 3.3}
+\label{fig:tm33}
+\end{figure}
+
 \subsubsection*{3.4}
 (a) $M = [\Sigma, \Sigma \cup \square, Z, \delta, z_1, \square, E]$ mit
 \begin{itemize}
