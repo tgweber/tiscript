@@ -11,6 +11,38 @@ Diesen Formalismus wollen wir in diesem Kapitel nutzen,
 um genau zu spezifizieren,
 was Aufwand bedeutet.
 
+\section{Warum nicht einfach Messen?}\label{messenVsBeweisen}
+
+Bevor wir uns dem Thema theoretisch nähern,
+wollen wir noch eine ganz praktische Erwägung durchdenken:
+Warum nicht einfach den Aufwand messen,
+anstatt ihn über Turinmaschinen zu quantifizieren?
+Der Ansatz wäre dabei,
+den Algorithmus in einer beliebigen Sprache zu implementieren
+und die Zeit zu messen,
+die er für einen bestimmten Input läuft.
+
+Hierbei ergeben sich einige Schwierigkeiten:
+\begin{itemize}
+  \item Die Menge der möglichen Inputs vieler Algorithmen ist unendlich,
+      daher kann man nur Stichproben aus den möglichen Inputs nehmen und muss sich der Methodik der Statistik bedienen,
+        allgemeine Aussagen zu rechtfertigen
+    \item Das „Rauschen“ bei Messungen muss berücksichtigt werden (die folgende Aufzählung ist wahrscheinlich nicht vollständig):
+      \begin{itemize}
+          \item Genutzte Hardware
+          \item Genutztes Betriebssystem
+          \item Spezifische Versionen (z.B. Compiler, Browser, OS)
+          \item Lastsituation auf der Maschine
+          \item Virtualisierung
+          \item Netz
+      \end{itemize}
+\end{itemize}
+
+Es ist also offensichtlich,
+dass man nicht ``einfach'' messen kann.
+Dennoch hat die empirische Messung auch in der Informatik ihren Platz.
+Wir werden darauf noch einmal am Ende des Kapitels zurückkommen.
+
 \section{Effizienz in Zeit (und Raum)}
 
 Was meinen wir, wenn wir von Aufwand oder Effizienz einer Berechnung sprechen?
@@ -166,33 +198,28 @@ O(g(n)) = \{f|\forall c \exists n_0 \forall n (n \geq n_0 \rightarrow f(n) \leq 
 
 \section{Simulationen}
 
-\section{Messen vs. Beweisen}\label{messenVsBeweisen}
-
-Messen ist schwierig:
-\begin{itemize}
-  \item Man kann nur den Zeit- oder Platzaufwand von Implementierungen via Messung ermitteln
-  \item Man kann den Aufwand von Algorithmen oder gar Probleme nicht via Messung ermitteln!
-  \item Die Menge der möglichen Inputs vieler Algorithmen ist unendlich (Stichproben + Statistiken)
-  \item Das „Rauschen“ bei Messungen muss berücksichtigt werden:
-  \item Genutzte Hardware
-  \item Genutztes Betriebssystem
-  \item Spezifische Versionen (z.B. Compiler, Browser, OS)
-  \item Lastsituation auf der Maschine
-  \item Virtualisierung
-  \item Netz
-\end{itemize}
-
-Aber: Theoretische Annahmen:
-\begin{itemize}
-  \item Operationen haben identischen Aufwand
-  \item Daten und Zwischenergebnisse nutzen identischen Speicherplatz
-  \item Der Input kann unendlich wachsen
-  \item Ist jeder Input gleich wahrscheinlich?
-\end{itemize}
 
 \section{Relativer Aufwand}
 Hier Diskussion Sortierungsalgorithmen.
 \begin{itemize}
     \item Relativ zur Implementierungssprache (Mehrbandturingmaschinen, Registermaschinen)
     \item Relativ zur Datenrepräsentation (Größe des Alphabets, Art der Datenstrukturen)
+\end{itemize}
+
+\section{Warum eine empirische Messung dennoch sinnvoll ist}
+Die Idee den Aufwand eines Algorithmus über das ``Laufzeitverhalten'' einer Turingmaschine zu bestimmen,
+umgeht die Herausforderungen empirischer Messungen, die wir am Anfang des Kapitels skizziert haben.
+
+Eine Messung ist dennoch ein valides (wissenschaftliches) Instrument,
+um Aussagen über Algorithmen und deren Implementierungen zu erhalten.
+Der theoretische Ansatz dieses Kapitels basiert auf einigen Annahmen,
+die selbst nicht unproblematisch sind:
+\begin{itemize}
+  \item Operationen haben auf einer Turingmaschine identischen Aufwand.
+    Dies ist auf ``echter'' Hardware zumeist anders.
+    Die Frage ist daher, welche Aussagekraft die Analyse eines Algorithmus auf einer Turingmaschine für realistische Szenarien hat. 
+  \item Daten und Zwischenergebnisse nutzen identischen Speicherplatz.
+  \item Der Input einer Turingmaschine kann unendlich wachsen,
+      In der Reailität ist dieser Platz begrenzt (z.B. der verfügbare Hauptspeicher).
+  %\item Ist jeder Input gleich wahrscheinlich?
 \end{itemize}
