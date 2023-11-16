@@ -289,6 +289,38 @@ $
 
 (c) M berechnet die Subtraktion auf unär kodierten ganzen Zahlen.
 
+\subsubsection*{3.5}
+\begin{figure}[ht] % ’ht’ tells LaTeX to place the figure ’here’ or at the top of the page
+\centering % centers the figure
+\begin{tikzpicture}
+    \node[state, initial] (zi) {$z_i$};
+    \node[state, above right of=zi] (z0) {$z_0$};
+    \node[state, accepting, right of=z0] (z1) {$z_1$};
+    \node[state, below right of=zi] (z2) {$z_2$};
+    \node[state, right of=z2] (z3) {$z_3$};
+    \node[state, accepting, right of=z3] (z4) {$z_4$};
+    \node[state, right of=z1] (z5) {$z_5$};
+	\draw
+    (zi) edge[left] node{0:1:R} (z0)
+    (z0) edge[above] node{$\square$:$\square$:L} (z1)
+    (zi) edge[left] node{1:1:R} (z2)
+    (z2) edge[loop above] node[text width=1cm, align=center]{0:0:R\\1,1,R} (z2)
+    (z2) edge[above] node{$\square$,$\square$,L} (z3)
+    (z3) edge[loop above] node[text width=1cm, align=center]{1:0:L} (z3)
+    (z3) edge[left] node{0,1,L} (z5)
+    (z3) edge[above] node{$\square$,1,N} (z4)
+    (z5) edge[right] node{$\square$,$\square$,R} (z4)
+    (z5) edge[loop right] node[text width=1cm, align=center]{0:0:L\\1:1:L} (z5)
+    ;
+
+
+\end{tikzpicture}
+    \caption{Lösungsautomat $M_{bininc}$zu Aufgabe 3.5}
+\label{fig:sol52}
+
+\end{figure}
+    Siehe auch: \url{https://turingmachinesimulator.com/shared/meqnrymsxv}
+
 \subsection*{Aufgaben aus Kapitel 5}
 \subsubsection*{5.1}
 \begin{figure}[ht] % ’ht’ tells LaTeX to place the figure ’here’ or at the top of the page
@@ -320,3 +352,4 @@ $
 \caption{Lösungsautomat zu Aufgabe 5.1}
 \label{fig:sol51}
 \end{figure}
+
