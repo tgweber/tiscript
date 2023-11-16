@@ -107,6 +107,38 @@ Grafik \autoref{fig:sol23} zeigt den resultierenden Automaten.
 \label{fig:sol23}
 \end{figure}
 
+\subsubsection*{2.4}
+
+\begin{enumerate}[label=(\alph*)]
+    \item $\{w|w \in L(\gamma) \wedge |w| \leq 3\} = \{ab, aab, bab\}$
+    \item Siehe \autoref{fig:sol24}
+    \item Die Sprache aller Worte, die auf ``ab`` enden.
+    \item Der Automat ist minimal:
+        $z_{ab}$ kann als Endzustand
+        mit keinem Nicht-Endzustand identisch sein,
+        $z_a$ und $z_0$ unterscheiden sich im Akzeptanzverhalten beim Zeichen b.
+\end{enumerate}
+\begin{figure}[ht] % ’ht’ tells LaTeX to place the figure ’here’ or at the top of the page
+\centering % centers the figure
+\begin{tikzpicture}
+	\node[state, initial] (z0) {$z_0$};
+	\node[state, above right of=z0] (za) {$z_a$};
+    \node[state, accepting, below right of=za] (zab) {$z_{ab}$};
+	\draw 
+        (z0) edge[loop below] node{b} (z0)
+        (z0) edge[above, bend left] node{a} (za)
+        (za) edge[loop above] node{a} (za)
+        (za) edge[above, bend left] node{b} (zab)
+        (zab) edge[above, bend left] node{a} (za)
+        (zab) edge[above, bend left] node{b} (z0)
+    ;
+\end{tikzpicture}
+    \caption{DFA C (Lösung für Aufgabe 2.4})
+\label{fig:sol24}
+\end{figure}
+
+
+
 \subsection*{Aufgaben aus Kapitel 3}
 
 \subsubsection*{3.1}
@@ -257,6 +289,38 @@ $
 
 (c) M berechnet die Subtraktion auf unär kodierten ganzen Zahlen.
 
+\subsubsection*{3.5}
+\begin{figure}[ht] % ’ht’ tells LaTeX to place the figure ’here’ or at the top of the page
+\centering % centers the figure
+\begin{tikzpicture}
+    \node[state, initial] (zi) {$z_i$};
+    \node[state, above right of=zi] (z0) {$z_0$};
+    \node[state, accepting, right of=z0] (z1) {$z_1$};
+    \node[state, below right of=zi] (z2) {$z_2$};
+    \node[state, right of=z2] (z3) {$z_3$};
+    \node[state, accepting, right of=z3] (z4) {$z_4$};
+    \node[state, right of=z1] (z5) {$z_5$};
+	\draw
+    (zi) edge[left] node{0:1:R} (z0)
+    (z0) edge[above] node{$\square$:$\square$:L} (z1)
+    (zi) edge[left] node{1:1:R} (z2)
+    (z2) edge[loop above] node[text width=1cm, align=center]{0:0:R\\1,1,R} (z2)
+    (z2) edge[above] node{$\square$,$\square$,L} (z3)
+    (z3) edge[loop above] node[text width=1cm, align=center]{1:0:L} (z3)
+    (z3) edge[left] node{0,1,L} (z5)
+    (z3) edge[above] node{$\square$,1,N} (z4)
+    (z5) edge[right] node{$\square$,$\square$,R} (z4)
+    (z5) edge[loop right] node[text width=1cm, align=center]{0:0:L\\1:1:L} (z5)
+    ;
+
+
+\end{tikzpicture}
+    \caption{Lösungsautomat $M_{bininc}$zu Aufgabe 3.5}
+\label{fig:sol52}
+
+\end{figure}
+    Siehe auch: \url{https://turingmachinesimulator.com/shared/meqnrymsxv}
+
 \subsection*{Aufgaben aus Kapitel 5}
 \subsubsection*{5.1}
 \begin{figure}[ht] % ’ht’ tells LaTeX to place the figure ’here’ or at the top of the page
@@ -288,3 +352,4 @@ $
 \caption{Lösungsautomat zu Aufgabe 5.1}
 \label{fig:sol51}
 \end{figure}
+
