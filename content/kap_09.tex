@@ -107,6 +107,38 @@ Grafik \autoref{fig:sol23} zeigt den resultierenden Automaten.
 \label{fig:sol23}
 \end{figure}
 
+\subsubsection*{2.4}
+
+\begin{enumerate}[label=(\alph*)]
+    \item $\{w|w \in L(\gamma) \wedge |w| \leq 3\} = \{ab, aab, bab\}$
+    \item Siehe \autoref{fig:sol24}
+    \item Die Sprache aller Worte, die auf ``ab`` enden.
+    \item Der Automat ist minimal:
+        $z_{ab}$ kann als Endzustand
+        mit keinem Nicht-Endzustand identisch sein,
+        $z_a$ und $z_0$ unterscheiden sich im Akzeptanzverhalten beim Zeichen b.
+\end{enumerate}
+\begin{figure}[ht] % ’ht’ tells LaTeX to place the figure ’here’ or at the top of the page
+\centering % centers the figure
+\begin{tikzpicture}
+	\node[state, initial] (z0) {$z_0$};
+	\node[state, above right of=z0] (za) {$z_a$};
+    \node[state, accepting, below right of=za] (zab) {$z_{ab}$};
+	\draw 
+        (z0) edge[loop below] node{b} (z0)
+        (z0) edge[above, bend left] node{a} (za)
+        (za) edge[loop above] node{a} (za)
+        (za) edge[above, bend left] node{b} (zab)
+        (zab) edge[above, bend left] node{a} (za)
+        (zab) edge[above, bend left] node{b} (z0)
+    ;
+\end{tikzpicture}
+    \caption{DFA C (Lösung für Aufgabe 2.4})
+\label{fig:sol24}
+\end{figure}
+
+
+
 \subsection*{Aufgaben aus Kapitel 3}
 
 \subsubsection*{3.1}
