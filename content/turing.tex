@@ -61,8 +61,8 @@ Wie wir wissen, sind manche unendliche Sprachen regulär.
 Wie wir gleich sehen werden, gibt es aber auch unendliche Sprachen,
 die \emph{nicht} regulär sind.
 Endlichkeit ist daher \emph{keine notwendige} Bedingung für Regularität,
-aussagenlogisch ausgedrückt: $\neg (\L \text{ regulär} \rightarrow L \text{ endlich})$.
-SORTIMENT ist unendlich, daher bleibt die Frage bei unserem aktuellen Kenntnisstand offen,
+aussagenlogisch ausgedrückt: $\neg (L \text{ regulär} \rightarrow L \text{ endlich})$.
+SORTIMENT ist unendlich, daher bleibt die Frage (bei unserem aktuellen Kenntnisstand) offen,
 ob es eine unendliche reguläre Sprache ist.
 
 Das Pumping-Lemma formuliert eine notwendige Eigenschaft für Regularität:
@@ -86,7 +86,7 @@ $\neg L \text{ aufpumpbar}  \rightarrow \neg L \text{ regulär}$.
 Wir wollen uns diesem Lemma und seiner Prädikaten-logischen Form anhand eines Beispiels nähern.
 
 \subsubsection{uvw-Zerlegung aufpumbarer Worte}
-
+%TODO einfacher, besseres Beispiel
 Als Beispiel dafür, was wir mit ``aufpumpbar'' meinen,
 wollen wir die Sprache L betrachten, die durch den DFA in \autoref{fig:dfapump}
 oder den regulären Ausdruck $10^*1|0000$ gegeben ist.
@@ -271,11 +271,8 @@ um für ein gegebenes $n \in \mathbb{N}$ die Sprache
 $L = \{0^i1^i| i \leq n\}$ zu erkennen!
 Dies ist darin begründet,
 dass $L$ endlich ist.\footnote{
-    \cite{aul} ist ein lesenswertes Studienbuch, dass diesen Gedanken formal ausbuchstabiert.
+    \cite{aul} formuliert dass diesen Gedanken aus.
 }
-
-Im nächsten Abschnitt lernen wir einen Formalismus kennen,
-der mächtiger ist, als ein DFA.
 
 \section{Turingmaschinen}
 \subsection{Wer war Alan Turing?}
