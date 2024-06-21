@@ -314,7 +314,7 @@ $TM = [Z, \Sigma, \Gamma, \delta, z_0, \square, E]$:
     \item $Z$ ist die Menge der Zustände.
     \item $\Sigma$ ist das Eingabealphabet.
     \item $\Gamma$ ist das Arbeitsalphabet. Es gilt: $\Sigma \subsetneq \Gamma$.
-    \item $\delta: \Gamma \times Z \rightarrow Z \times \Gamma \times \{R,L,-\}$
+    \item $\delta: Z \times \Gamma \rightarrow \Gamma \times Z \times \{R,L,-\}$
         ist die \emph{partielle} Übergangsfunktion.
     \item $z_0$ ist der Startzustand.
     \item $\square$ ist das Blank.
@@ -323,6 +323,7 @@ $TM = [Z, \Sigma, \Gamma, \delta, z_0, \square, E]$:
 \end{itemize}
 
 \noindent
+% TODO: Bild
 Eine Turingmaschine funktioniert intuitiv so:
 \begin{itemize}
     \item Zusätzlich zum DFA hat sie ein unendliches, beschreibbares Band.
@@ -358,21 +359,21 @@ Ein \emph{Schnappschuss} $s$ einer Turingmaschine TM ist ein 4-Tupel $[z,u,v,w]$
 Ein Tupel $S$ von Schnappschüssen heißt \emph{Schnappschussfolge},
 wenn für je zwei aufeinanderfolgende Schnappschüsse $s_n$ und $s_{n+1}$ gilt:
 \begin{itemize}
-    \item $z_{n+1} = \delta(v, z_n)_0$
+    \item $z_{n+1} = \delta(z_n, v)_1$
     \item $u_{n+1} = \begin{cases}
-            tw'(u_n, 0, |u_n|-1) & \text{wenn } \delta(v_n, z_n)_2 = L\\
-            u_n                  & \text{wenn } \delta(v_n, z_n)_2 = -\\
-            u_n\delta(v_n,z_n)_1 & \text{wenn } \delta(v_n, z_n)_2 = R
+            tw'(u_n, 0, |u_n|-1) & \text{wenn } \delta(z_n, v_n)_2 = L\\
+            u_n                  & \text{wenn } \delta(z_n, v_n)_2 = -\\
+            u_n\delta(v_n,z_n)_0 & \text{wenn } \delta(z_n, v_n)_2 = R
         \end{cases}$
     \item $v_{n+1} = \begin{cases}
-            tw'(u_n, |u_n|-1, 1) & \text{wenn } \delta(v_n, z_n)_2 = L\\
-            \delta(v_n, z_n)_1   & \text{wenn } \delta(v_n, z_n)_2 = -\\
-            tw'(w_n, 0, 1)       & \text{wenn } \delta(v_n, z_n)_2 = R
+            tw'(u_n, |u_n|-1, 1) & \text{wenn } \delta(z_n, v_n)_2 = L\\
+            \delta(z_n, v_n)_0   & \text{wenn } \delta(z_n, v_n)_2 = -\\
+            tw'(w_n, 0, 1)       & \text{wenn } \delta(z_n, v_n)_2 = R
         \end{cases}$
     \item $w_{n+1} = \begin{cases}
-            \delta(v_n,z_n)_1w_n & \text{wenn } \delta(v_n, z_n)_2 = L\\
-            w_n                  & \text{wenn } \delta(v_n, z_n)_2 = -\\
-            tw'(w_n, 1, |w_n|-1) & \text{wenn } \delta(v_n, z_n)_2 = R
+            \delta(z_n, v_n)_0w_n & \text{wenn } \delta(z_n, v_n)_2 = L\\
+            w_n                  & \text{wenn } \delta(z_n, v_n)_2 = -\\
+            tw'(w_n, 1, |w_n|-1) & \text{wenn } \delta(z_n, v_n)_2 = R
         \end{cases}$
 \end{itemize}
 \noindent
@@ -393,31 +394,30 @@ Die Länge $len(S)$ einer Schnappschussfolge S entspricht der Länge des Tupels.
 
 \noindent
 Eine Schnappschussfolge S heißt
-\emph{Lauf} für $x$ auf einer Turingmaschine $tm$ $l_{x, tm}$
-wenn gilt:
+\emph{Lauf} für $x$ (formal: $l_{x, tm}$) auf einer Turingmaschine $tm$, wenn gilt:
 \begin{itemize}
     \item $s_0 = [z_i, \square, tw'(x,0,1), tw'(x,1,|w|-1)]$
-    \item $s_{len(S)} = [z \in Z, u \in \Gamma^*, v \in \Gamma, w \in \Gamma^*]$
-        mit $\delta(v, z)$ undefiniert.
+    \item $s_{len(S)-1} = [z \in Z, u \in \Gamma^*, v \in \Gamma, w \in \Gamma^*]$
+        mit $\delta(z, v)$ undefiniert.
 \end{itemize}
 
 \noindent
-Ein Lauf $l_{x, tm}$ heißt \emph{akzeptierend},
-wenn $(s_{len(l_{x, tm})})_0 \in E$.
+Ein Lauf $S$ heißt \emph{akzeptierend},
+wenn der letzte Zustand in der Schnappschussfolge ein Endzustand ist:
+$(s_{len(S)-1})_1 \in E$.
 \\
 
 \noindent
 Die Sprache $TM(L)$, die von einer Turingmaschine akzeptiert wird, ist definiert als
 $TM(L) =
-\{x|
-    x = yz
-    \wedge
+\{xy|
         \exists s(
-            s = (l_{y,tm})_{len(l_{y,tm})}
-            \wedge z = s_2s_3
+            s = (l_{x,tm})_{len(l_{x,tm})-1}
+            \wedge y = s_2s_3
             \wedge s_0 \in E
         )
 \}$.
+% TODO formale Probleme mit dem Input als Sprachinhalt?
 Also die Worte,
 die aus der Konkatenation des Inputs der Turingmaschine
 mit dem Bandinhalt rechts vom Zeiger nach einem akzeptierenden Lauf entstehen.
@@ -477,14 +477,14 @@ Sei ein DFA $A = [Z_A, \Sigma, \delta_A, z_i, E_A]$ gegeben.
 Dann können wir A mit der folgenden Turingmaschine TM simulieren:
 $TM = [Z_A, \Sigma, \Sigma \cup \{\square\}, \delta_{TM}, z_i, \square, E_A]$,
 wobei gilt:
-$\delta_{TM}(a, z) = [\delta_A(a, z), a, R]$,
+$\delta_{TM}(z, a) = [a, \delta_A(z, a), R]$,
 das heißt, wir lassen den Zeiger einfach das Wort entlang laufen,
 bis wir auf ein Blank stoßen.
 Also verhält sich $TM$ exakt wie $A$.
 
 Da die TM in jedem Fall das Wort bis zum letzten Zeichen liest
-($\delta_A(\square, z)$ ist nicht definiert sein,
-also ist $\delta_{TM}(a,z)$ ebenfalls nicht definiert).
+($\delta_A(z, \square)$ ist nicht definiert sein,
+also ist $\delta_{TM}(z, a)$ ebenfalls nicht definiert).
 und am Ende entweder in einem Endzustand oder einem Nicht-Endzustand von A ist,
 akzeptiert sie ein Wort genau dann, wenn auch A das Wort akzeptiert. 
 Es gilt also: $L(TM) = L(A)$ (da der Inhalt des Bandes rechts vom Zeiger immer leer ist).
@@ -651,10 +651,10 @@ den Unterschied zwischen Hard- und Software verschwimmen lassen.
         $M = [Z, \{*\}, \{*, \square\}, \delta, z_0, \square, \{z_2\}]$,
         mit $Z = \{z_0, z_1, z_2\}$ und \\
         $\delta = \{
-            [*,z_0,z_0,*,R],
-            [\square,z_0,z_1,*,L],
-            [*,z_1,z_1,*,L],
-            [\square,z_1,z_2,\square,R]
+            [z_0,*,*,z_0,R],
+            [z_0,\square,*,z_1,L],
+            [z_1,*,*,z_1,L],
+            [z_1,\square,\square,z_2,R]
         \}$.
         Gib M in grafischer Darstellung an und beschreibe, welche Funktion M berechnet.
         Findest Du eine ``kleinere'' Turingmaschine (weniger Zustände, kleineres $\delta$),
