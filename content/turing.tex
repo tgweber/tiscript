@@ -416,16 +416,51 @@ Turingmaschinen führen genauso wie DFAs zu einem Berechenbarkeitsbegriff:
 Ein Problem ist \emph{Turing-berechenbar},
 wenn es eine Turingmaschine gibt,
 die die zugehörige formale Sprache erkennt.
+In anderen Worten:
+Das Problem, das von der formalen Sprache repräsentiert wird,
+wird durch den Algorithmus, der durch die Turingmaschine implementiert wird,
+gelöst.
 
-Wir besprechen nun in diesem Abschnitt die folgenden Inhalte:
+Wir können also sagen, dass sowohl DFAs, wie auch Turingmaschinen
+Berechenbarkeits\emph{modelle} sind.
+Die Güte dieser Modelle können wir beurteilen, 
+indem wir uns ansehen, wie sie unseren intuitiven Berechenbarkeitsbegriff abbilden:
+Wir wissen bereits, dass es intuitive berechenbare Probleme gibt,
+die nicht DFA-berechenbar sind.
+Es bleiben allerdings folgende offenen Fragen:
+
 \begin{itemize}
-    \item Alle regulären Sprachen werden von einer Turingmaschine erkannt
-    \item Es gibt nicht-reguläre Sprachen, die von einer Turingmaschine erkannt werden.
-    \item Es ist kein Formalismus bekannt, der eine formale Sprache erkennt,
-        die nicht schon von einer Turingmaschine erkannt wird (Church-Turing-These).
+    \item Sind alle DFA-berechenbaren Probleme auch Turing-berechenbar?
+        Also, werden alle regulären Sprachen auch von Turingmaschinen erkannt?
+        Wenn dies der Fall ist,
+        dann ist die Menge der Turing-berechenbaren Probleme
+        eine Obermenge der DFA-Berechenbarkeit;
+        wir nennen diese Beziehung zwischen
+        der Turing-Berechenbarkeit und der DFA-Berechenbarkeit
+        dann \emph{mindestens genauso mächtig}.
+    \item Gibt es Probleme, die nicht DFA-berechenbar, aber Turing-Berechenbar sind?
+        Deren formale Sprache also \emph{nicht} von einem DFA,
+        aber von einer Turing-Maschine erkannt werden?
+        Wenn dies der Fall ist,
+        dann ist die Menge der Turing-berechenbaren Probleme
+        eine \emph{echte} Obermenge der DFA-Berechenbarkeit,
+        also ist die Turing-Berechenbarkeit \emph{mächtiger} als die DFA-Berechenbarkeit.
+    \item Gibt es ein Berechenbarkeitsmodell, das mächtiger ist, als die Turingmaschinen?
+        Die Antwort auf diese Frage führt uns zur Church-Turing-These.
 \end{itemize}
 
 \subsection{Simulation eines DFAs mit einer Turingmaschine}
+
+Das wesentliche formale Werkzeug,
+um Berechenbarkeitsmodelle miteinander zu vergleichen,
+ist die \emph{Simulation}.
+Wir simulieren ein Berechenbarkeitsmodell A in einem anderen B,
+wenn wir zeigen können, dass jeder Schritt in A in B simuliert werden kann,
+ohne dass sich das Ergebnis ändert.
+
+Zum Beispiel können wir zeigen,
+dass ein DFA in einer Turingmaschine simuliert werden kann:
+
 Sei ein DFA $A = [Z_A, \Sigma, \delta_A, z_i, E_A]$ gegeben.
 Dann können wir A mit der folgenden Turingmaschine TM simulieren:
 $TM = [Z_A, \Sigma, \Sigma \cup \{\square\}, \delta_{TM}, z_i, \square, E_A]$,
@@ -433,10 +468,14 @@ wobei gilt:
 $\delta_{TM}(a, z) = [\delta_A(a, z), a, R]$,
 das heißt, wir lassen den Zeiger einfach das Wort entlang laufen,
 bis wir auf ein Blank stoßen.
-Da $\delta_A(\square, z)$ nicht definiert sein kann,
-ist es auch $\delta_{TM}(a,z)$ nicht.
 Also verhält sich $TM$ exakt wie $A$.
-$L(TM) = L(A)$ (da der Inhalt des Bandes rechts vom Zeiger immer leer ist).
+
+Da die TM in jedem Fall das Wort bis zum letzten Zeichen liest
+($\delta_A(\square, z)$ ist nicht definiert sein,
+also ist $\delta_{TM}(a,z)$ ebenfalls nicht definiert).
+und am Ende entweder in einem Endzustand oder einem Nicht-Endzustand von A ist,
+akzeptiert sie ein Wort genau dann, wenn auch A das Wort akzeptiert. 
+Es gilt also: $L(TM) = L(A)$ (da der Inhalt des Bandes rechts vom Zeiger immer leer ist).
 
 \subsection{Turing-Berechenbarkeit ist echt mächtiger als DFA-Berechenbarkeit}
 Das beste Beispiel um zu beweisen,
@@ -455,18 +494,18 @@ Die Turingmaschine aus \autoref{fig:tmsortiment} akzeptiert SORTIMENT.
 	\node[state, right of=z1] (z2) {$z_2$};
 	\node[state, right of=z2] (z3) {$z_3$};
 	\node[state, right of=z3] (z4) {$z_4$};
-	\node[state, accepting, below of=z4] (za) {$z_a$};
+	\node[state, accepting, below of=z2] (za) {$z_a$};
 	\node[state, above of=z3] (z5) {$z_5$};
 	\node[state, above of=z1] (z6) {$z_6$};
 	\draw
         (zi) edge[above] node{0,$\square$,R} (z1)
-        (zi) edge[below] node{$\square$,$\square$,-} (za)
+        (zi) edge[below left] node{$\square$,$\square$,-} (za)
         (z1) edge[loop above] node{0,0,R} (z1)
         (z1) edge[above] node{1,1,R} (z2)
         (z2) edge[loop above] node{1,1,R} (z2)
         (z2) edge[above] node{$\square$,$\square$,L} (z3)
         (z3) edge[above] node{1,$\square$,L} (z4)
-        (z4) edge[right] node{$\square$,$\square$,-} (za)
+        (z4) edge[below right] node{$\square$,$\square$,-} (za)
         (z4) edge[right] node{1,1,L} (z5)
         (z5) edge[loop above] node{1,1,L} (z5)
         (z5) edge[above] node{0,0,L} (z6)
