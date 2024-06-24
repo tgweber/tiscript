@@ -6,11 +6,11 @@ jobs:
     name: "Build script"
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: "Create gitHeadInfo file"
         run: ./utils/gitinfo2/create_gitinfo.sh
         shell: bash
-      - uses: xu-cheng/latex-action@v2
+      - uses: xu-cheng/latex-action@v3
         with:
           root_file: script.tex
           args: -bibtex -pdf -bibtex -file-line-error -halt-on-error -interaction=nonstopmode
@@ -25,7 +25,7 @@ jobs:
     needs: build
     if: github.ref == 'refs/heads/main'
     steps:
-      - uses: actions/download-artifact@v2
+      - uses: actions/download-artifact@v4
         with:
           name: PDF
       - name: copy file via ssh password

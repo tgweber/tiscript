@@ -132,13 +132,13 @@ Der Deterministisch Finite Automat (DFA).\footnote{
     Deterministischer Endlicher Automat (DEA).
 }
 
-\subsection{Spezfifikation: Mengenlehre und Grafik}
+\subsection{Spezifikation: Mengenlehre und Grafik}
 Ganz allgemein können wir einen DFA A in der Sprache der Mengenlehre
-als 5-Tupel (oder Quintupel) angeben: $A = [\Sigma, Z, \delta, z_i, E]$:
+als 5-Tupel (oder Quintupel) angeben: $A = [Z, \Sigma, \delta, z_i, E]$:
 \begin{itemize}
-    \item $\Sigma$ ist das Eingabealphabet.
     \item Z ist die Menge der Zustände.
-    \item $\delta: \Sigma \times Z \rightarrow Z$ ist die Übergangsfunktion.
+    \item $\Sigma$ ist das Eingabealphabet.
+    \item $\delta: Z \times \Sigma \rightarrow Z$ ist die Übergangsfunktion.
     \item $z_i$ ist der Startzustand.
     \item $E$ ist die Menge der Endzustände.
 \end{itemize}
@@ -179,8 +179,8 @@ Die Funktionsweise des Automaten wird klarer, wenn wir uns ein Wort wählen
 und dann buchstabenweise den Pfeilen folgen.
 Wir können dabei alle Komponenten eines DFAs von seiner grafischen Darstellung ablesen:
 \begin{itemize}
-    \item $\Sigma$ ergibt sich aus den ausgehenden Pfeilen eines beliebigen Kreises.
     \item Z ist die Menge aller Kreise.
+    \item $\Sigma$ ergibt sich aus den ausgehenden Pfeilen eines beliebigen Kreises.
     \item $\delta$ ist durch alle Pfeile bestimmt.
     \item $z_i$ ist der Zustand,
         der vom ``ursprungslosen'' Pfeil erreicht wird.
@@ -189,20 +189,21 @@ Wir können dabei alle Komponenten eines DFAs von seiner grafischen Darstellung 
 
 In der Sprache der Mengenlehre können wir die Komponenten so angeben:
 \begin{itemize}
-    \item Das Eingabealphabet $\Sigma = \{0,1\}$.
+
     \item Die Menge der Zustände Z = $\{z_i, z_0, z_{NaN}, z_{odd}, z_{even}\}$
+    \item Das Eingabealphabet $\Sigma = \{0,1\}$.
     \item Die Übergangsfunktion $\delta$:
     \begin{align*} \{
-     &  [0, z_i, z_0],
-        [1, z_i, z_{odd}],
-        [0, z_0, z_{NaN}],
-        [1, z_0, z_{NaN}],
-        [0, z_{NaN}, z_{NaN}], \notag\\
-     &  [1, z_{NaN}, z_{NaN}],
-        [0, z_{odd}, z_{even}],
-        [1, z_{odd}, z_{odd}],
-        [0, z_{even}, z_{even}],
-        [1, z_{even}, z_{odd}] \notag
+     &  [z_i, 0, z_0],
+        [z_i, 1, z_{odd}],
+        [z_0, 0, z_{NaN}],
+        [z_0, 1, z_{NaN}],
+        [z_{NaN}, 0, z_{NaN}], \notag\\
+     &  [z_{NaN}, 1, z_{NaN}],
+        [z_{odd}, 0, z_{even}],
+        [z_{odd}, 1, z_{odd}],
+        [z_{even}, 0, z_{even}],
+        [z_{even}, 1, z_{odd}] \notag
     \} \end{align*}
     \item Der Anfangszustand $z_i = z_i$.
     \item Die Menge der Endzustände E = $\{z_0, z_{even}\}$ 
@@ -224,7 +225,7 @@ müssen wir ein paar Hilfskonzepte einführen:
         und $s_{n+1} = [z_{n+1}, w_{n+1}]$ gilt,
         dass sie einen Übergang des Automaten A auf dem verbliebenen Restwort repräsentieren:
         \begin{itemize}
-            \item $z_{n+1} = \delta(tw(w_{n},0,1), z_n)$
+            \item $z_{n+1} = \delta(z_n, tw(w_{n},0,1))$
             \item $w_{n+1} = tw(w,1,|w|-1)$.
         \end{itemize}
         Zum Beispiel ist dies eine Schnappschussfolge für das obige Beispiel:\linebreak
@@ -244,33 +245,35 @@ müssen wir ein paar Hilfskonzepte einführen:
         ein Endzustand ist.
         Wir schreiben kurz: $A(w) = E$
         für ``der Lauf von w auf A ist akzeptierend''. 
-    \item Aus formalen Gründen führen wir noch das Konzept der \emph{Länge} des Laufes ein.
-        Für einen DFA $A$ gilt stets: $len(l_{w,A}) = |w|$.\footnote{
-        Dies mag trivial erscheinen,
-        aber wir werden mit den Turingmaschinen in \autoref{turing} 
-        noch Formalismen kennenlernen, deren Lauf keine einfache Längenfunktion hat.} 
+%    \item Aus formalen Gründen führen wir noch das Konzept der \emph{Länge} des Laufes ein.
+%        Für einen DFA $A$ gilt stets: $len(l_{w,A}) = |w|$.\footnote{
+%        Dies mag trivial erscheinen,
+%        aber wir werden mit den Turingmaschinen in \autoref{turing} 
+%        noch Formalismen kennenlernen, deren Lauf keine einfache Längenfunktion hat.} 
 
 \end{itemize}
 
 Ein DFA A ist \emph{deterministisch}, weil es genau einen Lauf
-für ein beliebiges Wort w gibt (der Lauf ist eindeutig determiniert).
+für ein beliebiges Wort $w$ gibt (der Lauf ist eindeutig determiniert).
 Ein DFA A ist \emph{finit}, also endlich, weil der Lauf für jedes w auf A endlich ist.
 
 \subsection{Automaten und Formale Sprachen}
 
 Viele formale Sprachen haben unendlich viele Wörter,
 so auch $EVEN$.
-Daraus folgt: wir können sie nicht einfach extensiv angeben (''aufzählen''),
-sondern müssen Mittel und Wege finden, sie formal zu charakterisieren.
-Zwei Methoden bieten sich an:
+Wir können sie also nicht einfach aufzählen,
+(man sagt auch: Ihre Extension angeben),
+da wir nur endliche Zeit und endlichen Platz dafür haben.
+Daher müssen wir Mittel und Wege finden,
+sie formal mit endlichen Mitteln zu charakterisieren:
 \begin{enumerate}
-    \item Sprach-\emph{Akzeptoren}, d.h. Formalismen,
+    \item Sprach-\emph{Akzeptoren} sind Formalismen,
         die für ein gegebenes Wort entscheiden,
         ob es zur Sprache gehört (oder nicht).\footnote{
             Wie wir in \autoref{derBarbierUndDerLuegner} sehen werden,
             ist dieses ''oder nicht'' leider nicht so trivial.}
 
-    \item Sprach-\emph{Generatoren}, d.h. Formalismen,
+    \item Sprach-\emph{Generatoren} sind Formalismen,
         mit denen alle Wörter einer Sprache abgeleitet werden können
         (und nicht mehr).
 \end{enumerate}
@@ -283,22 +286,25 @@ deren Lauf auf A akzeptierend ist.
 Wir schreiben auch kurz: $L(A) = \{w|A(w) = E\}$.
 Sprach-Generatoren sind nicht der Fokus dieses Skriptes, obwohl wir mit den Grammatiken
 in \autoref{grammatiken} einen solchen Formalismus kennenlernen werden.\footnote{
-Einige Lehrbücher der theoretischen Informatik bauen Ihren Stoff didaktisch anhand der Grammatiken
-auf (sie erlauben die Sprachen hierarchisch zu klassifizieren).
-Wer dieses Skript begleitend z.B. zu \cite{schoening} liest,
-sollte diesen Unterschied präsent haben.}
+Einige Lehrbücher der theoretischen Informatik 
+(z.B. \cite{schoening})
+bauen Ihren Stoff didaktisch anhand der Grammatiken
+auf (sie erlauben die Sprachen hierarchisch zu klassifizieren).}
 Unser Fokus wird auf den Sprach-Akzeptoren liegen,
 da sie sich gut für einen Problem-orientierten Ansatz eignen.
 
 Da wir formale Sprachen in \autoref{einleitung} als Problem-Kodierungen eingeführt haben,
 und in \autoref{algoundimpl} Automaten als Algorithmen-Kodierung,
 ist nun ein guter Zeitpunkt den Begriff der DFA-Berechenbarkeit einzuführen:
-Ein Problem ist DFA-berechenbar,
+
+Ein Problem ist \emph{DFA-berechenbar},
 wenn es sich in einer formalen Sprache kodieren lässt,
 die von einem DFA erkannt wird.
-Nun stellt sich eine interessante Frage:
+
+Eine naheliegende Frage stellt sich nach dieser Definition:
 Gibt es Formale Sprachen, die nicht von einem DFA erkannt werden?
-Oder in anderen Worten: Gibt es Probleme, die nicht DFA-berechenbar sind?
+Oder in anderen Worten: Gibt es Probleme, die nicht DFA-berechenbar sind,
+die wir allerdings als \emph{intuitiv} berechenbar ansehen?
 Dieses Problem werden wir in \autoref{pumping} weiter vertiefen.
 
 Für den Rest dieses Kapitels
@@ -336,25 +342,27 @@ Sie lässt sich wie folgt angeben:\footnote{
         wiederhole für alle unmarkierten Zustandspaare (z, z'):\\
         Wenn es ein $a \in \Sigma$ gibt,
         für das gilt:
-        Wenn $\delta(a,z) \neq \delta(a,z')$ und $\delta(a, z), \delta(a, z')$ ist markiert,
+        Wenn $\delta(z,a) \neq \delta(z',a)$ und $\delta(z,a), \delta(z',a)$ ist markiert,
         dann markiere (z, z').
 \end{enumerate}
 
 Alle Zustände, die nach der Methode unmarkiert bleiben,
 können verschmolzen werden.
-In Schritt zwei markieren wir alle identischen Paare
-(diese zu verschmelzen wäre sinnlos).
+In Schritt zwei markieren wir alle identischen Paare.
 Mit Schritt drei schließen wir aus,
 dass Endzustände und Nicht-Endzustände verschmolzen werden. 
 Würden wir diese verschmelzen,
 würde gelten $L(A) \neq L(A')$,
 weil auf einmal ``neue'' Worte akzeptiert werden würden.
-Schritt vier basiert auf der Annahme, dass zwei Zustände (z, z') verschmolzen werden können,
-wenn gilt: $\forall a(a \in \Sigma \wedge \delta(a, z) = \delta(a, z'))$,
-also dass man von ihnen die gleichen Zielzustände erreichen kann.
-Die Wiederholung ist nötig,
-da wir am Anfang gegebenenfalls noch nicht alle Zielzustände identifiziert haben.
 
+Schritt vier basiert auf der Annahme, dass zwei Zustände (z, z') verschmolzen werden können,
+wenn von Ihnen aus die gleichen Endzustände mit den gleichen Restwörtern erreichbar sind.
+Die Wiederholung ist nötig,
+da die Pfade von den zu vergleichenden Zuständen zu den Endzuständen
+beliebig lang sein können.
+Wir müssen es so lange wiederholen, bis wir auch den längsten Pfad geprüft haben.
+Ein Kreuz bedeutet also:
+Diese Zustände unterscheiden sich bezüglich der Akzteptanz von mindestens einem Restwort.
 
 \begin{figure}[ht] % ’ht’ tells LaTeX to place the figure ’here’ or at the top of the page
 \centering % centers the figure
@@ -419,10 +427,10 @@ Sei ein DFA wie in \autoref{fig:dfazumin} gegeben.
         \end{table}
     \item Für Schritt vier bleibt also nur ein Zustandspaar zu prüfen: $z_0, z_2$.
         \begin{itemize}
-            \item $\delta(0, z_0) = z_0$ und $\delta(0, z_2) = z_2$. 
+            \item $\delta(z_0, 0) = z_0$ und $\delta(z_2, 0) = z_2$. 
                 $z_0 \neq z_2$ und $z_0, z_2$ ist noch nicht markiert,
                 also machen wir nichts.
-            \item $\delta(1, z_0) = z_1$ und $\delta(1, z_2) = z_1$. 
+            \item $\delta(z_0, 1) = z_1$ und $\delta(z_2, 1) = z_1$. 
                 $z_1 = z_1$, also machen wir nichts.
         \end{itemize}
         Da die Tabelle vor Schritt vier und nach Schritt vier identisch ist,
@@ -452,7 +460,7 @@ Wir wollen die Sprache daher \textbf{ENDS1} nennen.
 
 \subsection{Das Äquivalenzproblem formaler Sprachen}
 
-Warum aber ist die Minimerung von DFAs eine nützliche Sache? 
+Warum aber ist die Minimerung von DFAs eine nützliche? 
 Die Antwort auf diese Frage wird klar,
 wenn wir uns das \emph{Äquivalenzproblem} formaler Sprachen (\textbf{EQUIV})
 vor Augen führen.
@@ -471,20 +479,24 @@ indem wir den Minimalautomaten finden:
     \item Ist der Algorithmus minimal, den A (bzw. A$'$) kodiert?
 \end{itemize}
 
-Wenn sich nun alle Probleme durch einen DFA charakterisieren ließen,
+Wenn sich nun alle Probleme durch einen DFA lösen ließen,
 also DFA-berechenbar wären,
 hätte die Lösung von \textbf{EQUIV} mächtige Konsequenzen:
-Wir könnten auf einen Schlag die meisten IT-Fachkräfte überflüssig machen.
-Es besteht aber kein Grund zur Sorge, wie wir in \autoref{pumping} sehen werden.
+Wir könnten auf einen Schlag
+viele IT-Systeme vereinfachen und IT-Fachkräfte überflüssig machen.
+Dies ist allerdings nicht nur kontraintuitiv, 
+wir können sogar beweisen, dass dies nicht so ist (\autoref{pumping}).
 
 \section{Reguläre Ausdrücke}\label{regex}
 
 \subsection{Induktive Definition regulärer Ausdrücke}
-Eine Frage, der wir die Antwort noch schuldig sind:
-Warum heißt dieses Kapitel ``\nameref{reg}''?
-Wir kommen nicht umhin, dies mit der Einführung eines weiteren Formalismus zu begründen,
-der aber für jede:n Programmier:in große praktische Relevanz hat:
-\emph{reguläre Ausdrücke}.
+Warum aber heißt dieses Kapitel ``\nameref{reg}''
+und nicht deterministisch-finite Sprachen?
+Die Antwort lautet: \emph{reguläre Ausdrücke}.
+Dieser Formalismus hat für jede:n Programmier:in große praktische Relevanz!
+
+% TODO: Coding example
+
 Wir definieren einen regulären Ausdruck $\gamma$
 und die davon definierte Sprache $L(\gamma)$ induktiv:
 \begin{itemize}
@@ -514,9 +526,11 @@ Das bedeutet, dass die Menge an Sprachen identisch sind.
 Genau deshalb nennt man die Sprachen, die von einem DFA erkannt werden, \emph{regulär}.
 
 Eine interessante Konsequenz des Satzes von Kleene:
-\emph{Alle endlichen Sprachen sind regulär}.
+\emph{Alle endlichen Sprachen sind regulär}:
 Für ein Wort $w$ ist $w$ auch ein regulärer Ausdruck.
 Wenn $|L| = n$, dann gilt $L = L(w_0|\dots{}w_i|\dots{}w_{n-1})$ für $w_i \in L$, d.h. L ist regulär.
+
+%TODO Ardensche Lemma um Regex <-> DFA
 
 \subsection{Praktische Relevanz regulärer Ausdrücke}
 

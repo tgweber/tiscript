@@ -33,8 +33,12 @@ wollen wir so angeben:
 \end{itemize}
 Die formale Sprache $SORTIMENT$ wollen wir noch ein wenig simpler halten:
 $\{0^n1^m|n=m\}$.
-Hier verstehen wir die konkatenierten Nullen als unäre Repräsentation der ersten Zahl
-und die konkatenierten Einsen als unäre Repräsentation der zweiten Zahl.
+Die Nullen uns Einsen lassen sich wie bei einer Strichliste verstehen:\footnote{
+    Da wir nur ein Zeichen (pro Zahl) haben,
+    sprechen wir auch von der \emph{unären} Repräsentation der Zahlen.}
+die konkatenierten Nullen sind repräsentieren die ersten Zahl
+und die konkatenierten Einsen repräsentieren die zweiten Zahl.
+
 Ein DFA müsste also entscheiden können, ob die Anzahl der Nullen und Einsen identisch sind.
 Da endliche Automaten keine Form des Speichers haben
 (die einzige Information, die sich speichern lässt, ist der aktuelle Zustand)
@@ -50,28 +54,39 @@ Wir wollen uns dem Pumping-Lemma mit einer Reihe von Beobachtungen nähern.
 
 Wie wir in \autoref{regex} festgestellt haben, sind alle endlichen Sprachen regulär.
 Daher kann man sagen, dass Endlichkeit \emph{hinreichend} für die Regularität einer Sprache ist.
-Oder formal ausgedrückt: $L \text{ endlich} \rightarrow L \text{ regulär}$.
-Es kann aber auch unendliche Sprachen geben, die regulär sind,
-also ist Endlichkeit keine \emph{notwendige} Bedingung für Regularität.
+Oder aussagenlogisch ausgedrückt: $L \text{ endlich} \rightarrow L \text{ regulär}$.
 
-Das Pumping-Lemma dagegen formuliert eine notwendige Eigenschaft für Regularität,
-die nicht zureichend ist:
+
+Wie wir wissen, sind manche unendliche Sprachen regulär.
+Wie wir gleich sehen werden, gibt es aber auch unendliche Sprachen,
+die \emph{nicht} regulär sind.
+Endlichkeit ist daher \emph{keine notwendige} Bedingung für Regularität,
+aussagenlogisch ausgedrückt: $\neg (L \text{ regulär} \rightarrow L \text{ endlich})$.
+SORTIMENT ist unendlich, daher bleibt die Frage (bei unserem aktuellen Kenntnisstand) offen,
+ob es eine unendliche reguläre Sprache ist.
+
+Das Pumping-Lemma formuliert eine notwendige Eigenschaft für Regularität:
 Informell besagt das Lemma,
-dass alle regulären Sprachen entweder endlich sind
-oder sich auf eine bestimmte Weise ``aufpumpen`` lassen (daher der Name).
- $L \text{ regulär} \rightarrow L \text{ endlich} \vee L \text{ ist aufpumpbar}$.
+dass alle regulären Sprachen sich auf eine bestimmte Weise ``aufpumpen`` lassen (daher der Name).
+ $L \text{ regulär} \rightarrow L \text{ aufpumpbar}$.
+
 Da es auch nicht-reguläre Sprachen gibt, die in unserem Sinne ``aufpumpbar'' sind,\footnote{
     Siehe \cite{schoening} 40 für ein Beispiel.}
 kann man das Pumping-Lemma nicht für einen direkten Beweis der Regularität nutzen.
+In anderen Worten, es ist \emph{nicht hinreichend} für die Regularität:
+$\neg(L \text{ aufpumpbar}  \rightarrow L \text{ regulär})$.
+
 Momentan suchen wir aber nach einer Methode zu zeigen,
 dass $SORTIMENT$ \emph{nicht} regulär ist
 und dafür kann man das Pumping-Lemma nutzen:
-Ist eine Sprache weder endlich, noch in unserem Sinne ``aufpumbar'',
-dann kann sie nicht regulär sein.
+Ist eine unendliche Sprache nicht ``aufpumbar'',
+dann kann sie nicht regulär sein:\linebreak
+$\neg L \text{ aufpumpbar}  \rightarrow \neg L \text{ regulär}$.
+
 Wir wollen uns diesem Lemma und seiner Prädikaten-logischen Form anhand eines Beispiels nähern.
 
 \subsubsection{uvw-Zerlegung aufpumbarer Worte}
-
+%TODO einfacher, besseres Beispiel
 Als Beispiel dafür, was wir mit ``aufpumpbar'' meinen,
 wollen wir die Sprache L betrachten, die durch den DFA in \autoref{fig:dfapump}
 oder den regulären Ausdruck $10^*1|0000$ gegeben ist.
@@ -256,11 +271,8 @@ um für ein gegebenes $n \in \mathbb{N}$ die Sprache
 $L = \{0^i1^i| i \leq n\}$ zu erkennen!
 Dies ist darin begründet,
 dass $L$ endlich ist.\footnote{
-    \cite{aul} ist ein lesenswertes Studienbuch, dass diesen Gedanken formal ausbuchstabiert.
+    \cite{aul} formuliert dass diesen Gedanken aus.
 }
-
-Im nächsten Abschnitt lernen wir einen Formalismus kennen,
-der mächtiger ist, als ein DFA.
 
 \section{Turingmaschinen}
 \subsection{Wer war Alan Turing?}
@@ -302,7 +314,7 @@ $TM = [Z, \Sigma, \Gamma, \delta, z_0, \square, E]$:
     \item $Z$ ist die Menge der Zustände.
     \item $\Sigma$ ist das Eingabealphabet.
     \item $\Gamma$ ist das Arbeitsalphabet. Es gilt: $\Sigma \subsetneq \Gamma$.
-    \item $\delta: \Gamma \times Z \rightarrow Z \times \Gamma \times \{R,L,-\}$
+    \item $\delta: Z \times \Gamma \rightarrow \Gamma \times Z \times \{R,L,-\}$
         ist die \emph{partielle} Übergangsfunktion.
     \item $z_0$ ist der Startzustand.
     \item $\square$ ist das Blank.
@@ -311,6 +323,7 @@ $TM = [Z, \Sigma, \Gamma, \delta, z_0, \square, E]$:
 \end{itemize}
 
 \noindent
+% TODO: Bild
 Eine Turingmaschine funktioniert intuitiv so:
 \begin{itemize}
     \item Zusätzlich zum DFA hat sie ein unendliches, beschreibbares Band.
@@ -346,21 +359,21 @@ Ein \emph{Schnappschuss} $s$ einer Turingmaschine TM ist ein 4-Tupel $[z,u,v,w]$
 Ein Tupel $S$ von Schnappschüssen heißt \emph{Schnappschussfolge},
 wenn für je zwei aufeinanderfolgende Schnappschüsse $s_n$ und $s_{n+1}$ gilt:
 \begin{itemize}
-    \item $z_{n+1} = \delta(v, z_n)_0$
+    \item $z_{n+1} = \delta(z_n, v)_1$
     \item $u_{n+1} = \begin{cases}
-            tw'(u_n, 0, |u_n|-1) & \text{wenn } \delta(v_n, z_n)_2 = L\\
-            u_n                  & \text{wenn } \delta(v_n, z_n)_2 = -\\
-            u_n\delta(v_n,z_n)_1 & \text{wenn } \delta(v_n, z_n)_2 = R
+            tw'(u_n, 0, |u_n|-1) & \text{wenn } \delta(z_n, v_n)_2 = L\\
+            u_n                  & \text{wenn } \delta(z_n, v_n)_2 = -\\
+            u_n\delta(v_n,z_n)_0 & \text{wenn } \delta(z_n, v_n)_2 = R
         \end{cases}$
     \item $v_{n+1} = \begin{cases}
-            tw'(u_n, |u_n|-1, 1) & \text{wenn } \delta(v_n, z_n)_2 = L\\
-            \delta(v_n, z_n)_1   & \text{wenn } \delta(v_n, z_n)_2 = -\\
-            tw'(w_n, 0, 1)       & \text{wenn } \delta(v_n, z_n)_2 = R
+            tw'(u_n, |u_n|-1, 1) & \text{wenn } \delta(z_n, v_n)_2 = L\\
+            \delta(z_n, v_n)_0   & \text{wenn } \delta(z_n, v_n)_2 = -\\
+            tw'(w_n, 0, 1)       & \text{wenn } \delta(z_n, v_n)_2 = R
         \end{cases}$
     \item $w_{n+1} = \begin{cases}
-            \delta(v_n,z_n)_1w_n & \text{wenn } \delta(v_n, z_n)_2 = L\\
-            w_n                  & \text{wenn } \delta(v_n, z_n)_2 = -\\
-            tw'(w_n, 1, |w_n|-1) & \text{wenn } \delta(v_n, z_n)_2 = R
+            \delta(z_n, v_n)_0w_n & \text{wenn } \delta(z_n, v_n)_2 = L\\
+            w_n                  & \text{wenn } \delta(z_n, v_n)_2 = -\\
+            tw'(w_n, 1, |w_n|-1) & \text{wenn } \delta(z_n, v_n)_2 = R
         \end{cases}$
 \end{itemize}
 \noindent
@@ -381,31 +394,30 @@ Die Länge $len(S)$ einer Schnappschussfolge S entspricht der Länge des Tupels.
 
 \noindent
 Eine Schnappschussfolge S heißt
-\emph{Lauf} für $x$ auf einer Turingmaschine $tm$ $l_{x, tm}$
-wenn gilt:
+\emph{Lauf} für $x$ (formal: $l_{x, tm}$) auf einer Turingmaschine $tm$, wenn gilt:
 \begin{itemize}
     \item $s_0 = [z_i, \square, tw'(x,0,1), tw'(x,1,|w|-1)]$
-    \item $s_{len(S)} = [z \in Z, u \in \Gamma^*, v \in \Gamma, w \in \Gamma^*]$
-        mit $\delta(v, z)$ undefiniert.
+    \item $s_{len(S)-1} = [z \in Z, u \in \Gamma^*, v \in \Gamma, w \in \Gamma^*]$
+        mit $\delta(z, v)$ undefiniert.
 \end{itemize}
 
 \noindent
-Ein Lauf $l_{x, tm}$ heißt \emph{akzeptierend},
-wenn $(s_{len(l_{x, tm})})_0 \in E$.
+Ein Lauf $S$ heißt \emph{akzeptierend},
+wenn der letzte Zustand in der Schnappschussfolge ein Endzustand ist:
+$(s_{len(S)-1})_1 \in E$.
 \\
 
 \noindent
 Die Sprache $TM(L)$, die von einer Turingmaschine akzeptiert wird, ist definiert als
 $TM(L) =
-\{x|
-    x = yz
-    \wedge
+\{xy|
         \exists s(
-            s = (l_{y,tm})_{len(l_{y,tm})}
-            \wedge z = s_2s_3
+            s = (l_{x,tm})_{len(l_{x,tm})-1}
+            \wedge y = s_2s_3
             \wedge s_0 \in E
         )
 \}$.
+% TODO formale Probleme mit dem Input als Sprachinhalt?
 Also die Worte,
 die aus der Konkatenation des Inputs der Turingmaschine
 mit dem Bandinhalt rechts vom Zeiger nach einem akzeptierenden Lauf entstehen.
@@ -416,27 +428,66 @@ Turingmaschinen führen genauso wie DFAs zu einem Berechenbarkeitsbegriff:
 Ein Problem ist \emph{Turing-berechenbar},
 wenn es eine Turingmaschine gibt,
 die die zugehörige formale Sprache erkennt.
+In anderen Worten:
+Das Problem, das von der formalen Sprache repräsentiert wird,
+wird durch den Algorithmus, der durch die Turingmaschine implementiert wird,
+gelöst.
 
-Wir besprechen nun in diesem Abschnitt die folgenden Inhalte:
+Wir können also sagen, dass sowohl DFAs, wie auch Turingmaschinen
+Berechenbarkeits\emph{modelle} sind.
+Die Güte dieser Modelle können wir beurteilen, 
+indem wir uns ansehen, wie sie unseren intuitiven Berechenbarkeitsbegriff abbilden:
+Wir wissen bereits, dass es intuitive berechenbare Probleme gibt,
+die nicht DFA-berechenbar sind.
+Es bleiben allerdings folgende offenen Fragen:
+
 \begin{itemize}
-    \item Alle regulären Sprachen werden von einer Turingmaschine erkannt
-    \item Es gibt nicht-reguläre Sprachen, die von einer Turingmaschine erkannt werden.
-    \item Es ist kein Formalismus bekannt, der eine formale Sprache erkennt,
-        die nicht schon von einer Turingmaschine erkannt wird (Church-Turing-These).
+    \item Sind alle DFA-berechenbaren Probleme auch Turing-berechenbar?
+        Also, werden alle regulären Sprachen auch von Turingmaschinen erkannt?
+        Wenn dies der Fall ist,
+        dann ist die Menge der Turing-berechenbaren Probleme
+        eine Obermenge der DFA-Berechenbarkeit;
+        wir nennen diese Beziehung zwischen
+        der Turing-Berechenbarkeit und der DFA-Berechenbarkeit
+        dann \emph{mindestens genauso mächtig}.
+    \item Gibt es Probleme, die nicht DFA-berechenbar, aber Turing-Berechenbar sind?
+        Deren formale Sprache also \emph{nicht} von einem DFA,
+        aber von einer Turing-Maschine erkannt werden?
+        Wenn dies der Fall ist,
+        dann ist die Menge der Turing-berechenbaren Probleme
+        eine \emph{echte} Obermenge der DFA-Berechenbarkeit,
+        also ist die Turing-Berechenbarkeit \emph{mächtiger} als die DFA-Berechenbarkeit.
+    \item Gibt es ein Berechenbarkeitsmodell, das mächtiger ist, als die Turingmaschinen?
+        Die Antwort auf diese Frage führt uns zur Church-Turing-These.
 \end{itemize}
 
 \subsection{Simulation eines DFAs mit einer Turingmaschine}
+
+Das wesentliche formale Werkzeug,
+um Berechenbarkeitsmodelle miteinander zu vergleichen,
+ist die \emph{Simulation}.
+Wir simulieren ein Berechenbarkeitsmodell A in einem anderen B,
+wenn wir zeigen können, dass jeder Schritt in A in B simuliert werden kann,
+ohne dass sich das Ergebnis ändert.\footnote{Wir haben eine dieser Simulationen bereits in \autoref{regex} angedeutet: Reguläre Ausdrücke lassen sich in DFAs simulieren und umgekehrt.}
+
+Zum Beispiel können wir zeigen,
+dass ein DFA in einer Turingmaschine simuliert werden kann:
+
 Sei ein DFA $A = [Z_A, \Sigma, \delta_A, z_i, E_A]$ gegeben.
 Dann können wir A mit der folgenden Turingmaschine TM simulieren:
 $TM = [Z_A, \Sigma, \Sigma \cup \{\square\}, \delta_{TM}, z_i, \square, E_A]$,
 wobei gilt:
-$\delta_{TM}(a, z) = [\delta_A(a, z), a, R]$,
+$\delta_{TM}(z, a) = [a, \delta_A(z, a), R]$,
 das heißt, wir lassen den Zeiger einfach das Wort entlang laufen,
 bis wir auf ein Blank stoßen.
-Da $\delta_A(\square, z)$ nicht definiert sein kann,
-ist es auch $\delta_{TM}(a,z)$ nicht.
 Also verhält sich $TM$ exakt wie $A$.
-$L(TM) = L(A)$ (da der Inhalt des Bandes rechts vom Zeiger immer leer ist).
+
+Da die TM in jedem Fall das Wort bis zum letzten Zeichen liest
+($\delta_A(z, \square)$ ist nicht definiert sein,
+also ist $\delta_{TM}(z, a)$ ebenfalls nicht definiert).
+und am Ende entweder in einem Endzustand oder einem Nicht-Endzustand von A ist,
+akzeptiert sie ein Wort genau dann, wenn auch A das Wort akzeptiert. 
+Es gilt also: $L(TM) = L(A)$ (da der Inhalt des Bandes rechts vom Zeiger immer leer ist).
 
 \subsection{Turing-Berechenbarkeit ist echt mächtiger als DFA-Berechenbarkeit}
 Das beste Beispiel um zu beweisen,
@@ -455,18 +506,18 @@ Die Turingmaschine aus \autoref{fig:tmsortiment} akzeptiert SORTIMENT.
 	\node[state, right of=z1] (z2) {$z_2$};
 	\node[state, right of=z2] (z3) {$z_3$};
 	\node[state, right of=z3] (z4) {$z_4$};
-	\node[state, accepting, below of=z4] (za) {$z_a$};
+	\node[state, accepting, below of=z2] (za) {$z_a$};
 	\node[state, above of=z3] (z5) {$z_5$};
 	\node[state, above of=z1] (z6) {$z_6$};
 	\draw
         (zi) edge[above] node{0,$\square$,R} (z1)
-        (zi) edge[below] node{$\square$,$\square$,-} (za)
+        (zi) edge[below left] node{$\square$,$\square$,-} (za)
         (z1) edge[loop above] node{0,0,R} (z1)
         (z1) edge[above] node{1,1,R} (z2)
         (z2) edge[loop above] node{1,1,R} (z2)
         (z2) edge[above] node{$\square$,$\square$,L} (z3)
         (z3) edge[above] node{1,$\square$,L} (z4)
-        (z4) edge[right] node{$\square$,$\square$,-} (za)
+        (z4) edge[below right] node{$\square$,$\square$,-} (za)
         (z4) edge[right] node{1,1,L} (z5)
         (z5) edge[loop above] node{1,1,L} (z5)
         (z5) edge[above] node{0,0,L} (z6)
@@ -600,10 +651,10 @@ den Unterschied zwischen Hard- und Software verschwimmen lassen.
         $M = [Z, \{*\}, \{*, \square\}, \delta, z_0, \square, \{z_2\}]$,
         mit $Z = \{z_0, z_1, z_2\}$ und \\
         $\delta = \{
-            [*,z_0,z_0,*,R],
-            [\square,z_0,z_1,*,L],
-            [*,z_1,z_1,*,L],
-            [\square,z_1,z_2,\square,R]
+            [z_0,*,*,z_0,R],
+            [z_0,\square,*,z_1,L],
+            [z_1,*,*,z_1,L],
+            [z_1,\square,\square,z_2,R]
         \}$.
         Gib M in grafischer Darstellung an und beschreibe, welche Funktion M berechnet.
         Findest Du eine ``kleinere'' Turingmaschine (weniger Zustände, kleineres $\delta$),
