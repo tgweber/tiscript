@@ -20,15 +20,15 @@ was Aufwand bedeutet.
 Bevor wir uns dem Thema theoretisch nähern,
 wollen wir noch eine ganz praktische Erwägung durchdenken:
 Warum nicht einfach den Aufwand messen,
-anstatt ihn über Turinmaschinen zu quantifizieren?
-Der Ansatz wäre dabei,
-den Algorithmus in einer beliebigen Sprache zu implementieren
-und die Zeit zu messen,
-die er für einen bestimmten Input läuft.
-
+anstatt ihn über die Eigenschaften einer Turinmaschinen zu quantifizieren?
+Die Idee hierbei:
+Implementiere den Algorithmus in einer beliebigen Sprache
+und messe die Zeit,
+wie lange die Implementierung läuft.
 Hierbei ergeben sich einige Schwierigkeiten:
 \begin{itemize}
-  \item Die Menge der möglichen Inputs vieler Algorithmen ist unendlich,
+  \item Auf welchem Input soll die Implementierung laufen?
+      Die Menge der möglichen Inputs vieler Algorithmen ist unendlich,
       daher kann man nur Stichproben aus den möglichen Inputs nehmen
         und muss sich der Methodik der Statistik bedienen,
         um allgemeine Aussagen zu rechtfertigen
@@ -42,6 +42,8 @@ Hierbei ergeben sich einige Schwierigkeiten:
           \item Virtualisierung
           \item Netz
       \end{itemize}
+      Dies macht den Vergleich von Messergebnissen extrem schwierig,
+        wenn nicht sogar in vielen Fällen praktisch wertlos.
 \end{itemize}
 
 Es ist also offensichtlich,
@@ -63,12 +65,13 @@ den eine Implementierung benötigt,
 um den Input,
 eventuelle Zwischenergebnisse
 und den Output zu speichern.
-Beides, Zeit und ``Raum'' sind valide Größen,
+Beides, Zeit und Speicherplatz sind valide Größen,
 anhand derer wir Aufwand oder Effizienz bemessen können.
-Wir werden uns in diesem Skript auf Zeit-Effizienz beschränken,
+Wir werden uns in diesem Skript auf Zeit-Effizienz konzentireren,
 weswegen wir bei Aufwand beziehungsweise Effizienz immer von
-zeitlichem Aufwand beziehungsweise zeitlicher Effizienz sprechen.
-Allerdings kann vieles auf Raum-Effizienz übertragen werden,
+zeitlichem Aufwand beziehungsweise zeitlicher Effizienz sprechen,
+wenn wir Speicherplatz nicht explizit mitnennen.
+Allerdings kann einiges auf Raum-Effizienz übertragen werden,
 das wir in diesem Kapitel entwickeln.
 
 Wir wollen über diese drei folgenden Schritte zu einem Verständnis von Aufwand kommen:
@@ -76,12 +79,12 @@ Wir wollen über diese drei folgenden Schritte zu einem Verständnis von Aufwand
     \item Aufwand für einen Lauf einer spezifischen Turingmaschine auf einem spezifischen Wort.
     \item Abschätzung für die Länge von Läufen einer spezifischen Turingmaschine
         auf allen Worten einer Sprache.
-    \item Schranken für die Länge aller Turingmaschinen, die eine spezifische Sprache erkennen.
+    \item Schranken für alle Turingmaschinen, die eine spezifische Sprache erkennen.
 \end{itemize}
 
 Die folgenden Abschnitte hangeln sich an diesen Schritten entlang.
 
-\subsection{Aufwand eines spezfischen Laufs}
+\subsection{Aufwand eines spezifischen Laufs}
 Am Anfang unserer Überlegung haben wir diese zwei Komponenten:
 \begin{itemize}
     \item Die konkrete Problemstellung, gegeben als \emph{Wort $w \in L$}.
@@ -89,8 +92,8 @@ Am Anfang unserer Überlegung haben wir diese zwei Komponenten:
         implementiert als \emph{Turingmaschine $tm \in TM$}.\footnote{
             $TM$ bezeichnet die Menge aller Turingmaschinen.}
 \end{itemize}
-Dies sind formal korrekt eingeführte Konzepte
-und wir können Zeit und Platzaufwand daran genau definieren.
+Wir können an diesen formal eingeführten Konzepten
+Zeit- und Speicherplatzaufwand daran genau definieren.
 Gesucht ist also eine Funktion $\tau: L \times TM \rightarrow \mathbb{N}$,
 die für ein Wort $w \in L$ auf einer bestimmten Turingmaschine $tm \in TM$
 den zeitlichen Aufwand in einer natürlichen Zahl ausdrückt.
@@ -111,29 +114,53 @@ dessen Länge wir als zeitlichen Aufwand definieren.
 Bisher haben wir aber nur über den Aufwand gesprochen,
 den ein \emph{Wort} verursacht,
 nicht aber über den Aufwand,
-den ein ganzes Problem verursacht
+den ein ganzes Problem verursacht.
 Probleme repräsentieren wir als \emph{formale Sprache},
 also eine Menge von Wörtern.
-
-Wenn wir die Effizienz einer Problemlösung angeben,
-gibt es prinzipiell drei Szenarien:
+Wir betrachten nun also:
 \begin{itemize}
-    \item \textbf{Best Case}: Wir wählen das Wort aus der formalen Sprache aus,
+    \item Ein konkretes Problem, gegeben als Sprache $L$.
+    \item Den konkreten Algorithmus,
+        implementiert als \emph{Turingmaschine $tm \in TM$}.
+\end{itemize}
+
+Wie können wir die Überlegungen aus dem vorherigen Abschnitt generalisieren,
+dass wir nicht nur den Aufwand einer Problemstellung,
+sondern den Aufwand eines ganzen Problems quantifizieren?
+In \autoref{subsec:problemeAlsFormaleSprachen} haben wir besprochen,
+wie wir beliebige Funktionen als formale Sprache repräsentieren können.
+Betrachten wir Probleme als Funktionen,
+können wir den Aufwand quantifizieren,
+indem wir beschreiben,
+wie sich die \emph{Größe} des Inputs zur Dauer der Berechnung verhalten.
+Übertragen auf den Kontext der formalen Sprachen:
+Beschreibe, wie sich das Laufzeitverhalten einer Turingmaschine 
+bei wachsender Wortlänge verhält.
+%TODO Grafik
+Dies ergibt wiederum eine Funktion:
+$t_{tm}: \mathbb{N} \rightarrow \mathbb{N}$,
+also bildet $t_{tm}$ für eine Turingmaschine $tm$ die Wortlänge auf
+die Anzahl der Schritte für diese Wortlänge ab.
+Da mehrere Worte die gleiche Länge haben können,
+müssen wir noch eine Lösung für diese Ambivalenz finden.
+Dafür gibt es prinzipiell drei Szenarien:
+\begin{itemize}
+    \item \textbf{Best Case}: Wir wählen das Wort der Länge aus,
         für das der Algorithmus den kürzesten Lauf hat,
         also die geringste Zeit benötigt.
-        Wir betrachten also das Minimum von $\tau$.
     \item \textbf{Average Case}: Wir nutzen statistische Methoden,
-        um die wahrscheinliche Länge eines Laufs zu quantifizieren.
+        um die wahrscheinlichste Länge eines Laufs zu quantifizieren.
         Wir betrachten also zum Beispiel den Erwartungswert von $\tau$,
-        wenn wir per Zufall ein Wort aus L auswählen.\footnote{
+        wenn wir per Zufall ein Wort aus L der gegebenen Länge auswählen.\footnote{
             Der Modus (entspricht dem Median in einer endlichen Stichprobe) wäre eine Alternative.
         Mit der Standardabweichung (Streuungsmaß) oder einer Kombination mehrerer Maße,
         verbessert sich die Aussagekraft,
         was aber die einfache Vergleichbarkeit von Algorithmen wiederum erschwert.}
-    \item \textbf{Worst Case}: Wir wählen das Wort aus der formalen Sprache aus,
+        oder bei endlichen Mengen von Worten der Länge,
+        ermitteln wir die Laufzeit für alle Worte und mitteln diese.
+    \item \textbf{Worst Case}: Wir wählen das Wort aus,
         für das der Algorithmus den längsten Lauf hat,
         also die meiste Zeit benötigt.
-        Wir betrachten also das Maximum von $\tau$. 
 \end{itemize} 
 
 Da der Best Case meist wenig Aussagekraft über die Güte des Algorithmus besitzt,
@@ -142,23 +169,21 @@ Am aussagekräftigsten ist der Average Case,
 aber um ihn formal sauber anzuwenden braucht es
 entsprechendes statistisches Werkzeug.\footnote{
     Für interessierte Leser:innen sei \cite{knuth1}, 96ff bzw. 1.2.10 empfohlen,
-    hier spielt Knuth die probabilistische Analyse eines recht simplen Algorithmus durch.} 
-Da dies den Rahmen des Skriptes sprengen würde,
-konzentrieren wir uns auf den Worst Case.
-Wir vereinbaren also: Wenn wir vom Aufwand eines Problems sprechen,
-sprechen wir dabei stets vom Worst Case.
+    hier spielt Knuth die probabilistische Analyse des Euklidischen Algorithmus durch.} 
+Ganz pragmatisch konzentrieren wir uns auf den Worst Case.
 
-Ein verbleibendes Problem: Minimum, Maximum und die statistischen Maße 
-können für eine (unendliche) Sprache gar nicht definiert sein.
-Was ist zum Beispiel das Maximium von $\tau$ auf EVEN und der
-dazu in \autoref{turing} dargestellten Turingmaschine?
-Um also sinnvoll von Aufwand zu sprechen müssen wir die \emph{Länge},
-also $|w|$ in Verhältnis zum Aufwand setzen:
-Sei $t_{tm}: \mathbb{N} \rightarrow \mathbb{N}$ so definiert:
-$t_{tm}(n) = max({\tau(w, tm)| |w| = n})$
+
+$t_{tm}$ können wir mit diesen Überlegungen also definieren als:
+\[
+t_{tm}(n) = max({\tau(w, tm)| |w| = n})
+\]
 $t_{tm}$ gibt also die jeweilige Worst Case Laufzeit für ein Wort der Länge $n$ an.
 Dies erlaubt es uns auch über unendlich große formale Sprachen Aussagen zu treffen,
-indem wir angeben, wie sich der Aufwand bei steigender Inputgröße entwickelt.
+indem wir angeben,
+wie sich der Aufwand bei steigender Inputgröße,
+das bedeutet bei steigender Wortlänge entwickelt.
+
+%TODO Beispiel
 
 \subsection{Untere und obere Schranken für den Aufwand}
 Mit $t_{tm}$ und dem Worst Case-Wert können wir Aussagen über den Aufwand treffen,
