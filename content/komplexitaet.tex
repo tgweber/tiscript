@@ -13,11 +13,11 @@ Recap: Anzahl Bänder sub-exponentiell auf Einbandmaschine simulierbar.
 \section{Determinismus und Nicht-Determinismus}
 \subsection{Nichtdeterministische Finite Automaten}
 Ein Nichtdeterministischer Finiter Automat (NFA) ist ein 5-Tupel:
-$A = [\Sigma, Z, \delta, S, E]$:
+$A = [Z, \Sigma, \delta, S, E]$:
 \begin{itemize}
-    \item $\Sigma$ ist das Eingabealphabet.
     \item Z ist die Menge der Zustände.
-    \item $\delta: \Sigma \times Z \rightarrow \mathcal{P}(Z)$ ist die Übergangsfunktion.
+    \item $\Sigma$ ist das Eingabealphabet.
+    \item $\delta: Z \times \Sigma \rightarrow \mathcal{P}(Z)$ ist die Übergangsfunktion.
     \item $S \subseteq Z$ ist die Menge der Startzustände.
     \item $E \subseteq Z$ ist die Menge der Endzustände.
 \end{itemize}
@@ -32,22 +32,22 @@ für die es einen Pfad im Schnappschuss-Baum gibt,
 der an einem Blatt $[\epsilon, z_e]$ endet mit $z_e \in E$.
 
 \subsubsection{Potenzmengenkonstruktion}
-Wir können einen DFA $A_d = [\Sigma, Z, \delta_d, z_i, E]$
-leicht in einen NFA $A_n [\Sigma, Z, \delta_n, S, E]$ umwandeln
+Wir können einen DFA $A_d = [Z, \Sigma, \delta_d, z_i, E]$
+leicht in einen NFA $A_n [Z, \Sigma, \delta_n, S, E]$ umwandeln
 ($\Sigma$, $Z$ und $E$ bleiben identisch):
 \begin{itemize}
-    \item $\delta_n(a, z) = \{\delta_d(a,z)\}$
+    \item $\delta_n(z, a) = \{\delta_d(z, a)\}$
     \item $S = \{z_i\}$
 \end{itemize}
 
 Wir können mit folgender Potenzmengenkonstruktion
-einen NFA $A_n =  [\Sigma, Z_n, \delta_n, S, E_n]$ umwandeln
-einen DFA $A_d = [\Sigma, Z_d, \delta_d, z_i, E_d]$
+einen NFA $A_n =  [Z_n, \Sigma, \delta_n, S, E_n]$ umwandeln
+einen DFA $A_d = [Z_d, \Sigma, \delta_d, z_i, E_d]$
 umwandeln
 ($\Sigma$ bleibt identisch):
 \begin{itemize}
     \item $Z_d = \mathcal{P}(Z_n)$
-    \item $\delta_d(a, z) = \bigcup\limits_{z \in Z'} \delta_n(a, z)$
+    \item $\delta_d(z, a) = \bigcup\limits_{z \in Z'} \delta_n(z, a)$
     \item $z_i = S$
     \item $E_d = \{z \in Z_d| z \cap E_n \neq \emptyset \}$
 \end{itemize}
@@ -78,7 +78,7 @@ $TM = [Z, \Sigma, \Gamma, \delta, z_0, \square, E]$:
     \item $Z$ ist die Menge der Zustände.
     \item $\Sigma$ ist das Eingabealphabet.
     \item $\Gamma$ ist das Arbeitsalphabet. Es gilt: $\Sigma \subsetneq \Gamma$.
-    \item $\delta: \Gamma \times Z \rightarrow \mathcal{P}(Z \times \Gamma \times \{R,L,-\})$
+    \item $\delta: Z \times \Gamma \rightarrow \mathcal{P}(\Gamma \times Z \times \{R,L,-\})$
         ist die \emph{partielle} Übergangsfunktion.
     \item $z_0$ ist der Startzustand.
     \item $\square$ ist das Blank.
@@ -101,7 +101,7 @@ Eine Sprache A ist auf B polynomiell reduzierbar ($A \leq_p B$),
 wenn es eine totale Funktion $f$ mit $f \in O(n^k) (k \in \mathbb{N})$ gibt,
 so dass gilt: $w \in A \leftrightarrow f(w) \in B$.
 
-TODO: Ausgedrückt mit einer Turingmaschine.
+%TODO: Ausgedrückt mit einer Turingmaschine.
 
 \subsection{NP-Schwere und NP-Vollständigkeit}
 
