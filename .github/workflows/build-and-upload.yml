@@ -15,7 +15,7 @@ jobs:
           root_file: script.tex
           args: -bibtex -pdf -bibtex -file-line-error -halt-on-error -interaction=nonstopmode
           latexmk_shell_escape: true
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: PDF
           path: script.pdf
@@ -23,7 +23,7 @@ jobs:
     name: "Deploy script"
     runs-on: ubuntu-latest
     needs: build
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/fix-ci'
     steps:
       - uses: actions/download-artifact@v4
         with:
