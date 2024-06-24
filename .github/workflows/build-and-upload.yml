@@ -23,7 +23,7 @@ jobs:
     name: "Deploy script"
     runs-on: ubuntu-latest
     needs: build
-    if: github.ref == 'refs/heads/fix-ci'
+    if: github.ref == 'refs/heads/main'
     steps:
       - uses: actions/download-artifact@v4
         with:
