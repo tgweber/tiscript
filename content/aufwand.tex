@@ -142,8 +142,7 @@ $t_{tm}: \mathbb{N} \rightarrow \mathbb{N}$,
 also bildet $t_{tm}$ für eine Turingmaschine $tm$ die Wortlänge auf
 die Anzahl der Schritte für diese Wortlänge ab.
 Da mehrere Worte die gleiche Länge haben können,
-müssen wir noch eine Lösung für diese Ambivalenz finden.
-Dafür gibt es prinzipiell drei Szenarien:
+müssen wir entscheiden, wie wir in diesem Falle zu einem Wert kommen:
 \begin{itemize}
     \item \textbf{Best Case}: Wir wählen das Wort der Länge aus,
         für das der Algorithmus den kürzesten Lauf hat,
@@ -157,7 +156,7 @@ Dafür gibt es prinzipiell drei Szenarien:
         verbessert sich die Aussagekraft,
         was aber die einfache Vergleichbarkeit von Algorithmen wiederum erschwert.}
         oder bei endlichen Mengen von Worten der Länge,
-        ermitteln wir die Laufzeit für alle Worte und mitteln diese.
+        ermitteln wir die Laufzeit für alle Worte und mitteln diese.\footnote{Dies würde natürlich dazu führen, dass $tm$ auf $\mathbb{Q}$ abbildet und nicht mehr auf $\mathbb{N}$.}
     \item \textbf{Worst Case}: Wir wählen das Wort aus,
         für das der Algorithmus den längsten Lauf hat,
         also die meiste Zeit benötigt.
