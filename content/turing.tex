@@ -690,7 +690,8 @@ den Unterschied zwischen Hard- und Software verschwimmen lassen.
 	\node[state, below of=zd] (zc) {$z_c$};
 	\node[state, accepting, right of=zc] (zn) {$z_n$};
 	\node[state, left of=zc] (zr) {$z_r$};
-	\draw (zi) edge[loop above] node[text width=1cm, align=center]{$|,|,R$\\-,-,R} (zi)
+	\draw 
+    (zi) edge[loop above] node[text width=1cm, align=center]{$|,|,R$\\-,-,R} (zi)
 	(zi) edge[above] node{$\square$, $\square$, L} (zl)
 	(zl) edge[left] node{$-,|,L$} (zg)
 	(zg) edge[loop left] node{$|,|,L$} (zg)
