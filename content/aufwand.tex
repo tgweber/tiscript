@@ -337,8 +337,19 @@ indem wir angeben,
 wie sich der Aufwand bei steigender Inputgröße,
 das bedeutet bei steigender Wortlänge entwickelt.
 
-%TODO Beispiel
+\subsubsection{Beispiel: Aufwand für $tm_{REVERSE}$}
 
+Skizze: 
+Im arithmetischen Mittel brauchen wir
+$\frac{n}{2}+1+\frac{n}{2}+\frac{n}{2}+1+\frac{n}{2}+1 = 2n+3$
+Schritte für jeden Loopdurchlauf, 
+also
+$n(2n + 3) = 2n^2 + 3n$ für alle Durchläufe.
+Am Ende dann noch mal
+$n + 1 + n + 2 = 2n + 3$ für den Weg zum Anfang des umgekehrten Wortes.
+Also in Summe $2n^2 + 5n + 3$ Schritte.
+
+Beispiel $n = 2$: $2\cdot2^2 + 5\cdot2 + 3 = 8 + 10 + 3 = 21 = \tau(10, tm)$
 \subsection{Untere und obere Schranken für den Aufwand}
 Mit $t_{tm}$ und dem Worst Case-Wert können wir Aussagen über den Aufwand treffen,
 den ein bestimmter Algorithmus für ein bestimmtes Problem verursacht.
