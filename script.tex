@@ -9,6 +9,7 @@
 % END DEBUG SETTINGS
 
 
+
 \newif\ifusechapterhead
 \usechapterheadtrue
 
@@ -64,11 +65,17 @@ maxbibnames=99
 
 % Drop space before chapter headings
 \usepackage{etoolbox}% http://ctan.org/pkg/etoolbox
+\tracingpatches
 \makeatletter
 \patchcmd{\@makechapterhead}{\vspace*{50\p@}}{}{}{}% Removes space above \chapter head
 \patchcmd{\@makeschapterhead}{\vspace*{50\p@}}{}{}{}% Removes space above \chapter* head
 \makeatother
 % end drop space before chapter headings
+% Nummerieren von Gleichungen
+\newcounter{arraycounter}
+
+
+   
 
 \usepackage{gitinfo2}
 
@@ -114,6 +121,8 @@ maxbibnames=99
 % Zeilenumbrüche in Tabellenfeldern
 \newcommand{\specialcell}[2][c]{%
   \begin{tabular}[#1]{@{}c@{}}#2\end{tabular}}
+
+
 
 
 \setcounter{section}{-1}

@@ -118,101 +118,88 @@ Sei REVERSE das folgende Problem:
 In diesem Falle wäre also $w = 1001 \in$ REVERSE.
 \autoref{fig:tmreverse} zeigt eine Turingmaschine $tm$, die REVERSE erkennt.
 Dies ist der Lauf $l_{w, tm}$:
-\[
-\begin{array}{llrlrl}
 
-    [
-        & [z_I,     & \square,                  & 1,        & 0]            & , \\
-        & [z_{I11}, & \square,                  & \square,  & 10]           & , \\
-        & [z_{I12}, & \square,                  & \square,  & \square10]    & , \\
-        & [z_{I3},  & \square1,                 & \square,  & 10]           & , \\
-        & [z_{LS},  & \square1\square,          & 1,        & 1]            & , \\
-        & [z_{LS},  & \square1\square\square,   & 0,        & \square]      & , \\
-        & [z_{L01}, & \square1\square,          & \square,  & 0\square]     & , \\
-        & [z_{LC},  & \square1\square\square,   & 0,        & \square]      & 
-    ] \\
-\end{array}
-\]
-\begin{figure}[H] % ’ht’ tells LaTeX to place the figure ’here’ or at the top of the page
+
+\begin{figure}[ht] % ’ht’ tells LaTeX to place the figure ’here’ or at the top of the page
 \centering % centers the figure
 \begin{tikzpicture}
     %Initial part
-	\node[state, accepting, initial] (zI) {$z_I$};
-
-    \node[state, below right of=zI] (zI11) {$z_{I11}$};
-    \node[state, below of=zI11] (zI12) {$z_{I12}$};
-    \node[state, below left of=zI] (zI01) {$z_{I01}$};
-    \node[state, below of=zI01] (zI02) {$z_{I02}$};
-
-    \node[state, below right of=zI02] (zI3) {$z_{I3}$};
+    \node[state] (zL4) {$z_{L4}$};
+    \node[state, left of=zL4] (zI12) {$z_{I12}$};
+    \node[state, above left of=zL4] (zI02) {$z_{I02}$};
+    \node[state, above left of=zI12] (zI11) {$z_{I11}$};
+    \node[state, above left of=zI02] (zI01) {$z_{I01}$};
+	\node[state, accepting, initial, left of=zI01] (zI) {$z_I$};
 
     %Loop part
-    \node[state, below of=zI3] (zLS) {$z_{LS}$};
-    \node[state, below of=zLS] (zLC) {$z_{LC}$};
+    \node[state, above right of=zL4] (zL01) {$z_{L01}$};
+    \node[state, above of=zL01] (zLC) {$z_{LC}$};
 
-    \node[state, left of=zLC] (zL01) {$z_{L01}$};
-    \node[state, below left of=zL01] (zL02) {$z_{L02}$};
 
-    \node[state, below of=zLC] (zL11) {$z_{L11}$};
-    \node[state, below left of=zL11] (zL12) {$z_{L12}$};
+    \node[state, below right of=zL01] (zL02) {$z_{L02}$};
 
-    \node[state, left of=zL12] (zL3) {$z_{L3}$};
-    \node[state, above of=zL02] (zL4) {$z_{L4}$};
+    \node[state, below right of=zLC] (zL11) {$z_{L11}$};
+    \node[state, below right of=zL11] (zL12) {$z_{L12}$};
+
+    \node[state, below of=zL12] (zL3) {$z_{L3}$};
+
     %Finish part
 
-    \node[state, right of=zLC] (zF0) {$z_{F0}$};
-    \node[state, below right of=zF0] (zF1) {$z_{F1}$};
-    \node[state, accepting, below of=zF1] (zF2) {$z_{F2}$};
+    \node[state, above left of=zLC] (zF0) {$z_{F0}$};
+    \node[state, left of=zF0] (zF1) {$z_{F1}$};
+    \node[state, accepting, left of=zF1] (zF2) {$z_{F2}$};
 
 	\draw
 
         %Initial part
-        (zI) edge[above left] node{0,0,L} (zI01)
-        (zI01) edge[left] node{$\square$,$\square$,L} (zI02)
-        (zI02) edge[below left] node{$\square$,0,R} (zI3)
+        (zI) edge[above] node{0,0,L} (zI01)
+        (zI01) edge[right] node{$\square$,$\square$,L} (zI02)
+        (zI02) edge[right] node{$\square$,0,R} (zL4)
 
         (zI) edge[above right] node{1,1,L} (zI11)
-        (zI11) edge[right] node{$\square$,$\square$,L} (zI12)
-        (zI12) edge[below right] node{$\square$,1,R} (zI3)
-
-        (zI3) edge[right] node{$\square$,$\square$,R} (zLS)
+        (zI11) edge[left, right] node{$\square$,$\square$,L} (zI12)
+        (zI12) edge[above] node{$\square$,1,R} (zL4)
 
         %Loop part
-        (zLS) edge[right] 
-            node[text width=1cm, align=center]{0,$\square$,R\\1,$\square$,R} 
-            (zLC)
-
-
-        (zLC) edge[above] node{0,0,L} (zL01)
-        (zLC) edge[right] node{1,1,L} (zL11)
+        (zLC) edge[left] node{0,0,L} (zL01)
+        (zLC) edge[bend left, above right] node{1,1,L} (zL11)
         (zLC) edge[above] node{$\square$,$\square$,L} (zF0)
 
-        (zL01) edge[loop above] node{$\square$,$\square$,L} (zL01)
-        (zL01) edge[above left]
+        (zL01) edge[loop below] node{$\square$,$\square$,L} (zL01)
+        (zL01) edge[left]
             node[text width=1cm, align=center]{0,0,L\\1,1,L} 
             (zL02)
 
-        (zL02) edge[loop right] 
+        (zL02) edge[loop below] 
             node[text width=1cm, align=center]{0,0,L\\1,1,L} 
             (zL02)
         (zL02) edge[right] node{$\square$,0,R} (zL3)
 
-        (zL11) edge[loop right] node{$\square$,$\square$,L} (zL11)
-        (zL11) edge[above left]
+        (zL11) edge[loop above, right] node{$\square$,$\square$,L} (zL11)
+        (zL11) edge[above right]
             node[text width=1cm, align=center]{0,0,L\\1,1,L} 
             (zL12)
 
         (zL12) edge[loop right] 
             node[text width=1cm, align=center]{0,0,L\\1,1,L} 
             (zL12)
-        (zL12) edge[above] node{$\square$,1,R} (zL3)
+        (zL12) edge[below right] node{$\square$,1,R} (zL3)
 
-        (zL3) edge[bend left, left] node{0,0,L} (zL4)
-        (zL4) edge[bend left, above] node{0,0,L} (zLS)
+
+        (zL3) edge[loop below] 
+            node[text width=1cm, align=center]{0,0,R\\1,1,R} 
+            (zL3)
+        (zL3) edge[bend left, left] node{$\square$,$\square$,R}(zL4)
+
+        (zL4) edge[loop below] node{$\square$,$\square$,R} (zL4)
+        (zL4) edge[bend left, above left] 
+            node[text width=1cm, align=center]
+            {0,$\square$,R\\1,$\square$,R} 
+            (zLC) 
 
         %Finish part
         (zF0) edge[loop above] node{$\square$,$\square$,L} (zF0)
-        (zF0) edge[above right] 
+        (zF0) edge[above] 
             node[text width=1cm, align=center]{0,0,L\\1,1,L} 
             (zF1)
         (zF1) edge[loop right] 
@@ -224,7 +211,41 @@ Dies ist der Lauf $l_{w, tm}$:
 \caption{Turingmaschine, die $REVERSE$ akzeptiert}
 \label{fig:tmreverse}
 \end{figure}
-\url{https://turingmachinesimulator.com/shared/ctjtgaeolz}
+
+\url{https://turingmachinesimulator.com/shared/kugacwurfr}
+
+\begin{center}
+$
+\begin{array}{>{\stepcounter{arraycounter}\thearraycounter}llrlrl}
+    [   & [z_I,     & \square,                  & 1,        & 0]            & , \\
+        & [z_{I11}, & \square,                  & \square,  & 10]           & , \\
+        & [z_{I12}, & \square,                  & \square,  & \square10]    & , \\
+        & [z_{I3},  & \square1,                 & \square,  & 10]           & , \\
+        & [z_{LS},  & \square1\square,          & 1,        & 0]            & , \\
+        & [z_{LC},  & \square1\square\square,   & 0,        & \square]      & , \\
+        & [z_{L01}, & \square1\square,          & \square,  & 0\square]     & , \\
+        & [z_{L01}, & \square1,                 & \square,  & \square0\square]     & , \\
+        & [z_{L01}, & \square,                  & 1,        & \square\square0\square]     & , \\
+        & [z_{L02}, & \square,                  & \square,  & 1\square\square0\square]     & , \\
+        & [z_{L3},  & \square0,                 & 1,        & \square\square0\square]     & , \\
+        & [z_{L4},  & \square01,                & \square,  & \square0\square]     & , \\
+        & [z_{L4},  & \square01\square,         & \square,  & 0\square]     & , \\
+        & [z_{L4},  & \square01\square\square,  & 0,        & \square]     & , \\
+        & [z_{LC},  & \square01\square\square\square,  & \square,        & \square]     & , \\
+        & [z_{LF0}, & \square01\square\square,  & \square,  & \square\square]     & , \\
+        & [z_{LF0}, & \square01\square,         & \square,  & \square\square\square]     & , \\
+        & [z_{LF0}, & \square01,                & \square,  & \square\square\square\square]     & , \\
+        & [z_{LF0}, & \square0,                & 1,  & \square\square\square\square\square]     & , \\
+        & [z_{LF1}, & \square,                & 0,  & 1\square\square\square\square\square]     & , \\
+        & [z_{LF1}, & \square,                & \square,  & 01\square\square\square\square\square]     & , \\
+        & [z_{LF2}, & \square\square,         & 0,  & 1\square\square\square\square\square]     & ] \\
+
+
+
+\end{array}
+$
+\end{center}
+
 
 \subsection{Aufwandsabschätzung für ein Problem}
 
