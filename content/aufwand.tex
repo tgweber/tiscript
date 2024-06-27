@@ -394,7 +394,15 @@ O(g(n)) = \{f|\exists c \exists n_0 \forall n (n \geq n_0 \rightarrow f(n) \leq 
 
 % TODO: Ergänze andere Klassen (o, $\theta$ usw).
 
-\section{Simulationen}
+\section{Komplexität und Berechnungsmodel}
+
+Skizze:
+\begin{itemize}
+        \item Revisiting REVERSE: Kontraintuitiver Aufwand bei TMs 
+        \item Beispiel: Beschleunigung durch 2-Band-Maschine 
+        \item Simulation weiterer Berechnungsmethoden 
+        \item Warum doch 1-Band-TMs: Einfachheit
+\end{itemize}
 
 Warum nutzen wir (in diesem Skript) Turingmaschinen zur Aufwandsquantifikation?
 Wir haben die Church-Turing-These eingeführt und operieren auf der Annahme,
@@ -406,7 +414,6 @@ d.h. wir können die ``Beschleunigigung'' durch andere Formalismen
 (z.B. solche, die einen realistisches Speicherkonzept haben)
 genau beziffern.
 
-Hier Diskussion Sortierungsalgorithmen.
 \begin{itemize}
     \item Relativ zur Implementierungssprache (Mehrbandturingmaschinen, Registermaschinen)
     \item Relativ zur Datenrepräsentation (Größe des Alphabets, Art der Datenstrukturen)
