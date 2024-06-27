@@ -122,6 +122,16 @@ maxbibnames=99
 \newcommand{\specialcell}[2][c]{%
   \begin{tabular}[#1]{@{}c@{}}#2\end{tabular}}
 
+\usepackage{pgffor}
+\newcommand{\R}[2]{
+    \foreach \n in {1,...,#1}{#2}
+}
+
+\newcommand{\sq}{
+    \square 
+}
+   
+
 
 
 
