@@ -22,7 +22,7 @@ wollen wir noch eine ganz praktische Erwägung durchdenken:
 Warum nicht einfach den Aufwand messen,
 anstatt ihn über die Eigenschaften einer Turinmaschinen zu quantifizieren?
 Die Idee hierbei:
-Implementiere den Algorithmus in einer beliebigen Sprache
+Implementiere den Algorithmus in einer beliebigen Programmiersprache
 und messe die Zeit,
 wie lange die Implementierung läuft.
 Hierbei ergeben sich einige Schwierigkeiten:
@@ -31,19 +31,21 @@ Hierbei ergeben sich einige Schwierigkeiten:
       Die Menge der möglichen Inputs vieler Algorithmen ist unendlich,
       daher kann man nur Stichproben aus den möglichen Inputs nehmen
         und muss sich der Methodik der Statistik bedienen,
-        um allgemeine Aussagen zu rechtfertigen
-    \item Das „Rauschen“ bei Messungen muss berücksichtigt werden
-        (die folgende Aufzählung ist wahrscheinlich nicht vollständig):
+        um allgemeine Aussagen zu rechtfertigen.
+    \item Das „Rauschen“ bei Messungen muss berücksichtigt werden:
+        Die folgende Aufzählung von ``Störfaktoren'' machen
+        die Vergleichbarkeit von Messergebnissen zu einer
+        großen Herausforderung (die Liste ist wahrscheinlich nicht vollständig):
       \begin{itemize}
           \item Genutzte Hardware
           \item Genutztes Betriebssystem
           \item Spezifische Versionen (z.B. Compiler, Browser, OS)
           \item Lastsituation auf der Maschine
           \item Virtualisierung
-          \item Netz
+          \item Netzauslastung
+          \item Temperatur
+          \item Messmethode
       \end{itemize}
-      Dies macht den Vergleich von Messergebnissen extrem schwierig,
-        wenn nicht sogar in vielen Fällen praktisch wertlos.
 \end{itemize}
 
 Es ist also offensichtlich,
@@ -51,23 +53,22 @@ dass man nicht ``einfach'' messen kann.
 Dennoch hat die empirische Messung auch in der Informatik ihren Platz.
 Wir werden darauf noch einmal am Ende des Kapitels zurückkommen.
 
-\section{Effizienz in Zeit (und Raum)}
+\section{Zeit-Aufwand}
 
 Was meinen wir, wenn wir von Aufwand oder Effizienz einer Berechnung sprechen?
 Meist wird als erstes die \emph{Zeit} genannt,
 die es braucht,
 damit eine Berechnung ein Ergebnis liefert.
+
 Es wäre ebenso möglich,
-den \emph{Speicherplatz}\footnote{
-    Im Englischen sprechen wir von ``space'', daher die Überschrift des Abschnitts.}
-als Aufwandsdimension zu verstehen,
+den \emph{Speicherplatz} als Aufwandsdimension zu verstehen,
 den eine Implementierung benötigt,
 um den Input,
 eventuelle Zwischenergebnisse
 und den Output zu speichern.
 Beides, Zeit und Speicherplatz sind valide Größen,
 anhand derer wir Aufwand oder Effizienz bemessen können.
-Wir werden uns in diesem Skript auf Zeit-Effizienz konzentireren,
+Wir werden uns in diesem Skript auf Zeit-Effizienz konzentrieren,
 weswegen wir bei Aufwand beziehungsweise Effizienz immer von
 zeitlichem Aufwand beziehungsweise zeitlicher Effizienz sprechen,
 wenn wir Speicherplatz nicht explizit mitnennen.
@@ -75,20 +76,22 @@ Allerdings kann einiges auf Raum-Effizienz übertragen werden,
 das wir in diesem Kapitel entwickeln.
 
 Wir wollen über diese drei folgenden Schritte zu einem Verständnis von Aufwand kommen:
-\begin{itemize}
-    \item Aufwand für einen Lauf einer spezifischen Turingmaschine auf einem spezifischen Wort.
-    \item Abschätzung für die Länge von Läufen einer spezifischen Turingmaschine
-        auf allen Worten einer Sprache.
-    \item Schranken für alle Turingmaschinen, die eine spezifische Sprache erkennen.
-\end{itemize}
+\begin{enumerate}
+    \item Aufwand für einen einzelnen Lauf einer spezifischen Turingmaschine
+    \item Aufwand für alle Läufe auf einer spezifischen Turingmaschine
+    \item Schranken für alle Läufe auf allen Turingmaschinen, 
+        die eine spezifische Sprache erkennen, also ein spezifisches Problem lösen.
+\end{enumerate}
 
-Die folgenden Abschnitte hangeln sich an diesen Schritten entlang.
+Die folgenden Abschnitte folgen diesen Schritten,
+indem zuerst theoretisch die Aufwandsquantifikation erschlossen wird
+und diese dann an einem Beispiel praktische durchgespielt.
 
-\subsection{Aufwand eines spezifischen Laufs}
+\subsection{Aufwand eines einzelnen Laufs}
 Am Anfang unserer Überlegung haben wir diese zwei Komponenten:
 \begin{itemize}
-    \item Die konkrete Problemstellung, gegeben als Frage \emph{Wort $w \in L$}? 
-    \item Den konkreten Algorithmus,
+    \item Ein \emph{Wort $w \in L$}
+    \item Einen Algorithmus,
         implementiert als \emph{Turingmaschine $tm \in TM$}.\footnote{
             $TM$ bezeichnet die Menge aller Turingmaschinen.}
 \end{itemize}
@@ -101,25 +104,33 @@ dass wir hierfür nutzen können:
 Die Länge des Laufes von $w$ auf $tm$:
 $\tau: \Sigma^* \times TM \rightarrow \mathbb{N}$ ist die Funktion,
 die für ein Wort $w \in \Sigma^*$ den Zeitaufwand auf einer Turingmaschine TM angibt.
-Wir legen fest: $\tau(w,tm) = |l_{w,tm}|$.
+Wir legen fest:
+\[
+    \tau(w,tm) = |l_{w,tm}| - 1
+\]
 Für ein Wort $w \in L$ ergibt sich eine Folge von Schnappschüssen,
-dessen Länge wir als zeitlichen Aufwand definieren.
-
+dessen Länge (weniger 1, denn der Startschnappschuss muss abgezogen werden)
+der Anzahl an Schritten entspricht,
+die eine Turingmaschine braucht,
+um das Wort zu erkennen.
 
 \subsubsection{Beispiel: Drehe 10 um}
 
 Wir wollen $\tau$ an einem Beispiel erläutern.
 Sei REVERSE das folgende Problem:
 \begin{itemize}
-    \item \textbf{Gegeben}: Ein beliebig langes Wort $w \in \Sigma^*$ mit $\Sigma = \{0,1\}$.
+    \item \textbf{Gegeben}: Ein beliebig langes Binärwort $w_b \in \Sigma^*$ mit $\Sigma = \{0,1\}$.
     \item \textbf{Gesucht}: Das Wort rückwärts.
 \end{itemize}
 
-Wäre also $w = 10$, dann wäre $w' = 01$ gesucht und damit $1001 \in$ REVERSE.
-D.h. REVERSE ist eine formale Sprache,
+Wäre also $w_b = 10$, dann wäre $w_b' = 01$ gesucht und damit $w = 1001 \in$ REVERSE.
+REVERSE ist daher eine formale Sprache,
 welche die ``Rückwärts-Funktion`` kodiert:
 REVERSE = $\{00, 11, 0000, 0110, 1001, 1111, \ldots\}$
-\autoref{fig:tmreverse} zeigt eine Turingmaschine $tm$, die REVERSE erkennt.
+\autoref{fig:tmreverse} zeigt eine Turingmaschine $tm_{REVERSE}$, die REVERSE erkennt.
+
+Den konkreten Lauf auf $w_b = 10$ wollen wir nutzen,
+um zu zeigen, wie sich der Wert von $\tau(w_b, tm_{REVERSE})$ feststellen lässt.
 
 \newpage
 
@@ -132,7 +143,7 @@ REVERSE = $\{00, 11, 0000, 0110, 1001, 1111, \ldots\}$
     \node[state, above of=zLI] (zI02) {$z_{I02}$};
     \node[state, above of=zI12] (zI11) {$z_{I11}$};
     \node[state, above of=zI02] (zI01) {$z_{I01}$};
-	\node[state, accepting, initial, left of=zI01] (zI) {$z_I$};
+	\node[state, initial, left of=zI01] (zI) {$z_I$};
 
     %Loop part
     \node[state, right of=zLI] (zL01) {$z_{L01}$};
@@ -211,13 +222,12 @@ REVERSE = $\{00, 11, 0000, 0110, 1001, 1111, \ldots\}$
         (zF1) edge[above] node{$\square$,$\square$,R} (zF2)
     ;
 \end{tikzpicture}
-\caption{Turingmaschine, die $REVERSE$ akzeptiert \\
-(siehe auch: \url{https://turingmachinesimulator.com/shared/xquktlulex})}
+\caption{$tm_{REVERSE}$\\(siehe auch: \url{https://turingmachinesimulator.com/shared/icyilbjidr})}
 \label{fig:tmreverse}
 \end{figure}
 
 \newpage
-Dies ist der Lauf $l_{10, tm}$:
+Dies ist der Lauf $l_{10, tm_{REVERSE}}$:
 
 
 \setcounter{arraycounter}{-1}
@@ -251,17 +261,17 @@ $
 $
 \end{center}
 
-In diesem Fall hat $\tau$ also den folgenden Wert:
+Da $|l_{10,tm_{REVERSE}}| = 22$ hat $\tau$ in diesem Fall also den folgenden Wert:
 \[
 \tau(10,tm) = 21
 \]
 
-\subsection{Aufwandsabschätzung für eine Implementierung}
+\subsection{Aufwandsquantifikation für eine Implementierung}
 
 Bisher haben wir aber nur über den Aufwand gesprochen,
-den ein spezfischer Lauf auf einem Wort verursacht,
-nicht aber wie sich der Aufwand für das Problem generell verhält,
-gegeben eine Implementierung.
+den ein spezifischer Lauf auf einem Wort verursacht,
+nicht aber,
+wie sich der Aufwand für eine komplette Implementierung, quantifizieren lässt. 
 Wir betrachten daher also:
 \begin{itemize}
     \item Die konkrete Implementierung eines Algorithmus,
@@ -281,11 +291,12 @@ Je größer der Input der Funktion (je größer also die Zahl,
 je länger die Input-Liste, etc.)
 desto größer der Aufwand.
 Um zu beschreiben,
-wie groß der Aufwand ist,
-ein Problem auf einer Turingmaschine zu lösen,
-suchen wir eine Funktion,
-die die Inputgröße und die Turingmaschine auf die Anzahl an Schritten abbildet.
-Übertragen auf den Kontext der formalen Sprachen
+wie groß der Aufwand für eine Implementierung ist,
+suchen wir daher eine Funktion,
+welche die Inputgröße auf Anzahl der Schritte abbildet,
+die eine Implementierung benötigt,
+um das Problem zu lösen.
+Übertragen auf den Kontext der formalen Sprachen und Turingmaschinen
 können wir anstatt dem Input die Wortlänge betrachten:
 Beschreibe, wie sich das Laufzeitverhalten einer Turingmaschine 
 bei wachsender Wortlänge verhält.
@@ -327,19 +338,47 @@ entsprechendes statistisches Werkzeug.\footnote{
 Ganz pragmatisch konzentrieren wir uns auf den Worst Case.
 
 
-$t_{tm}$ können wir mit diesen Überlegungen also definieren als:
+$t$ können wir mit diesen Überlegungen also definieren als:
 \[
-t_{tm}(n) = max({\tau(w, tm)| |w| = n})
+t(n, tm) = max({\tau(w, tm)| |w| = n})
 \]
-$t_{tm}$ gibt also die jeweilige Worst Case Laufzeit für ein Wort der Länge $n$ an.
+$t$ gibt also die jeweilige Worst Case Laufzeit für ein Wort der Länge $n$ an.
 Dies erlaubt es uns auch über unendlich große formale Sprachen Aussagen zu treffen,
 indem wir angeben,
 wie sich der Aufwand bei steigender Inputgröße,
-das bedeutet bei steigender Wortlänge entwickelt.
+also bei steigender Wortlänge, entwickelt.
 
 \subsubsection{Beispiel: Aufwand für $tm_{REVERSE}$}
 
-Skizze: 
+Für $tm_{REVERSE}$ müssen wir keinen worst Case finden,
+da Worte gleicher Länge auch gleich lange Läufte auf $tm_{REVERSE}$ haben.
+Für $1 \leq i \leq 5$ ergeben sich die folgenden Werte:
+
+\begin{table}[ht]
+    \caption{$t(i,tm_{REVERSE})$ für $1 \leq i \leq 5$}
+    \centering
+    \begin{tabular}{|c|c|c|c|c|c|}
+    \hline
+          i
+        & 1
+        & 2
+        & 3
+        & 4
+        & 5 
+        \\
+        \hline
+          $t(i,tm_{REVERSE})$
+        & 10
+        & 21
+        & 36
+        & 55
+        & 78
+        \\
+    \hline
+    \end{tabular}
+    \label{tab:ttmreverse}
+\end{table}
+
 Im arithmetischen Mittel brauchen wir
 $\frac{n}{2}+1+\frac{n}{2}+\frac{n}{2}+1+\frac{n}{2}+1 = 2n+3$
 Schritte für jeden Loopdurchlauf, 

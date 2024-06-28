@@ -1,7 +1,7 @@
 //-------CONFIGURATION
 name: Reverse
 init: zI
-accept: zI,zF2
+accept: zF2
 
 //-------DELTA FUNCTION:
 zI,0
