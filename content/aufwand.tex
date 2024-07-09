@@ -1,8 +1,6 @@
 \chapter{Aufwand}
-% Aufwand -> Was ist das
-% Beispiel Aufwand TM
-% Diskussion Modell TM (Einfachheit vs Realitätsnähe)
-% Swap
+
+
 Das Thema dieses Kapitels lässt sich mit einer Frage zusammenfassen:
 Wie bemessen wir den Aufwand,
 den es braucht ein Problem durch einen Algorithmus zu lösen?
@@ -92,7 +90,7 @@ Am Anfang unserer Überlegung haben wir diese zwei Komponenten:
 \begin{itemize}
     \item Ein \emph{Wort $w \in L$}
     \item Einen Algorithmus,
-        implementiert als \emph{Turingmaschine $tm \in TM$}.\footnote{
+        implementiert als \emph{Turingmaschine $tm \in TM$}.\footnote{%
             $TM$ bezeichnet die Menge aller Turingmaschinen.}
 \end{itemize}
 Gesucht ist eine Funktion $\tau: L \times TM \rightarrow \mathbb{N}$,
@@ -123,9 +121,9 @@ Sei REVERSE das folgende Problem:
     \item \textbf{Gesucht}: Das Wort rückwärts.
 \end{itemize}
 
-Wäre also $w_b = 100$, dann wäre $w_b' = 001$ gesucht und damit $w = 100001 \in$ REVERSE.
+Wäre also $w_b = 100$, dann wäre $w_b' = 001$ gesucht und damit $w = 100001 \in REVERSE$.
 REVERSE ist daher eine formale Sprache,
-welche die ``Rückwärts-Funktion`` kodiert:
+welche die ``Rückwärts-Funktion'' kodiert:
 REVERSE = $\{00, 11, 0000, 0110, 1001, 1111, \ldots\}$
 \autoref{fig:tmreverse} zeigt eine Turingmaschine $tm_{REVERSE}$, die REVERSE erkennt.
 
@@ -134,6 +132,7 @@ um zu zeigen, wie sich der Wert von $\tau(w_b, tm_{REVERSE})$ feststellen lässt
 
 \newpage
 \begin{figure}[H] % ’ht’ tells LaTeX to place the figure ’here’ or at the top of the page
+
 \centering % centers the figure
 \begin{tikzpicture}
     %Initial part
@@ -234,7 +233,7 @@ um zu zeigen, wie sich der Wert von $\tau(w_b, tm_{REVERSE})$ feststellen lässt
 
     ;
 \end{tikzpicture}
-\caption{$tm_{REVERSE}$}
+\caption{$tm_{REVERSE}$}%
 \label{fig:tmreverse}
 \end{figure}
 
@@ -276,7 +275,7 @@ Da $|l_{100,tm_{REVERSE}}| = 16$ hat $\tau$ in diesem Fall also den folgenden We
 Bisher haben wir aber nur über den Aufwand gesprochen,
 den ein spezifischer Lauf auf einem Wort verursacht,
 nicht aber,
-wie sich der Aufwand für eine komplette Implementierung, quantifizieren lässt.
+wie sich der Aufwand für eine komplette Implementierung quantifizieren lässt.
 Wir betrachten daher also:
 \begin{itemize}
     \item Die konkrete Implementierung eines Algorithmus,
@@ -289,12 +288,8 @@ d.h. Lösungen, die darauf beruhen,
 dass es ein Minimum oder Maximum von $\tau$ für ein Wort $w \in L$ gibt,
 sind nicht zielführend.
 
-Betrachten wir Probleme als Funktionen (siehe \autoref{subsec:problemeAlsFormaleSprachen}),
-können wir aber die \emph{Größe} des Inputs in Relation zum Aufwand setzen.
-Die Intuition dabei:
-Je größer der Input der Funktion (je größer also die Zahl,
-je länger die Input-Liste, etc.)
-desto größer der Aufwand.
+Wir können aber die \emph{Größe} des Inputs in Relation zum Aufwand setzen,
+und so die Implementierung charakterisieren.
 Um zu beschreiben,
 wie groß der Aufwand für eine Implementierung ist,
 suchen wir daher eine Funktion,
@@ -302,7 +297,7 @@ welche die Inputgröße auf Anzahl der Schritte abbildet,
 die eine Implementierung benötigt,
 um das Problem zu lösen.
 Übertragen auf den Kontext der formalen Sprachen und Turingmaschinen
-können wir anstatt dem Input die Wortlänge betrachten:
+können wir die Wortlänge betrachten:
 Beschreibe, wie sich das Laufzeitverhalten einer Turingmaschine
 bei wachsender Wortlänge verhält.
 %TODO Grafik
@@ -320,9 +315,9 @@ wie wir in diesem Falle zu einem eindeutigen Wert kommen können:
         also die geringste Zeit benötigt.
     \item \textbf{Average Case}: Wir nutzen statistische Methoden,
         um die wahrscheinliche Länge eines Laufs zu quantifizieren.
-        Wir betrachten also zum Beispiel den Erwartungswert von $\tau$,\footnote{
+        Wir betrachten also zum Beispiel den Erwartungswert von $\tau$,\footnote{%
             In diesem Fall bildet $tm$ auf $\mathbb{Q}$ ab und nicht mehr auf $\mathbb{N}$.}
-        wenn wir per Zufall ein Wort aus L der gegebenen Länge auswählen.\footnote{
+        wenn wir per Zufall ein Wort aus L der gegebenen Länge auswählen.\footnote{%
             Der Modus (entspricht dem Median in einer endlichen Stichprobe) wäre eine Alternative.
         Mit der Standardabweichung (Streuungsmaß) oder einer Kombination mehrerer Maße,
         verbessert sich die Aussagekraft,
@@ -337,15 +332,16 @@ Da der Best Case meist wenig Aussagekraft über die Güte des Algorithmus besitz
 wird er selten als Maß für den Aufwand eines Problems genutzt.
 Am aussagekräftigsten ist der Average Case,
 aber um ihn formal sauber anzuwenden braucht es
-entsprechendes statistisches Werkzeug.\footnote{
-    Für interessierte Leser:innen sei \cite{knuth1}, 96ff bzw. 1.2.10 empfohlen,
+entsprechendes statistisches Werkzeug.\footnote{%
+    Für interessierte Leser:innen sei~\cite{knuth1}, 96ff bzw. 1.2.10 empfohlen,
     hier spielt Knuth die probabilistische Analyse des Euklidischen Algorithmus durch.}
-Ganz pragmatisch konzentrieren wir uns auf den Worst Case.
+Ganz pragmatisch konzentrieren wir uns auf Weiteres auf den Worst Case,
+wenn wir nichts Anderslautendes angeben.
 
 
 $t$ können wir mit diesen Überlegungen also definieren als:
 \[
-t(n, tm) = max({\tau(w, tm)| |w| = n})
+t(n, tm) = \max({\tau(w, tm)| |w| = n})
 \]
 $t$ gibt also die jeweilige Worst Case Laufzeit für ein Wort der Länge $n$ an.
 Dies erlaubt es uns auch über unendlich große formale Sprachen Aussagen zu treffen,
@@ -358,7 +354,7 @@ also bei steigender Wortlänge, entwickelt.
 Für $tm_{REVERSE}$ müssen wir keinen worst Case finden,
 da Worte gleicher Länge auch gleich lange Läufe auf $tm_{REVERSE}$ haben
 (da, wo sich die Läufe qua Zeichen unterscheiden,
-sind die parallelen Pfade in $tm_{REVERSE}$ \emph{symmetrisch}.
+sind die parallelen Pfade in $tm_{REVERSE}$ \emph{symmetrisch}).
 
 $n=1$ Ausnahmefall, da anderer Weg zu einem Endzustand.
 
@@ -382,8 +378,8 @@ Für $1 \leq i \leq 5$ ergeben sich die folgenden Werte:
 \begin{table}[ht]
     \caption{$t(i,tm_{REVERSE})$ für $1 \leq i \leq 5$}
     \centering
-    \begin{tabular}{|c|c|c|c|c|c|}
-    \hline
+    \begin{tabular}{c c c c c c}
+    \toprule
           i
         & 1
         & 2
@@ -391,7 +387,7 @@ Für $1 \leq i \leq 5$ ergeben sich die folgenden Werte:
         & 4
         & 5
         \\
-        \hline
+        \midrule
           $t(i,tm_{REVERSE})$
         & 2
         & 6
@@ -399,8 +395,8 @@ Für $1 \leq i \leq 5$ ergeben sich die folgenden Werte:
         & 28
         & 45
         \\
-    \hline
-    \end{tabular}
+    \bottomrule
+    \end{tabular}%
     \label{tab:ttmreverse}
 \end{table}
 
@@ -414,28 +410,19 @@ also Turingmaschinen treffen,
 die das Problem lösen:
 Den Aufwand eines Problems würden wir dann mit dem effizientesten Algorithmus gleichsetzen.
 Oftmals ist der Nachweis sehr schwer,
-ob es (k)einen effizienteren Algorithmus
+ob es einen oder effizienteren Algorithmus
 für ein Problem gibt.
 Den aktuellen Stand der Forschung erlernt man typischer Weise in Vorlesungen über
 Algorithmen und Datenstrukturen.
 
-%Ein Beispiel hierfür ergibt sich aus $U\textsubscript{ARTICLESORT}$.
-%Fassen wir dieses Problem informell so auf $I\textsubscript{ARTICLESORT}$:
-%\begin{itemize}
-%    \item Gegeben ein Tupel von Zahlen
-%    \item Gesucht: die Permutatio des Tupels, die absteigend sortiert ist
-%\end{itemize}
-%So gibt es viele Algorithmen, die dieses Problem lösen.
-%Für vergleichbasierte Sortieralgorithmen lässt sich eine untere Schranke finden.
-
-\section{Landau und Big-O: Wachstum}
+\section{Landau und Big-O:\@ Wachstum}
 
 $t_{tm}$ ist eine Möglichkeit,
 die Aufwandsentwicklung für steigende Inputgrößen formal zu spezifizieren.
 Für die meisten Fälle ist $t_{tm}$ aber zu feingranular:
 Wir interessieren uns beispielsweise nur dafür,
 ob sich das Laufzeitverhalten sinnvoll beschränken lässt,
-d.h. ob es eine asymptotische obere oder untere Schranke für den Aufwand gibt.
+also ob es eine asymptotische obere oder untere Schranke für den Aufwand gibt.
 
 Dies wird typischerweise mit der Landau-Notation angeben.
 Wir definieren eine Menge von Funktionen in Abhängigkeit einer oberen Schranke
@@ -449,10 +436,10 @@ O(g(n)) = \{f|\exists c \exists n_0 \forall n (n \geq n_0 \rightarrow f(n) \leq 
 % TODO: Ergänze andere Klassen (o, $\theta$ usw).
 
 \section{Komplexität und Berechnungsmodel}
-
+% Diskussion Modell TM (Einfachheit vs Realitätsnähe)
 Skizze:
 \begin{itemize}
-        \item Revisiting REVERSE: Kontraintuitiver Aufwand bei TMs
+        \item Revisiting REVERSE:\@ Kontraintuitiver Aufwand bei TMs
         \item Beispiel: Beschleunigung durch 2-Band-Maschine
         \item Simulation weiterer Berechnungsmethoden
         \item Warum doch 1-Band-TMs: Einfachheit
@@ -464,7 +451,7 @@ dass sich jedes (berechenbare) Problem durch eine Turingmaschine lösen lässt.
 
 Andere Formalismen lassen sich auf einer Turingmaschine simulieren und
 der Aufwand der Simulation lässt sich quantifizieren,
-d.h. wir können die ``Beschleunigigung'' durch andere Formalismen
+so wir können die ``Beschleunigigung'' durch andere Formalismen
 (z.B. solche, die einen realistisches Speicherkonzept haben)
 genau beziffern.
 
@@ -497,7 +484,7 @@ die selbst nicht unproblematisch sind:
     \item Gegeben sei die Turingmaschine $tm_{REVERSE2}$ (\autoref{fig:tmreverse2}) für die gilt: $L(tm_{REVERSE}) = L(tm_{REVERSE2})$.
             \begin{enumerate}
                 \item Gib Länge $\tau(i, tm_{REVERSE2})$ mit $1 \leq i \leq 5$ an.
-                \item Leite analog zu Kapitel x $t(n, tm_{REVERSE2}$ ab.
+                \item Leite analog zu Kapitel x $t(n, tm_{REVERSE2})$ ab.
                 \item Gilt $t \in O(t_{a})$?
             \end{enumerate}
 \end{enumerate}
@@ -590,6 +577,6 @@ die selbst nicht unproblematisch sind:
         (zF1) edge[above] node{$\square$,$\square$,R} (zF2)
     ;
 \end{tikzpicture}
-\caption{$tm_{REVERSE2}$}
+\caption{$tm_{REVERSE2}$}%
 \label{fig:tmreverse2}
 \end{figure}
