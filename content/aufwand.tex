@@ -51,6 +51,24 @@ dass man nicht ``einfach'' messen kann.
 Dennoch hat die empirische Messung auch in der Informatik ihren Platz.
 Wir werden darauf noch einmal am Ende des Kapitels zurückkommen.
 
+\subsection{Warum eine empirische Messung dennoch sinnvoll ist}
+Die Idee den Aufwand eines Algorithmus über das ``Laufzeitverhalten'' einer Turingmaschine zu bestimmen,
+umgeht die Herausforderungen empirischer Messungen, die wir am Anfang des Kapitels skizziert haben.
+
+Eine Messung ist dennoch ein valides (wissenschaftliches) Instrument,
+um Aussagen über Algorithmen und deren Implementierungen zu erhalten.
+Der theoretische Ansatz dieses Kapitels basiert auf einigen Annahmen,
+die selbst nicht unproblematisch sind:
+\begin{itemize}
+  \item Operationen haben auf einer Turingmaschine identischen Aufwand.
+    Dies ist auf ``echter'' Hardware zumeist anders.
+    Die Frage ist daher, welche Aussagekraft die Analyse eines Algorithmus auf einer Turingmaschine für realistische Szenarien hat.
+  \item Daten und Zwischenergebnisse nutzen identischen Speicherplatz.
+  \item Der Input einer Turingmaschine kann unendlich wachsen,
+      In der Reailität ist dieser Platz begrenzt (z.B. der verfügbare Hauptspeicher).
+  %\item Ist jeder Input gleich wahrscheinlich?
+\end{itemize}
+
 \section{Zeit-Aufwand}
 
 Was meinen wir, wenn wir von Aufwand oder Effizienz einer Berechnung sprechen?
@@ -267,7 +285,7 @@ $
 
 Da $|l_{100,tm_{REVERSE}}| = 16$ hat $\tau$ in diesem Fall also den folgenden Wert:
 \[
-\tau(10,tm) = 15
+\tau(100,tm) = 15
 \]
 
 \subsection{Aufwandsquantifikation für eine Implementierung}
@@ -349,32 +367,115 @@ indem wir angeben,
 wie sich der Aufwand bei steigender Inputgröße,
 also bei steigender Wortlänge, entwickelt.
 
+Wir wollen nun noch eine Blaupause geben,
+wie wir viele Turingmaschinen,
+bezüglich Ihres Aufwandsverhalten analysiseren können:
+\begin{enumerate}
+    \item Identifiziere alle Basispfade.\footnote{%
+            Basispfade sind die kürzestenPfade vom Startzustand in einen Endzustand}
+    \item Lege symmetrische Pfade zusammen.\footnote{%
+            Symmetrische Pfade sind solche,
+            die identisch viele Schritte brauchen und an identische Orte,
+            identisch viele Zeichen schreiben.}
+    \item Zähle die Schritte der schleifenlosen Pfade.
+    \item Zähle die Schritte der schleifenlosen Teilpfade von Schleifenpfaden.
+    \item Für die Teilpfade, die nur EinerSchleifen\footnote{%
+            Einerschleifen sind Schleifen die nur über einen Zustand gehen (Loops in den Grafiken)},
+        quantifiziere den Aufwand als Funktion, basierend auf einem Restwortmodell.
+    \item Für die Teilpfade mit komplexen Schleifen,\footnote{%
+            Komplexe Schleifen sind Schleifen, die über mehr als einen Zustand gehen.}
+            wende das Verfahren ab Schritt 1
+        rekursiv auf die Teilpfade an, mit Startzustand beim Schleifeneingang
+        und Endzustand beim Schleifenausgang.
+    \item Zähle alle Schritte zusammen, bis alle Basispfade quantifiziert sind.
+    \item Identifiziere die Logik, auf welchem Pfad der Worstcase für n liegt.
+    \item Gib die Funktion $t$ an.
+\end{enumerate}
+Dieses Verfahren ist in der Tat nur eine Blaupause,
+das wir es nicht in einen Algorithmus verwandeln können:
+Wir wissen nicht, ob das Verfahren für jede Turingmaschine endet.\footnote{%
+    Genaueres über die Gründe werden wir in \autoref{derBarbierUndDerLuegner} erfahren.}
+
 \subsubsection{Beispiel: Aufwand für $tm_{REVERSE}$}
 
-Für $tm_{REVERSE}$ müssen wir keinen worst Case finden,
-da Worte gleicher Länge auch gleich lange Läufe auf $tm_{REVERSE}$ haben
+Für $tm_{REVERSE}$ können wir zwei Basispfade identifizieren:
+\begin{enumerate}
+        \item Für Worte $w$ mit $|w| = 1$: I $\rightarrow$ C $\rightarrow$ F3.\\
+            Die Schrittanzahl hier ist 2.
+        \item Für Worte $w$ mit $|w| > 1$ gibt es zwei symmetrische Basispfade:\\
+            I $\rightarrow$ C $\rightarrow$ LS $\rightarrow$ FO $\rightarrow$ OF1/1F1 $\rightarrow$ 0F2/1F2 $\rightarrow$ F3.\\
+            Die folgenden Teilpfade sind auszumachen:
+            \begin{enumerate}
+                \item Die Schrittanzahl für den ersten schleifenlosen Part I $\rightarrow$ C $\rightarrow$ LS ist 2.\\
+                \item Wir haben einen Teilpfad $LS$ mit einer komplexen Schleife, deren Funktion wir mit x bezeichnen,
+                    wir wenden die Methode rekursiv auf x an mit LS als Start und Ende der komplexen Schleife.
+                \item Für den Teilpfad F0 $\rightarrow \ldots \rightarrow$ F3 haben wir nur Einerschleifen,
+                    deren Funktion wir mit y bezeichen (siehe Restwortemodell 1).
+            \end{enumerate}
+\end{enumerate}
+
+Da Worte gleicher Länge auch gleich lange Läufe auf $tm_{REVERSE}$ haben
 (da, wo sich die Läufe qua Zeichen unterscheiden,
 sind die parallelen Pfade in $tm_{REVERSE}$ \emph{symmetrisch}).
 
-$n=1$ Ausnahmefall, da anderer Weg zu einem Endzustand.
+Daraus ergibt sich die folgende Funktionsdefinition:
+\[
+    t(n, tm) = \begin{cases}
+        2\text{, wenn } x = 1,\\
+        2 + x(n) + y(n) \text{, wenn } x > 1,\\
+    \end{cases}
+\]
+            
+Für $x(n)$ lässt sich feststellen, dass die Pfade in der Schleife symmetrisch sind.
+Anhand von \autoref{fig:x_wm} lässt sich das Restwortmodell so einführen.
+$c_i$ mit $2 \leq i < n$ ist der Index, des zu kopierenden Zeichen.
+Wir starten auf dem Zeichen rechts von $c_i$ (damit wissen wir,
+dass wir danach noch mindestens ein weiteres Zeichen kopieren müssen).
+Wir gehen einen Schritt nach links,
+dann $(i-1)$ Schritte nach links, bis wir bei $c_1/c^{'}_{n}$ angelangt sind.
+Dann weitere $(i-1)$ Schritte nach links, bis wir an dem Punkt sind, an dem
+wir $c^{'}_{n-i}$ einsetzen.
+Die gleiche Schrittanzahl ($2i -1$) gehen wir wieder zurück und dann noch zwei Schritte.
+Daher ergibt sich für jedes zu kopierende Zeichen $i$ die Schrittanzahl $4i - 1$.
+Für alle Schritte zusammen (wir wiederholen das ganze n-2 mal) ergibt sich daher:
 
-$n\geq 2$ Mindestens 2 am Anfang und $2n$ am Ende
-%TODO Grafik für Ende
+\begin{figure}[hb]
+    \caption{Restwortmodell für $x(n)$}
+    \centering
+    \includegraphics[width=0.5\textwidth]{x_kap4}%
+    \label{fig:x_wm}
+\end{figure}
 
-Für $2 \leq i \leq n-1$: $4i - 1$
-%TODO Grafik
-Aufsummiert
-$ \sum_{i=2}^{n-1} 4i - 1 = -(4 - 1) + (\sum_{i=1}^{n} 4i -1) - (4n - 1)$
 
-$= -n + 4(\sum_{i=1}^{n}i) -4n -2$
-$= 4(\sum_{i=1}^{n}i) -5n -2$
-$= 4\frac{n^2+n}{2} -5n -2$
-$= 2n^2 +2n -5n -2$
-$= 2n^2 -3n -2$
-$t(n, tm_{REVERSE}) = 2n^2 -n$ für $n \geq 2$.
 
-Für $1 \leq i \leq 5$ ergeben sich die folgenden Werte:
+\begin{align*}
+    x(n) &=&                &   & \sum_{i=2}^{n-1} 4i - 1     &            \\ 
+         &=& -(4 - 1)       & + & (\sum_{i=1}^{n} 4i -1)      & - (4n - 1) \\
+         &=& -3             & + & -n + 4 (\sum_{i=1}^{n} i)   &  - 4n + 1  \\
+         &=& -5n -2         & + & 4 (\frac{n^2+n}{2})         &            \\
+         &=& -5n -2         & + & 2 n^2 + 2n                  &            \\
+         &=& 2n^2 -3n -2    &   &                             &            
+\end{align*}
 
+
+\begin{figure}[hb]
+    \caption{Restwortmodell für $y(n)$}
+    \centering
+    \includegraphics[width=0.5\textwidth]{y_kap4}%
+    \label{fig:y_wm}
+\end{figure}
+Mit \autoref{fig:y_wm} ergibt sich $y(n) = 2n$.
+Daher können wir die finale Definition von $t(n, tm)$ festhalten:
+\[
+    t(n, tm) = \begin{cases}
+        2\text{, wenn } x = 1,\\
+        2 n^2 -n \text{, wenn } x > 1,\\
+    \end{cases}
+\]
+
+Um unsere Definition zu überprüfen, messen wir die Länge der Läufe für  $1 \leq i \leq 5$
+(siehe \autoref{tab:ttmreverse}).
+Die Funktionsdefinition wird also bestätigt.
 \begin{table}[ht]
     \caption{$t(i,tm_{REVERSE})$ für $1 \leq i \leq 5$}
     \centering
@@ -400,42 +501,36 @@ Für $1 \leq i \leq 5$ ergeben sich die folgenden Werte:
     \label{tab:ttmreverse}
 \end{table}
 
-\subsection{Untere und obere Schranken für den Aufwand}
+
+\subsection{Aufwand für ein Problem}
 Mit $t_{tm}$ und dem Worst Case-Wert können wir Aussagen über den Aufwand treffen,
 den ein bestimmter Algorithmus für ein bestimmtes Problem verursacht.
 Wir treffen allerdings keine Aussagen darüber,
 wie viel Aufwand das Problem \emph{an sich} erzeugt.
 Dazu müssten wir Aussagen über alle prinzipiell \emph{möglichen} Algorithmen,
-also Turingmaschinen treffen,
 die das Problem lösen:
 Den Aufwand eines Problems würden wir dann mit dem effizientesten Algorithmus gleichsetzen.
-Oftmals ist der Nachweis sehr schwer,
-ob es einen oder effizienteren Algorithmus
-für ein Problem gibt.
-Den aktuellen Stand der Forschung erlernt man typischer Weise in Vorlesungen über
+Oftmals ist der Nachweis nicht trivial,
+ob ein Algorithmus nun der effizienteste für ein Problem gibt
+
+Für REVERSE und Turingmaschinen scheint es keinen Algorithmus zu geben,
+der schneller ist, als der in den Beispielen vorgestellte.
+Skizzenhaft könnte ein Beweis wie folgt aussehen:
+\begin{enumerate}
+        \item Wir müssen in jedem Fall jedes Zeichen des Inputworts lesen.
+        \item Bis auf ein Zeichen müssen wir jedes an die richtige Stelle verschieben.
+        \item Damit müssen wir mindestens $(n-1)$ mal im Durschnitt $2n$ mal
+            zwischen Eingabe und Ausgabe hin- und herwechseln.
+        \item Daraus folgt, dass jeder Algorithmus mindestens $n^2 - n$ Schritte braucht.
+\end{enumerate}
+
+Den aktuellen Stand der Forschung für eine Reihe von relevanten Problemen
+(z.B. Sortierung oder Suche) erlernt man in Vorlesungen über
 Algorithmen und Datenstrukturen.
 
-\section{Landau und Big-O:\@ Wachstum}
 
-$t_{tm}$ ist eine Möglichkeit,
-die Aufwandsentwicklung für steigende Inputgrößen formal zu spezifizieren.
-Für die meisten Fälle ist $t_{tm}$ aber zu feingranular:
-Wir interessieren uns beispielsweise nur dafür,
-ob sich das Laufzeitverhalten sinnvoll beschränken lässt,
-also ob es eine asymptotische obere oder untere Schranke für den Aufwand gibt.
 
-Dies wird typischerweise mit der Landau-Notation angeben.
-Wir definieren eine Menge von Funktionen in Abhängigkeit einer oberen Schranke
-und lassen dabei Faktoren außen vor,
-die für die Wachstumsdynamik unwesentlich sind:
-
-\[
-O(g(n)) = \{f|\exists c \exists n_0 \forall n (n \geq n_0 \rightarrow f(n) \leq c \cdot g(n))\}
-\]
-
-% TODO: Ergänze andere Klassen (o, $\theta$ usw).
-
-\section{Komplexität und Berechnungsmodel}
+\section{Aufwand und Berechnungsmodel}
 % Diskussion Modell TM (Einfachheit vs Realitätsnähe)
 Skizze:
 \begin{itemize}
@@ -460,23 +555,24 @@ genau beziffern.
     \item Relativ zur Datenrepräsentation (Größe des Alphabets, Art der Datenstrukturen)
 \end{itemize}
 
-\section{Warum eine empirische Messung dennoch sinnvoll ist}
-Die Idee den Aufwand eines Algorithmus über das ``Laufzeitverhalten'' einer Turingmaschine zu bestimmen,
-umgeht die Herausforderungen empirischer Messungen, die wir am Anfang des Kapitels skizziert haben.
+\section{Landau und Big-O:\@ Wachstum}
 
-Eine Messung ist dennoch ein valides (wissenschaftliches) Instrument,
-um Aussagen über Algorithmen und deren Implementierungen zu erhalten.
-Der theoretische Ansatz dieses Kapitels basiert auf einigen Annahmen,
-die selbst nicht unproblematisch sind:
-\begin{itemize}
-  \item Operationen haben auf einer Turingmaschine identischen Aufwand.
-    Dies ist auf ``echter'' Hardware zumeist anders.
-    Die Frage ist daher, welche Aussagekraft die Analyse eines Algorithmus auf einer Turingmaschine für realistische Szenarien hat.
-  \item Daten und Zwischenergebnisse nutzen identischen Speicherplatz.
-  \item Der Input einer Turingmaschine kann unendlich wachsen,
-      In der Reailität ist dieser Platz begrenzt (z.B. der verfügbare Hauptspeicher).
-  %\item Ist jeder Input gleich wahrscheinlich?
-\end{itemize}
+$t_{tm}$ ist eine Möglichkeit,
+die Aufwandsentwicklung für steigende Inputgrößen formal zu spezifizieren.
+Für die meisten Fälle ist $t_{tm}$ aber zu feingranular:
+Wir interessieren uns beispielsweise nur dafür,
+ob sich das Laufzeitverhalten sinnvoll beschränken lässt,
+also ob es eine asymptotische obere oder untere Schranke für den Aufwand gibt.
+
+Dies wird typischerweise mit der Landau-Notation angeben.
+Wir definieren eine Menge von Funktionen in Abhängigkeit einer oberen Schranke
+und lassen dabei Faktoren außen vor,
+die für die Wachstumsdynamik unwesentlich sind:
+
+\[
+O(g(n)) = \{f|\exists c \exists n_0 \forall n (n \geq n_0 \rightarrow f(n) \leq c \cdot g(n))\}
+\]
+% TODO: Ergänze andere Klassen (o, $\theta$ usw).
 
 \subsection*{Aufgaben}
 
