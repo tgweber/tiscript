@@ -464,6 +464,7 @@ Für alle Schritte zusammen (wir wiederholen das ganze n-2 mal) ergibt sich dahe
     \includegraphics[width=0.5\textwidth]{y_kap4}%
     \label{fig:y_wm}
 \end{figure}
+
 Mit \autoref{fig:y_wm} ergibt sich $y(n) = 2n$.
 Daher können wir die finale Definition von $t(n, tm)$ festhalten:
 \[
@@ -557,21 +558,83 @@ genau beziffern.
 
 \section{Landau und Big-O:\@ Wachstum}
 
-$t_{tm}$ ist eine Möglichkeit,
-die Aufwandsentwicklung für steigende Inputgrößen formal zu spezifizieren.
-Für die meisten Fälle ist $t_{tm}$ aber zu feingranular:
-Wir interessieren uns beispielsweise nur dafür,
-ob sich das Laufzeitverhalten sinnvoll beschränken lässt,
-also ob es eine asymptotische obere oder untere Schranke für den Aufwand gibt.
+Eine vergleichbare Analyse für den Algorithmus aus den vorangegangenen Kapiteln,
+wird man in den einführenden Lehrbüchern zur theoretischen Informatik
+aber auch in denen zu Algorithmen und Datenstrukturen selten finden.
+Der Hauptgrund hierfür: Die Analyse ist zu feingranular.
+In manchen Grenzfällen in der Praxis kommt es darauf an,
+einen Algorithmus zu finden, der die optimale ´'Performance´' hat,
+also den geringst-möglichen Aufwand.
 
-Dies wird typischerweise mit der Landau-Notation angeben.
-Wir definieren eine Menge von Funktionen in Abhängigkeit einer oberen Schranke
-und lassen dabei Faktoren außen vor,
-die für die Wachstumsdynamik unwesentlich sind:
+Bei der Bewertung von Algorithmen in der theoretischen Informatik,
+reicht es aber diese grob in Wachstumsklassen einzuteilen.
+Z.B. ist $t(n, tm_{REVERSE}) = 2n^2 - n$ von \emph{quadratischem} Wachstumsverhalten,
+das bedeutet, das diese Funktion zur Klasse der \emph{maximal quadratisch wachsenden}
+Funktionen gehört.
+Dafür schreiben wir auch $t \in O(n^2)$.
+
+Was ist aber mit dem Faktor 2 und $-n$?
+Die Motivation diese bei der Klassifikation außer Betracht zu lassen, wird
+klar, wenn wir für $n$ sehr große Zahlen einsetzen:
+Je größer n, desto kleiner der ´'Beitrag´' von beiden für das Wachstumsverhalten von $t$.
+Diese Herangehensweise nennt man auch \emph{asymptotisch}, also annähernd.
+
+Damit können wir die formale Definition der Klasse $O(n^2)$ einführen:
+\[
+O(n^2) = \{f|\exists c \exists n_0 \forall n (n \geq n_0 \rightarrow f(n) \leq c \cdot n^2)\}
+\]
+
+Also eine Funktion gehört zur Klasse der quadratisch wachsenden Funktionen,
+wenn das Wachstum der Funktion maximal quadratisch ist,
+abgesehen vom Faktor $c$ und ab einem Wert $n_0$.
+Zum Beispiel gilt $t \in O(n^2)$, da mit $c=2$ und $n_0 = 0$ gilt: $2n^2 -n \leq 2n^2$.
+Die Überlegung wird noch durch \autoref{fig:t_onsq} unterstützt,
+die das Wachstumsverhalten der beiden Funktionen grafisch darstellt.
+
+\begin{figure}[h]
+    \caption{Plot von $2n^2 - n$ und $n^2$}
+    \centering
+    \begin{tikzpicture}
+      \draw[->] (-2, 0) -- (2, 0) node[right] {$x$};
+      \draw[->] (0, -0.5) -- (0, 5) node[above] {$y$};
+        \draw[scale=0.5, domain=-2:2, smooth, variable=\x, blue] plot ({\x}, {2*\x*\x - \x}) node[right] {$2n^2 - n$};
+        \draw[scale=0.5, domain=-2:2, smooth, variable=\x, red]  plot ({\x}, {2*\x*\x}) node[right]{$2n^2$};
+    \end{tikzpicture}%
+    \label{fig:t_onsq}
+\end{figure}
+
+
+Das große O (im Englischen: Big-O) ist Teil der Landau-Notation.
+Generell können wir Big-O auch allgemein für ein $g(n)$ definieren:
 
 \[
 O(g(n)) = \{f|\exists c \exists n_0 \forall n (n \geq n_0 \rightarrow f(n) \leq c \cdot g(n))\}
 \]
+
+Die Tabelle \autoref{tab:oklassen} gibt wichtige weitere Klassen an.
+
+\begin{table}[ht]
+    \caption{Weitere wichtige Wachstumsklassen}
+    \centering
+    \begin{tabular}{l l}
+        \toprule
+        $O(1)$ & konstanter Aufwand \\
+        \midrule
+        $O(\log n)$ & logarithmisches Aufwands-Wachstum \\
+        \midrule
+        $O(n)$ & lineares Aufwands-Wachstum \\
+        \midrule
+        $O(n^2)$ & quadratisches Aufwands-Wachstum \\
+        \midrule
+        $O(n^k),  k \in \mathbb{N}$ & polynomielles Aufwands-Wachstum \\
+        \midrule
+        $O(2^n)$ & exponentielles Aufwands-Wachstum \\
+    \bottomrule
+    \bottomrule
+    \end{tabular}%
+    \label{tab:oklassen}
+\end{table}
+
 % TODO: Ergänze andere Klassen (o, $\theta$ usw).
 
 \subsection*{Aufgaben}
