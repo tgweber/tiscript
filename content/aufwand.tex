@@ -442,7 +442,30 @@ Für alle Schritte zusammen (wir wiederholen das ganze n-2 mal) ergibt sich dahe
 \begin{figure}[hb]
     \caption{Restwortmodell für $x(n)$}
     \centering
-    \includegraphics[width=0.5\textwidth]{x_kap4}%
+    \begin{tikzpicture}
+        \tikzstyle{every path}=[very thick]
+        \edef\sizetape{0.7cm}
+        \tikzstyle{tmtape}=[draw,minimum size=\sizetape]
+        \tikzstyle{tmhead}=[arrow box,draw,minimum size=.5cm,arrow box
+        arrows={east:.25cm, west:0.25cm}]
+        \begin{scope}[start chain=1 going right,node distance=-1.15mm]
+            \node [on chain=1,tmtape,draw=none] {$\ldots$};
+            \node [on chain=1,tmtape] {};
+            \node [on chain=1,tmtape] {$c_{i}$};
+            \node [on chain=1,tmtape] {$\ldots$};
+            \node [on chain=1,tmtape] {$c_{n}$/$o_{1}$};
+            \node [on chain=1,tmtape] {$\ldots$};
+            \node [on chain=1,tmtape] (2) {$o_i$};
+            \node [on chain=1,tmtape, initial above] (1) {$o_{i+1}$};
+            \node [on chain=1,tmtape] {?};
+            \node [on chain=1,tmtape] {};
+            \node [on chain=1,tmtape,draw=none] {$\ldots$};
+        \end{scope}
+        \path [draw, -> ] (1.north) -- ++(0,0.35cm) -- ++(-0.75cm,0) -- (2.north); \node{1};
+
+        
+       
+    \end{tikzpicture}%
     \label{fig:x_wm}
 \end{figure}
 
