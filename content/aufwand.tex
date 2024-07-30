@@ -449,22 +449,27 @@ Für alle Schritte zusammen (wir wiederholen das ganze n-2 mal) ergibt sich dahe
         \tikzstyle{tmhead}=[arrow box,draw,minimum size=.5cm,arrow box
         arrows={east:.25cm, west:0.25cm}]
         \begin{scope}[start chain=1 going right,node distance=-1.15mm]
-            \node [on chain=1,tmtape,draw=none] {$\ldots$};
-            \node [on chain=1,tmtape] {};
-            \node [on chain=1,tmtape] {$c_{i}$};
-            \node [on chain=1,tmtape] {$\ldots$};
-            \node [on chain=1,tmtape] {$c_{n}$/$o_{1}$};
-            \node [on chain=1,tmtape] {$\ldots$};
-            \node [on chain=1,tmtape] (2) {$o_i$};
-            \node [on chain=1,tmtape, initial above] (1) {$o_{i+1}$};
-            \node [on chain=1,tmtape] {?};
-            \node [on chain=1,tmtape] {};
-            \node [on chain=1,tmtape,draw=none] {$\ldots$};
+            \node [on chain=1,tmtape,draw=none](0) {$\ldots$};
+            \node [on chain=1,tmtape] (1) {};
+            \node [on chain=1,tmtape] (2) {$c_{i}$};
+            \node [on chain=1,tmtape] (3) {$\ldots$};
+            \node [on chain=1,tmtape] (4) {$c_{n}$/$o_{1}$};
+            \node [on chain=1,tmtape] (5) {$\ldots$};
+            \node [on chain=1,tmtape] (6) {$o_i$};
+            \node [on chain=1,tmtape, initial above] (7) {$o_{i+1}$};
+            \node [on chain=1,tmtape] (8) {?};
+            \node [on chain=1,tmtape] (9) {};
+            \node [on chain=1,tmtape,draw=none] (10) {$\ldots$};
         \end{scope}
-        \path [draw, -> ] (1.north) -- ++(0,0.35cm) -- ++(-0.75cm,0) -- (2.north); \node{1};
-
-        
-       
+        \draw[-|]
+            (7.north) edge[bend right=90, above] node{1} (6.north)
+            (6.north) edge[bend right=90, above] node{i-1} (4.north)
+            (4.north) edge[bend right=90, above] node{i-1} (2.north)
+            (2.south) edge[bend right=90, below] node{i-1} (4.south)
+            (4.south) edge[bend right=90, below] node{i-1} (6.south)
+            (6.south) edge[bend right=90, below] node{1} (7.south)
+            (7.south) edge[bend right=90, below] node{1} (8.south)
+            ;
     \end{tikzpicture}%
     \label{fig:x_wm}
 \end{figure}
@@ -484,7 +489,31 @@ Für alle Schritte zusammen (wir wiederholen das ganze n-2 mal) ergibt sich dahe
 \begin{figure}[hb]
     \caption{Restwortmodell für $y(n)$}
     \centering
-    \includegraphics[width=0.5\textwidth]{y_kap4}%
+    \begin{tikzpicture}
+        \tikzstyle{every path}=[very thick]
+        \edef\sizetape{0.7cm}
+        \tikzstyle{tmtape}=[draw,minimum size=\sizetape]
+        \tikzstyle{tmhead}=[arrow box,draw,minimum size=.5cm,arrow box
+        arrows={east:.25cm, west:0.25cm}]
+        \begin{scope}[start chain=1 going right,node distance=-1.15mm]
+            \node [on chain=1,tmtape,draw=none](0) {$\ldots$};
+            \node [on chain=1,tmtape] (1) {};
+            \node [on chain=1,tmtape] (2) {$c_{1}$};
+            \node [on chain=1,tmtape] (3) {$\ldots$};
+            \node [on chain=1,tmtape] (4) {$c_{n}$/$o_{1}$};
+            \node [on chain=1,tmtape] (5) {$\ldots$};
+            \node [on chain=1,tmtape] (6) {$o_n$};
+            \node [on chain=1,tmtape, initial above] (7) {};
+            \node [on chain=1,tmtape] (8) {};
+            \node [on chain=1,tmtape,draw=none] (10) {$\ldots$};
+        \end{scope}
+        \draw[-|]
+            (7.north) edge[bend right=90, above] node{1} (6.north)
+            (6.north) edge[bend right=90, above] node{n-1} (4.north)
+            (4.north) edge[bend right=90, in=-115, above] node{n-1} (2.north)
+            (2) edge[out=75, in=105, looseness=10, above] node{1} (2)
+            ;
+    \end{tikzpicture}%
     \label{fig:y_wm}
 \end{figure}
 
