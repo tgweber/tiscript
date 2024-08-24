@@ -21,17 +21,16 @@ Warum nicht einfach den Aufwand messen,
 anstatt ihn über die Eigenschaften einer Turinmaschinen zu quantifizieren?
 Die Idee hierbei:
 Implementiere den Algorithmus in einer beliebigen Programmiersprache
-und messe die Zeit,
-wie lange die Implementierung läuft.
+und messe die Laufzeit.
 Hierbei ergeben sich einige Schwierigkeiten:
 \begin{itemize}
   \item Auf welchem Input soll die Implementierung laufen?
-      Die Menge der möglichen Inputs vieler Algorithmen ist unendlich,
-      daher kann man nur Stichproben aus den möglichen Inputs nehmen
-        und muss sich der Methodik der Statistik bedienen,
+      Wir können annehmen, dass die Menge der möglichen Inputs des Algorithmus in Frage unendlich ist.
+      Da wir deshalb mit Stichproben aus diesen möglichen Inputs arbeiten müssen,
+      sind wir gezwungen die Methoden der Statistik anzuwenden,
         um allgemeine Aussagen zu rechtfertigen.
     \item Das „Rauschen“ bei Messungen muss berücksichtigt werden:
-        Die folgende Aufzählung von ``Störfaktoren'' machen
+        Die folgenden ``Störfaktoren'' machen
         die Vergleichbarkeit von Messergebnissen zu einer
         großen Herausforderung (die Liste ist wahrscheinlich nicht vollständig):
       \begin{itemize}
@@ -48,13 +47,9 @@ Hierbei ergeben sich einige Schwierigkeiten:
 
 Es ist also offensichtlich,
 dass man nicht ``einfach'' messen kann.
-Dennoch hat die empirische Messung auch in der Informatik ihren Platz.
-Wir werden darauf noch einmal am Ende des Kapitels zurückkommen.
+
 
 \subsection{Warum eine empirische Messung dennoch sinnvoll ist}
-Die Idee den Aufwand eines Algorithmus über das ``Laufzeitverhalten'' einer Turingmaschine zu bestimmen,
-umgeht die Herausforderungen empirischer Messungen, die wir am Anfang des Kapitels skizziert haben.
-
 Eine Messung ist dennoch ein valides (wissenschaftliches) Instrument,
 um Aussagen über Algorithmen und deren Implementierungen zu erhalten.
 Der theoretische Ansatz dieses Kapitels basiert auf einigen Annahmen,
@@ -63,11 +58,18 @@ die selbst nicht unproblematisch sind:
   \item Operationen haben auf einer Turingmaschine identischen Aufwand.
     Dies ist auf ``echter'' Hardware zumeist anders.
     Die Frage ist daher, welche Aussagekraft die Analyse eines Algorithmus auf einer Turingmaschine für realistische Szenarien hat.
-  \item Daten und Zwischenergebnisse nutzen identischen Speicherplatz.
+  %\item Daten und Zwischenergebnisse nutzen identischen Speicherplatz.
   \item Der Input einer Turingmaschine kann unendlich wachsen,
       In der Reailität ist dieser Platz begrenzt (z.B. der verfügbare Hauptspeicher).
   %\item Ist jeder Input gleich wahrscheinlich?
 \end{itemize}
+
+Aufwandsabschätzungen konkreter Algorithmen werden aus diesen Gründen in der Praxis \emph{nicht} mit Turingmaschinen vorgenommen.\footnote{%
+    Vorlesungen zum Themen ``Algorithmen und Datenstrukturen'' führen in die Methodik ein,
+    wie Abschätzungen in der Praxis durchgeführt werden.}
+Die Überlegeungen über Aufwand, die wir im aktuellen Kapitel einführen,
+sind für eine andere Größenordnung gedacht,
+wie wir im Kapitel \autoref{complex} sehen werden.
 
 \section{Zeit-Aufwand}
 
@@ -86,11 +88,9 @@ Beides, Zeit und Speicherplatz sind valide Größen,
 anhand derer wir Aufwand oder Effizienz bemessen können.
 Wir werden uns in diesem Skript auf Zeit-Effizienz konzentrieren,
 weswegen wir bei Aufwand beziehungsweise Effizienz immer von
-zeitlichem Aufwand beziehungsweise zeitlicher Effizienz sprechen,
-wenn wir Speicherplatz nicht explizit mitnennen.
-Allerdings kann einiges auf Raum-Effizienz übertragen werden,
+zeitlichem Aufwand beziehungsweise zeitlicher Effizienz sprechen.
+Allerdings kann einiges auf Speicherplatz-Effizienz übertragen werden,
 das wir in diesem Kapitel entwickeln.
-
 Wir wollen über diese drei folgenden Schritte zu einem Verständnis von Aufwand kommen:
 \begin{enumerate}
     \item Aufwand für einen einzelnen Lauf einer spezifischen Turingmaschine
@@ -99,56 +99,106 @@ Wir wollen über diese drei folgenden Schritte zu einem Verständnis von Aufwand
         die eine spezifische Sprache erkennen, also ein spezifisches Problem lösen.
 \end{enumerate}
 
-Die folgenden Abschnitte folgen diesen Schritten,
+Die folgenden Unterkapitel folgen diesen Schritten,
 indem zuerst theoretisch die Aufwandsquantifikation erschlossen wird
 und diese dann an einem Beispiel praktische durchgespielt.
 
-\subsection{Aufwand eines einzelnen Laufs}
+\subsection{Aufwandsquantifizierung für einen Lauf}
 Am Anfang unserer Überlegung haben wir diese zwei Komponenten:
 \begin{itemize}
-    \item Ein \emph{Wort $w \in L$}
+    \item Ein \emph{Wort} $w_i \in \Sigma^*$
     \item Einen Algorithmus,
         implementiert als \emph{Turingmaschine $tm \in TM$}.\footnote{%
             $TM$ bezeichnet die Menge aller Turingmaschinen.}
 \end{itemize}
-Gesucht ist eine Funktion $\tau: L \times TM \rightarrow \mathbb{N}$,
+Gesucht ist eine Funktion $\tau: TM \times \Sigma^* \rightarrow \mathbb{N}$,
 die für ein Wort $w \in L$ auf einer bestimmten Turingmaschine $tm \in TM$
 den zeitlichen Aufwand in einer natürlichen Zahl ausdrückt.
 
 Glücklicherweise haben wir in \autoref{turing} bereits ein Konzept eingeführt,
-dass wir hierfür nutzen können:
-Die Länge des Laufes von $w$ auf $tm$:
-$\tau: \Sigma^* \times TM \rightarrow \mathbb{N}$ ist die Funktion,
-die für ein Wort $w \in \Sigma^*$ den Zeitaufwand auf einer Turingmaschine TM angibt.
+welches wir hierfür nutzen können:
+Die Länge des akzeptiernden Laufes $S_a(tm, w)$.
+
+$\tau: TM \times \Sigma^* \rightarrow \mathbb{N}$ ist die Funktion,
+die für ein Wort $w_i \in \Sigma^*$ den Zeitaufwand auf einer Turingmaschine $tm$ angibt.
 Wir legen fest:
 \[
-    \tau(w,tm) = |l_{w,tm}| - 1
+    \tau(tm, w_i) = 
+        \begin{cases}
+            |S_a(tm,w_i)| - 1,   & \text{wenn } w_{i}w_o \in L(TM) \text{\ mit } w_o = Output(tm, w_i)\\
+            \text{undefiniert}  & \text{sonst}
+        \end{cases}
 \]
-Für ein Wort $w \in L$ ergibt sich eine Folge von Schnappschüssen,
-dessen Länge (weniger 1, denn der Startschnappschuss muss abgezogen werden)
-der Anzahl an Schritten entspricht,
-die eine Turingmaschine braucht,
-um das Wort zu erkennen.
+Für ein Wort $w_i \in \Sigma^*$ zählen wir also die Schritte im akzteptierenden Lauf.
+
 
 \subsubsection{Beispiel: Drehe 100 um}
 
 Wir wollen $\tau$ an einem Beispiel erläutern.
 Sei REVERSE das folgende Problem:
 \begin{itemize}
-    \item \textbf{Gegeben}: Ein beliebig langes Binärwort $w_b \in \Sigma^*$ mit $\Sigma = \{0,1\}$.
+    \item \textbf{Gegeben}: Ein beliebig langes Binärwort $w_i \in \Sigma^*$ mit $\Sigma = \{0,1\}$.
     \item \textbf{Gesucht}: Das Wort rückwärts.
 \end{itemize}
 
-Wäre also $w_b = 100$, dann wäre $w_b' = 001$ gesucht und damit $w = 100001 \in REVERSE$.
-REVERSE ist daher eine formale Sprache,
-welche die ``Rückwärts-Funktion'' kodiert:
-REVERSE = $\{00, 11, 0000, 0110, 1001, 1111, \ldots\}$
+
+\noindent
+Nehmen wir also beispielsweise an, dass
+\[ 
+    w_i = 100 
+\]
+dann wäre 
+\[
+    w_o = 001
+\]
+gesucht und damit
+\[
+    w = 100001 = w_{i}w_o \in REVERSE.
+\]
+
+\noindent
+REVERSE kodiert also formale Sprache also die ``Rückwärts-Funktion'':
+\[
+    REVERSE = \{00, 11, 0000, 0110, 1001, 1111, \ldots\}
+\]
+
+\noindent
 \autoref{fig:tmreverse} zeigt eine Turingmaschine $tm_{REVERSE}$, die REVERSE erkennt.
+\\
 
-Den konkreten Lauf auf $w_b = 100$ wollen wir nutzen,
-um zu zeigen, wie sich der Wert von $\tau(w_b, tm_{REVERSE})$ feststellen lässt.
+\noindent
+Den konkreten Lauf auf $w_i = 100$ wollen wir nutzen,
+um zu zeigen, wie sich der Wert von $\tau(tm_{REVERSE}, w_i)$ feststellen lässt.
+Die folgende Tabelle zeigt den den akzeptierenden Lauf $S_a(tm_{REVERSE}, 100)$:
 
+\setcounter{arraycounter}{-1}
+\begin{center}
+$
+\arraycolsep=15.0pt
+    \begin{array}{>{\stepcounter{arraycounter}\thearraycounter\mspace{20mu}}llrlrl}
+[   & [I,   & \sq,          & 1,    & 00]               & , \\
+    & [C,   & \sq1,         & 0,    & 0]                & , \\
+    & [LS,  & \sq10,        & 0,    & \sq]              & , \\
+    & [L0,  & \sq1,         & 0,    & 0\sq]             & , \\
+    & [0L1, & \sq,          & 1,    & \sq0\sq]          & , \\
+    & [0L2, & \sq,          & \sq,  & 1\sq0\sq]         & , \\
+    & [L3,  & \sq0,         & 1,    & \sq0\sq]          & , \\
+    & [L4,  & \sq01,        & \sq,  & 0\sq]             & , \\
+    & [L4,  & \sq01\sq,     & 0,    & \sq]              & , \\
+    & [LS,  & \sq01\sq0,    & \sq,  & \sq]              & , \\
+    & [F0,  & \sq01\sq,     & 0,    & \sq\sq]           & , \\
+    & [0F1, & \sq01,        & \sq,  & \sq\sq\sq]        & , \\
+    & [0F1, & \sq0,         & 1,    & \sq\sq\sq\sq]     & , \\
+    & [0F2, & \sq,          & 0,    & 1\sq\sq\sq\sq]    & , \\
+    & [0F2, & \sq,          & \sq,  & 01\sq\sq\sq\sq]   & , \\
+    & [F3, & \sq,           & 0,    & 01\sq\sq\sq\sq]   & ] \\
+\end{array}
+$
+\end{center}
+\noindent
+Da $|S_a(tm_{REVERSE},100)| = 16$ gilt: $tau(tm_{REVERSE},100) = 15$
 \newpage
+
 \begin{figure}[H] % ’ht’ tells LaTeX to place the figure ’here’ or at the top of the page
 
 \centering % centers the figure
@@ -255,55 +305,21 @@ um zu zeigen, wie sich der Wert von $\tau(w_b, tm_{REVERSE})$ feststellen lässt
 \label{fig:tmreverse}
 \end{figure}
 
-\newpage
-Dies ist der Lauf $l_{10, tm_{REVERSE}}$:
 
-\setcounter{arraycounter}{-1}
-\begin{center}
-$
-\arraycolsep=15.0pt
-    \begin{array}{>{\stepcounter{arraycounter}\thearraycounter\mspace{20mu}}llrlrl}
-[   & [I,   & \sq,          & 1,    & 00]               & , \\
-    & [C,   & \sq1,         & 0,    & 0]                & , \\
-    & [LS,  & \sq10,        & 0,    & \sq]              & , \\
-    & [L0,  & \sq1,         & 0,    & 0\sq]             & , \\
-    & [0L1, & \sq,          & 1,    & \sq0\sq]          & , \\
-    & [0L2, & \sq,          & \sq,  & 1\sq0\sq]         & , \\
-    & [L3,  & \sq0,         & 1,    & \sq0\sq]          & , \\
-    & [L4,  & \sq01,        & \sq,  & 0\sq]             & , \\
-    & [L4,  & \sq01\sq,     & 0,    & \sq]              & , \\
-    & [LS,  & \sq01\sq0,    & \sq,  & \sq]              & , \\
-    & [F0,  & \sq01\sq,     & 0,    & \sq\sq]           & , \\
-    & [0F1, & \sq01,        & \sq,  & \sq\sq\sq]        & , \\
-    & [0F1, & \sq0,         & 1,    & \sq\sq\sq\sq]     & , \\
-    & [0F2, & \sq,          & 0,    & 1\sq\sq\sq\sq]    & , \\
-    & [0F2, & \sq,          & \sq,  & 01\sq\sq\sq\sq]   & , \\
-    & [F3, & \sq,           & 0,    & 01\sq\sq\sq\sq]   & ] \\
-\end{array}
-$
-\end{center}
+\subsection{Aufwandsquantifizierung für eine Implementierung}
 
-Da $|l_{100,tm_{REVERSE}}| = 16$ hat $\tau$ in diesem Fall also den folgenden Wert:
-\[
-\tau(100,tm) = 15
-\]
-
-\subsection{Aufwandsquantifikation für eine Implementierung}
-
-Bisher haben wir aber nur über den Aufwand gesprochen,
+Bisher haben wir nur über den Aufwand gesprochen,
 den ein spezifischer Lauf auf einem Wort verursacht,
 nicht aber,
 wie sich der Aufwand für eine komplette Implementierung quantifizieren lässt.
-Wir betrachten daher also:
-\begin{itemize}
-    \item Die konkrete Implementierung eines Algorithmus,
-        gegeben als \emph{Turingmaschine $tm \in TM$}.
-\end{itemize}
+Wir betrachten daher also nun nur die konkrete Implementierung eines Algorithmus,
+gegeben als \emph{Turingmaschine $tm \in{} TM$} und suchen Aussagen,
+die für jeden möglichen ``Input'' auf $tm$ gelten.
 
 Wie können wir nun auf den Ergebnissen aus dem vorherigen Abschnitt aufbauen?
 Eine Sprache kann unendlich viele Worte enthalten,
 d.h. Lösungen, die darauf beruhen,
-dass es ein Minimum oder Maximum von $\tau$ für ein Wort $w \in L$ gibt,
+dass es ein Minimum oder Maximum von $\tau$ für ein Wort $w \in{} L$ gibt,
 sind nicht zielführend.
 
 Wir können aber die \emph{Größe} des Inputs in Relation zum Aufwand setzen,
@@ -321,8 +337,8 @@ bei wachsender Wortlänge verhält.
 %TODO Grafik
 
 Gesucht ist also die folgende Funktion:
-$t: \mathbb{N} \times TM \rightarrow \mathbb{N}$,
-also die Abbildung einer Wortlänge und einer Turingmaschine
+$t: TM \times \mathbb{N} \rightarrow \mathbb{N}$,
+also die Abbildung einer Turingmaschine und einer Wortlänge
 auf die Anzahl der Schritte für ein Wort dieser Länge.
 Da mehrere Worte die gleiche Länge haben können,
 müssen wir die Möglichkeiten diskutieren,
@@ -332,15 +348,13 @@ wie wir in diesem Falle zu einem eindeutigen Wert kommen können:
         für das der Algorithmus den kürzesten Lauf hat,
         also die geringste Zeit benötigt.
     \item \textbf{Average Case}: Wir nutzen statistische Methoden,
-        um die wahrscheinliche Länge eines Laufs zu quantifizieren.
-        Wir betrachten also zum Beispiel den Erwartungswert von $\tau$,\footnote{%
+        um den Erwartungswert der Länge eines Laufs zu bestimmen,\footnote{%
             In diesem Fall bildet $tm$ auf $\mathbb{Q}$ ab und nicht mehr auf $\mathbb{N}$.}
-        wenn wir per Zufall ein Wort aus L der gegebenen Länge auswählen.\footnote{%
+        wenn wir per Zufall ein Wort aus $\Sigma^*$ der gegebenen Länge auswählen.\footnote{%
             Der Modus (entspricht dem Median in einer endlichen Stichprobe) wäre eine Alternative.
         Mit der Standardabweichung (Streuungsmaß) oder einer Kombination mehrerer Maße,
         verbessert sich die Aussagekraft,
         was aber die einfache Vergleichbarkeit von Algorithmen wiederum erschwert.}
-
     \item \textbf{Worst Case}: Wir wählen das Wort aus,
         für das der Algorithmus den längsten Lauf hat,
         also die meiste Zeit benötigt.
@@ -359,7 +373,7 @@ wenn wir nichts Anderslautendes angeben.
 
 $t$ können wir mit diesen Überlegungen also definieren als:
 \[
-t(n, tm) = \max({\tau(w, tm)| |w| = n})
+t(tm, n) = \max(\{\tau(tm, w)| |w| = n\})
 \]
 $t$ gibt also die jeweilige Worst Case Laufzeit für ein Wort der Länge $n$ an.
 Dies erlaubt es uns auch über unendlich große formale Sprachen Aussagen zu treffen,
@@ -367,20 +381,20 @@ indem wir angeben,
 wie sich der Aufwand bei steigender Inputgröße,
 also bei steigender Wortlänge, entwickelt.
 
-Wir wollen nun noch eine Blaupause geben,
-wie wir viele Turingmaschinen,
-bezüglich Ihres Aufwandsverhalten analysiseren können:
+\subsubsection{Blaupause zur Bestimmung von $t$}
+
 \begin{enumerate}
     \item Identifiziere alle Basispfade.\footnote{%
-            Basispfade sind die kürzestenPfade vom Startzustand in einen Endzustand}
+            Basispfade ist die Menge der kürzesten Pfade vom Startzustand in einen Endzustand}
     \item Lege symmetrische Pfade zusammen.\footnote{%
             Symmetrische Pfade sind solche,
             die identisch viele Schritte brauchen und an identische Orte,
             identisch viele Zeichen schreiben.}
     \item Zähle die Schritte der schleifenlosen Pfade.
     \item Zähle die Schritte der schleifenlosen Teilpfade von Schleifenpfaden.
-    \item Für die Teilpfade, die nur EinerSchleifen\footnote{%
-            Einerschleifen sind Schleifen die nur über einen Zustand gehen (Loops in den Grafiken)},
+    \item Für die Teilpfade, die nur Einerschleifen\footnote{%
+            Einerschleifen sind Schleifen die nur über einen Zustand gehen (Loops in den Grafiken)}
+        beinhalten,
         quantifiziere den Aufwand als Funktion, basierend auf einem Restwortmodell.
     \item Für die Teilpfade mit komplexen Schleifen,\footnote{%
             Komplexe Schleifen sind Schleifen, die über mehr als einen Zustand gehen.}
@@ -392,7 +406,7 @@ bezüglich Ihres Aufwandsverhalten analysiseren können:
     \item Gib die Funktion $t$ an.
 \end{enumerate}
 Dieses Verfahren ist in der Tat nur eine Blaupause,
-das wir es nicht in einen Algorithmus verwandeln können:
+da wir nicht wissen, ob wir es in einen Algorithmus verwandeln können:
 Wir wissen nicht, ob das Verfahren für jede Turingmaschine endet.\footnote{%
     Genaueres über die Gründe werden wir in \autoref{derBarbierUndDerLuegner} erfahren.}
 
