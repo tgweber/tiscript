@@ -390,8 +390,14 @@ also bei steigender Wortlänge, entwickelt.
             Symmetrische Pfade sind solche,
             die identisch viele Schritte brauchen und an identische Orte,
             identisch viele Zeichen schreiben.}
-    \item Zähle die Schritte der schleifenlosen Pfade.
-    \item Zähle die Schritte der schleifenlosen Teilpfade von Schleifenpfaden.
+    \item Zähle die Schritte der schleifenlosen Basispfade.
+    \item Für alle Basispfade, die nicht schleifenlos sind, teile diese auf in:
+        \begin{enumerate}
+                \item Schleifenlose Teilpfade
+                \item Teilpfade mit Einerschleifen
+                \item Teilpfade mit komplexen Schleifen.
+        \end{enumerate}
+    \item Zähle die Schritte der schleifenlosen Teilpfade der Basispfade.
     \item Für die Teilpfade, die nur Einerschleifen\footnote{%
             Einerschleifen sind Schleifen die nur über einen Zustand gehen (Loops in den Grafiken)}
         beinhalten,
@@ -412,33 +418,86 @@ Wir wissen nicht, ob das Verfahren für jede Turingmaschine endet.\footnote{%
 
 \subsubsection{Beispiel: Aufwand für $tm_{REVERSE}$}
 
-Für $tm_{REVERSE}$ können wir zwei Basispfade identifizieren:
+
 \begin{enumerate}
-        \item Für Worte $w$ mit $|w| = 1$: I $\rightarrow$ C $\rightarrow$ F3.\\
-            Die Schrittanzahl hier ist 2.
-        \item Für Worte $w$ mit $|w| > 1$ gibt es zwei symmetrische Basispfade:\\
-            I $\rightarrow$ C $\rightarrow$ LS $\rightarrow$ FO $\rightarrow$ OF1/1F1 $\rightarrow$ 0F2/1F2 $\rightarrow$ F3.\\
-            Die folgenden Teilpfade sind auszumachen:
+        \item Für $tm_{REVERSE}$ können wir zwei Basispfade identifizieren:
+            \begin{itemize}
+                \item $B_1$: Für Worte $w$ mit $|w| = 1$: I $\rightarrow$ C $\rightarrow$ F3.\\
+                \item Für Worte $w$ mit $|w| > 1$ gibt es zwei Basispfade:\\
+                    \begin{itemize}
+                        \item $B_{20}$: I $\rightarrow$ C $\rightarrow$ LS $\rightarrow$ FO $\rightarrow$ OF1 $\rightarrow$ 0F2 $\rightarrow$ F3.\\
+                        \item $B_{21}$: I $\rightarrow$ C $\rightarrow$ LS $\rightarrow$ FO $\rightarrow$ 1F1 $\rightarrow$ 1F2 $\rightarrow$ F3.\\
+                    \end{itemize}
+            \end{itemize}
+        \item $B_{20}$ und $B_{21}$ sind symmetrisch und werden als $B_2$ zusammengelegt.
+        \item $B_1$ ist schleifenlos. Die Schrittanzahl hier ist 2.
+        \item Für $B_2$ ergeben sich drei Teilpfade: von denen der erste Part schleifenlos ist:
             \begin{enumerate}
-                \item Die Schrittanzahl für den ersten schleifenlosen Part I $\rightarrow$ C $\rightarrow$ LS ist 2.\\
-                \item Wir haben einen Teilpfad $LS$ mit einer komplexen Schleife, deren Funktion wir mit x bezeichnen,
-                    wir wenden die Methode rekursiv auf x an mit LS als Start und Ende der komplexen Schleife.
-                \item Für den Teilpfad F0 $\rightarrow \ldots \rightarrow$ F3 haben wir nur Einerschleifen,
-                    deren Funktion wir mit y bezeichen (siehe Restwortemodell 1).
+                \item Der erste Teilpfad $T_1$ ist schleifenlos: I $\rightarrow$ C $\rightarrow$ LS.
+                \item Der dritte Teilpfad $T_3$ hat nur Einerschleifen: F0 $\rightarrow \ldots \rightarrow$ F3.
+                \item Der zweite Teilpfad $T_2$ hat eine komplexe Schleife: LS $\rightarrow \ldots \rightarrow$ LS.
             \end{enumerate}
-\end{enumerate}
-
-Da Worte gleicher Länge auch gleich lange Läufe auf $tm_{REVERSE}$ haben
-(da, wo sich die Läufe qua Zeichen unterscheiden,
-sind die parallelen Pfade in $tm_{REVERSE}$ \emph{symmetrisch}).
-
-Daraus ergibt sich die folgende Funktionsdefinition:
+        \item Die Schrittanzahl für $T_1$ ist 2.
+        \item Die Schrittanzahl für $T_3$ wird mit dem Restwortmodell x(n) ermittelt (siehe \autoref{fig:xwm})
+        \item Die Schrittanzahl für $T_2$ wird rekursiv ermittelt (s.u.). Wir definieren dafür den Platzhalter y(n). 
+        \item 
+            \begin{itemize}
+                \item Für $B_1$ ist die Schrittanzahl 2
+                \item Für $B_2$ ist die Schrittanzahl 2 + x(n) + y(n)
+            \end{itemize}
+        \item Die Pfade sind allesamt gleichwertig, daher gilt Worst Case = Best Case.
+        \item Daraus ergibt sich die folgende Funktionsdefinition:
 \[
     t(n, tm) = \begin{cases}
         2\text{, wenn } x = 1,\\
         2 + x(n) + y(n) \text{, wenn } x > 1,\\
     \end{cases}
 \]
+\end{enumerate}
+
+
+\paragraph{Restwortmodell für x(n)}
+
+\begin{figure}[hb]
+    \caption{Restwortmodell für $x(n)$}
+    \centering
+    \begin{tikzpicture}
+        \tikzstyle{every path}=[very thick]
+        \edef\sizetape{0.7cm}
+        \tikzstyle{tmtape}=[draw,minimum size=\sizetape]
+        \tikzstyle{tmhead}=[arrow box,draw,minimum size=.5cm,arrow box
+        arrows={east:.25cm, west:0.25cm}]
+        \begin{scope}[start chain=1 going right,node distance=-1.15mm]
+            \node [on chain=1,tmtape,draw=none](0) {$\ldots$};
+            \node [on chain=1,tmtape] (1) {};
+            \node [on chain=1,tmtape] (2) {$c_{1}$};
+            \node [on chain=1,tmtape] (3) {$\ldots$};
+            \node [on chain=1,tmtape] (4) {$c_{n}$/$o_{1}$};
+            \node [on chain=1,tmtape] (5) {$\ldots$};
+            \node [on chain=1,tmtape] (6) {$o_n$};
+            \node [on chain=1,tmtape, initial above] (7) {};
+            \node [on chain=1,tmtape] (8) {};
+            \node [on chain=1,tmtape,draw=none] (10) {$\ldots$};
+        \end{scope}
+        \draw[-|]
+            (7.north) edge[bend right=90, above] node{1} (6.north)
+            (6.north) edge[bend right=90, above] node{n-1} (4.north)
+            (4.north) edge[bend right=90, in=-115, above] node{n-1} (2.north)
+            (2) edge[out=75, in=105, looseness=10, above] node{1} (2)
+            ;
+    \end{tikzpicture}%
+    \label{fig:xwm}
+\end{figure}
+Mit \autoref{fig:xwm} ergibt sich 
+\[
+    x(n) = 1 + (n-1) + (n-1) +1 = 2n.
+\]
+\paragraph{Restwortmodell für x(n)}
+
+Da Worte gleicher Länge auch gleich lange Läufe auf $tm_{REVERSE}$ haben
+(da, wo sich die Läufe qua Zeichen unterscheiden,
+sind die parallelen Pfade in $tm_{REVERSE}$ \emph{symmetrisch}).
+
             
 Für $x(n)$ lässt sich feststellen, dass die Pfade in der Schleife symmetrisch sind.
 Anhand von \autoref{fig:x_wm} lässt sich das Restwortmodell so einführen.
@@ -454,7 +513,7 @@ Daher ergibt sich für jedes zu kopierende Zeichen $i$ die Schrittanzahl $4i - 1
 Für alle Schritte zusammen (wir wiederholen das ganze n-2 mal) ergibt sich daher:
 
 \begin{figure}[hb]
-    \caption{Restwortmodell für $x(n)$}
+    \caption{Restwortmodell für $y(n)$}
     \centering
     \begin{tikzpicture}
         \tikzstyle{every path}=[very thick]
@@ -485,7 +544,7 @@ Für alle Schritte zusammen (wir wiederholen das ganze n-2 mal) ergibt sich dahe
             (7.south) edge[bend right=90, below] node{1} (8.south)
             ;
     \end{tikzpicture}%
-    \label{fig:x_wm}
+    \label{fig:ywm}
 \end{figure}
 
 
@@ -500,38 +559,8 @@ Für alle Schritte zusammen (wir wiederholen das ganze n-2 mal) ergibt sich dahe
 \end{align*}
 
 
-\begin{figure}[hb]
-    \caption{Restwortmodell für $y(n)$}
-    \centering
-    \begin{tikzpicture}
-        \tikzstyle{every path}=[very thick]
-        \edef\sizetape{0.7cm}
-        \tikzstyle{tmtape}=[draw,minimum size=\sizetape]
-        \tikzstyle{tmhead}=[arrow box,draw,minimum size=.5cm,arrow box
-        arrows={east:.25cm, west:0.25cm}]
-        \begin{scope}[start chain=1 going right,node distance=-1.15mm]
-            \node [on chain=1,tmtape,draw=none](0) {$\ldots$};
-            \node [on chain=1,tmtape] (1) {};
-            \node [on chain=1,tmtape] (2) {$c_{1}$};
-            \node [on chain=1,tmtape] (3) {$\ldots$};
-            \node [on chain=1,tmtape] (4) {$c_{n}$/$o_{1}$};
-            \node [on chain=1,tmtape] (5) {$\ldots$};
-            \node [on chain=1,tmtape] (6) {$o_n$};
-            \node [on chain=1,tmtape, initial above] (7) {};
-            \node [on chain=1,tmtape] (8) {};
-            \node [on chain=1,tmtape,draw=none] (10) {$\ldots$};
-        \end{scope}
-        \draw[-|]
-            (7.north) edge[bend right=90, above] node{1} (6.north)
-            (6.north) edge[bend right=90, above] node{n-1} (4.north)
-            (4.north) edge[bend right=90, in=-115, above] node{n-1} (2.north)
-            (2) edge[out=75, in=105, looseness=10, above] node{1} (2)
-            ;
-    \end{tikzpicture}%
-    \label{fig:y_wm}
-\end{figure}
 
-Mit \autoref{fig:y_wm} ergibt sich $y(n) = 2n$.
+
 Daher können wir die finale Definition von $t(n, tm)$ festhalten:
 \[
     t(n, tm) = \begin{cases}
