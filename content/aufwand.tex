@@ -196,7 +196,7 @@ $
 $
 \end{center}
 \noindent
-Da $|S_a(tm_{REVERSE},100)| = 16$ gilt: $tau(tm_{REVERSE},100) = 15$
+Da $|S_a (tm_{REVERSE},100)| = 16$ gilt: $tau (tm_{REVERSE},100) = 15$
 \newpage
 
 \begin{figure}[H] % ’ht’ tells LaTeX to place the figure ’here’ or at the top of the page
@@ -337,7 +337,7 @@ bei wachsender Wortlänge verhält.
 %TODO Grafik
 
 Gesucht ist also die folgende Funktion:
-$t: TM \times \mathbb{N} \rightarrow \mathbb{N}$,
+$t: TM \times{} \mathbb{N} \rightarrow{} \mathbb{N}$,
 also die Abbildung einer Turingmaschine und einer Wortlänge
 auf die Anzahl der Schritte für ein Wort dieser Länge.
 Da mehrere Worte die gleiche Länge haben können,
@@ -425,25 +425,25 @@ Wir wissen nicht, ob das Verfahren für jede Turingmaschine endet.\footnote{%
                 \item $B_1$: Für Worte $w$ mit $|w| = 1$: I $\rightarrow$ C $\rightarrow$ F3.\\
                 \item Für Worte $w$ mit $|w| > 1$ gibt es zwei Basispfade:\\
                     \begin{itemize}
-                        \item $B_{20}$: I $\rightarrow$ C $\rightarrow$ LS $\rightarrow$ FO $\rightarrow$ OF1 $\rightarrow$ 0F2 $\rightarrow$ F3.\\
-                        \item $B_{21}$: I $\rightarrow$ C $\rightarrow$ LS $\rightarrow$ FO $\rightarrow$ 1F1 $\rightarrow$ 1F2 $\rightarrow$ F3.\\
+                        \item $B_{2.0}$: I $\rightarrow$ C $\rightarrow$ LS $\rightarrow$ FO $\rightarrow$ OF1 $\rightarrow$ 0F2 $\rightarrow$ F3.\\
+                        \item $B_{2.1}$: I $\rightarrow$ C $\rightarrow$ LS $\rightarrow$ FO $\rightarrow$ 1F1 $\rightarrow$ 1F2 $\rightarrow$ F3.\\
                     \end{itemize}
             \end{itemize}
-        \item $B_{20}$ und $B_{21}$ sind symmetrisch und werden als $B_2$ zusammengelegt.
+        \item $B_{2.0}$ und $B_{2.1}$ sind symmetrisch und werden als $B_2$ zusammengelegt.
         \item $B_1$ ist schleifenlos. Die Schrittanzahl hier ist 2.
         \item Für $B_2$ ergeben sich drei Teilpfade: von denen der erste Part schleifenlos ist:
             \begin{enumerate}
-                \item Der erste Teilpfad $T_1$ ist schleifenlos: I $\rightarrow$ C $\rightarrow$ LS.
-                \item Der dritte Teilpfad $T_3$ hat nur Einerschleifen: F0 $\rightarrow \ldots \rightarrow$ F3.
-                \item Der zweite Teilpfad $T_2$ hat eine komplexe Schleife: LS $\rightarrow \ldots \rightarrow$ LS.
+                \item Der erste Teilpfad $T_1$ ist schleifenlos: I $\rightarrow$ C $\rightarrow$ LS.\@
+                \item Der dritte Teilpfad $T_3$ hat nur Einerschleifen: LS $\rightarrow \ldots \rightarrow$ F3.\@
+                \item Der zweite Teilpfad $T_2$ hat eine komplexe Schleife: LS $\rightarrow \ldots \rightarrow$ LS.\@
             \end{enumerate}
         \item Die Schrittanzahl für $T_1$ ist 2.
-        \item Die Schrittanzahl für $T_3$ wird mit dem Restwortmodell x(n) ermittelt (siehe \autoref{fig:xwm})
-        \item Die Schrittanzahl für $T_2$ wird rekursiv ermittelt (s.u.). Wir definieren dafür den Platzhalter y(n). 
+        \item Die Schrittanzahl für $T_3$ wird mit dem Restwortmodell $x(n)$ ermittelt (siehe \autoref{fig:xwm})
+        \item Die Schrittanzahl für $T_2$ wird rekursiv ermittelt (s.u.). Wir definieren dafür den Platzhalter $y(n)$. 
         \item 
             \begin{itemize}
-                \item Für $B_1$ ist die Schrittanzahl 2
-                \item Für $B_2$ ist die Schrittanzahl 2 + x(n) + y(n)
+                \item Für $B_1$ ist die Schrittanzahl $2$
+                \item Für $B_2$ ist die Schrittanzahl $2 + x(n) +  y(n)$
             \end{itemize}
         \item Die Pfade sind allesamt gleichwertig, daher gilt Worst Case = Best Case.
         \item Daraus ergibt sich die folgende Funktionsdefinition:
@@ -456,7 +456,7 @@ Wir wissen nicht, ob das Verfahren für jede Turingmaschine endet.\footnote{%
 \end{enumerate}
 
 
-\paragraph{Restwortmodell für x(n)}
+\paragraph{Restwortmodell für $x(n)$}
 
 \begin{figure}[hb]
     \caption{Restwortmodell für $x(n)$}
@@ -488,29 +488,62 @@ Wir wissen nicht, ob das Verfahren für jede Turingmaschine endet.\footnote{%
     \end{tikzpicture}%
     \label{fig:xwm}
 \end{figure}
-Mit \autoref{fig:xwm} ergibt sich 
+In \autoref{fig:xwm} wird der Pfad von F0 nachgezeichnet:
+Nachdem die Turingmaschine ein Blank und damit das Ende des Inputwortes identifiziert hat,
+geht es einen Schritt nach links, ``speichert'' sich das letzte Zeichen des Inputwortes
+(je nachdem gehen wir im Graph via 0F1/0F2 oder 1F1/1F2).
+Dann geht die Turingmaschine $n-1$ Schritte über Blanks, deren Inhalt wir bereits verschoben haben,
+bis zum ersten Zeichen des Inputwortes (das gleichzeitig das letzte Zeichen des Outputwortes ist).
+Erneut iteriert die Turingmaschine $n-1$ Schritte bis zum ersten Blank über alle bereits
+kopierten Zeichen über alle bereits
+kopierten Zeichen,
+Auf diesem Blank wird als letzter Schritt das gespeicherte Zeichen geschrieben.
+Aus diesen Erwägungen ergibt sich (siehe auch \autoref{fig:xwm}):
 \[
     x(n) = 1 + (n-1) + (n-1) +1 = 2n.
 \]
-\paragraph{Restwortmodell für x(n)}
+\paragraph{Restwortmodell für $y(n)$}
 
-Da Worte gleicher Länge auch gleich lange Läufe auf $tm_{REVERSE}$ haben
-(da, wo sich die Läufe qua Zeichen unterscheiden,
-sind die parallelen Pfade in $tm_{REVERSE}$ \emph{symmetrisch}).
+Um $y(n)$ zu bestimmen wenden wir die Blaupause auf den Teilpfad LS $\rightarrow$ LS an:
 
-            
-Für $x(n)$ lässt sich feststellen, dass die Pfade in der Schleife symmetrisch sind.
-Anhand von \autoref{fig:x_wm} lässt sich das Restwortmodell so einführen.
-$c_i$ mit $2 \leq i < n$ ist der Index, des zu kopierenden Zeichen.
-Wir starten auf dem Zeichen rechts von $c_i$ (damit wissen wir,
-dass wir danach noch mindestens ein weiteres Zeichen kopieren müssen).
-Wir gehen einen Schritt nach links,
-dann $(i-1)$ Schritte nach links, bis wir bei $c_1/c^{'}_{n}$ angelangt sind.
-Dann weitere $(i-1)$ Schritte nach links, bis wir an dem Punkt sind, an dem
-wir $c^{'}_{n-i}$ einsetzen.
-Die gleiche Schrittanzahl ($2i -1$) gehen wir wieder zurück und dann noch zwei Schritte.
-Daher ergibt sich für jedes zu kopierende Zeichen $i$ die Schrittanzahl $4i - 1$.
-Für alle Schritte zusammen (wir wiederholen das ganze n-2 mal) ergibt sich daher:
+\begin{enumerate}
+    \item Es gibt zwei Basispfade, die in Summe $n-2$ mal durchlaufen werden (das erste Zeichen des Inputwortes bleibt, wo es ist, das letzte Zeichen wird in Teilpfad $T_3$ kopiert),
+        die Nummer des Durchlaufs geben wir mit $2 \leq i < n$ an:
+        \begin{itemize}
+                \item $T_{3.0}$: LS $\rightarrow$ L0 $\rightarrow$ 0L1 $\rightarrow$ 0L2 $\rightarrow$ L3 $\rightarrow$ L4 $\rightarrow$ LS.\\
+                \item $T_{3.1}$: LS $\rightarrow$ L0 $\rightarrow$ 1L1 $\rightarrow$ 1L2 $\rightarrow$ L3 $\rightarrow$ L4 $\rightarrow$ LS.\\
+        \end{itemize}
+    \item $T_{3.0}$ und $T_{3.1}$ sind symmetrisch, werden also als $T_{3}$ zusammenbetrachtet.
+    \item Es gibt keine Schleifenlosen Basispfade. 
+    \item Wir teilen $T_3$ folgendermaßen auf:
+        \begin{enumerate}
+            \item Schleifenlose Teilpfade:
+                \begin{itemize}
+                    \item $T_{3.a}$: LS $\rightarrow$ L0.
+                    \item $T_{3.c}$: L4 $\rightarrow$ LS.\@
+                \end{itemize}
+            \item Teilpfad $T_{3.b}$ mit Einerschleifen: LS $\rightarrow$ L0 $\rightarrow$ 0L1 $\rightarrow$ 0L2 $\rightarrow$ L3 $\rightarrow$ L4.\\
+        \end{enumerate}
+    \item $T_{3.a}$ und $T_{3.c}$ haben beide jeweils einen Schritt.
+    \item Für $T_{3.b}$ ergibt sich das folgende Restwortmodell (siehe \autoref{fig:ywm}):
+        Die Turingmaschine  startet auf $o_i$ (dem aktuell zu kopierenden Zeichen).
+        Wir gehen einen Schritt nach links,
+        dann $(i-1)$ Schritte nach links, bis wir bei $o_1/c_{n}$ angelangt sind.
+        Dann weitere $(i-1)$ Schritte nach links, bis wir an dem Punkt sind, an dem
+        wir $c_{n-i}$ einsetzen.
+        Die gleiche Schrittanzahl ($2i -1$) gehen wir wieder zurück und dann noch einen weiteren Schritt auf $o_{i+1}$.
+        Daher ergibt sich für jedes zu kopierende Zeichen $i$ die Schrittanzahl $4i - 3$.
+    \item Keine Teilpfade mit komplexen Schleifen.
+    \item
+        \begin{itemize}
+            \item Für $T_{3.a}$ für ist die Schrittzahl 1.
+            \item Für $T_{3.b}$ für ist die $4i - 3$.
+            \item Für $T_{3.c}$ für ist die Schrittzahl 1.
+        \end{itemize}
+    \item Worst case = best case (alle Pfade sind gleichwertig). 
+    \item Zählen wir alles zusammen ergibt sich $y(n) = \sum_{i=2}^{n-1} 4i - 3 + 1 + 1  = \sum_{i=2}^{n-1} 4i - 1$.
+        Dies lässt sich zu $2n^2 - 3n - 2$ vereinfachen (siehe Gleichung~\ref{eq:simp})..
+\end{enumerate}
 
 \begin{figure}[hb]
     \caption{Restwortmodell für $y(n)$}
@@ -528,20 +561,17 @@ Für alle Schritte zusammen (wir wiederholen das ganze n-2 mal) ergibt sich dahe
             \node [on chain=1,tmtape] (3) {$\ldots$};
             \node [on chain=1,tmtape] (4) {$c_{n}$/$o_{1}$};
             \node [on chain=1,tmtape] (5) {$\ldots$};
-            \node [on chain=1,tmtape] (6) {$o_i$};
-            \node [on chain=1,tmtape, initial above] (7) {$o_{i+1}$};
-            \node [on chain=1,tmtape] (8) {?};
-            \node [on chain=1,tmtape] (9) {};
+            \node [on chain=1,tmtape, initial above] (6) {$o_i$};
+            \node [on chain=1,tmtape] (7) {$o_{i+1}$};
+            \node [on chain=1,tmtape] (8) {};
             \node [on chain=1,tmtape,draw=none] (10) {$\ldots$};
         \end{scope}
         \draw[-|]
-            (7.north) edge[bend right=90, above] node{1} (6.north)
             (6.north) edge[bend right=90, above] node{i-1} (4.north)
             (4.north) edge[bend right=90, above] node{i-1} (2.north)
             (2.south) edge[bend right=90, below] node{i-1} (4.south)
             (4.south) edge[bend right=90, below] node{i-1} (6.south)
             (6.south) edge[bend right=90, below] node{1} (7.south)
-            (7.south) edge[bend right=90, below] node{1} (8.south)
             ;
     \end{tikzpicture}%
     \label{fig:ywm}
@@ -549,19 +579,17 @@ Für alle Schritte zusammen (wir wiederholen das ganze n-2 mal) ergibt sich dahe
 
 
 
-\begin{align*}
+\begin{align}
     x(n) &=&                &   & \sum_{i=2}^{n-1} 4i - 1     &            \\ 
          &=& -(4 - 1)       & + & (\sum_{i=1}^{n} 4i -1)      & - (4n - 1) \\
          &=& -3             & + & -n + 4 (\sum_{i=1}^{n} i)   &  - 4n + 1  \\
          &=& -5n -2         & + & 4 (\frac{n^2+n}{2})         &            \\
          &=& -5n -2         & + & 2 n^2 + 2n                  &            \\
-         &=& 2n^2 -3n -2    &   &                             &            
-\end{align*}
+         &=& 2n^2 -3n -2    &   &                             &            \label{eq:simp}
+\end{align}
 
-
-
-
-Daher können wir die finale Definition von $t(n, tm)$ festhalten:
+\noindent
+So können wir die finale Definition von $t(n, tm)$ festhalten:
 \[
     t(n, tm) = \begin{cases}
         2\text{, wenn } x = 1,\\
@@ -617,7 +645,7 @@ Skizzenhaft könnte ein Beweis wie folgt aussehen:
         \item Bis auf ein Zeichen müssen wir jedes an die richtige Stelle verschieben.
         \item Damit müssen wir mindestens $(n-1)$ mal im Durschnitt $2n$ mal
             zwischen Eingabe und Ausgabe hin- und herwechseln.
-        \item Daraus folgt, dass jeder Algorithmus mindestens $n^2 - n$ Schritte braucht.
+        \item Daraus folgt, dass jeder Algorithmus mindestens $2n^2 - 2n$ Schritte braucht.
 \end{enumerate}
 
 Den aktuellen Stand der Forschung für eine Reihe von relevanten Problemen
