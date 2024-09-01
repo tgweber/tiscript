@@ -655,6 +655,24 @@ Algorithmen und Datenstrukturen.
 
 
 \section{Aufwand und Berechnungsmodel}
+
+Wir haben im vergangenen Abschnitt gesehen,
+wie der Aufwand anhand einer Turingmaschine für ein Wort,
+eine Implementierung und für ein Problem quantifiziert werden kann.
+Für das konkrete Problem REVERSE haben wir allerdings eine etwas kontraintuitive Quantifikation angegeben:
+Für ein Wort mit 100 Zeichen läuft die Turingmaschine bereits 19.900 Schritte!
+Das deckt sich nicht mit der Praxis,
+in der das Umdrehen der Reihenfolge wesentlich schneller abläuft.
+%TODO Python Programm, das alle So
+
+\lstinputlisting[language=Python, firstline=6, lastline=34, caption=Evaluation of REVERSE in Python]{scripts/kap_04/reverse.py}\label{lst:reverse}
+
+Output:
+
+Python blabla.\footnote{%
+    \href{https://stackoverflow.com/questions/52294373/how-to-find-the-implementation-of-1-reversing-list-in-python-in-cpython}{STACK-OVERFLOW Frage} [abgerufen 2024--09--01]
+}
+
 % Diskussion Modell TM (Einfachheit vs Realitätsnähe)
 Skizze:
 \begin{itemize}
@@ -733,6 +751,7 @@ Generell können wir Big-O auch allgemein für ein $g(n)$ definieren:
 \[
 O(g(n)) = \{f|\exists c \exists n_0 \forall n (n \geq n_0 \rightarrow f(n) \leq c \cdot g(n))\}
 \]
+
 
 Die Tabelle \autoref{tab:oklassen} gibt wichtige weitere Klassen an.
 
