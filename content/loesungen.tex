@@ -321,6 +321,44 @@ $
 \end{figure}
     Siehe auch: \url{https://turingmachinesimulator.com/shared/meqnrymsxv}
 
+
+\subsection*{Aufgaben aus Kapitel 4}
+\subsubsection*{4.1}
+\begin{table}[ht]
+    \caption{$t(i,tm_{REVERSE})$ für $1 \leq i \leq 5$}
+    \centering
+    \begin{tabular}{|c|c|c|c|c|c|}
+    \hline
+          i
+        & 1
+        & 2
+        & 3
+        & 4
+        & 5
+        \\
+        \hline
+          $t(i,tm_{REVERSE})$
+        & 10
+        & 21
+        & 36
+        & 55
+        & 78
+        \\
+    \hline
+    \end{tabular}
+    \label{tab:ttmreverse2}
+\end{table}
+
+Im arithmetischen Mittel brauchen wir
+$\frac{n}{2}+1+\frac{n}{2}+\frac{n}{2}+1+\frac{n}{2}+1 = 2n+3$
+Schritte für jeden Loopdurchlauf,
+also
+$n(2n + 3) = 2n^2 + 3n$ für alle Durchläufe.
+Am Ende dann noch mal
+$n + 1 + n + 2 = 2n + 3$ für den Weg zum Anfang des umgekehrten Wortes.
+Also in Summe $2n^2 + 5n + 3$ Schritte.
+
+Beispiel $n = 2$: $2\cdot2^2 + 5\cdot2 + 3 = 8 + 10 + 3 = 21 = \tau(10, tm)$
 \subsection*{Aufgaben aus Kapitel 5}
 \subsubsection*{5.1}
 \begin{figure}[ht] % ’ht’ tells LaTeX to place the figure ’here’ or at the top of the page

@@ -1,7 +1,7 @@
 //-------CONFIGURATION
 name: Reverse
 init: zI
-accept: zI,zF2
+accept: zF2
 
 //-------DELTA FUNCTION:
 zI,0
@@ -11,7 +11,7 @@ zI01,_
 zI02,_,<
 
 zI02,_
-zI3,0,>
+zLI,0,>
 
 zI,1
 zI11,1,<
@@ -20,16 +20,7 @@ zI11,_
 zI12,_,<
 
 zI12,_
-zI3,1,>
-
-zI3,_
-zLS,_,>
-
-zLS,0
-zLC,_,>
-
-zLS,1
-zLC,_,>
+zLI,1,>
 
 zLC,_
 zF0,_,<
@@ -83,16 +74,16 @@ zL3,1
 zL3,1,>
 
 zL3,_
-zL4,_,>
+zLI,_,>
 
-zL4,_
-zL4,_,>
+zLI,_
+zLI,_,>
 
-zL4,0
-zLS,0,-
+zLI,0
+zLC,_,>
 
-zL4,1
-zLS,1,-
+zLI,1
+zLC,_,>
 
 zF0,_
 zF0,_,<

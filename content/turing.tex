@@ -389,38 +389,44 @@ Diese Anpassung ist nötig, damit wir u und w bei Bedarf mit Blanks ``auffüllen
 \\
 
 \noindent
-Die Länge $len(S)$ einer Schnappschussfolge S entspricht der Länge des Tupels.
+Die Länge $|S|$ einer Schnappschussfolge S entspricht der Länge des Tupels.
 \\
 
 \noindent
 Eine Schnappschussfolge S heißt
-\emph{Lauf} für $x$ (formal: $l_{x, tm}$) auf einer Turingmaschine $tm$, wenn gilt:
+\emph{Lauf} für $x$ (formal: $S_l(x, tm)$) auf einer Turingmaschine $tm$, wenn gilt:
 \begin{itemize}
     \item $s_0 = [z_i, \square, tw'(x,0,1), tw'(x,1,|w|-1)]$
-    \item $s_{len(S)-1} = [z \in Z, u \in \Gamma^*, v \in \Gamma, w \in \Gamma^*]$
+    \item $s_{|S|-1} = [z \in Z, u \in \Gamma^*, v \in \Gamma, w \in \Gamma^*]$
         mit $\delta(z, v)$ undefiniert.
 \end{itemize}
 
 \noindent
-Ein Lauf $S$ heißt \emph{akzeptierend},
+Ein Lauf $S_l(tm, w)$ heißt \emph{akzeptierend} (wir schreiben dann $S_a(tm, w)$),
 wenn der letzte Zustand in der Schnappschussfolge ein Endzustand ist:
 $(s_{len(S)-1})_1 \in E$.
 \\
 
 \noindent
+Den Bandinhalt unter dem Zeiger und rechts davon, also $s_2s_3$,
+nennen wir den \emph{Output(tm, w)} eines akzeptierenden Laufes von $tm$ auf $w$.
+\\
+
+\noindent
 Die Sprache $TM(L)$, die von einer Turingmaschine akzeptiert wird, ist definiert als
-$TM(L) =
-\{xy|
-        \exists s(
-            s = (l_{x,tm})_{len(l_{x,tm})-1}
-            \wedge y = s_2s_3
-            \wedge s_0 \in E
-        )
-\}$.
+\[
+    TM(L) =
+        \{xy|
+            \exists S(
+                S = S_a(tm, x)
+                \wedge y = Output(tm, x)
+            ) 
+        \}.
+\]
 % TODO formale Probleme mit dem Input als Sprachinhalt?
-Also die Worte,
+Die Sprache ist also die Menge aller Worte,
 die aus der Konkatenation des Inputs der Turingmaschine
-mit dem Bandinhalt rechts vom Zeiger nach einem akzeptierenden Lauf entstehen.
+mit dem Bandinhalt nach einem akzeptierenden Lauf gebildet werden können.
 
 \section{Turing-Berechenbarkeit}
 
@@ -690,7 +696,8 @@ den Unterschied zwischen Hard- und Software verschwimmen lassen.
 	\node[state, below of=zd] (zc) {$z_c$};
 	\node[state, accepting, right of=zc] (zn) {$z_n$};
 	\node[state, left of=zc] (zr) {$z_r$};
-	\draw (zi) edge[loop above] node[text width=1cm, align=center]{$|,|,R$\\-,-,R} (zi)
+	\draw 
+    (zi) edge[loop above] node[text width=1cm, align=center]{$|,|,R$\\-,-,R} (zi)
 	(zi) edge[above] node{$\square$, $\square$, L} (zl)
 	(zl) edge[left] node{$-,|,L$} (zg)
 	(zg) edge[loop left] node{$|,|,L$} (zg)
