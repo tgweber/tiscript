@@ -52,7 +52,7 @@ Neben Programmen einer Programmiersprache kann man auch
 \emph{Automaten} spezifizieren,
 um Algorithmen zu implementieren.
 Ein Automat ist eine abstrakte Maschine,
-die einen Input bekommt, 
+die einen Input bekommt,
 dabei mit simplen Einzelschritten läuft
 und einen definiten Output liefert.
 Wir können uns damit Kriterium 5 gut vergegenwärtigen,
@@ -76,7 +76,7 @@ Der Zusammenhang zwischen einer formalen Sprache und dem Automat kann so formuli
 Ein Automat bekommt ein Wort als Input und entscheidet über ein Outputsignal,
 ob es zu der formalen Sprache gehört oder nicht.
 Wenn eine formale Sprache ein Problem repräsentiert,
-gibt der Automat also ein Verfahren an, 
+gibt der Automat also ein Verfahren an,
 wie das Problem gelöst werden kann.
 Man kann auch sagen:
 Der Automat ist eine Implementierung eines Algorithmus,
@@ -84,10 +84,10 @@ der das Problem löst.
 Ein solcher Automat erfüllt die fünf Bedingungen von oben:
 \begin{enumerate}
     \item Der Automat läuft nur so lange, wie das Inputwort Zeichen hat.
-    \item Die Spezifikation des Automaten ist unmissverständlich.  
+    \item Die Spezifikation des Automaten ist unmissverständlich.
     \item Der Input ist das Inputwort.
     \item Der Output ist 0 oder 1 (akzeptierender oder nicht-akzeptierender Zustand).
-    \item Der Automat lässt sich realisieren. 
+    \item Der Automat lässt sich realisieren.
 \end{enumerate}
 
 Bevor wir im nächsten Abschnitt den Automaten genauer fassen wollen,
@@ -118,7 +118,7 @@ dass sie alle einfach und prinzipiell nutzbar sind.\footnote{
 }
 
 Im folgenden Abschnitt wollen wir den Begriff des Automaten formal einführen
-und ein Beispiel für einen Automaten angeben. 
+und ein Beispiel für einen Automaten angeben.
 
 % TODO Bild.
 \section{Deterministisch Finite Automaten}
@@ -160,7 +160,7 @@ der \textbf{EVEN} erkennt.
     \node[state, right of=z0] (zn) {$z_{NaN}$};
     \node[state, below right of=zi] (zo) {$z_{odd}$};
     \node[state, accepting, right of=zo] (ze) {$z_{even}$};
-	\draw 
+	\draw
         (zi) edge[above] node{0} (z0)
         (zi) edge[below] node{1} (zo)
         (z0) edge[above] node{0,1} (zn)
@@ -206,7 +206,7 @@ In der Sprache der Mengenlehre können wir die Komponenten so angeben:
         [z_{even}, 1, z_{odd}] \notag
     \} \end{align*}
     \item Der Anfangszustand $z_i = z_i$.
-    \item Die Menge der Endzustände E = $\{z_0, z_{even}\}$ 
+    \item Die Menge der Endzustände E = $\{z_0, z_{even}\}$
 \end{itemize}
 
 \subsection{Akzeptanz: Schnappschüsse und Läufe}
@@ -220,7 +220,7 @@ müssen wir ein paar Hilfskonzepte einführen:
         Nehmen wir den DFA von oben, dann wäre $[z_1,0010]$ ein Beispiel:
         Wir sind in Zustand $z_1$ und müssen noch $0010$ lesen.
     \item Eine \emph{Schnappschussfolge} S auf einem DFA A
-        ist ein n-Tupel von Schnapp-schüssen. 
+        ist ein n-Tupel von Schnapp-schüssen.
         Für jedes Paar aufeinanderfolgender Schnappschüsse $s_n = [z_n, w_n]$
         und $s_{n+1} = [z_{n+1}, w_{n+1}]$ gilt,
         dass sie einen Übergang des Automaten A auf dem verbliebenen Restwort repräsentieren:
@@ -234,7 +234,7 @@ müssen wir ein paar Hilfskonzepte einführen:
         heißt \emph{Lauf} $l_{w,A}$ für $w$ auf A, wenn gilt:
         \begin{itemize}
             \item Wir haben $w$ als Input und starten beim Anfangszustand:
-                $s_0 = [w, z_i]$ 
+                $s_0 = [w, z_i]$
             \item Wir enden, wenn das Wort ``aufgebraucht'' ist:
                 $s_{|w|} = [\epsilon, z]$ mit $z \in Z$,
 
@@ -244,12 +244,12 @@ müssen wir ein paar Hilfskonzepte einführen:
         wenn der letzte Zustand des letzten Schnappschusses in der Schnappschussfolge
         ein Endzustand ist.
         Wir schreiben kurz: $A(w) = E$
-        für ``der Lauf von w auf A ist akzeptierend''. 
+        für ``der Lauf von w auf A ist akzeptierend''.
 %    \item Aus formalen Gründen führen wir noch das Konzept der \emph{Länge} des Laufes ein.
 %        Für einen DFA $A$ gilt stets: $len(l_{w,A}) = |w|$.\footnote{
 %        Dies mag trivial erscheinen,
-%        aber wir werden mit den Turingmaschinen in \autoref{turing} 
-%        noch Formalismen kennenlernen, deren Lauf keine einfache Längenfunktion hat.} 
+%        aber wir werden mit den Turingmaschinen in \autoref{turing}
+%        noch Formalismen kennenlernen, deren Lauf keine einfache Längenfunktion hat.}
 
 \end{itemize}
 
@@ -286,7 +286,7 @@ deren Lauf auf A akzeptierend ist.
 Wir schreiben auch kurz: $L(A) = \{w|A(w) = E\}$.
 Sprach-Generatoren sind nicht der Fokus dieses Skriptes, obwohl wir mit den Grammatiken
 in \autoref{grammatiken} einen solchen Formalismus kennenlernen werden.\footnote{
-Einige Lehrbücher der theoretischen Informatik 
+Einige Lehrbücher der theoretischen Informatik
 (z.B. \cite{schoening})
 bauen Ihren Stoff didaktisch anhand der Grammatiken
 auf (sie erlauben die Sprachen hierarchisch zu klassifizieren).}
@@ -320,7 +320,7 @@ Eine nützliche formale Eigenschaft von DFAs ist,
 dass wir sie minimieren können.
 Wir können also eine Methode angeben,
 mit der wir aus einem DFA A einen DFA A$'$ ableiten können,
-dessen Anzahl an Zuständen minimal ist 
+dessen Anzahl an Zuständen minimal ist
 und für den gilt $L(A) = L(A')$,
 das heißt es gibt keinen DFA A$''$ für den gilt:
 \[|Z''| < |Z'| \wedge L(A'') = L(A') \]
@@ -336,7 +336,7 @@ Sie lässt sich wie folgt angeben:\footnote{
 
 \begin{enumerate}
     \item Erstelle eine Tabelle, in der alle Zustandspaare aufgeführt sind.
-    \item Markiere die Diagonale 
+    \item Markiere die Diagonale
     \item Markiere alle Zustandspaare von End- und Nicht-Endzuständen.
     \item Bis sich die Tabelle nicht mehr ändert,
         wiederhole für alle unmarkierten Zustandspaare (z, z'):\\
@@ -350,7 +350,7 @@ Alle Zustände, die nach der Methode unmarkiert bleiben,
 können verschmolzen werden.
 In Schritt zwei markieren wir alle identischen Paare.
 Mit Schritt drei schließen wir aus,
-dass Endzustände und Nicht-Endzustände verschmolzen werden. 
+dass Endzustände und Nicht-Endzustände verschmolzen werden.
 Würden wir diese verschmelzen,
 würde gelten $L(A) \neq L(A')$,
 weil auf einmal ``neue'' Worte akzeptiert werden würden.
@@ -370,7 +370,7 @@ Diese Zustände unterscheiden sich bezüglich der Akzteptanz von mindestens eine
 	\node[state, initial] (z0) {$z_0$};
 	\node[state, accepting, right of=z0] (z1) {$z_1$};
     \node[state, right of=z1] (z2) {$z_2$};
-	\draw 
+	\draw
         (z0) edge[loop above] node{0} (z0)
         (z0) edge[above] node{1} (z1)
         (z1) edge[loop above] node{1} (z1)
@@ -386,7 +386,7 @@ Diese Zustände unterscheiden sich bezüglich der Akzteptanz von mindestens eine
 Wir wollen die Methode an einem Beispiel aufzeigen.
 Sei ein DFA wie in \autoref{fig:dfazumin} gegeben.
 \begin{enumerate}
-    \item Nach dem ersten Schritt ergibt sich diese Minimierungstabelle: 
+    \item Nach dem ersten Schritt ergibt sich diese Minimierungstabelle:
         \begin{table}[H]
             \centering
             \begin{tabular}{|c|c|c|c|}
@@ -427,10 +427,10 @@ Sei ein DFA wie in \autoref{fig:dfazumin} gegeben.
         \end{table}
     \item Für Schritt vier bleibt also nur ein Zustandspaar zu prüfen: $z_0, z_2$.
         \begin{itemize}
-            \item $\delta(z_0, 0) = z_0$ und $\delta(z_2, 0) = z_2$. 
+            \item $\delta(z_0, 0) = z_0$ und $\delta(z_2, 0) = z_2$.
                 $z_0 \neq z_2$ und $z_0, z_2$ ist noch nicht markiert,
                 also machen wir nichts.
-            \item $\delta(z_0, 1) = z_1$ und $\delta(z_2, 1) = z_1$. 
+            \item $\delta(z_0, 1) = z_1$ und $\delta(z_2, 1) = z_1$.
                 $z_1 = z_1$, also machen wir nichts.
         \end{itemize}
         Da die Tabelle vor Schritt vier und nach Schritt vier identisch ist,
@@ -443,7 +443,7 @@ Sei ein DFA wie in \autoref{fig:dfazumin} gegeben.
 \begin{tikzpicture}
 	\node[state, initial] (z0) {$z_0$/$z_2$};
 	\node[state, accepting, right of=z0] (z1) {$z_1$};
-	\draw 
+	\draw
         (z0) edge[loop above] node{0} (z0)
         (z0) edge[bend left, above] node{1} (z1)
         (z1) edge[loop above] node{1} (z1)
@@ -460,7 +460,7 @@ Wir wollen die Sprache daher \textbf{ENDS1} nennen.
 
 \subsection{Das Äquivalenzproblem formaler Sprachen}
 
-Warum aber ist die Minimerung von DFAs eine nützliche? 
+Warum aber ist die Minimerung von DFAs eine nützliche?
 Die Antwort auf diese Frage wird klar,
 wenn wir uns das \emph{Äquivalenzproblem} formaler Sprachen (\textbf{EQUIV})
 vor Augen führen.
@@ -484,7 +484,7 @@ also DFA-berechenbar wären,
 hätte die Lösung von \textbf{EQUIV} mächtige Konsequenzen:
 Wir könnten auf einen Schlag
 viele IT-Systeme vereinfachen und IT-Fachkräfte überflüssig machen.
-Dies ist allerdings nicht nur kontraintuitiv, 
+Dies ist allerdings nicht nur kontraintuitiv,
 wir können sogar beweisen, dass dies nicht so ist (\autoref{pumping}).
 
 \section{Reguläre Ausdrücke}\label{regex}
@@ -512,7 +512,7 @@ und die davon definierte Sprache $L(\gamma)$ induktiv:
             \item $\alpha\beta$,
                 es gilt $L(\alpha\beta) = \{wv| w \in L(\alpha) \wedge v \in L(\beta)\}$.
             \item $\alpha|\beta$,
-                es gilt $L(\alpha|\beta) = L(\alpha) \cup L(\beta)$. 
+                es gilt $L(\alpha|\beta) = L(\alpha) \cup L(\beta)$.
             \item $\alpha^*$,
                 es gilt $L(\alpha^*) = L(\alpha)^*$.
         \end{itemize}
@@ -553,7 +553,7 @@ Viele Programmiersprachen bieten zusätzlichen ``syntaktischen Zucker'' an,
 um reguläre Ausdrücke kürzer spezifizieren zu können.
 So lässt sich in PCRE-kompatiblen\footnote{
     siehe \href{https://www.pcre.org/}{https://www.pcre.org} [abgerufen 2023-03-12]}
-regulären Ausdrücken [0-9] nutzen, um ein beliebiges Numeral 
+regulären Ausdrücken [0-9] nutzen, um ein beliebiges Numeral
 oder \textbackslash{}d um eine beliebige Dezimalzahl zu matchen.
 So lässt sich \textbf{SUPPLIERID} mit folgendem Python-Boilerplate-Code elegant lösen:
 
@@ -607,10 +607,10 @@ else:
     \item Gegeben sei der DFA A wie in \autoref{fig:dfaueb}.
     \begin{enumerate}
 	  \item Geben Sie A formal in der Sprache der Mengenlehre an.
-	  \item Geben Sie einen regulären Ausdruck an, der die gleiche Sprache beschreibt. 
-	  \item Geben Sie drei Wörter an, die A \textbf{nicht} akzeptiert. 
-	  \item Geben Sie die von A erkannte Sprache in Ihren eigenen Worten an. 
-    \end{enumerate}            
+	  \item Geben Sie einen regulären Ausdruck an, der die gleiche Sprache beschreibt.
+	  \item Geben Sie drei Wörter an, die A \textbf{nicht} akzeptiert.
+	  \item Geben Sie die von A erkannte Sprache in Ihren eigenen Worten an.
+    \end{enumerate}
     \item Gegeben sei der DFA B wie in \autoref{fig:min}.
         \begin{enumerate}
             \item Minimieren Sie B und stellen Sie den minimierten DFA graphisch dar
@@ -625,6 +625,11 @@ else:
             \item Beschreiben Sie L($\gamma$) in eigenen Worten.
             \item Ist der in der Lösung angegebene DFA C (\autoref{fig:sol24}) minimal?
         \end{enumerate}
+    \item Gegeben sie der DFA D wie in \autoref{fig:min-advanced} \cite{dfa-minimierung-lmu}.
+        \begin{enumerate}
+            \item Minimieren Sie D und stellen Sie den minimierten DFA graphisch dar.
+            \item Wie lautet das Alphabet $\Sigma$ der Sprache $L(D)$?
+        \end{enumerate}
 \end{enumerate}
 
 \begin{figure}[ht] % ’ht’ tells LaTeX to place the figure ’here’ or at the top of the page
@@ -635,7 +640,7 @@ else:
 	\node[state, below of=z0] (z2) {$z_2$};
 	\node[state, accepting, right of=z0] (z3) {$z_3$};
 	\node[state, above of=z0] (z4) {$z_4$};
-	\draw 
+	\draw
 	(z0) edge[above] node{0} (z3)
     (z0) edge[bend left, right] node{1} (z2)
 	(z1) edge[right] node{0,1} (z0)
@@ -647,4 +652,31 @@ else:
 \end{tikzpicture}
 \caption{DFA B}
 \label{fig:min}
+\end{figure}
+
+\begin{figure}[ht] % ’ht’ tells LaTeX to place the figure ’here’ or at the top of the page
+\centering % centers the figure
+\begin{tikzpicture}
+	\node[state, initial] (z0) {$z_0$};
+	\node[state, above right of=z0] (z1) {$z_1$};
+	\node[state, right of=z0] (z2) {$z_2$};
+	\node[state, below right of=z0] (z3) {$z_3$};
+	\node[state, accepting, right of=z2] (z4) {$z_4$};
+	\node[state, accepting, below of=z4] (z5) {$z_5$};
+	\draw
+	(z0) edge[bend left, above] node{a} (z1)
+    (z0) edge[right, above] node{b} (z2)
+    (z0) edge[bend right, right] node{c} (z3)
+	(z1) edge[loop above] node{a,b} (z0)
+	(z1) edge[bend left, above] node{c} (z4)
+	(z2) edge[loop above] node{a,b} (z2)
+	(z2) edge[right, above] node{c} (z4)
+	(z3) edge[loop below] node{a,b} (z3)
+	(z3) edge[right, below] node{c} (z5)
+	(z4) edge[bend left,right] node{a,b,c} (z5)
+	(z5) edge[bend left,left] node{a,b,c} (z4)
+    ;
+\end{tikzpicture}
+\caption{DFA D}
+\label{fig:min-advanced}
 \end{figure}
