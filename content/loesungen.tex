@@ -96,7 +96,7 @@ Grafik \autoref{fig:sol23} zeigt den resultierenden Automaten.
 	\node[state, accepting, initial] (z0) {$z_0$};
 	\node[state, accepting, right of=z0] (z3) {$z_3$};
     \node[state, below right of=z0] (z124) {$z_{124}$};
-	\draw 
+	\draw
         (z0) edge[above] node{0} (z3)
         (z0) edge[bend left, above] node{1} (z124)
         (z3) edge[bend left, right] node{0,1} (z124)
@@ -124,7 +124,7 @@ Grafik \autoref{fig:sol23} zeigt den resultierenden Automaten.
 	\node[state, initial] (z0) {$z_0$};
 	\node[state, above right of=z0] (za) {$z_a$};
     \node[state, accepting, below right of=za] (zab) {$z_{ab}$};
-	\draw 
+	\draw
         (z0) edge[loop below] node{b} (z0)
         (z0) edge[above, bend left] node{a} (za)
         (za) edge[loop above] node{a} (za)
@@ -137,6 +137,28 @@ Grafik \autoref{fig:sol23} zeigt den resultierenden Automaten.
 \label{fig:sol24}
 \end{figure}
 
+\subsubsection*{2.5}
+
+\begin{enumerate}[label=(\alph*)]
+   \item Siehe \autoref{fig:sol25}
+   \item $\Sigma = \{a, b, c\}$
+\end{enumerate}
+\begin{figure}[ht] % ’ht’ tells LaTeX to place the figure ’here’ or at the top of the page
+\centering % centers the figure
+\begin{tikzpicture}
+	\node[state, initial] (z0) {$z_0$};
+	\node[state, right of=z0] (z123) {$z_{1/2/3}$};
+    \node[state, accepting, right of=z123] (z45) {$z_{4/5}$};
+	\draw
+        (z0) edge[above] node{a,b,c} (z123)
+        (z123) edge[loop below] node{a,b} (z123)
+        (z123) edge[above] node{c} (z45)
+        (z45) edge[loop right] node{a,b,c} (z45)
+    ;
+\end{tikzpicture}
+    \caption{DFA D (Lösung für Aufgabe 2.5)}
+\label{fig:sol25}
+\end{figure}
 
 
 \subsection*{Aufgaben aus Kapitel 3}
@@ -391,4 +413,3 @@ Beispiel $n = 2$: $2\cdot2^2 + 5\cdot2 + 3 = 8 + 10 + 3 = 21 = \tau(10, tm)$
 \caption{Lösungsautomat zu Aufgabe 5.1}
 \label{fig:sol51}
 \end{figure}
-

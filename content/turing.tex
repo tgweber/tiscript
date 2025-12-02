@@ -489,7 +489,7 @@ bis wir auf ein Blank stoßen.
 Also verhält sich $TM$ exakt wie $A$.
 
 Da die TM in jedem Fall das Wort bis zum letzten Zeichen liest
-($\delta_A(z, \square)$ ist nicht definiert sein,
+($\delta_A(z, \square)$ ist nicht definiert,
 also ist $\delta_{TM}(z, a)$ ebenfalls nicht definiert).
 und am Ende entweder in einem Endzustand oder einem Nicht-Endzustand von A ist,
 akzeptiert sie ein Wort genau dann, wenn auch A das Wort akzeptiert. 
@@ -617,9 +617,9 @@ Aus der Definition des Algorithmus in \autoref{algoundimpl}
 können wir vier der fünf Kriterien als erfüllt ansehen:
 \begin{itemize}
     \item Turingmaschinen sind wie DFAs formal spezifiziert und damit unmissverständlich.
-    \item Turingmaschinen haben einen Input (Bandinhalt vor dem Start)
+    \item Turingmaschinen haben einen Input (Bandinhalt vor dem Start).
     \item Turingmaschinen haben einen vom Input abhängigen Output
-        (Bandinhalt vom Zeiger ab rechts nach dem Lauf)
+        (Bandinhalt vom Zeiger ab rechts nach dem Lauf).
     \item Turingmaschinen sind wie DFAs realisierbar,
         damit sind auch die implementierten Algorithmen durchführbar.
 \end{itemize}
