@@ -140,9 +140,76 @@ Grafik \autoref{fig:sol23} zeigt den resultierenden Automaten.
 \subsubsection*{2.5}
 
 \begin{enumerate}[label=(\alph*)]
-   \item Siehe \autoref{fig:sol25}
+   \item Die Hilfstabelle nach dem letzten Schritt:
+   \begin{table}[H]
+       \centering
+       \begin{tabular}{|c|c|c|c|c|c|}
+           \hline % Beginn Zeile 1
+               \textbackslash
+               & $z_0$
+               & $z_1$
+               & $z_2$
+               & $z_3$
+               & $z_4$
+               \\
+           \hline % Beginn Zeile 2
+               $z_0$
+               & \cellcolor{gray}
+               & \cellcolor{gray}
+               & \cellcolor{gray}
+               & \cellcolor{gray}
+               & \cellcolor{gray}
+               \\
+           \hline % Beginn Zeile 3
+               $z_1$
+               & x
+               & \cellcolor{gray}
+               & \cellcolor{gray}
+               & \cellcolor{gray}
+               & \cellcolor{gray}
+               \\
+           \hline % Beginn Zeile 4
+               $z_2$
+               & x
+               &
+               & \cellcolor{gray}
+               & \cellcolor{gray}
+               & \cellcolor{gray}
+               \\
+           \hline % Beginn Zeile 5
+               $z_3$
+               & x
+               &
+               &
+               & \cellcolor{gray}
+               & \cellcolor{gray}
+               \\
+           \hline % Beginn Zeile 6
+               $z_4$
+               & x
+               & x
+               & x
+               & x
+               & \cellcolor{gray}
+               \\
+            \hline % Beginn Zeile 6
+                $z_5$
+                & x
+                & x
+                & x
+                & x
+                &
+                \\
+           \hline % Endelinie
+       \end{tabular}
+       \label{tab:sol25}
+   \end{table}
+
+   Die Grafik \autoref{fig:sol25} zeigt den resultierenden Automaten.
+
    \item $\Sigma = \{a, b, c\}$
 \end{enumerate}
+
 \begin{figure}[ht] % ’ht’ tells LaTeX to place the figure ’here’ or at the top of the page
 \centering % centers the figure
 \begin{tikzpicture}
